@@ -1,0 +1,879 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body">
+         <h3 class="heading_cls">
+            <!-- <a ui-sref="brokers" class="back_arrow_cls"><i class="fa fa-arrow-left"></i></a> -->Broker Details</h3><hr class="heading_hr">
+         <div class="panel_body_inner inner_box">
+            <div class="col-md-12">
+               <div class="enter_comm_typ">
+                  <div class="panel_body">
+                     <div class="panel_body_inner inner_box_List_add pop">
+                        <div class="col-md-12">
+                           <div class="add_commodity add_growers_form growers_detail">
+                              <form name="addCommdity">
+                               
+                                 <div class="row">
+                                    <div class="col-md-6" style="border: 2px solid #007e4e;background-color: #ffff;color: #000000;">
+                                       <div class="row">
+                                          <a style="cursor: pointer;" ng-click="openPop(brokerDetails,'edit')" ng-show="loginUserAccess.sales.brokers.edit"><i style="float: right;font-size: 20px;margin: 1px 3px 0 0;color: #007e4e;" class="fas fa-pen-square" aria-hidden="true"></i>
+                                          </a>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Business Name</div>
+                                          <div class="col-md-3">{{brokerDetails.businessName}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Phone Number</div>
+                                          <div class="col-md-3">{{brokerDetails.phone}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">First Name</div>
+                                          <div class="col-md-3">{{brokerDetails.firstName}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Last Name</div>
+                                          <div class="col-md-3">{{brokerDetails.lastName}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Email</div>
+                                          <div class="col-md-3"><a ng-href="mailto:{{ buyerDetails.email }}" target="_blank">{{brokerDetails.email}}</a></div>
+                                          <div class="col-md-3"></div>
+                                          <div class="col-md-3"></div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Street</div>
+                                          <div class="col-md-3">{{brokerDetails.addresses[0].street}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">City</div>
+                                          <div class="col-md-3">{{brokerDetails.addresses[0].city}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Postal</div>
+                                          <div class="col-md-3">{{brokerDetails.addresses[0].postal}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Province</div>
+                                          <div class="col-md-3">{{brokerDetails.addresses[0].province}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Country</div>
+                                          <div class="col-md-3">{{brokerDetails.addresses[0].country}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Phone2</div>
+                                          <div class="col-md-3">{{brokerDetails.phone2}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Assign User</div>
+                                          <div class="col-md-3" style="font-weight: 800;">{{brokerDetails.assignedUserId.fullName}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Fax Number</div>
+                                          <div class="col-md-3">{{brokerDetails.fax}}</div>
+                                       </div>
+                                       
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div style="border: 2px solid #007e4e;height: 17.6em;background-color: #ffff;">
+                                          <div style="max-height: 19em;overflow: scroll;">
+                                             <div style="width: 100%;border-bottom: 1px solid;padding: 6px;color: black;" ng-repeat="note in phoneNoteList">
+                                                <span style="word-break: break-all;font-size: 15px;">{{note.message}}</span><br>
+                                                <span style="margin: 0 0 0 70%;font-size: 10px;">{{note.fullName}} {{note.createdAt | date:'medium'}}</span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div style="border: 2px solid #007e4e;height: 4em;background-color: #ffff;float: left;width: 95.5%;position: absolute;left: 2.2%;">
+                                          <div style="width: 100%;">
+                                             <input style="margin: 14px 0 0px 8px;width: 93%;" type="" name="" ng-model="myForm.message" placeholder="Enter here" ng-enter="phoneNoteSubmit()">
+                                             <a ng-click="phoneNoteSubmit()" style="color: #007e4e; margin: 13px 0 0 0;padding: 3px 3px 4px 4px;line-height: 2;font-size: 24px;cursor: pointer;"><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="comodity_table" style="margin:60px 0 0 0;">
+                                    <div class="head_of_table">
+                                       <h2>EMPLOYEES</h2>
+                                       <button ng-show="loginUserAccess.sales.brokers.add" class="button_cls" ng-click="employeePop()">ADD EMPLOYESS</button>
+                                    </div>
+                                    <table class="table table-striped commodity_table">
+                                       <thead>
+                                          <tr>
+                                             <th>First Name</th>
+                                             <th>Last Name</th>
+                                             <th>Title</th>
+                                             <th>Phone</th>
+                                             <th>Cell Number</th>
+                                             <th>Email</th>
+                                             <th ng-show="loginUserAccess.sales.brokers.view || loginUserAccess.sales.brokers.edit || loginUserAccess.sales.brokers.delete">Action</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr ng-repeat="employes in employeesList">
+                                             <td>{{employes.firstName}}</td>
+                                             <td>{{employes.lastName}}</td>
+                                             <td>{{employes.title}}</td>
+                                             <td>{{employes.phone}}</td>
+                                             <td>{{employes.cellNumber}}</td>
+                                             <td>{{employes.email}}</td>
+                                             <td class="action_cls" ng-show="loginUserAccess.sales.brokers.view || loginUserAccess.sales.brokers.edit || loginUserAccess.sales.brokers.delete">
+                                                <a ng-show="loginUserAccess.sales.brokers.delete" class="delete_detail" ng-click="employeeDelete(employes._id)">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </a>
+                                                <a ng-show="loginUserAccess.sales.brokers.edit" class="edit_details" ng-click="employeePop(employes,'edit')">
+                                                <i class="fas fa-pen-square"></i>
+                                                </a>
+                                                <a ng-show="loginUserAccess.sales.brokers.view" ng-click="employeePop(employes,'view')" class="veiw_detail">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <div paging page="page" page-size="5" total="totalPages" paging-action="paginateEmployee('bar', page)">
+                                    </div>
+                                 </div>
+                                 <div class="comodity_table" style="margin: 71px 0 0 0;">
+
+                                    <div class="head_of_table">
+                                       <h2>QUOTES</h2>
+                                       <a ng-show="loginUserAccess.sales.brokers.edit" ng-click="sendMailFunction(quotes[0])" class="button_cls" style="cursor: pointer;">SEND MAIL</a>
+                                       <a ng-show="loginUserAccess.sales.brokers.add" ng-href="/addQuote/broker/{{brokerId}}" class="button_cls">ADD QUOTES</a>
+                                       <div style="float: right;width: 30%;margin: 0 0 0 35px;">
+                                          <label style="float: left;margin: 9px 9px 0 0;">Quote Frequency</label>
+                                          <div style="border: 1px solid black;background-color: #fff;margin: 4px 0 0 0;" class="multi_cls" 
+                                             isteven-multi-select 
+                                             input-model="dayList" 
+                                             output-model="brokerDetails.days"
+                                             button-label="dayName"        
+                                             item-label="dayName"
+                                             max-labels="2"        
+                                             tick-property="ticked"
+                                             on-item-click="assignUserFunction(brokerDetails)">
+                                          </div>
+                                       </div>
+                                       <div style="text-align: right;float: right;width: 31%;margin: 8px 0 0 0;">
+                                          <label style="margin-right: 6px;">
+                                          <input type="checkbox" name="" value="" ng-model="brokerDetails.weatherMap" style="width: auto;display: inline-block;margin-right: 10px;margin-top: 2px" ng-change="assignUserFunction(brokerDetails)"> Weather Map
+                                          </label>
+                                          <label>
+                                          <input type="checkbox" name="" value="" ng-model="brokerDetails.plantImage" style="width: auto;display: inline-block;margin-right: 10px;margin-top: 2px" ng-change="assignUserFunction(brokerDetails)"> Plant Image
+                                          </label>
+                                       </div>
+                                    </div>
+
+                                 
+                                     <table class="table table-striped commodity_table">
+                                       <thead>
+                                          <tr>
+                                             <th>Quote No.</th>
+                                             <th>Currency</th>
+                                             <th>Created Date</th>
+                                             <th>Send Email Date</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr dir-paginate="quote in quotes |itemsPerPage:5" pagination-id="qutes">
+                                             <td><a ng-href="/quotePdf/{{quote._id}}">{{quote.quoteNumber}}</a></td>
+                                             <td>{{quote.currency}}</td>
+                                             <td>{{quote.createdAt | date :'MMM dd,yyyy'}}</td>
+                                             <td>{{quote.emailDate | date :'MMM dd,yyyy'}}</td>                                 
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <dir-pagination-controls class="cus_pagination" pagination-id="qutes" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                                 </div>
+                                 <div class="comodity_table">
+                                    <div class="head_of_table">
+                                       <h2>SALES CONTRACT</h2>
+                                       
+                                    </div>
+                                    <table class="table table-striped commodity_table">
+                                       <thead>
+                                          <tr>
+                                             <th>Contract Number</th>
+                                             <th>Date</th>
+                                             <th>Commodity</th>
+                                             <th>Grade</th>
+                                             <th>Crop Year</th>
+                                             <th>Status</th>
+                                             <th>Email</th>
+                                             <th>Email Date</th>
+                                             <th ng-show="loginUserAccess.sales.salesContract.edit">Action</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr dir-paginate="salesContract in salesContractList |filter:commodityType|itemsPerPage:5" pagination-id="salesContractList">
+                                             <td>                                                
+                                                <!--a 
+                                                ng-href="salesContractPDF/{{salesContract.contractNumber}}"
+                                                data-ng-style="{'color':(salesContract.status=='1'?'rgb(197, 120, 17)':salesContract.status=='2'?'#FF3333':null)}"
+                                                >{{salesContract.contractNumber}}</a-->
+                                             
+                                                <a 
+                                                ng-href="{{salesContract.pdfUrl}}" target="_blank" 
+                                                data-ng-style="{'color':(salesContract.status=='1'?'rgb(197, 120, 17)':salesContract.status=='2'?'#FF3333':null)}"
+                                                >{{salesContract.contractNumber}}</a-->
+                                             
+                                             
+                                             </td>
+                                             <td data-ng-style="{'color':(salesContract.status=='1'?'rgb(197, 120, 17)':salesContract.status=='2'?'#FF3333':null)}">{{salesContract.date | date}}</td>
+                                             <td data-ng-style="{'color':(salesContract.status=='1'?'rgb(197, 120, 17)':salesContract.status=='2'?'#FF3333':null)}">{{salesContract.commodityId.commodityName}}</td>
+                                             <td data-ng-style="{'color':(salesContract.status=='1'?'rgb(197, 120, 17)':salesContract.status=='2'?'#FF3333':null)}">{{salesContract.gradeId.gradeName}}</td>
+                                             <td data-ng-style="{'color':(salesContract.status=='1'?'rgb(197, 120, 17)':salesContract.status=='2'?'#FF3333':null)}">{{salesContract.cropYear}}</td>
+                                             <td data-ng-style="{'color':(salesContract.status=='1'?'rgb(197, 120, 17)':salesContract.status=='2'?'#FF3333':null)}">
+                                                <select ng-model="salesContract.status" ng-change="changeSalesContractStatus(salesContract)" ng-disabled="!loginUserAccess.sales.salesContract.edit">
+                                                   <option value="0">Active</option>
+                                                   <option value="1">Completed</option>
+                                                   <option value="2">Void</option>
+                                                </select>
+                                             </td>
+                                             <td>
+                                                <a  
+                                                style="cursor: pointer;" 
+                                                data-ng-style="salesContract.mailSent ? {'color':'#007e4e'} : {'color':'red'}" 
+                                                ng-click="send_mail(salesContract,'sales contract')"
+                                              
+                                                >{{salesContract.mailSent?'Sent':'Pending'}}</a>
+                                             </td>
+                                             <td data-ng-style="{'color':(salesContract.status=='1'?'rgb(197, 120, 17)':salesContract.status=='2'?'#FF3333':null)}">{{salesContract.mailSentDate | date}} {{salesContract.mailSentBy.fullName}}</td>
+                                             <td class="action_cls" ng-show="loginUserAccess.sales.salesContract.edit">
+                                                <a 
+                                                class="edit_details" 
+                                                ng-href="editSalesContract/{{salesContract.buyerId._id}}/{{salesContract.contractNumber}}/edit">
+                                                   <i class="fas fa-pen-square"></i>
+                                                 </a>
+                                               
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <dir-pagination-controls class="cus_pagination" pagination-id="salesContractList" max-size="5" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                                 </div>
+                                 <div class="comodity_table">
+                                    <div class="head_of_table">
+                                       <h2>PURCHASE CONFORMATION</h2>
+                                       <a ng-show="loginUserAccess.purchase.purchaseConfirmation.add" class="button_cls" ng-href="/purchaseConfirmation/{{growerId}}">ADD PURCHASE CONFORMATION</a>
+                                    </div>
+                                    <table class="table table-striped commodity_table">
+                                       <thead>
+                                          <tr>
+                                             <th>Contract Number</th>
+                                             <th>Shipment Period From</th>
+                                             <th>Shipment Period To</th>
+                                             <th>Crop Year</th>
+                                             <th>Delivery Point</th>
+                                             <th ng-show="loginUserAccess.purchase.purchaseConfirmation.edit || loginUserAccess.purchase.purchaseConfirmation.view">Action</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr ng-repeat="contract in purchaseConfirmationList">
+                                             <td><a 
+                                                ng-href="/purchaseConfirmation/{{contract.growerId._id}}/view/{{contract.contractNumber}}"
+                                                data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}"
+                                                >{{contract.contractNumber}}</a></td>
+                                             <td data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">{{contract.shipmentPeriodFrom | date}}</td>
+                                             <td data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">{{contract.shipmentPeriodTo | date}}</td>
+                                             <td data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">{{contract.cropYear}}</td>
+                                             <td data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">{{contract.deliveryPoint | date}}</td>
+                                             <td class="action_cls" ng-show="loginUserAccess.purchase.purchaseConfirmation.edit || loginUserAccess.purchase.purchaseConfirmation.view">
+                                                
+                                                <a ng-show="loginUserAccess.purchase.purchaseConfirmation.edit" class="edit_details"ng-href="/purchaseConfirmation/{{contract.growerId._id}}/edit/{{contract.contractNumber}}">
+                                                   <i class="fas fa-pen-square"></i>
+                                                </a>
+                                                <a ng-show="loginUserAccess.purchase.purchaseConfirmation.view" ng-href="/purchaseConfirmation/{{contract.growerId._id}}/view/{{contract.contractNumber}}" 
+                                                class="veiw_detail"
+
+                                                >
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                 </div>
+                                
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <!-- <div class="add_coomm1 sample_popup">
+        <div class="enter_comm_typ">
+             <div class="head_comm head_2">
+                <h2>ADD PRODUCTION RECORDS (SAMPLE)</h2>
+                <div type="button" class="close" ng-click="closepop()">&times;</div>
+            </div>
+            <div class="panel_body" ng-init="getCommodityType()">
+            <div class="panel_body_inner inner_box_List_add add_commodity">
+                <div class="col-md-12">
+                    <div class="add_commodity">
+                        <form name="add_sample_form">
+                            <div class="grower_name">
+                                <div class="row msps">
+                                    <div class="col-md-6 msps_inp">
+                                        <label>Requested Date</label>
+                                        <datepicker class="date_pic date_pic_sam" date-format="yyyy-MM-dd" selector="form-control">
+                                           <div class="input-group">
+                                              <input class="form-control" ng-model="myForm.requestDate" placeholder="Choose a date"/>
+                                              <span class="input-group-addon" style="cursor: pointer">
+                                              <i class="fa fa-lg fa-calendar"></i>
+                                              </span>
+                                           </div>
+                                        </datepicker>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Received Date</label>
+                                        <datepicker class="date_pic date_pic_sam" date-format="yyyy-MM-dd" selector="form-control">
+                                           <div class="input-group">
+                                              <input class="form-control" ng-model="myForm.receiveDate" placeholder="Choose a date"/>
+                                              <span class="input-group-addon" style="cursor: pointer">
+                                              <i class="fa fa-lg fa-calendar"></i>
+                                              </span>
+                                           </div>
+                                        </datepicker>
+                                    </div>
+                                   
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Commodity</label>
+                                        <select class="form-control" name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys" track by commodityType" ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)">
+                                           <option value="">Select Commodity</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Grade</label>
+                                        <select class="form-control" name="grade" ng-options="grade._id as grade.gradeName for grade in grades" track by gradeName" ng-model="myForm.gradeId">
+                                           <option value="">Select Grade</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Crop Year</label>
+                                        <select class="form-control" ng-model="myForm.cropYear">
+                                           <option value="">Select Crop Year</option>
+                                           <option value="2016">2016</option>
+                                           <option value="2017">2017</option>
+                                           <option value="2018">2018</option>
+                                           <option value="2019">2019</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Variety</label>
+                                        <select class="form-control" ng-show="!varietyInput" ng-options="variety._id as variety.varietyName for variety in varietyList" track by varietyName" ng-model="myForm.varietyId">
+                                            <option value="">Select Variety</option>
+                                          </select>
+                                          <input type="text" class="input_commodityType" ng-model="myForm.varietyName" name="name" ng-show="varietyInput">
+                                          <button class="btn_commodityType" ng-show="varietyInput" ng-click="saveVariety()">Save</button>
+                                          <a ng-show="varietyPlus" class="add_commodityType varietyPlus" ng-click="plusVariety()">+</a>
+                                    </div>
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-4">
+                                        <label>Quantity(lbs)</label>
+                                        <input type="text" numbers-Only ng-model="myForm.quantityPound" placeholder="Quantity(lbs)">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Acers</label>
+                                        <input type="number" ng-model="myForm.acres" placeholder="Acers">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label>Formers Lot</label>
+                                        <input type="text" ng-model="myForm.farmersLot" placeholder="Formers Lot">
+                                    </div>
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-3">
+                                        <label>Bid</label>
+                                        <input type="text" ng-model="myForm.bid" numbers-Only placeholder="Bid">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Target</label>
+                                        <input type="text" ng-model="myForm.target" numbers-Only placeholder="Enter Target value" ng-change="calculateTarget()">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label>Unit</label>
+                                        <select class="form-control" ng-model="myForm.unit" ng-change="calculateTarget()">
+                                            <option value="">Select Unit</option>
+                                            <option value="lbs">lbs</option>
+                                            <option value="CWT">CWT</option>
+                                            <option value="MT">MT</option>
+                                            <option value="Kgs">Kgs</option>
+                                          </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Target/CWT</label>
+                                        <input type="text" placeholder="Target/CWT" ng-model="myForm.targetCWT" numbers-Only step="0.01" disabled>
+                                    </div>
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-2" ng-repeat="sample in commoditySampleAnalysis">
+                                        <label>{{sample.analysisName}}</label>
+                                        <input type="text" ng-model="sample.analysisDetails" placeholder="{{sample.analysisName}}">
+                                    </div>
+                                  
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-4 pro_con">
+                                        <label>Analysis Completed</label>
+                                        <div class="radio_check_cls new_rad">
+                                           <label class="slt_usrs slt_one">
+                                           <input type="radio" name="analyzed" ng-model="myForm.analyzed" value="Yes">
+                                           <span class="checkmark"></span> Yes
+                                           </label>
+                                           <label class="slt_usrs">
+                                           <input type="radio" ng-model="myForm.analyzed" name="analyzed" value="No">
+                                           <span class="checkmark"></span> No
+                                           </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pro_con">
+                                        <label>Mark For Dump</label>
+                                        <div class="radio_check_cls new_rad">
+                                           <label class="slt_usrs slt_one">
+                                           <input type="radio" name="markfordump" ng-model="myForm.markForDump" value="Yes">
+                                           <span class="checkmark"></span> Yes
+                                           </label>
+                                           <label class="slt_usrs">
+                                           <input type="radio" ng-model="myForm.markForDump" name="markfordump" value="No">
+                                           <span class="checkmark"></span> No
+                                           </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pro_con">
+                                        <label>Dumped</label>
+                                        <div class="radio_check_cls new_rad">
+                                           <label class="slt_usrs slt_one">
+                                           <input type="radio" name="dumped" ng-model="myForm.dumped" value="Yes">
+                                           <span class="checkmark"></span> Yes
+                                           </label>
+                                           <label class="slt_usrs">
+                                           <input type="radio" ng-model="myForm.dumped" name="dumped" value="No">
+                                           <span class="checkmark"></span> No
+                                           </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-8">
+                                        <label>Comment</label>
+                                        <textarea placeholder="Add Your Comment Here!" ng-model="myForm.comments"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <button ng-disabled="!(myForm.target && myForm.unit && myForm.varietyId && myForm.cropYear)" ng-click="saveSample()">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div> -->
+
+
+    <!-- Modal For Broker Edit-->
+   <div class="add_coomm broker_edit">
+      <div class="head_comm head_2">
+         <h2>{{inputField}} Broker</h2>
+         <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+      <div class="panel_body">
+         <div class="panel_body_inner inner_box_List_add">
+            <div class="col-md-12">
+               <div class="add_commodity">
+                  <form name="addgrower">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>First Name</label>
+                              <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.firstName" placeholder="First Name" name="firstName" ng-disabled="inputField=='view'">
+                              <span class="validation_error_broker" ng-show="addgrower.firstName.$dirty && addgrower.firstName.$invalid">
+                              <span class="validation_error_broker" ng-show="addgrower.firstName.$error.minlength">First name should be 2 and less then 50 Characters.</span>
+                              <span class="validation_error_broker" ng-show="addgrower.firstName.$error.required">First name is required.</span></span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Last Name</label>
+                              <input type="text" ng-model="myForm.lastName" placeholder="Last Name" name="lastName" ng-minlength="2" maxlength="50" ng-disabled="inputField=='view'">
+                              <span class="validation_error_broker" ng-show="addgrower.lastName.$dirty && addgrower.lastName.$invalid">
+                              <span class="validation_error_broker" ng-show="addgrower.lastName.$error.minlength">Last name should be 2 and less then 50 Characters.</span>
+                              <span class="validation_error_broker" ng-show="addgrower.lastName.$error.required">Last name is required.</span></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Phone Number</label>
+                              <input type="number" ng-model="myForm.phone" placeholder="Phone Number" name="phone" ng-disabled="inputField=='view'" ng-change="checkValueLength('phone')">
+                              <span class="validation_error_broker" ng-show="addgrower.phone.$dirty && addgrower.phone.$invalid">
+                                 <!-- <span class="validation_error_broker" ng-if="addgrower.phone.$error.pattern">Please Enter Vaild Phone Number. Phone Number should be 10 digit.</span> -->
+                                 <span class="validation_error_broker" ng-if="addgrower.phone.$error.pattern">Only numeric value are allowed and does not start with 0.</span>
+                                 <span class="validation_error_broker" ng-show="addgrower.phone.$error.required">Phone Number is required.</span>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Cell Number</label>
+                              <input type="number" ng-model="myForm.cellNumber" placeholder="Cell Number" name="cellNumber" ng-disabled="inputField=='view'" ng-change="checkValueLength('cellNumber')">
+                              <span class="validation_error_broker" ng-show="addgrower.cellNumber.$dirty && addgrower.cellNumber.$invalid">
+                                 <span class="validation_error_broker" ng-show="addgrower.cellNumber.$error.required">Cell Number is required.</span>
+                                 <span class="validation_error_broker" ng-if="addgrower.cellNumber.$error.pattern">Please Enter Vaild cell Number. cell Number should be 10 digit <br>and does not start with 0.</span>
+                                 <!-- <span class="validation_error_broker" ng-if="addgrower.cellNumber.$error.pattern">Only numeric value are allowed and does not start with 0.</span> -->
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Business Name</label>
+                              <input type="text" ng-minlength="2" maxlength="150" ng-model="myForm.businessName" placeholder="Business Name" name="businessName" ng-disabled="inputField=='view'" required>
+                              <span class="validation_error_broker" ng-show="addgrower.businessName.$dirty && addgrower.businessName.$invalid">
+                              <span class="validation_error_broker" ng-show="addgrower.businessName.$error.minlength">Business name should be 2 and less then 150 Characters.</span>
+                              <span class="validation_error_broker" ng-show="addgrower.businessName.$error.required">Business name is required.</span>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Email</label>
+                              <input type="text" ng-model="myForm.email" placeholder="Email" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-disabled="inputField=='view'" >
+                              <span class="validation_error_broker" ng-show="addgrower.email.$dirty && addgrower.email.$invalid">
+                              <!-- <span class="validation_error_broker" ng-show="addgrower.email.$error.required">Email is required.</span> -->
+                              <span class="validation_error_broker" ng-if="addgrower.email.$error.pattern">Please Enter Vaild Email.</span></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Address (Street)</label>
+                              <input type="text" ng-model="myForm.street" placeholder="Address" name="alias" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>City</label>
+                              <input type="text" ng-model="myForm.city" placeholder="city" name="city" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Country</label>
+                              <input type="text" ng-model="myForm.country" placeholder="Country" name="alias" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Address prov</label>
+                              <input type="text" ng-model="myForm.province" placeholder="Address Prov" name="alias" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Postal Code</label>
+                              <input type="text" ng-model="myForm.postal" placeholder="Postal Code" name="alias" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Fax Number</label>
+                              <input type="text" ng-model="myForm.fax" placeholder="Fax number" name="fax" ng-change="checkValueLength('fax')" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <button ng-hide="inputField=='view' || inputField=='edit'" ng-click="save()" ng-disabled="addgrower.$invalid">Save</button>
+                     <button ng-show="inputField=='edit'" ng-click="saveChanges()" ng-disabled="addgrower.$invalid">Save Changes</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<div class="popup_overlay"></div>
+   <div class="add_coomm employee">
+      <div class="head_comm head_2">
+         <h2>{{inputField}} EMPLOYESS</h2>
+         <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+      <div class="panel_body">
+         <div class="panel_body_inner inner_box_List_add">
+            <div class="col-md-12">
+               <div class="add_commodity">
+                  <form name="addEmployes">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>First Name</label>
+                              <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.firstName" placeholder="First Name" name="firstName" ng-disabled="inputField=='view'" required>
+                              <span class="validation_error_employes" ng-show="addEmployes.firstName.$dirty && addEmployes.firstName.$invalid">
+                              <span class="validation_error_employes" ng-show="addEmployes.firstName.$error.minlength">First name should be 2 and less then 50 Characters.</span>
+                              <span class="validation_error_employes" ng-show="addEmployes.firstName.$error.required">First name is required.</span></span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Last Name</label>
+                              <input type="text" ng-model="myForm.lastName" placeholder="Last Name" name="lastName" ng-minlength="2" maxlength="50" ng-disabled="inputField=='view'" required>
+                              <span class="validation_error_employes" ng-show="addEmployes.lastName.$dirty && addEmployes.lastName.$invalid">
+                              <span class="validation_error_employes" ng-show="addEmployes.lastName.$error.minlength">Last name should be 2 and less then 50 Characters.</span>
+                              <span class="validation_error_employes" ng-show="addEmployes.lastName.$error.required">Last name is required.</span></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Phone Number</label>
+                              <input type="text" ng-model="myForm.phone" placeholder="Phone Number" name="phone" ng-disabled="inputField=='view'" numbers-Only required>
+                              <span class="validation_error_employes" ng-show="addEmployes.phone.$dirty && addEmployes.phone.$invalid">
+                                 <span class="validation_error_employes" ng-show="addEmployes.phone.$error.required">Phone Number is required.</span>
+                                 <!-- <span class="validation_error_employes" ng-if="addEmployes.phone.$error.pattern">Please Enter Vaild Phone Number. Phone Number should be 10 digit.</span> -->
+                                 <span class="validation_error_employes" ng-if="addEmployes.phone.$error.pattern">Only numeric value are allowed and does not start with 0.</span>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Cell Number</label>
+                              <input type="text" ng-model="myForm.cellNumber" placeholder="Cell Number" name="cellNumber" numbers-Only ng-disabled="inputField=='view'">
+                              <span class="validation_error_employes" ng-show="addEmployes.cellNumber.$dirty && addEmployes.cellNumber.$invalid">
+                                 <!-- <span class="validation_error_employes" ng-show="addEmployes.cellNumber.$error.required">Cell Number is required.</span> -->
+                                 <span class="validation_error_employes" ng-if="addEmployes.cellNumber.$error.pattern">Please Enter Vaild cell Number. cell Number should be 10 digit <br>and does not start with 0.</span>
+                                 <!-- <span class="validation_error_employes" ng-if="addEmployes.cellNumber.$error.pattern">Only numeric value are allowed and does not start with 0.</span> -->
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Title</label>
+                              <input type="text" ng-minlength="2" maxlength="150" ng-model="myForm.title" placeholder="Title" name="title" ng-disabled="inputField=='view'" required>
+                              <span class="validation_error_employes" ng-show="addEmployes.title.$dirty && addEmployes.title.$invalid">
+                              <span class="validation_error_employes" ng-show="addEmployes.title.$error.minlength">Title should be 2 and less then 150 Characters.</span>
+                              <span class="validation_error_employes" ng-show="addEmployes.title.$error.required">Title is required.</span></span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Email</label>
+                              <input type="text" ng-model="myForm.email" placeholder="Email" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-disabled="inputField=='view'" required>
+                              <span class="validation_error_employes" ng-show="addEmployes.email.$dirty && addEmployes.email.$invalid">
+                              <span class="validation_error_employes" ng-show="addEmployes.email.$error.required">Email is required.</span>
+                              <span class="validation_error_employes" ng-if="addEmployes.email.$error.pattern">Please Enter Vaild Email.</span></span>
+                           </div>
+                           
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Tax</label>
+                              <input type="text" ng-model="myForm.tax" placeholder="Enter tax" name="tax" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <button ng-disabled="addEmployes.$invalid" ng-hide="inputField=='view' || inputField=='edit'" ng-click="saveEmployee()">Save</button>
+                     <button ng-disabled="addEmployes.$invalid" ng-show="inputField=='edit'" ng-click="updateEmployee()">Save Changes</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+   <div class="add_coomm compose_mail" style="width: 50% !important;">
+        <div class="enter_comm_typ ">
+            <div class="head_comm">
+               <h2>Email</h2>
+                <div type="button" class="close" ng-click="closepop()">&times;</div>
+            </div>
+        </div>
+          <div class="panel_body">
+         <div class="panel_body_inner inner_box" style="height: auto">
+            <div class="col-md-12">
+               <div class="add_commodity">
+                  <form name="emailForm">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="mail">
+                              <label>To</label>
+                              <span ng-repeat="to in to_email track by $index">{{to}}</span>
+                           </div>
+                           <div class="mail" ng-if="cc_email.length>0">
+                               <label>CC</label>
+                               <span ng-repeat="cc in cc_email track by $index">{{cc}}</span>
+                           </div>
+                            <div class="mail">
+                              <label>Subject</label>
+                              <input class="form-control" placeholder="Subject" ng-model="emailform.subject" required />
+                           </div>
+                            <textarea name="ckeditor" class="form-control pos_ckeditor" ng-model="emailform.body"></textarea>
+                           <button ng-click="sendMailToUser(emailForm.$valid)" ng-disabled="emailSending || emailForm.$invalid">{{emailSending ? 'Email sending...':'Send'}}</button>
+                        </div>                        
+                     </div>  
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+    </div>
+
+<style type="text/css">
+   .cke_toolbar_break{
+      clear: none;
+   }
+   .cke_inner{
+      position: relative;
+   }
+   #cke_1_top{
+       position: absolute;
+       bottom: 27px;
+       width: 98%;
+   }
+   .mail{
+      margin-bottom: 20px;
+      position: relative;
+      border-bottom:2px solid #007e4e !important ;
+   } 
+   
+   .mail input.form-control, .mail textarea.form-control{
+      width:100%;
+      border:0 !important;
+      box-shadow: none !important;
+      padding-left: 0px;
+
+   }
+   .mail .width-90{
+      width: 90% !important;
+      display: inline-block;
+   }
+   .mail textarea{
+      height: 100px;
+      resize: vertical;
+   }
+   .mail span{
+     position: relative;  
+      color: #000;
+      border-radius:30px;
+       padding: 2px 6px;
+       padding-right: 30px;
+       margin: 2px;
+       display: inline-block;
+      font-weight: 600;
+      letter-spacing: 1px;
+
+
+   }.mail span i{
+       position: absolute;
+       right: 8px;
+       top: 0;
+       font-size: 16px;
+       font-style: normal;
+       cursor: pointer;
+   }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- SEND MAIL HTML -->
+
+<div ng-show="sendMail" style="" id="quotePdf" style="margin: 0 auto;padding: 0;display: block;width:100%;font-family: 'Open Sans', sans-serif!important;">
+
+    <div style="margin: 0;padding: 0px;width: 100%;float: left;background: #ffffff;">
+          <div style="margin: 0 0 10px 0;padding: 0 0 10px 0;float: left;width:100%;border-bottom: 2px solid #000;">
+            <div style="margin: 0;padding: 0;float: left;width: 20%;">
+              <img src="{{imagePath}}/images/rudyLogo2.png" style="margin: 0 5% 0 0;padding: 0;float: left;width: 30%;">
+            </div>
+            <div style="margin: 0;padding: 0;float: left;width:25%;">
+              <h1 style="color: #000;margin: 0;padding: 0;float: left;width:100%;font-size: 14px;font-weight: 700;">RUDY AGRO LTD</h1>
+              <h2 style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 700;color: #000;">PO BOX 100,OUTLOOK</h2>
+              <h3 style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 700;color: #000;">SASKATCHEWAN, CANADA SOL 2NO</h3>
+            </div>
+            <div style="margin: 17px 0 0  0;padding: 0;float: left;width:35%;">
+              <p style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 400;color: #000;">Ph. 306-867-8667 Fax 306-867-8290 Mob 306-873-7733</p>
+              <p style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 400;color: #000;">E-Mail wesw@rudyagro.ca Web www.rudyagro.ca</p>
+            </div>
+            <div style="margin: 17px 0 0 0;padding: 0;float: left;width:20%;">
+              <p style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 400;color: #000;">Date : {{quote.quote.createdAt | date:'MMMM dd,yyyy'}}</p>
+            </div>
+          </div>          
+
+        <div style="margin: 0;padding: 0;width: 100%;float: left;">
+
+          <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b style="margin: 0;padding: 0;width: 12%;float: left;">Broker Name</b> <i style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.quote.brokerId.businessName}}</i></p>
+
+          <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b style="margin: 0;padding: 0;width: 12%;float: left;">Current USD/CAD</b> <i style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.currency.currencyCADUSD}}</i></p>
+
+          <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b style="margin: 0;padding: 0;width: 12%;float: left;">Currency</b> <i style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.currency.currencyUpdate}}</i></p>
+          <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b style="margin: 0;padding: 0;width: 12%;float: left;">Market Update :</b> <i style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.weather ? quote.weather.weather :'N/A'}}</i></p>
+          <p style="margin: 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b>We are pleased to provide you with the following price indications updates based on todays date, subject to reconfirmation by Rudy Agro Ltd. Prices in {{quote.quote.currency}}</b></p>
+        </div>
+        <div style="margin: 30px 0 0 0;padding: 0;width: 100%;float: left;color: #000;">
+          <div class="table-responsive">          
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;">COMMODITY</th>
+                  <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;width: 100px;">GRADE</th>
+                  <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;">Shipping Period</th>
+                  <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;">Crop Year</th>
+                  <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;">Quantity Available</th>
+                  <th 
+                  style="color: #000;font-weight: 400;font-size: 7px;text-align: center;" 
+                  ng-repeat="col in quote.quote.columnsCol">
+                  <b>{{col.shippingtermsId.term}} {{quote.quote.commission ? quote.quote.commission :'' }}</b><br> 
+                  {{col.destinationPort}} <br> 
+                  {{col.bagId.name}}</th>                 
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="row in quote.quote.commoditiesRow track by $index">
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">{{row.commodityId.commodityName}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">{{row.gradeId.gradeName}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">{{row.shippingPeriod | trim :3}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">{{row.cropYear}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">{{row.quantity}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.one">${{row.one | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.two">${{row.two | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.three">${{row.three | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.four">${{row.four | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.five">${{row.five | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.six">${{row.six | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.seven">${{row.seven | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.eight">${{row.eight | roundOff :2}}</td>                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+      <div style="margin: 400px 0 0 0;padding: 0;width: 647px;float: left;height: 404px; text-align: center;">
+         <img src="{{imagePath}}{{weather.weatherMap}}" alt="" width="820px" height="500px">
+      </div>
+      <div style="margin: 200px 0 0 0;padding: 0;width: 647px;float: left;height: 404px;text-align: center;">
+         <img src="{{imagePath}}{{weather.plantJpeg}}" alt=""  width="820px" height="500px">
+      </div>
+    </div>  
+  </div> 

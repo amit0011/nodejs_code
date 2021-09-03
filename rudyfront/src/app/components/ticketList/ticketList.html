@@ -1,0 +1,172 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body">
+      <h3 class="heading_cls">Contract {{contractNumber}} TicketList
+
+        <button class="btn_top" ng-show="tickets.length" ng-click="openComposeMailPopUp()">Send Mail
+        </button>
+      </h3>
+      <hr class="heading_hr">
+      <div class="panel_body_inner inner_box">
+        <div class="col-md-12">
+          <div class="comodity_table">
+            <table class="table table-striped commodity_table">
+              <thead>
+                <tr>
+                  <th ng-if="seqNo != '2'">Name On Contract</th>
+                  <th ng-if="seqNo == '2'">Buyer Name</th>
+                  <th>Contract #</th>
+                  <th>Ticket #</th>
+                  <th>Date</th>
+                  <th>Net Weight</th>
+                  <th>Dockage</th>
+                  <th>Splits</th>
+                  <th>Moisture</th>
+                  <th>Mail Date</th>
+                </tr>
+              </thead>
+              <tbody class="example-animate-container">
+                <tr ng-repeat="t in tickets" class="animate-repeat">
+                  <td ng-if="seqNo != '2'" class="{{getClass(t)}}">{{ getName(t)}}</td>
+                  <td ng-if="seqNo == '2'" class="{{getClass(t)}}">{{(t.buyerId && t.buyerId.businessName) || (t.salesBuyerId && t.salesBuyerId.businessName)}}</td>
+                  <td class="{{getClass(t)}}">{{t.contractNumber}}</td>
+                  <td class="{{getClass(t)}}">{{preFix}}{{t.ticketNumber}}</td>
+                  <td class="{{getClass(t)}}">{{t.date | date}}</td>
+                  <td class="{{getClass(t)}}">{{ ((seqNo == '2' || t.ticketType === 'GrowerLoadSheet')? t.unloadWeidht : t.netWeight ) | number :3}}</td>
+                  <td class="{{getClass(t)}}">{{getValue(t.analysis,'Dockage')}}</td>
+                  <td class="{{getClass(t)}}">{{getValue(t.analysis,'Splits')}}</td>
+                  <td class="{{getClass(t)}}">{{t.moisture}}</td>
+                  <td class="{{getClass(t)}}">{{t.ticketMailSent ? (t.ticketMailDate | date):''}}</td>
+                </tr>
+                <tr ng-repeat="t in tradeTickets" class="animate-repeat">
+                  <td ng-if="seqNo != '2'" class="{{getClass(t)}}">{{ getName(t)}}</td>
+                  <td ng-if="seqNo == '2'" class="{{getClass(t)}}">{{t.buyerId.businessName}}</td>
+                  <td class="{{getClass(t)}}">{{t.contractNumber}}</td>
+                  <td class="{{getClass(t)}}">{{preFix}}{{t.ticketNumber}}</td>
+                  <td class="{{getClass(t)}}">{{t.date | date}}</td>
+                  <td class="{{getClass(t)}}">{{ (seqNo == '2'? t.unloadWeidht :t.netWeight ) | number :3}}</td>
+                  <td class="{{getClass(t)}}">{{getValue(t.analysis,'Dockage')}}</td>
+                  <td class="{{getClass(t)}}">{{getValue(t.analysis,'Splits')}}</td>
+                  <td class="{{getClass(t)}}">{{t.moisture}}</td>
+                  <td class="{{getClass(t)}}">{{t.ticketMailSent ? (t.ticketMailDate | date):''}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="add_coomm compose_mail" style="width: 70% !important;">
+  <div class="enter_comm_typ ">
+    <div class="head_comm">
+      <h2>Email</h2>
+      <div type="button" class="close" ng-click="closepop()">&times;</div>
+    </div>
+  </div>
+  <div class="panel_body">
+    <div class="panel_body_inner inner_box" style="height: auto;">
+      <div class="col-md-12">
+        <div class="add_commodity">
+          <form name="emailForm">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mail">
+                  <label>To</label>
+                  <span ng-repeat="to in to_email track by $index">{{to}}</span>
+                </div>
+                <div class="mail">
+                  <label>CC</label>
+                  <span ng-repeat="c in cc_email track by $index">{{c}}&nbsp;&nbsp;&nbsp;<i
+                      ng-click="removeEmailFromCC($index)" class="float-right">x</i></span>
+                  <input class="form-control" name="cc" ng-enter="addEmailInCC()" ng-model="emailform.cc" />
+                </div>
+
+                <div class="mail">
+                  <label>Subject</label>
+                  <input class="form-control" name="subject" placeholder="Subject" ng-model="emailform.subject"
+                    required />
+                  <span ng-show="emailForm.subject.$invalid && submitted" class="validationErrorSalesContract"></span>
+                </div>
+
+                <textarea name="ckeditor" class="form-control pos_ckeditor" ng-model="emailform.body"></textarea>
+                <button ng-click="sendMail(emailForm.$valid)"
+                  ng-disabled="emailSending || emailForm.$invalid">{{emailSending ? 'Email sending...':'Send'}}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  .cke_toolbar_break {
+    clear: none;
+  }
+
+  .cke_inner {
+    position: relative;
+  }
+
+  #cke_1_top {
+    position: absolute;
+    bottom: 27px;
+    width: 98%;
+  }
+
+  .mail {
+    margin-bottom: 20px;
+    position: relative;
+    border-bottom: 2px solid #007e4e !important;
+  }
+
+  .mail input.form-control,
+  .mail textarea.form-control {
+    width: 100%;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding-left: 0px;
+
+  }
+
+  .mail .width-90 {
+    width: 90% !important;
+    display: inline-block;
+  }
+
+  .mail textarea {
+    height: 100px;
+    resize: vertical;
+  }
+
+  .mail span {
+    position: relative;
+    color: rgb(250, 250, 250);
+    border-radius: 30px;
+    padding: 2px 6px;
+    padding-right: 30px;
+    margin: 2px;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: 1px solid red;
+    background: rgb(244, 67, 54);
+  }
+  }
+
+  .mail span i {
+    position: absolute;
+    right: 8px;
+    top: 0;
+    font-size: 16px;
+    font-style: normal;
+    cursor: pointer;
+  }
+
+</style>

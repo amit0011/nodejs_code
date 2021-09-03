@@ -1,0 +1,51 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="init()">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                       
+                        <input type="text" name="search" ng-model="commodityType" placeholder="Search">
+                        <button ng-click="openPop()" ng-show="loginUserAccess.setting.variety.add">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Variety Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="result in varietyList |filter:commodityType|itemsPerPage:10" pagination-id="varietyList">
+                                   <td>
+                                        {{result.varietyName}}
+                                        <a ng-show="loginUserAccess.setting.variety.delete" class="delete_detail" ng-click="delete(result._id)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.variety.edit" class="edit_details" ng-click="openPop(result)"><i class="fas fa-pen-square"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls class="cus_pagination" pagination-id="varietyList" max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <input type="text" name="commName" ng-model="myForm.varietyName" placeholder="Enter Variety Name" required>
+            <button ng-show="!btn" ng-click="save()">SUBMIT</button>
+            <button ng-click="saveChanges()" ng-show="btn" ng-disabled="!(myForm.varietyName)">SAVE CHANGES</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,307 @@
+<style type="text/css">
+    table thead tr td,
+    table tbody tr td {
+        width: 140px !important;
+    }
+</style>
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="initPosition()">
+            <div class="panel_body_inner inner_box">
+                <div class="">
+                    <ul class="nav nav-pills nav-stacked row" style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;" class="page">
+                        <li>
+                            <b>FX Hedge Report</b>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tabla_header">
+                            <div class="tbl" style="width: 10%!important;">
+                                <label>Crop Year</label>
+                                <select ng-model="myForm.year" ng-change="search()"
+                                  ng-options="cropYear as cropYear for cropYear in cropYears" style="width: 100%">
+
+                                </select>
+                            </div>
+
+                            <button ng-click="clear()">Clear</button>
+                            <button ng-click="exportData()">EXPORT to XL</button>
+
+                        </div>
+                    </div>
+                </div>
+                <div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;">
+                    <style type="text/css">
+                    @media print {
+                            @page {
+                                size: A4 landscape;
+                            }
+                            img {
+                                height: 90%;
+                                margin: 0;
+                                padding: 0;
+                            }
+                        }
+
+                        table tbody tr td {
+                            border: 0.50px solid #000;
+                        }
+                    </style>
+                    <div class="comodity_table" ng-clock>
+                        <table class="table table-striped commodity_table table_body_scroll table-responsive" style="width: 2220px;">
+                            <thead>
+                                <tr>
+                                    <td>Encore FX <br>Order #</td>
+                                    <td>FX Hedge <br>Rate</td>
+                                    <td>SEPT</td>
+                                    <td>OCT</td>
+                                    <td>NOV</td>
+                                    <td>DEC</td>
+                                    <td>JAN</td>
+                                    <td>FEB</td>
+                                    <td>MARCH</td>
+                                    <td>APRIL</td>
+                                    <td>MAY</td>
+                                    <td>JUNE</td>
+                                    <td>JULY</td>
+                                    <td>AUGUST</td>
+                                    <td>Total</td>
+                                    <td>SEPT</td>
+                                    <td>OCT</td>
+                                    <td>NOV</td>
+                                    <td>DEC</td>
+                                    <td>JAN</td>
+                                    <td>FEB</td>
+                                    <td>MARCH</td>
+                                    <td>APRIL</td>
+                                    <td>MAY</td>
+                                    <td>JUNE</td>
+                                    <td>JULY</td>
+                                    <td>AUGUST</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="val in fxContract.contract track by $index">
+                                    <td>{{val.contractNumber}}</td>
+                                    <td>{{val.strikeRate | number:4}}</td>
+
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 9)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 10)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 11)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 12)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 1)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 2)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 3)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 4)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 5)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 6)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 7)"></td>
+                                    <td ng-bind-html="formatAmount(val.usdAmount, val.month, 8)"></td>
+
+                                    <td ng-bind-html="formatAmount(val.totalValue)"></td>
+
+                                    <td>{{val.sep | number : 4}}</td>
+                                    <td>{{val.oct | number : 4}}</td>
+                                    <td>{{val.nov | number : 4}}</td>
+                                    <td>{{val.dec | number : 4}}</td>
+                                    <td>{{val.jan | number : 4}}</td>
+                                    <td>{{val.feb | number : 4}}</td>
+                                    <td>{{val.mar | number : 4}}</td>
+                                    <td>{{val.apr | number : 4}}</td>
+                                    <td>{{val.may | number : 4}}</td>
+                                    <td>{{val.jun | number : 4}}</td>
+                                    <td>{{val.jul | number : 4}}</td>
+                                    <td>{{val.aug | number : 4}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>Total USD</td>
+
+                                    <td>{{ fxContract.usd.sep }}</td>
+                                    <td>{{ fxContract.usd.oct }}</td>
+                                    <td>{{ fxContract.usd.nov }}</td>
+                                    <td>{{ fxContract.usd.dec }}</td>
+                                    <td>{{ fxContract.usd.jan }}</td>
+                                    <td>{{ fxContract.usd.feb }}</td>
+                                    <td>{{ fxContract.usd.mar }}</td>
+                                    <td>{{ fxContract.usd.apr }}</td>
+                                    <td>{{ fxContract.usd.may }}</td>
+                                    <td>{{ fxContract.usd.jun }}</td>
+                                    <td>{{ fxContract.usd.jul }}</td>
+                                    <td>{{ fxContract.usd.aug }}</td>
+
+                                    <td>{{ fxContract.totalUSD }}</td>
+
+                                    <td>{{ fxContract.totalAvgRate.sep | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.oct | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.nov | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.dec | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.jan | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.feb | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.mar | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.apr | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.may | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.jun | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.jul | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.aug | number : 4 }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>Avg Rate</td>
+
+                                    <td>{{ fxContract.totalAvgRate.sep | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.oct | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.nov | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.dec | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.jan | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.feb | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.mar | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.apr | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.may | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.jun | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.jul | number : 4 }}</td>
+                                    <td>{{ fxContract.totalAvgRate.aug | number : 4 }}</td>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>FX Weighted Average</td>
+
+                                    <td>{{ fxContract.fxWeightedAverageRate.sep | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.oct | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.nov | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.dec | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.jan | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.feb | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.mar | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.apr | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.may | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.jun | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.jul | number : 4 }}</td>
+                                    <td>{{ fxContract.fxWeightedAverageRate.aug | number : 4 }}</td>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>Total Hedge</td>
+
+                                    <td style="background-color: green;">{{fxContract.totalUSD | number:4}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td></td>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>FX Position by Month (short/long)</td>
+
+                                    <td>{{(sales.sep - fxContract.usd.sep ) | number : 4}}</td>
+                                    <td>{{(sales.oct - fxContract.usd.oct ) | number : 4}}</td>
+                                    <td>{{(sales.nov - fxContract.usd.nov ) | number : 4}}</td>
+                                    <td>{{(sales.dec - fxContract.usd.dec ) | number : 4}}</td>
+                                    <td>{{(sales.jan - fxContract.usd.jan ) | number : 4}}</td>
+                                    <td>{{(sales.feb - fxContract.usd.feb ) | number : 4}}</td>
+                                    <td>{{(sales.mar - fxContract.usd.mar ) | number : 4}}</td>
+                                    <td>{{(sales.apr - fxContract.usd.apr ) | number : 4}}</td>
+                                    <td>{{(sales.may - fxContract.usd.may ) | number : 4}}</td>
+                                    <td>{{(sales.jun - fxContract.usd.jun ) | number : 4}}</td>
+                                    <td>{{(sales.jul - fxContract.usd.jul ) | number : 4}}</td>
+                                    <td>{{(sales.aug - fxContract.usd.aug ) | number : 4}}</td>
+
+                                    <td></td>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div style="float: right;width: 40%;border: 1px solid #000;border-radius: 4px;padding: 5px;margin: 0;">
+                        <div class="col-md-6">
+                            <label style="float: left;color: #000;width: 70%;">Total Hedge</label>
+                            <p style="float: left;color: #000;width: 30%;">{{fxContract.totalUSD | number:4}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label style="float: left;color: #000;width: 70%;">AVG RATE</label>
+                            <p style="float: left;color: #000;width: 30%;">{{avgRate}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label style="float: left;color: #000;width: 70%;">  TL USD Long/Short</label>
+                            <p style="float: left;color: #000;width: 30%;">{{totalUSDShortLongValue | number : 4}}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

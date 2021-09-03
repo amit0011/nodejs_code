@@ -1,0 +1,53 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="init()">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <i class="fas fa-trash-alt delete_comm"></i>
+                        <input type="text" name="search" ng-model="commodityType" placeholder="Search">
+                        <button ng-show="userType=='ADMIN' || userType=='SUPERADMIN' || userType=='USER'" ng-click="openPop()">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">
+                                        <label class="slt_usrs">
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        Destination Port Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="result in commodityList |filter:commodityType|itemsPerPage:8" pagination-id="commodityList">
+                                    <td>
+                                        <label class="slt_usrs">
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        {{result.commodityTypeName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls class="cus_pagination" pagination-id="commodityList" max-size="8" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <input type="text" name="commName" ng-model="myForm.commodityTypeName" placeholder="Enter Destination Port Name" required>
+            <button ng-click="save()">SUBMIT</button>
+        </div>
+    </div>
+</div>

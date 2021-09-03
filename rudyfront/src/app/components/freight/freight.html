@@ -1,0 +1,353 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="DoCtrlPagingAct('bar')">
+      <div class="panel_body_inner inner_box_List inner_box_List_spl">
+        <div class="col-md-12">
+          <div class="filter_box">
+            <div style="margin-bottom: 10px;">
+            <select style="height: 34px;" class="filter_slt" name="loadingPort"
+              ng-options="freightCompany._id as freightCompany.freightCompanyName for freightCompany in freightCompanyList"
+              ng-model="searchForm.freightCompany" ng-change="filterData()">
+              <option value="">Select Freight</option>
+            </select>
+            <select style="height: 34px;" class="filter_slt" name="loadingPort"
+              ng-options="port._id as port.loadingPortName for port in loadingPortList" ng-model="searchForm.loadingPort"
+              ng-change="filterData()">
+              <option value="">Select Loading Port</option>
+            </select>
+            <select style="height: 34px;" name="country"
+              ng-options="country.name as country.name for country in countryList" ng-model="searchForm.country"
+              ng-change="getCity(searchForm.country, true)" ng-disabled="inputField=='view'" class="filter_slt">
+              <option value="">Select Country</option>
+            </select>
+            <select style="height: 34px;" class="filter_slt" name="city"
+              ng-options="city.city as city.city for city in cityList" ng-model="searchForm.city"
+              ng-change="filterData()">
+              <option value="">Destination Port</option>
+            </select>
+
+            <datepicker style="width: 150px;" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+              <div class="input-group">
+                <input name="dateFrom" class="form-control" ng-model="searchForm.validity" placeholder="Validity"
+                  autocomplete="off" ng-change="filterData()" />
+                <span class="input-group-addon" style="cursor: pointer">
+                  <i class="fa fa-lg fa-calendar"></i>
+                </span>
+              </div>
+            </datepicker>
+            <div style="display: inline-block;width: 200px">
+              <div class="grop_rad" style="width: 100%;height: 34px;">
+                <label class="grop_rad_check" style="width: 100%;font-size: 10pt;color: darkgray;">Show invalid freights
+                  <input type="checkbox" value="0" ng-change="filterData()" ng-model="searchForm.onlyInvalid" />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+
+            <div style="margin-top: 5px;display: inline-block;">
+              <input type="number" step="0.01" min="0.01" style="height: 31px;max-width: 70px;" class="filter_slt" name="rateFactor" ng-model="rateFactor"/>
+              <button ng-show="loginUserAccess.setting.freight.add" style="float:left;margin: 0;" class="filter_btn" ng-click="applyRateFactor()">
+                Apply
+              </button>
+              <button ng-show="loginUserAccess.setting.freight.add && hasBkp" style="float:left;margin: 0 5px;" class="filter_btn" ng-click="revertRateFactor()">
+                Revert
+              </button>
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+
+            <button ng-show="loginUserAccess.setting.freight.add" class="filter_btn" ng-click="openPop('add')">
+              Add New Freight
+            </button>
+            <button class="filter_btn" ng-click="DoCtrlPagingAct('showAll', 1)">
+              Show All
+            </button>
+            <button class="filter_btn" ng-click="clear()">Clear</button>
+            <button class="filter_btn" ng-click="exportExcel()">Export</button>
+          </div>
+          <h6 class="filter_slt" style="text-align: center;font-size: 20px;font-weight: 700;color: #000;">
+            Current Exchange Rate - {{exchangeRate}}
+          </h6>
+
+          <div class="data_table_info">
+            <div class="data_table_inner freight_tab_cls"
+              style="width: 3700px !important;max-width: 4000px !important;">
+              <div class="tab_header">
+                <span>Country</span>
+                <span>Destination Port</span>
+                <span>Loading Port</span>
+                <span>Equipment</span>
+                <span>Freight By</span>
+                <span>Ship Line</span>
+                <span>CWTs/FCL</span>
+                <span>Currency</span>
+                <span>Validity</span>
+
+                <span class="xxl">
+                  <b>Ocean Freight</b> <i>BAG tO Bag</i><i>Bulk To Bulk</i><i>Bulk To Bag</i>
+                </span>
+                <span class="xxl">
+                  <b>Freight with BL fee</b> <i>BAG tO Bag</i><i>Bulk To Bulk</i><i>Bulk To Bag</i>
+                </span>
+                <span class="xxl">
+                  <b>Freight/CWT</b> <i>BAG tO Bag</i><i>Bulk To Bulk</i><i>Bulk To Bag</i>
+                </span>
+                <span class="xxl">
+                  <b>Freight/MT</b> <i>BAG tO Bag</i><i>Bulk To Bulk</i><i>Bulk To Bag</i>
+                </span>
+                <span class="xxl">
+                  <b>Freight USD/MT(FOB)</b> <i>BAG tO Bag</i><i>Bulk To Bulk</i><i>Bulk To Bag</i>
+                </span>
+                <span
+                  ng-show="loginUserAccess.setting.freight.view || loginUserAccess.setting.freight.edit || loginUserAccess.setting.freight.delete">Action</span>
+              </div>
+              <div class="tab_body" ng-repeat="result in freightList" ng-class="getClass(result)"
+                ng-click="setActive(result)">
+                <span>{{result.countryName}}</span>
+                <span>{{result.cityName}}</span>
+                <span>{{result.loadingPortId.loadingPortName}}</span>
+                <span>{{result.equipmentId.equipmentName}}</span>
+                <span>{{result.freightCompanyId.freightCompanyName}}</span>
+                <span>{{result.shiplineId.shipLineName }}</span>
+                <span>{{result.unit}}</span>
+                <span>{{result.currencyType}}</span>
+                <span>{{result.validity | date}}</span>
+
+                <span class="xxl">
+                  <i>{{result.oceanFreight.bagToBag}}</i><i>{{result.oceanFreight.bulkToBulk}}</i><i>{{result.oceanFreight.bulkToBag}}</i>
+                </span>
+                <span class="xxl">
+                  <i>{{result.freightWithBlFee.bagToBag | number:2}}</i><i>{{result.freightWithBlFee.bulkToBulk | number:2}}</i><i>{{result.freightWithBlFee.bulkToBag | number:2}}</i>
+                </span>
+                <span class="xxl">
+                  <i>${{result.freightCWT.bagToBag | number:2}}</i><i>${{result.freightCWT.bulkToBulk | number:2}}</i><i>${{result.freightCWT.bulkToBag | number:2}}</i>
+                </span>
+                <span class="xxl">
+                  <i>${{result.freightMT.bagToBag | number:2}}</i><i>${{result.freightMT.bulkToBulk | number:2}}</i><i>${{result.freightMT.bulkToBag | number:2}}</i>
+                </span>
+                <span class="xxl">
+                  <i>${{result.freightUSDMTFOB.bagToBag | number:2}}</i><i>${{result.freightUSDMTFOB.bulkToBulk | number:2}}</i><i>${{result.freightUSDMTFOB.bulkToBag | number:2}}</i>
+                </span>
+                <span
+                  ng-show="loginUserAccess.setting.freight.view || loginUserAccess.setting.freight.edit || loginUserAccess.setting.freight.delete">
+                  <a ng-show="loginUserAccess.setting.freight.delete" class="veiw_detail"
+                    ng-click="delete(result._id)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </a>
+                  <a ng-show="loginUserAccess.setting.freight.edit" class="veiw_detail"
+                    ng-click="openPop('edit',result)">
+                    <i class="fas fa-pen-square"></i>
+                  </a>
+                  <a ng-show="loginUserAccess.setting.freight.view" ng-click="openPop('view',result)"
+                    class="veiw_detail">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </a>
+
+                  <a ng-show="loginUserAccess.setting.freight.view" ng-click="openPop('note',result)"
+                    class="veiw_detail">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div paging page="page" page-size="10" total="totalPages" paging-action="DoCtrlPagingAct('bar', page)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="popup_overlay"></div>
+<div class="add_coomm freight_view">
+  <div class="enter_comm_typ">
+    <div class="head_comm">
+      <div type="button" class="close" data-dismiss="modal">&times;</div>
+    </div>
+    <div class="form_popsi">
+      <div class="freight">
+        <h3 style="margin: 0 0 43px 0;">Freight Details</h3>
+      </div>
+      <div class="row">
+        <div class="col-md-6 sap_btm">
+          <label>Country</label>
+          <select ng-show="!countryInput" name="country" ng-change="getCity(myForm.countryName)"
+            ng-options="country.name as country.name for country in countryList" ng-model="myForm.countryName">
+            <option value="">Select Country</option>
+          </select>
+        </div>
+        <div class="col-md-6 sap_btm">
+          <label>Destination Port</label>
+          <select name="city" ng-options="city.city as city.city for city in cityList" ng-model="myForm.cityName">
+            <option value="">Destination Port</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 sap_btm">
+          <label>Loading Port</label>
+          <select name="loadingPort" ng-options="port._id as port.loadingPortName for port in loadingPortList"
+            ng-model="myForm.loadingPortId" ng-change="getEquipment(myForm.loadingPortId)">
+            <option value="">Select Loading Port</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 sap_btm">
+          <label>Equipment</label>
+          <select name="country" ng-options="equipment._id as equipment.equipmentName for equipment in equipmentList"
+            ng-model="myForm.equipmentId">
+            <option value="">Select Equipment</option>
+          </select>
+        </div>
+        <div class="col-md-6 sap_btm">
+          <label>Freight Company</label>
+          <select name="country"
+            ng-options="freightCompany._id as freightCompany.freightCompanyName for freightCompany in freightCompanyList"
+            ng-model="myForm.freightCompanyId" ng-change="getShpline(myForm.freightCompanyId)">
+            <option value="">Select Freight Company</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>CWTs/FCL</label>
+          <input type="text" numbers-Only name="unit" placeholder="Enter CWTs/FCL" ng-model="myForm.unit" />
+        </div>
+        <div class="col-md-6">
+          <label>Validity</label>
+          <datepicker style="margin: 0;padding: 5px 0;width: 53%;float: left;" class="date_pic" date-format="yyyy-MM-dd"
+            selector="form-control">
+            <div class="input-group">
+              <input class="form-control" ng-model="myForm.validity" placeholder="Choose a date" />
+              <span class="input-group-addon" style="cursor: pointer">
+                <i class="fa fa-lg fa-calendar"></i>
+              </span>
+            </div>
+          </datepicker>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>BL Fee</label>
+          <input type="text" numbers-Only name="blFee" placeholder="Enter bL Fee" ng-model="myForm.blFee" />
+        </div>
+        <div class="col-md-6">
+          <label>Currency</label>
+          <select ng-model="myForm.currencyType" ng-change="calculateAllValue()">
+            <option value="">Select Currency</option>
+            <option value="USD">USD</option>
+            <option value="CAD">CAD</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Number of Days</label>
+          <input type="text" numbers-Only name="numberOfDays" placeholder="Enter No of days"
+            ng-model="myForm.numberOfDays" />
+        </div>
+        <div class="col-md-6 sap_btm">
+          <label>Ship Line</label>
+          <select name="country" ng-options="shipline._id as shipline.shipLineName for shipline in shiplineList"
+            ng-model="myForm.shiplineId">
+            <option value="">Select Ship Line</option>
+          </select>
+        </div>
+        <div class="col-md-12 sap_btm">
+          <label style="width: 15%;margin-right: 2.5%;">Notes</label>
+          <input type="text" name="notes" class="form-control" style="width:75%;" ng-model="myForm.notes" placeholder="Enter notes" />
+        </div>
+      </div>
+      <div class="freight">
+        <h3>Ocean Freight</h3>
+
+        <div class="col-md-12 sap_btm">
+          <label>Bag to Bag</label>
+
+          <input type="text" numbers-Only placeholder="Enter Ocean" name="bagToBagOcean"
+            ng-model="myForm.oceanFreight.bagToBagOcean" ng-change="calculateValue('bagToBag')" />
+          <select ng-model="myForm.oceanFreight.bagToBagOceanCurrency" ng-change="calculateValue('bagToBag')">
+            <option value="">Select Currency</option>
+            <option value="USD">USD</option>
+            <option value="CAD">CAD</option>
+          </select>
+
+          <input type="text" numbers-Only placeholder="Enter Stuffing" name="bagToBagStuffing"
+            ng-model="myForm.oceanFreight.bagToBagStuffing" ng-change="calculateValue('bagToBag')" />
+          <select ng-model="myForm.oceanFreight.bagToBagStuffingCurrency" ng-change="calculateValue('bagToBag')">
+            <option value="">Select Currency</option>
+            <option value="USD">USD</option>
+            <option value="CAD">CAD</option>
+          </select>
+
+          <input type="text" numbers-Only placeholder="Total freight" name="bagToBag"
+            ng-model="myForm.oceanFreight.bagToBag" readonly />
+        </div>
+
+        <div class="col-md-12 sap_btm">
+          <label>Bulk to Bulk</label>
+
+          <input type="text" numbers-Only placeholder="Enter Ocean" name="bulkToBulkOcean"
+            ng-model="myForm.oceanFreight.bulkToBulkOcean" ng-change="calculateValue('bulkToBulk')" />
+          <select ng-model="myForm.oceanFreight.bulkToBulkOceanCurrency" ng-change="calculateValue('bulkToBulk')">
+            <option value="">Select Currency</option>
+            <option value="USD">USD</option>
+            <option value="CAD">CAD</option>
+          </select>
+
+          <input type="text" numbers-Only placeholder="Enter Stuffing" name="bulkToBulkStuffing"
+            ng-model="myForm.oceanFreight.bulkToBulkStuffing" ng-change="calculateValue('bulkToBulk')" />
+          <select ng-model="myForm.oceanFreight.bulkToBulkStuffingCurrency" ng-change="calculateValue('bulkToBulk')">
+            <option value="">Select Currency</option>
+            <option value="USD">USD</option>
+            <option value="CAD">CAD</option>
+          </select>
+
+          <input type="text" numbers-Only placeholder="Total freight" name="bulkToBulk"
+            ng-model="myForm.oceanFreight.bulkToBulk" readonly />
+        </div>
+
+        <div class="col-md-12 sap_btm">
+          <label>Bulk to Bag</label>
+
+          <input type="text" numbers-Only placeholder="Enter Ocean" name="bulkToBagOcean"
+            ng-model="myForm.oceanFreight.bulkToBagOcean" ng-change="calculateValue('bulkToBag')" />
+          <select ng-model="myForm.oceanFreight.bulkToBagOceanCurrency" ng-change="calculateValue('bulkToBag')">
+            <option value="">Select Currency</option>
+            <option value="USD">USD</option>
+            <option value="CAD">CAD</option>
+          </select>
+
+          <input type="text" numbers-Only placeholder="Enter Stuffing" name="bulkToBagStuffing"
+            ng-model="myForm.oceanFreight.bulkToBagStuffing" ng-change="calculateValue('bulkToBag')" />
+          <select ng-model="myForm.oceanFreight.bulkToBagStuffingCurrency" ng-change="calculateValue('bulkToBag')">
+            <option value="">Select Currency</option>
+            <option value="USD">USD</option>
+            <option value="CAD">CAD</option>
+          </select>
+
+          <input type="text" numbers-Only placeholder="Total freight" name="bulkToBag"
+            ng-model="myForm.oceanFreight.bulkToBag" readonly />
+        </div>
+      </div>
+    </div>
+    <button ng-click="save()" style="margin-top: 5px;">SUBMIT</button>
+  </div>
+</div>
+
+<div class="add_coomm note_view" style="width: 40% !important;">
+  <div class="enter_comm_typ">
+    <div class="head_comm">
+      <h2>Notes</h2>
+      <div type="button" class="close" data-dismiss="modal">&times;</div>
+    </div>
+    <div class="form_popsi">
+      <div class="col-md-6 sap_btm">
+        <label>Note : </label> {{myForm.notes}}
+      </div>
+    </div>
+  </div>
+</div>

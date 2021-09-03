@@ -1,0 +1,573 @@
+<style>
+  th, td   {overflow:auto;
+     text-align: center;
+      width: auto !important;
+   }
+
+  
+   </style>
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body">
+      <h3 class="heading_cls">{{type =='edit'?'Edit':'Add'}} Purchase Confirmation</h3>
+      <hr class="heading_hr">
+      <h4 class="heading_cls">{{growerDetails.firstName}} {{growerDetails.lastName}} with {{growerDetails.farmName}}
+      </h4>
+      <div class="panel_body_inner inner_box_List_add add_commodity purchase">
+        <div class="col-md-6">
+          <div class="" style="margin: 0;padding: 0px;width: 100%;float: left;background: #fff;">
+            <div class=""
+              style="margin: 0 0 3px 0;padding: 0 0 2px 0;width: 100%;float: left;  border-bottom: 5px solid #007e4e;">
+              <div class="" style="width: 28.33%; float: left;padding: 0 0px;">
+                <div class="" style="margin: 0;padding: 0;width: 100%;float: left">
+                  <img src="{{imagePath}}/images/rudyLogo2.png" style="margin: 0;padding: 0;float: left;">
+                </div>
+              </div>
+              <div class="" style="width: 34.33%; float: left;padding: 0 0px;text-align: center;">
+                <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                  <h3 style="margin: 0;padding: 0;width: 100%;float: left;color: #000;font-size: 16px;">Purchase
+                    Confirmation</h3>
+                  <h4 style="margin: 3px 0;padding: 0;width: 100%;float: left;color: #000;font-size: 14px">Commodity:
+                    {{myForm.commodityName}}</h4>
+                  <h5 style="margin: 0;padding: 0 0px;width: 100%;float: left;color: #000;   font-size: 14px;">Grade:
+                    {{myForm.gradeName}}</h5>
+                </div>
+              </div>
+              <div class="" style="width: 28.33%; float: right;padding: 0 15px;">
+                <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                  <h2 style="margin: 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 20px;">RUDY AGRO LTD.</h2>
+                  <h3 style="margin: 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 16px;">Box 100, Outlook Sask.</h3>
+                  <h3 style="margin: 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 16px;">S0L 2N0</h3>
+                  <a href="#" style="margin: 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 13px;">Tel (306) 867-8667</a>
+                  <a href="#" style="margin: 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 13px;">Fax (306) 867-8290</a>
+                </div>
+              </div>
+            </div>
+            <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+              <h3
+                style="color: #000;margin: 0;padding: 0;float: left;width: 100%;font-size: 16px;font-weight: 700;text-align: center;">
+                COMMODITY PURCHASE AND DEFERRED DELIVERY AGREEMENT <span
+                  style="float: right;margin: 0 16px 0 0;font-size: 11px;font-weight: 400;">{{myForm.CWTDel | number:2}}</span>
+              </h3>
+              <h6 style="color: #000;margin: 0;padding: 0;float: left;width: 100%;font-size: 13px;text-align: center;">
+                Between Rudy Agro Ltd and:</h6>
+              <div style="width: 100%; float: left;padding: 0;margin: 0;">
+                <div style="width: 50%; float: left;padding: 0 15px;margin: 0;">
+                  <h3
+                    style="margin: 0 0 0px 0;padding: 0;width: 100%;float: left;font-size: 15px;font-weight: 600;color: #000;">
+                    <b style="width: 20%;float: left;">Seller :</b>
+                    {{ myForm.personFarmType =='Person' ? growerDetails.firstName +" "+ growerDetails.lastName : myForm.farmName}}
+                  </h3>
+                  <h3
+                    style="margin: 0 0 0px 0;padding: 0;width: 100%;float: left;font-size: 15px;font-weight: 300;color: #000;">
+                    <b style="width: 20%;float: left;font-weight: 300;">Address :</b>
+                    {{growerDetails.addresses[0].street}}</h3>
+                  <h3
+                    style="margin: -3px 0 0px -21.5%;padding: 0;width: 100%;float: left;font-size: 15px;font-weight: 300;color: #000;text-align: center;">
+                    <b style="width: 20%;float: left;font-weight: 300;"></b>
+                    {{(growerDetails.addresses[0].town+' '+growerDetails.addresses[0].country+' '+growerDetails.addresses[0].province)}}
+                  </h3>
+                  <h3
+                    style="margin: -3px 0 0px -23.5%;padding: 0;width: 100%;float: left;font-size: 15px;font-weight: 300;color: #000;text-align: center;">
+                    <b style="width: 20%;float: left;font-weight: 400;"></b> {{growerDetails.addresses[0].postal}}</h3>
+                  <h3
+                    style="margin: 0 0 0px 0;padding: 0;width: 100%;float: left;font-size: 15px;font-weight: 300;color: #000;">
+                    <b style="width: 20%;float: left;font-weight: 400;">Phone :</b> {{growerDetails.phone2}}</h3>
+                  <h3
+                    style="margin: 0px 0 1px 0px;padding: 0;width: 100%;float: left;font-size: 15px;font-weight: 300;color: #000;">
+                    <b style="width: 20%;float: left;font-weight: 300;">Email :</b> {{growerDetails.email}}</h3>
+                </div>
+                <div style="width: 40%; float: right;padding: 0 15px;margin: 0;text-align: right;">
+                  <h3 style="margin: 0 0 5px 0;padding: 0;width: 100%;float: left;font-size: 15px;color: #000;">Date:
+                    {{(myForm.backDate|date) ||(myForm.createdAt|date:'MM/dd/yyyy')}}</h3>
+                  <h3
+                    style="margin: 0;padding: 0;width: 100%;float: left;font-size: 15px;font-weight: 400;color: #000;">
+                    Contract #: {{myForm.contractNumber}}</h3>
+                </div>
+              </div>
+            </div>
+            <div style="width: 100%; float: left;padding: 0;margin: 0 0 0 11px;">
+              <h3 style="padding: 0;width: 28.4%;float: left;font-size: 13px;color: #000;margin: 2px;">Commodity: <span
+                  style="font-weight: 400;">{{myForm.commodityName}}</span></h3>
+              <h3 style="margin: 2px 0 0 0;padding: 0px;width: 40%;float: left;font-size: 13px;color: #000;">Grade:
+                <span style="font-weight: 400;">{{myForm.gradeName}}</span></h3>
+            </div>
+            <div style="width: 100%; float: left;padding: 0;margin: 0 0 0 11px;">
+              <h3 style="padding: 0;width: 53.4%;float: left;font-size: 13px;color: #000;margin: 2px;">Crop Year: <span
+                  style="font-weight: 400;">{{myForm.cropYear}}</span></h3>
+              <h3
+                style="margin: 2px 22px 0 0;padding: 0;width: 40%;float: right;font-size: 13px;color: #000;text-align: right;">
+                Delivery Point: <span style="font-weight: 400;">{{myForm.deliveryPoint}}</span></h3>
+            </div>
+            <div style="width: 100%; float: left;padding: 0;margin: 0 0 0 11px;">
+
+              <h3 style="padding: 0;width: 40%;float: left;font-size: 13px;color: #000;margin: 2px;">Contracted
+                Quantity: <span style="font-size: 10px;">{{myForm.contractQuantity | number:2}}
+                  {{myForm.quantityUnit}}</span> NET</h3>
+              <h3
+                style="margin: 2px 22px 0 0;padding: 0px;width: 40%;float: right;font-size: 13px;color: #000;text-align: right;">
+                Delivery Period: <span style="font-weight: 400;">{{myForm.shipmentPeriodFrom}} -
+                  {{myForm.shipmentPeriodTo}}</span></h3>
+            </div>
+            <div style="width: 100%; float: left;padding: 0;margin: 0 0 0 11px;">
+              <h3 style="padding: 0;width: 100%;float: left;font-size: 13px;color: #000;margin: 2px;">Specifications:
+                <span style="font-weight: 400;">{{myForm.specifications}}</span></h3>
+
+              <h3 style="padding: 0;width: 100%;float: left;font-size: 13px;color: #000;margin: 2px;">Purchase Price:
+                {{myForm.price | number:4}} / {{myForm.priceUnit}} C$</h3>
+
+              <h3 style="padding: 0;width: 100%;float: left;font-size: 13px;color: #000;margin: 2px;">Payment Term:
+                <span style="font-weight: 400;font-size: 13px;">{{myForm.paymentTerms}}</span></h3>
+              <h3 style="padding: 0;width: 100%;float: left;font-size: 13px;color: #000;margin: 2px;">Handling Tariff:
+                <span style="font-weight: 300;font-size: 13px;">A handling tariff will be levied against all deliveries
+                  - $8.00/MT on Lentils, Chick Peas, Edible Beans,Canaryseed, Marrowfat Peas, $3.50/mt on all other
+                  Peas, Flax and Canola</span></h3>
+              <h3 style="padding: 0;width: 100%;float: left;font-size: 13px;color: #000;margin: 2px;">Settlement
+                Instructions: <span style="font-weight: 400;font-size: 13px;">{{myForm.settlementInstructions}}</span>
+              </h3>
+              <h3 style="padding: 0;width: 100%;float: left;font-size: 13px;color: #000;margin: 2px 0 2px 0">Other
+                Conditions:<br> <span style="font-weight: 300;font-size: 10px;">{{myForm.otherConditions}}</span></h3>
+            </div>
+            <ol style="margin:7px 0 0 -17px;width: 96%;float: left;font-weight: 400;">
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                The Seller will deliver, at its own expense and in good and dry condition, the Commodity to the named
+                delivery point, on a date to be specified by Rudy Agro on 5 day’s notice to the Seller during the
+                delivery period. The Seller warrants free and clear title to the Commodity and that the Commodity is
+                not, and will not be, encumbered by contract or otherwise. The Seller shall not be entitled to receive a
+                higher price than that specified above even if, following delivery, the Commodity is graded higher than
+                the grade stated above.
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                The Seller shall bear all costs of delivery to the named delivery point as aforesaid, and all risk in
+                relation to the Commodity until completion of its delivery to Rudy Agro.
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                Payment shall be made on the basis of weight net of dockage less the applicable handling tariff.
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                Upon delivery of the Commodity, Rudy Agro shall determine the weight/quantity, grade, dockage and
+                moisture content in accordance with procedures and official standards of the Canadian Grain Commission.
+                It is understood that the purchase price is basis the commodity being delivered “dry” in accordance to
+                the CGC and if product is received at higher moisture i.e. “tough” or “damp” it may result in additional
+                charges or rejection of the load at the Sellers expense.In the event of a disagreement, the parties
+                shall forward a suitable representative sample to the Canadian Grain Commission, and the results thereof
+                shall be conclusive and binding.
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                (a) The Seller shall be responsible for all loss, damage and expense incurred by Rudy Agroarising
+                directly or indirectly from the failure or neglect of the Seller, whether within or beyond its control,
+                including as a result of any acts of God, to perform this agreement or any provision of it, including
+                but not limited to the delivery of Commodity of a lesser quality. As well, the Seller agrees that the
+                Commodity does not constitute “specific goods” as defined in The Sale of Goods Act.<br>
+                (b) In the event of any such failure or neglect, Rudy Agro shall be entitled to pursue all remedies
+                available under law against the Seller, including all losses and expenses incurred by Rudy Agro in
+                relation any default or breach by the Seller of any contractual arrangements between it and a 3rd party
+                or parties inrelation to the Commodity, due to Rudy replacing or attempting to replace the Commodity
+                from other sources and/or from Rudy accepting late and/or partial delivery from the Seller, as Rudy Agro
+                may in its sole discretion elect.
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                Rudy Agro may set off against, and deduct from, any payment to the Seller for the Commodity, any
+                indebtedness of the Seller to Rudy Agro.
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                Time shall be essence of this contract, and any extension thereof or other forbearance by Rudy Agro
+                hereunder shall not constitute or be construed as a waiver of its right to require strict performance of
+                all other provisions of this agreement.
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                Any notice given under the terms of this agreement shall be conclusively deemed to have been properly
+                given and received if provided to a party by any one of the mailing, facsimile or email addresses
+                specified at the beginning of this agreement for the party to whom the notice is being provided.
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                This contract shall be deemed to have been made in the Province of Saskatchewan and shall be interpreted
+                according to the laws and by the courts of Saskatchewan.
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                This agreement forms the entire contract between the parties and no modification or variation is valid
+                unless in writing signed by the Seller and Rudy Agro
+              </li>
+              <li
+                style="margin-bottom: 4px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;font-weight: 400;">
+                The Seller acknowledges having received good and valuable consideration for its entry into this
+                agreement, including securing a price certain for the Commodity, and also that Rudy Agro shall incur
+                risk, effort and expense in reliance on this agreement.
+              </li>
+            </ol>
+            <div class="" style="margin-top: 0px;padding: 0;width: 100%;float: left;">
+              <div class="row" style="width: 100%;float: left;">
+                <div class="col-md-6" style="width: 35%;float: left; margin-left: 10px;
+                ">
+                  <h2 class="ext"
+                    style="color: #000;font-size: 18px;margin: 80px 0 30px 0;border-top: 2px solid #000;padding: 10px 0 0 0; text-align: center;">
+                    Accepted for Seller</h2>
+                </div>
+                <div class="col-md-6" style="width: 35%;float: left;margin-left: 23%;">
+                  <img ng-src="{{imagePath}}{{myForm.signature}}" alt=""
+                    style="width: 200px;height:80px;margin: 0 0 0 22%;">
+                  <h2
+                    style="color: #000;font-size: 18px;margin: 0px 0 30px 0;border-top: 2px solid #000;padding: 10px 0 0 0; text-align: center;">
+                    Accepted For Buyer</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-md-6">
+          <div class="add_commodity pro_con purchase_confar">
+            <form name="addPurchase" novalidate>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 55%;">Contract Number</label>
+                  <input type="text" placeholder="Contract Number" name="contractNumber"
+                    ng-model="myForm.contractNumber" style="background: transparent" required ng-disabled="true">
+                  <span
+                    ng-show="addPurchase.contractNumber.$invalid && addPurchase.contractNumber.$pristine && submitted"
+                    class="validationErrorContractNumber"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label class="land_date" style="width: 48%;">Person / Farm</label>
+                  <div class="radio_check_cls">
+                    <label class="slt_usrs slt_one" style="width: 45%;">
+                      <input type="radio" name="personFarmType" ng-model="myForm.personFarmType" value="Person"
+                        required>
+                      <span class="checkmark"></span> Person
+                    </label>
+                    <label class="slt_usrs">
+                      <input type="radio" ng-model="myForm.personFarmType" name="personFarmType" value="Farm" required>
+                      <span class="checkmark"></span> Farm
+                    </label>
+                  </div>
+                  <span
+                    ng-show="addPurchase.personFarmType.$invalid && addPurchase.personFarmType.$pristine && submitted"
+                    class="validationErrorPersonType"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac" ng-hide="myForm.personFarmType=='Person'">
+                  <label style="width: 47%" class="land_date">Farm Name</label>
+                  <span ng-hide="myForm.personFarmType=='Person'">
+                    <select name="farmName" style="width:auto;"
+                      ng-options="name as name for name in growerDetails.farmNames"
+                      ng-model="myForm.farmName" ng-required="myForm.personFarmType === 'Farm'">
+                      <option value="">-- Select Farm --</option>
+                    </select>
+                  </span>
+
+                </div>
+                <div class="com_pac" ng-show="myForm.personFarmType=='Person'">
+                  <label style="width: 47%" class="land_date">Grower Name</label>
+                  <span>{{growerDetails.firstName}} {{growerDetails.lastName}}</span>
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 43%;">Broker</label>
+                  <select ng-disabled="inputField=='view'" name="broker"
+                    ng-options="broker._id as broker.businessName for broker in brokerList" ng-model="myForm.brokerId"
+                    name="broker">
+                    <option value="">Select Broker's Company Name</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 50%;">Commodity</label>
+                  <select ng-disabled="disableField" name="commodityName"
+                    ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                    ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)" required>
+                    <option value="">Select Commodity</option>
+                  </select>
+                  <span ng-show="addPurchase.commodityName.$invalid && addPurchase.commodityName.$pristine && submitted"
+                    class="validationErrorPersonType"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 43%;">Grade</label>
+                  <select name="gradeName" ng-options="grade._id as grade.gradeName for grade in contractGrade"
+                    ng-model="myForm.gradeId" ng-change="getGradeName(myForm.gradeId)" required>
+                    <option value="">Select Grade</option>
+                  </select>
+                  <span ng-show="addPurchase.gradeName.$invalid && addPurchase.gradeName.$pristine && submitted"
+                    class="validationErrorGrade"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 50%">Crop Year</label>
+                  <select ng-disabled="disableField" ng-model="myForm.cropYear" ng-change="generateContractNo()"
+                    name="cropYear" ng-options="cropYear as cropYear for cropYear in cropYears" required>
+                    <option value="">Select Crop Year</option>
+                  </select>
+                  <span ng-show="addPurchase.cropYear.$invalid && addPurchase.cropYear.$pristine && submitted"
+                    class="validationErrorCropYear1"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 50%">Crop Year*</label>
+                  <select ng-model="myForm.cropyear" ng-options="cropYear as cropYear for cropYear in cropYears" name="cropyear" required>
+                    <option value="">Select Crop Year</option>
+                  </select>
+                  <span ng-show="addPurchase.cropyear.$invalid && addPurchase.cropyear.$pristine && submitted"
+                    class="validationErrorCropYear1"></span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label class="land_date_lable" style="width: 89%;">Ship Period From</label>
+                  <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control"
+                    ng-model="myForm.deliveryDateFrom">
+                    <div class="input-group">
+                      <input class="form-control date_inpo" ng-model="myForm.shipmentPeriodFrom" name="shippingDateFrom"
+                        placeholder="Choose a date" required autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+                <span
+                  ng-show="addPurchase.shippingDateFrom.$invalid && addPurchase.shippingDateFrom.$pristine && submitted"
+                  class="validationErrorShippingDate"></span>
+              </div>
+
+              <div class="col-md-6">
+                <div class="com_pac">
+
+                  <label class="land_date_lable" style="width: 75%;">Ship Period To</label>
+                  <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control"
+                    ng-model="myForm.deliveryDateTo">
+                    <div class="input-group">
+                      <input class="form-control date_inpo" ng-model="myForm.shipmentPeriodTo"
+                        placeholder="Choose a date" name="shippingDate" required autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+                <span ng-show="addPurchase.shippingDate.$invalid && addPurchase.shippingDate.$pristine && submitted"
+                  class="validationErrorShippingDate"></span>
+              </div>
+
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 57%;">Delivery Point</label>
+                  <select ng-model="myForm.deliveryPoint" name="deliveryPoint" required="true">
+                    <option value="">Select Delivery Point</option>
+                    <option value="DEL Rudy Agro Ltd, Outlook">DEL Rudy Agro Ltd, Outlook</option>
+                    <option value="FOB Farm">FOB Farm</option>
+                  </select>
+
+                </div>
+                <span ng-show="addPurchase.deliveryPoint.$invalid && addPurchase.deliveryPoint.$pristine && submitted"
+                  class="validationErrorShippingDate"></span>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac qut" style="width: 68%;">
+                  <label style="width: 100%;">Quantity</label>
+                  <input style="width: 34%;" type="text" class="quantityInput" ng-model="myForm.contractQuantity"
+                    name="quantityNumber" numbers-only ng-change="getCwtDelPrice()" required position="4">
+                  <span
+                    ng-show="addPurchase.quantityNumber.$invalid && addPurchase.quantityNumber.$pristine && submitted"
+                    class="validationErrorQuantityNumber"></span>
+                </div>
+                <div class="com_pac half_com" style="width: 28%">
+                  <select ng-model="myForm.quantityUnit" name="quantityUnit" ng-change="getCwtDelPrice()" required>
+                    <option value="">Select Quantity Units</option>
+                    <option value="Lbs">Lbs</option>
+                    <option value="CWT">CWT</option>
+                    <option value="MT">MT</option>
+                    <option value="BU">BU</option>
+                  </select>
+                  <span ng-show="addPurchase.quantityUnit.$invalid && addPurchase.quantityUnit.$pristine && submitted"
+                    class="validationErrorQuantityUnit"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac qut" style="width: 68%;">
+                  <label style="width: 66%;">Price</label>
+                  <input style="width: 34%;" type="text" racurrency name="QuantityPrice" ng-model="myForm.price"
+                    ng-change="getCwtDelPrice()" required position="4">
+                  <span ng-show="addPurchase.QuantityPrice.$invalid && addPurchase.QuantityPrice.$pristine && submitted"
+                    class="validationErrorQuantityPrice"></span>
+                </div>
+                <div class="com_pac half_com" style="width: 28%">
+                  <span>{{myForm.quantityUnit}}</span>
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 48%;">Splits Price</label>
+                  <input type="text" numbers-only name="splitsPrice" ng-model="myForm.splitsPrice" position="4">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="com_pac">
+                  <label class="land_loaction" style="width: 47%;">Currency</label>
+                  <div class="radio_check_cls">
+                    <label class="slt_usrs slt_one" style="padding: 0 0 0 24px;">
+                      <input type="radio" ng-change="getCwtDelPrice()" ng-model="myForm.priceCurrency" name="currencyType" value="CAD"
+                        name="Currency" required>
+                      <span class="checkmark"></span> CAD
+                    </label>
+                    <label class="slt_usrs">
+                      <input type="radio" ng-change="getCwtDelPrice()" ng-model="myForm.priceCurrency" name="currencyType" value="USD"
+                        name="Currency" required>
+                      <span class="checkmark"></span> USD
+                    </label>
+                  </div>
+                  <span ng-show="addPurchase.currencyType.$invalid && addPurchase.currencyType.$pristine && submitted"
+                    style="color: #b94a48;font-weight: 700;">Please select any one.</span>
+                  <label style="width: 48%;">Exchange rate</label>
+                  <span ng-bind="myForm.exchangeRate" style="width:50%;" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 52%;height: 79px;">Other Conditions</label>
+                  <textarea style="height: 79px;" placeholder="Other Conditions"
+                    ng-model="myForm.otherConditions"></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 48%">Payment Terms</label>
+                  <select ng-model="myForm.paymentTerms">
+                    <option value="">Select Payment Terms</option>
+                    <option value="Payment will be mailed within 10 days of delivery">Payment will be mailed within 10 days of delivery</option>
+                    <option value="Payment will be mailed within 48 hours of delivery">Payment will be mailed within 48 hours of delivery</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6" ng-show="myForm.paymentTerms=='Other'">
+                <div class="com_pac">
+                  <label style="width: 48%">Payment Terms</label>
+                  <input type="text" placeholder="Other Conditions" ng-model="myForm.paymentTermsOther">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 48%">Specifications</label>
+                  <select ng-model="myForm.specifications" name="specification" required>
+                    <option value="">Select specifications</option>
+                    <option value="As per Grower Sample Submitted">As per Grower Sample Submitted</option>
+                    <option value="Subject to Buyer's approval upon receipt of sample">Subject to Buyer's approval upon
+                      receipt of sample</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <span ng-show="addPurchase.specification.$invalid && addPurchase.specification.$pristine && submitted"
+                    class="validationErrorSpecification"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 48%;">Sample #</label>
+                  <select name="commodityName" ng-options="sample._id as sample.sampleNumber for sample in sampleList"
+                    ng-model="myForm.sampleNumber">
+                    <option value="">Select Sample Number</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6" ng-show="myForm.specifications=='Other'">
+                <div class="com_pac">
+                  <label style="width: 27%">Specifications</label>
+                  <input type="text" ng-model="myForm.specificationsOther">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 48%">Settelment</label>
+                  <select ng-model="myForm.settlementInstructions" name="settlementInstruction" required>
+                    <option value="">Select Settelment Instruction</option>
+                    <option value="No Splits/Defers">No Splits/Defers</option>
+                    <option value="Grower to provide split/defer Instruction in writing">Grower to provide split/defer Instruction in writing</option>
+                    <option value="Other">As Below</option>
+                  </select>
+                  <span
+                    ng-show="addPurchase.settlementInstruction.$invalid && addPurchase.settlementInstruction.$pristine && submitted"
+                    class="validationErrorSpecification"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <!-- <label style="width: 48%;">Freight Rate/MT</label> -->
+                  <label style="width: 48%;">Actual Rate Frt/MT</label>
+                  <input type="text" ng-model="myForm.freightRatePerMT" numbers-only ng-change="getCwtDelPrice()"
+                    position="4">
+                  <span style="margin: 0 5px;">{{myForm.priceCurrency}}</span>
+                </div>
+              </div>
+              <div class="col-md-6" ng-show="myForm.settlementInstructions=='Other'">
+                <div class="com_pac">
+                  <label>Others Settlement Instructions</label>
+                  <textarea ng-model="myForm.settlementComments" name="settlementComments"></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 48%">CWT Del (CAD)</label>
+                  <input type="text" ng-model="myForm.CWTDel" disabled name="CWTDel">
+                </div>
+                <div class="com_pac">
+                  <label style="width: 50%">Freight Estimate</label>
+                  <input type="text" ng-model="myForm.freightEstimate" required numbers-Only
+                    ng-change="getCwtDelPrice()" name="freightEstimate" position="4">
+                  <span style="margin: 0 5px;">{{myForm.priceCurrency}}</span>
+                  <span
+                    ng-show="addPurchase.freightEstimate.$invalid && addPurchase.freightEstimate.$pristine && submitted"
+                    class="validationErrorSpecification"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="com_pac">
+                  <label style="width: 49%">Invertory Grade</label>
+                  <select name="inventoryGrades" ng-options="grade._id as grade.gradeName for grade in inventoryGrade"
+                    ng-model="myForm.inventoryGrade" required>
+                    <option value="">Select Invertory Grade</option>
+                  </select>
+                  <span
+                    ng-show="addPurchase.inventoryGrades.$invalid && addPurchase.inventoryGrades.$pristine && submitted"
+                    class="validationErrorCropYear1"></span>
+
+                </div>
+              </div>
+              <button ng-show="btnShow!='view'" ng-click="submit(addPurchase.$valid)">{{btnType}}</button>
+              <button ng-show="btnShow=='view'" ng-click="viewPdf()">Print</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

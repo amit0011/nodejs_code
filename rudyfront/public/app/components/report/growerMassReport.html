@@ -1,0 +1,317 @@
+<style type="text/css">
+  table thead tr td,
+  table tbody tr td {
+    width: 140px !important;
+  }
+
+</style>
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="initPosition()">
+      <div class="panel_body_inner inner_box">
+        <div class="">
+          <ul class="nav nav-pills nav-stacked row"
+            style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;"
+            class="page">
+            <li>
+              <b>Group Emails</b>
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="tabla_header">
+              <div class="tbl" style="width: 11%!important;">
+                <label>Record Type</label>
+                <select ng-model="myForm.recordType" style="width: 100%" ng-change="getList(1)">
+                  <option value="">All Grower</option>
+                  <option>Production Record</option>
+                  <option>Purchase Confirmation</option>
+                  <option>Production Contract</option>
+                </select>
+              </div>
+              <div class="tbl" style="width: 15%!important;">
+                <label>Commodity</label>
+                <select name="commodity" ng-model="myForm.commodityId" style="width: 100%" ng-change="getList(1)">
+                  <option value="">Select Commodity</option>
+                  <option ng-repeat="c in commoditys track by $index" value="{{c._id}}">{{c.commodityName}}</option>
+                </select>
+              </div>
+
+              <div class="tbl" style="width: 10%!important;">
+                <label>Crop Year</label>
+                <select ng-model="myForm.cropYear" ng-change="getList(1)"
+                  ng-options="cropYear as cropYear for cropYear in cropYears"style="width: 100%">
+                  <option value="">Crop Year</option>
+                </select>
+              </div>
+              <div class="tbl" style="width: 11%!important;">
+                <label>Status</label>
+                <select ng-model="myForm.status" style="width: 100%" ng-change="getList(1)">
+                  <option value="">Select</option>
+                  <option value="0">Active</option>
+                  <option value="1">Completed</option>
+                </select>
+              </div>
+
+
+              <button ng-click="clear()">Clear</button>
+              <button ng-click="exportSheet()">EXPORT to XL</button>
+              <button ng-click="OpenMailPopUp()">Send Mail</button>
+
+            </div>
+          </div>
+        </div>
+        <div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;">
+          <style type="text/css">
+            @media print {
+              @page {
+                size: A4 landscape;
+              }
+
+              img {
+                height: 90%;
+                margin: 0;
+                padding: 0;
+              }
+            }
+
+            table tbody tr td {
+              border: 0.50px solid #000;
+            }
+
+          </style>
+
+          <div class="comodity_table" id="printSectionId">
+            <table class="table table-striped commodity_table table_body_scroll table-responsive"
+              style="width: 1670px;">
+              <thead>
+                <tr>
+                  <td style="text-align: center;">
+                    <label class="slt_usrs" style="height: 18px;">
+                      <input type="checkbox" ng-model="checkBoxForm.checked" ng-click="selectAll()">
+                      <span class="checkmark"></span>
+                    </label> Select All
+                  </td>
+                  <td>Name</td>
+                  <td>Email</td>
+                  <td>Phone Number</td>
+                  <td>Commodity Name</td>
+                  <td>Contract Number</td>
+                  <td>Crop Year</td>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="val in list track by $index">
+                  <td style="text-align: center;">
+                    <label class="slt_usrs" style="height: 18px;">
+                      <input type="checkbox" ng-model="val.checked" ng-change="checkAllSelected()">
+                      <span class="checkmark"></span>
+                    </label>
+                  </td>
+                  <td><a ng-href="growerDetails/{{val.growerId._id}}">{{val.growerId.firstName}}
+                      {{val.growerId.lastName}}</a></td>
+                  <td style="word-break: break-all;">{{val.growerId.email}}</td>
+                  <td>{{val.growerId.phone | phonenumber}}</td>
+                  <td>{{val.commodityId.commodityName}}</td>
+                  <td>{{val.contractNumber}}</td>
+                  <td>{{val.cropYear}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <!-- <div paging page="page" page-size="10" total="totalPage" paging-action="getList(page)"></div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="add_coomm compose_mail" style="width: 50% !important;">
+  <div class="enter_comm_typ ">
+    <div class="head_comm">
+      <h2>Email</h2>
+      <div type="button" class="close" ng-click="closepop()">&times;</div>
+    </div>
+  </div>
+  <div class="panel_body">
+    <div class="panel_body_inner inner_box" style="height: auto;">
+      <div class="col-md-12">
+        <div class="add_commodity">
+          <form name="emailForm">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="mail">
+                  <label>To</label>
+                  <span ng-repeat="t in to track by $index">{{t}}&nbsp;&nbsp;&nbsp;<i
+                      ng-click="removeEmailFromTo($index)" class="float-right">x</i></span>
+                  <input class="form-control" name="to" placeholder="to" ng-enter="addEmailInTo()"
+                    ng-model="emailform.to" />
+                  <span ng-show="to.length == 0 && submitted" class="validationErrorSalesContract"></span>
+                </div>
+                <div class="mail">
+                  <label>BCC</label>
+                  <span ng-repeat="bcc in growersEmails track by $index">{{bcc}}</span>
+                  <span ng-show="growersEmails.length == 0 && submitted" class="validationErrorSalesContract"></span>
+                </div>
+
+                <div class="mail">
+                  <label>Subject</label>
+                  <input class="form-control" name="subject" placeholder="Subject" ng-model="emailform.subject"
+                    required />
+                  <span ng-show="emailForm.subject.$invalid && submitted" class="validationErrorSalesContract"></span>
+                </div>
+                <textarea name="ckeditor" class="form-control pos_ckeditor" ng-model="emailform.mailBody"></textarea>
+
+
+                <div class="attachment">
+                  <div class="btn btn-default image-preview-input">
+                    <span class="fas fa-paperclip"></span>
+                    <input type="file"
+                      accept="application/pdf,image/gif, image/*,.csv,.xlsx,.xls, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                      multiple onchange="angular.element(this).scope().getBase64(this)" />
+                  </div>
+                  <span ng-repeat="a in attachments track by $index">{{a.filename}}<i
+                      ng-click="removeAttachment(a.filename)" class="float-right">x</i></span>
+                </div>
+                <button ng-click="sendMail(emailForm.$valid)"
+                  ng-disabled="emailSending">{{emailSending ? 'Email sending...':'Send'}}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style type="text/css">
+  .image-preview-input {
+    position: relative;
+    overflow: hidden;
+    margin: 0px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    padding: 8px;
+    font-size: 20px;
+
+  }
+
+  .image-preview-input input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+
+  .image-preview-input-title {
+    margin-left: 2px;
+  }
+
+  .cke_toolbar_break {
+    clear: none;
+  }
+
+  .cke_inner {
+    position: relative;
+  }
+
+  #cke_1_top {
+    position: absolute;
+    bottom: 27px;
+    width: 98%;
+  }
+
+  .mail {
+    margin-bottom: 20px;
+    position: relative;
+    border-bottom: 2px solid #007e4e !important;
+    max-height: 90px;
+    overflow-y: auto
+  }
+
+  .mail input.form-control,
+  .mail textarea.form-control {
+    width: 100%;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding-left: 0px;
+
+  }
+
+  .mail .width-90 {
+    width: 90% !important;
+    display: inline-block;
+  }
+
+  .mail textarea {
+    height: 100px;
+    resize: vertical;
+  }
+
+  .mail span {
+    position: relative;
+    color: rgb(250, 250, 250);
+    border-radius: 30px;
+    padding: 2px 6px;
+    padding-right: 30px;
+    margin: 2px;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border: 1px solid red;
+    background: rgb(244, 67, 54);
+  }
+
+  .mail span i {
+    position: absolute;
+    right: 8px;
+    top: 0;
+    font-size: 16px;
+    font-style: normal;
+    cursor: pointer;
+  }
+
+  .attachment {
+    margin-top: 10px;
+    position: relative;
+    display: inline-block;
+
+  }
+
+  .attachment span {
+    position: relative;
+    background-color: #f1ebeb;
+    color: #000;
+    border-radius: 30px;
+    padding: 7px 35px 7px 15px;
+    margin: 2px;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .attachment span i {
+    position: absolute;
+    right: 13px;
+    top: 5px;
+    font-size: 16px;
+    font-style: normal;
+    cursor: pointer;
+  }
+
+</style>

@@ -1,0 +1,377 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body">
+      <h3 class="heading_cls">Production Records (Samples)</h3>
+      <hr class="heading_hr">
+      <div class="panel_body_inner inner_box">
+        <div class="col-md-12">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="tabla_header">
+                <div class="tbl" style="width: 9%">
+                  <label>Sample Number</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="searchModel.sampleNumber">
+                </div>
+                <div class="tbl" style="width: 9%">
+                  <label>Grower</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="growerName"
+                    class="ng-valid ng-dirty ng-valid-parse ng-touched ng-not-empty">
+                </div>
+
+                <div class="tbl" style="width: 14%!important;margin: 0 5px 0 0;">
+                  <label>Commodity</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%" name="commodity"
+                    ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                    ng-model="searchModel.commodityId" ng-change="search()">
+                    <option value="">Select Commodity</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 13%;margin: 0 10px 0 0;">
+                  <label>Grade</label>
+                  <select style="border: 1px solid #ececec;" class="form-control" name="grade"
+                    ng-options="grade._id as grade.gradeName for grade in grades" ng-model="searchModel.gradeId"
+                    ng-change="search()">
+                    <option value="">Select Grade</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 13%">
+                  <label>Crop Year</label>
+                  <select style="border: 1px solid #ececec;" class="form-control" ng-model="searchModel.cropYear"
+                  ng-options="cropYear as cropYear for cropYear in cropYears"
+                    ng-change="search(searchModel.cropYear)">
+                    <option value="">Select Crop Year</option>
+                  </select>
+                  <!-- <input type="text" name="" ng-enter="search()" ng-model="cropYear"> -->
+                </div>
+                <div class="tbl" style="width: 13%">
+                  <label>From Date</label>
+                  <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                    <div class="input-group">
+                      <input name="dateFrom" class="form-control" ng-model="searchModel.fromDate"
+                        placeholder="Choose a date" ng-change="search(searchModel.fromDate)" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+                <div class="tbl" style="width: 13%">
+                  <label>To Date</label>
+                  <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                    <div class="input-group">
+                      <input name="dateFrom" class="form-control" ng-model="searchModel.toDate"
+                        placeholder="Choose a date" ng-change="search()" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+                <div class="tbl" style="width: 14%!important;margin: 0 5px 0 0;">
+                  <label>Status</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%"
+                    ng-options="status.value as status.text for status in statuses" ng-model="searchModel.status"
+                    ng-change="search()">
+                  </select>
+                </div>
+
+                <div ng-show="userType=='ADMIN' || userType=='SUPERADMIN' || userType=='USER'">
+                  <button class="filter_btn" ng-click="exportSheet(sampleList)">Export To Excel</button>
+                  <button class="filter_btn" ng-click="clear()">Clear</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comodity_table" style="width: 100%;max-width: 100%;overflow-x: auto;">
+            <table class=" commodity_table table_body_scroll table-responsive" style="width: 4000px;">
+              <thead>
+                <tr>
+                  <thead>
+                    <tr>
+                      <th style="width:1%;padding:8px;">
+                        <input type="checkbox" ng-click="toggleAll(isAllSelected)" ng-checked="isAllSelected"
+                          ng-model="isAllSelected">
+                        #
+                        <a title="Update dumped" class="delete_detail" style="color: white;" ng-click="editDump()">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                      </th>
+                      <th style="width:2%;padding:8px;">Date</th>
+                      <th style="width:4%;padding:8px;">Grower Name</th>
+                      <th style="width:4%;padding:8px;">Email</th>
+                      <th style="width:3%;padding:8px;">Phone #</th>
+                      <th style="width:3%;padding:8px;">Town</th>
+                      <th style="width:4%;padding:8px;">Commodity</th>
+                      <th style="width:4%;padding:8px;">Grade</th>
+                      <th style="width:3%;padding:8px;">Variety</th>
+                      <th style="width:4%;padding:8px;">Last Modified User</th>
+                      <th style="width:2%;padding:8px;">QTY Lbs</th>
+                      <th style="width:2%;padding:8px;">Acres</th>
+                      <th style="width:2%;padding:8px;">Crop Year</th>
+                      <th style="width:1%;padding:8px;">Bid</th>
+                      <th style="width:1%;padding:8px;">Target</th>
+                      <th style="width:1%;padding:8px;">Unit</th>
+                      <th style="width:2%;padding:8px;">Farmers Lot</th>
+                      <th  style="width:60px;padding:8px;" ng-repeat="ana in analysis" ng-bind="ana.analysisName"></th>
+                      <!--th>Sample #</th-->
+                      <th style="width:2%;padding:8px;">Req. Date</th>
+                      <th style="width:2%;padding:8px;">Received Date</th>
+                      <th style="width:2%;padding:8px;"
+                        ng-show="loginUserAccess.purchase.productionRecords.edit || loginUserAccess.purchase.productionRecords.view || loginUserAccess.purchase.productionRecords.delete">
+                        Action</th>
+                    </tr>
+                  </thead>
+              <tbody>
+                <tr
+                  dir-paginate="sample in sampleList |filter:sampleNumber|filter:oldSample|filter:growerName|filter:commoditiyName|filter:gradeName|filter:cropYear|itemsPerPage:10"
+                  pagination-id="sampleList" current-page="current_page" class="tab_body" ng-class="getClass(sample)"
+                  ng-click="setActive(sample)">
+                  <td style="width:1%;padding:8px;">
+                    <input id="{{sample._id}}" type="checkbox" value="{{sample._id}}"
+                      ng-checked="selection.indexOf(sample._id) > -1"
+                      ng-show="sample.sampleNumber && sample.dumped != 1 && sample.dumped != 'Yes'" ng-click="toggleSelection(sample._id)" />
+                    <a title="Dumped Sample" ng-show="sample.sampleNumber && (sample.dumped == 1 || sample.dumped == 'Yes')"
+                      class="label label-danger" style="line-height: 2;">DS</a>
+                    <a ng-show="loginUserAccess.purchase.productionRecords.edit" class="edit_details"
+                      ng-click="openPop(sample,'edit')">{{sample.sampleNumber}}</a></td>
+                  <td style="width:2%;padding:8px;">{{sample.createdAt | date:'dd/MM/yyyy'}}</td>
+                  <td style="width:4%;padding:8px;"><a
+                      ng-style="{'cursor':loginUserAccess.purchase.growers.view == true ? 'pointer' : 'not-allowed'}"
+                      ng-click="groweDetails(sample.growerId._id)">{{sample.growerId.farmName}}
+                      ({{sample.growerId.firstName}} {{sample.growerId.lastName}})</a></td>
+                  <td style="width:4%;padding:8px;word-break: break-word;">{{sample.growerId.email}}</td>
+
+                  <td style="width:3%;padding:8px;">{{sample.growerId.cellNumber}}</td>
+                  <td style="width:3%;padding:8px;">{{sample.growerId.addresses[0].town}}</td>
+                  <td style="width:4%;padding:8px;">{{sample.commodityId.commodityName}}</td>
+                  <td style="width:4%;padding:8px;">{{sample.gradeId.gradeName}}</td>
+                  <td style="width:3%;padding:8px;">{{sample.varietyId.varietyName}}</td>
+                  <td style="width:4%;padding:8px;">{{sample.lastEditedBy.fullName}}</td>
+                  <td style="width:2%;padding:8px;">{{sample.quantityPound}}</td>
+                  <td style="width:2%;padding:8px;">{{sample.acres}}</td>
+                  <td style="width:2%;padding:8px;">{{sample.cropYear}}</td>
+                  <td style="width:1%;padding:8px;">{{sample.bid}}</td>
+                  <td style="width:1%;padding:8px;">{{sample.target}}</td>
+                  <td style="width:1%;padding:8px;">{{sample.unit}}</td>
+                  <td style="width:2%;padding:8px;">{{sample.farmersLot}}</td>
+                  <td style="width:60px;padding:8px;" ng-repeat="ana in analysis">{{sample.sampleAnalysis | customFilter:ana._id:'analysisDetails' | number:3}}</td>
+                  <!--td>{{sample.sampleNumber}}</td-->
+                  <td style="width:2%;padding:8px;">{{sample.requestDate |  date:'dd/MM/yyyy'}}</td>
+                  <td style="width:2%;padding:8px;">{{sample.receiveDate |  date:'dd/MM/yyyy'}}</td>
+                  <td style="width: 2%;padding:8px;" class="action_cls"
+                    ng-show="loginUserAccess.purchase.productionRecords.edit || loginUserAccess.purchase.productionRecords.view || loginUserAccess.purchase.productionRecords.delete">
+                    <a ng-show="loginUserAccess.purchase.productionRecords.delete" class="delete_detail"
+                      ng-click="deleteSample(sample._id)">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    <a ng-show="loginUserAccess.purchase.productionRecords.edit" class="edit_details"
+                      ng-click="openPop(sample,'edit')"><i class="fas fa-pen-square"></i></a>
+                    <a ng-show="loginUserAccess.purchase.productionRecords.view" ng-click="openPop(sample,'view')"
+                      class="veiw_detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <dir-pagination-controls class="cus_pagination" pagination-id="sampleList" max-size="10"
+            style="padding-top: 20px;" direction-links="true" boundary-links="true"></dir-pagination-controls>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="popup_overlay"></div>
+  <div class="add_coomm sample_popup">
+    <div class="enter_comm_typ">
+      <div class="head_comm head_2">
+        <h2>ADD PRODUCTION RECORDS (SAMPLE)</h2>
+        <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+      <div class="panel_body" ng-init="getCommodityType()">
+        <div class="panel_body_inner inner_box_List_add samples">
+          <div class="col-md-12">
+            <div class="add_commodity">
+              <form name="add_sample_form">
+                <div class="grower_name">
+                  <div class="row msps">
+
+                    <div class="col-md-6 msps_inp">
+                      <label>Requested Date</label>
+                      <datepicker class="date_pic date_pic_sam" date-format="yyyy-MM-dd" selector="form-control"
+                        date-max-limit="{{myForm.receiveDate}}">
+                        <div class="input-group">
+                          <input class="form-control" ng-model="myForm.requestDate" placeholder="Choose a date"/
+                            ng-change="requestDateSelected()">
+                          <span class="input-group-addon" style="cursor: pointer">
+                            <i class="fa fa-lg fa-calendar"></i>
+                          </span>
+                        </div>
+                      </datepicker>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Received Date</label>
+                      <!-- <input type="text" placeholder="16/07/16"> -->
+                      <datepicker class="date_pic date_pic_sam" date-format="yyyy-MM-dd" selector="form-control"
+                        date-min-limit="{{myForm.requestDate}}">
+                        <div class="input-group">
+                          <input class="form-control" ng-model="myForm.receiveDate" placeholder="Choose a date" />
+                          <span class="input-group-addon" style="cursor: pointer">
+                            <i class="fa fa-lg fa-calendar"></i>
+                          </span>
+                        </div>
+                      </datepicker>
+                    </div>
+
+                  </div>
+                  <div class="row msps">
+                    <div class="col-md-3 msps_inp">
+                      <label>Commodity</label>
+                      <select style="border: 1px solid #ececec;" class="form-control" name="commodity"
+                        ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                        ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)">
+                        <option value="">Select Commodity</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3 msps_inp">
+                      <label>Grade</label>
+                      <select style="border: 1px solid #ececec;" class="form-control" name="grade"
+                        ng-options="grade._id as grade.gradeName for grade in grades" ng-model="myForm.gradeId">
+                        <option value="">Select Grade</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3 msps_inp">
+                      <label>Crop Year</label>
+                      <select style="border: 1px solid #ececec;" class="form-control"
+                        ng-options="cropYear as cropYear for cropYear in cropYears" ng-model="myForm.cropYear">
+                        <option value="">Select Crop Year</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3 msps_inp">
+                      <label>Variety</label>
+                      <select style="border: 1px solid #ececec;" class="form-control" ng-show="!varietyInput"
+                        ng-options="variety._id as variety.varietyName for variety in varietyList"
+                        ng-model="myForm.varietyId">
+                        <option value="">Select Variety</option>
+                      </select>
+                      <input type="text" class="input_commodityType" ng-model="myForm.varietyName" name="name"
+                        ng-show="varietyInput">
+                      <button class="btn_commodityType" ng-show="varietyInput" ng-click="saveVariety()">Save</button>
+                      <a ng-show="varietyPlus" class="add_commodityType varietyPlus" ng-click="plusVariety()">+</a>
+                    </div>
+                  </div>
+                  <div class="row msps">
+                    <div class="col-md-3">
+                      <label>Quantity(lbs)</label>
+                      <input style="border: 1px solid #ececec;" type="text" numbers-Only ng-model="myForm.quantityPound"
+                        placeholder="Quantity(lbs)">
+                    </div>
+                    <div class="col-md-3">
+                      <label>Acres</label>
+                      <input style="border: 1px solid #ececec;" type="text" numbers-Only ng-model="myForm.acres"
+                        placeholder="Acres">
+                    </div>
+                    <div class="col-md-3">
+                      <label>Formers Lot</label>
+                      <input style="border: 1px solid #ececec;" type="text" ng-model="myForm.farmersLot"
+                        placeholder="Formers Lot">
+                    </div>
+                  </div>
+                  <div class="row msps">
+                    <div class="col-md-3">
+                      <label>Bid</label>
+                      <input style="border: 1px solid #ececec;" type="text" ng-model="myForm.bid" numbers-Only
+                        placeholder="Bid">
+                    </div>
+                    <div class="col-md-3">
+                      <label>Target</label>
+                      <input style="border: 1px solid #ececec;" type="text" ng-model="myForm.target" numbers-Only
+                        placeholder="Enter Target value" ng-change="calculateTarget()">
+                    </div>
+                    <div class="col-md-3">
+                      <label>Unit</label>
+                      <select style="border: 1px solid #ececec;" class="form-control" ng-model="myForm.unit"
+                        ng-change="calculateTarget()">
+                        <option value="">Select Unit</option>
+                        <option value="LBS">LBS</option>
+                        <option value="CWT">CWT</option>
+                        <option value="MT">MT</option>
+                        <option value="BU">BU</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label>Target/CWT</label>
+                      <input style="border: 1px solid #ececec;" type="text" placeholder="Target/CWT"
+                        ng-model="myForm.targetCWT" numbers-Only step="0.01" disabled>
+                    </div>
+                  </div>
+                  <div class="row msps">
+                    <div class="col-md-2" ng-repeat="sample in commoditySampleAnalysis">
+                      <label>{{sample.analysisName}}</label>
+                      <input style="border: 1px solid #ececec;" type="text" ng-model="sample.analysisDetails"
+                        placeholder="{{sample.analysisName}}">
+                    </div>
+
+                  </div>
+                  <div class="row msps">
+                    <div class="col-md-4 pro_con">
+                      <label>Analysis Completed</label>
+                      <div class="radio_check_cls new_rad">
+                        <label class="slt_usrs slt_one">
+                          <input type="radio" name="analyzed" ng-model="myForm.analyzed" value="Yes">
+                          <span class="checkmark"></span> Yes
+                        </label>
+                        <label class="slt_usrs">
+                          <input type="radio" ng-model="myForm.analyzed" name="analyzed" value="No">
+                          <span class="checkmark"></span> No
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-4 pro_con">
+                      <label>Mark For Dump</label>
+                      <div class="radio_check_cls new_rad">
+                        <label class="slt_usrs slt_one">
+                          <input type="radio" name="markfordump" ng-model="myForm.markForDump" value="Yes">
+                          <span class="checkmark"></span> Yes
+                        </label>
+                        <label class="slt_usrs">
+                          <input type="radio" ng-model="myForm.markForDump" name="markfordump" value="No">
+                          <span class="checkmark"></span> No
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-4 pro_con">
+                      <label>Dumped</label>
+                      <div class="radio_check_cls new_rad">
+                        <label class="slt_usrs slt_one">
+                          <input type="radio" name="dumped" ng-model="myForm.dumped" value="Yes">
+                          <span class="checkmark"></span> Yes
+                        </label>
+                        <label class="slt_usrs">
+                          <input type="radio" ng-model="myForm.dumped" ng-disabled="myForm.dumped == 'Yes' || myForm.dumped == '1'" name="dumped" value="No">
+                          <span class="checkmark"></span> No
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row msps">
+                    <div class="col-md-8">
+                      <label>Comment</label>
+                      <textarea style="border: 1px solid #ececec;" placeholder="Add Your Comment Here!"
+                        ng-model="myForm.comments"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <button ng-show="btnType" ng-disabled="!(myForm.commodityId)"
+                  ng-click="saveSample()">{{btnType}}</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,427 @@
+<div class="navigation_header">
+   <div class="top_head">
+      <img class="logo" src="/assets/images/logo.png">
+   </div>
+   <div class="navigation">
+      <ul>
+         <li ng-class="active.page=='dashboard'?'active':''" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER'">
+            <span>
+            <a ui-sref="dashboard" class="head_ico_ac">
+            <img src="/assets/images/01.Dashboard.png">
+            </a>
+            </span>
+            <a ui-sref="dashboard">Dashboard</a>
+            <!-- <div class="tool_info">Dashboard</div> -->
+         </li>
+         <li ng-class="active.page=='subAdmin'?'active':''" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN'">
+            <span>
+            <a ui-sref="subAdmin" class="head_ico_ac">
+            <img src="/assets/images/02.SubAdmin.png">
+            </a>
+            </span>
+            <a ui-sref="subAdmin">Sub-Admin</a>
+            <!-- <div class="tool_info">Sub-Admin</div> -->
+         </li>
+         <li class="purchase" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER' || userInfo.type=='MANAGER'">
+            <span>
+            <a class="head_ico_ac">
+            <img src="/assets/images/19.Contract.png">
+            </a>
+            </span>
+            <a class="active">Purchase<i class="fas fa-angle-down"></i></a>
+            <div class="sub_men purchase_sub">
+               <ul>
+                  <li ng-class="active.page=='growers'?'active':''">
+                     <span>
+                     <a ui-sref="growers" class="head_ico_ac">
+                     <img src="/assets/images/03.Growers.png">
+                     </a>
+                     </span>
+                     <a ui-sref="growers">Growers</a>
+                     <!-- <div class="tool_info">Growers</div> -->
+                  </li>
+                  <li ng-class="active.page=='sample'?'active':''">
+                     <span>
+                        <a ui-sref="sample" class="head_ico_ac">
+                           <img src="/assets/images/08.Samples.png">
+                        </a>
+                     </span>
+                     <a ui-sref="sample">Samples</a>
+                  </li>
+                  <li ng-class="active.page=='productionContract'?'active':''">
+                     <span>
+                        <a ui-sref="productionContract" class="head_ico_ac">
+                           <img src="/assets/images/contract-icon-23.png">
+                        </a>
+                     </span>
+                     <a ui-sref="productionContract">Production Contracts</a>
+                  </li>
+                   <li ng-class="active.page=='purchase'?'active':''">
+                     <span>
+                        <a ui-sref="purchase" class="head_ico_ac">
+                           <img src="/assets/images/contract-icon-23.png">
+                        </a>
+                     </span>
+                     <a ui-sref="purchase">Purchase Confirmation</a>
+                  </li>
+                  <li ng-class="active.page=='bidsheet'?'active':''">
+                     <span>
+                     <a ui-sref="bidsheet" class="head_ico_ac">
+                     <img src="/assets/images/Sheet.png">
+                     </a>
+                     </span>
+                     <a ui-sref="bidsheet">Bid Sheet</a>
+                     <!-- <div class="tool_info">Bid Sheet</div> -->
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="sales" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER' || userInfo.type=='MANAGER'">
+            <span>
+            <a class="head_ico_ac">
+            <img src="/assets/images/18.Sales.png">
+            </a>
+            </span>
+            <a class="active">Sales<i class="fas fa-angle-down"></i></a>
+            <div class="sub_men sale_sub">
+               <ul>
+                  <li ng-class="active.page=='brokers'?'active':''">
+                     <span>
+                     <a ui-sref="brokers" class="head_ico_ac">
+                     <img src="/assets/images/04.Brokers.png">
+                     </a>
+                     </span>
+                     <a ui-sref="brokers">Brokers</a>
+                     <!-- <div class="tool_info">Brokers</div> -->
+                  </li>
+                  <li ng-class="active.page=='buyers'?'active':''">
+                     <span>
+                     <a ui-sref="buyers" class="head_ico_ac">
+                     <img src="/assets/images/05.Buyers.png">
+                     </a>
+                     </span>
+                     <a ui-sref="buyers">Buyers</a>
+                     <!-- <div class="tool_info">Buyers</div> -->
+                  </li>
+                  <li ng-class="active.page=='salesContract'?'active':''">
+                     <span>
+                     <a ui-sref="salesContract" class="head_ico_ac">
+                     <img src="/assets/images/18.Sales.png">
+                     </a>
+                     </span>
+                     <a ui-sref="salesContract">Sales Contract</a>
+                     <!-- <div class="tool_info">Brokers</div> -->
+                  </li>
+                  <li ng-class="active.page=='pricingTerms'?'active':''">
+                     <span>
+                     <a ui-sref="pricingTerms" class="head_ico_ac">
+                     <img src="/assets/images/Pricing.png">
+                     </a>
+                     </span>
+                     <a ui-sref="pricingTerms">Pricing Terms</a>
+                     <!-- <div class="tool_info">Brokers</div> -->
+                  </li>
+                  <li ng-class="active.page=='tags'?'active':''">
+                     <span>
+                     <a ui-sref="tags" class="head_ico_ac">
+                     <img src="/assets/images/Tags.png">
+                     </a>
+                     </span>
+                     <a ui-sref="tags">Tags</a>
+                     <!-- <div class="tool_info">Brokers</div> -->
+                  </li>
+                  <li ng-class="active.page=='documents'?'active':''">
+                     <span>
+                     <a ui-sref="documents" class="head_ico_ac">
+                     <img src="/assets/images/Salesdocuments.png">
+                     </a>
+                     </span>
+                     <a ui-sref="documents">Documents</a>
+                     <!-- <div class="tool_info">Brokers</div> -->
+                  </li>
+                  <li ng-class="active.page=='tradeRules'?'active':''">
+                     <span>
+                     <a ui-sref="tradeRules" class="head_ico_ac">
+                     <img src="/assets/images/Salesreaderules.png">
+                     </a>
+                     </span>
+                     <a ui-sref="tradeRules">Trade Rules</a>
+                     <!-- <div class="tool_info">Brokers</div> -->
+                  </li>
+                  <li ng-class="active.page=='paymentMethod'?'active':''">
+                     <span>
+                     <a ui-sref="paymentMethod" class="head_ico_ac">
+                     <img src="/assets/images/Paymentmethods.png">
+                     </a>
+                     </span>
+                     <a ui-sref="paymentMethod">Payment Method</a>
+                     <!-- <div class="tool_info">Brokers</div> -->
+                  </li>
+                  <li ng-class="active.page=='paymentTerms'?'active':''">
+                     <span>
+                     <a ui-sref="paymentTerms" class="head_ico_ac">
+                     <img src="/assets/images/Paymentterms.png">
+                     </a>
+                     </span>
+                     <a ui-sref="paymentTerms">Payment Terms</a>
+                     <!-- <div class="tool_info">Brokers</div> -->
+                  </li>
+                  <li ng-class="active.page=='variance'?'active':''">
+                     <span>
+                     <a ui-sref="variance" class="head_ico_ac">
+                     <img src="/assets/images/variety.png">
+                     </a>
+                     </span>
+                     <a ui-sref="variance">Variance</a>
+                     <!-- <div class="tool_info">Variety List</div> -->
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="truck" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER' || userInfo.type=='MANAGER'">
+            <span>
+            <a class="head_ico_ac">
+            <img src="/assets/images/17.Transportation.png">
+            </a>
+            </span>
+            <a class="active">Truck Scale<i class="fas fa-angle-down"></i></a>
+            <div class="sub_men truck_sub">
+               <ul>
+                  <li ng-class="active.page=='scaleTicketIncoming'?'active':''">
+                     <span>
+                     <a ng-href="/scale/incoming" class="head_ico_ac">
+                     <img src="/assets/images/22.WeightCalculator.png">
+                     </a>
+                     </span>
+                     <a ng-href="/scale/incoming">Incoming</a>
+                     <!-- <div class="tool_info">Scale Tickets</div> -->
+                  </li>
+                  <li ng-class="active.page=='scaleTicketOutgoing'?'active':''">
+                     <span>
+                     <a ng-href="/scale/outgoing" class="head_ico_ac">
+                     <img src="/assets/images/22.WeightCalculator.png">
+                     </a>
+                     </span>
+                     <a ng-href="/scale/outgoing">Outgoing</a>
+                     <!-- <div class="tool_info">Scale Tickets</div> -->
+                  </li>
+                  <li ng-class="active.page=='scaleTicketIncomingInventory'?'active':''">
+                     <span>
+                     <a ng-href="/scale/incomingInventory" class="head_ico_ac">
+                     <img src="/assets/images/05.Buyers.png">
+                     </a>
+                     </span>
+                     <a ng-href="/scale/incomingInventory">Incoming Inventory</a>
+                     <!-- <div class="tool_info">Buyers</div> -->
+                  </li>
+                  <li ng-class="active.page=='scaleTicketOutgoingInventory'?'active':''">
+                     <span>
+                     <a ng-href="/scale/outgoingInventory" class="head_ico_ac">
+                     <img src="/assets/images/05.Buyers.png">
+                     </a>
+                     </span>
+                     <a ng-href="/scale/outgoingInventory">Outgoing Inventory</a>
+                     <!-- <div class="tool_info">Buyers</div> -->
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li class="comm" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER'">
+            <span>
+            <a class="head_ico_ac">
+            <img src="/assets/images/07.Commodity.png">
+            </a>
+            </span>
+            <a class="active">Commodities<i class="fas fa-angle-down"></i></a>
+            <div class="sub_men comm_sub">
+               <ul>
+                  <li ng-class="active.page=='commodityType'?'active':''">
+                     <span>
+                     <a ui-sref="commodityType" class="head_ico_ac">
+                     <img src="/assets/images/06.CommodityType.png">
+                     </a>
+                     </span>
+                     <a ui-sref="commodityType">Commodity Type</a>
+                     <!-- <div class="tool_info">Commodity Type</div> -->
+                  </li>
+                  <li ng-class="active.page=='commodity'?'active':''">
+                     <span>
+                     <a ui-sref="commodity" class="head_ico_ac">
+                     <img src="/assets/images/07.Commodity.png">
+                     </a>
+                     </span>
+                     <a ui-sref="commodity">Commodity</a>
+                     <!-- <div class="tool_info">Commodity</div> -->
+                  </li>
+                  <li ng-class="active.page=='grade'?'active':''">
+                     <span>
+                     <a ui-sref="grade" class="head_ico_ac">
+                     <img src="/assets/images/09.Grade.png">
+                     </a>
+                     </span>
+                     <a ui-sref="grade">Grade</a>
+                     <!-- <div class="tool_info">Grade</div> -->
+                  </li>
+                  <li ng-class="active.page=='analysis'?'active':''">
+                     <span>
+                     <a ui-sref="analysis" class="head_ico_ac">
+                     <img src="/assets/images/10.AnalysisList.png">
+                     </a>
+                     </span>
+                     <a ui-sref="analysis">Analysis List</a>
+                     <!-- <div class="tool_info">Analysis List</div> -->
+                  </li>
+                  <li ng-class="active.page=='variety'?'active':''">
+                     <span>
+                     <a ui-sref="variety" class="head_ico_ac">
+                     <img src="/assets/images/variety.png">
+                     </a>
+                     </span>
+                     <a ui-sref="variety">Variety List</a>
+                     <!-- <div class="tool_info">Variety List</div> -->
+                  </li>
+                  <li ng-class="active.page=='commodityPricing'?'active':''">
+                     <span>
+                     <a ui-sref="commodityPricing" class="head_ico_ac">
+                     <img src="/assets/images/12.Pricing.png">
+                     </a>
+                     </span>
+                     <a ui-sref="commodityPricing">Commodity Pricing</a>
+                     <!-- <div class="tool_info">Pricing</div> -->
+                  </li>
+               </ul>
+            </div>
+         </li>
+         <li ng-class="active.page=='equipment'?'active':''" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER'">
+            <span>
+            <a ui-sref="equipment" class="head_ico_ac">
+            <img src="/assets/images/11.Equipmnt.png">
+            </a>
+            </span>
+            <a ui-sref="equipment">Equipment</a>
+            <!-- <div class="tool_info">Equipment</div> -->
+         </li>
+        <!--  <li ng-class="active.page=='destinationPort'?'active':''">
+            <span>
+               <a ui-sref="destinationPort" class="head_ico_ac">
+                  <img src="/assets/images/15.DestinationPort.png">
+               </a>
+            </span>
+            <a ui-sref="destinationPort">Destination Port</a>
+            </li> -->
+         <li ng-class="active.page=='freight'?'active':''" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER'">
+            <span>
+            <a ui-sref="freight" class="head_ico_ac">
+            <img src="/assets/images/16.FreightCompany.png">
+            </a>
+            </span>
+            <a ui-sref="freight">Freight</a>
+            <!-- <div class="tool_info">Freight</div> -->
+         </li>
+         <li ng-class="active.page=='report'?'active':''"  ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER'">
+            <span>
+            <a ui-sref="report" class="head_ico_ac">
+            <img src="/assets/images/20.Report.png">
+            </a>
+            </span>
+            <a ui-sref="report">Report</a>
+         </li>
+         <li ng-class="active.page=='freightCompany'?'active':''" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER'">
+            <span>
+            <a ui-sref="freightCompany" class="head_ico_ac">
+            <img src="/assets/images/21.Supplierrating.png">
+            </a>
+            </span>
+            <a ui-sref="freightCompany">Freight Company</a>
+            <!-- <div class="tool_info">Freight Company</div> -->
+         </li>
+         <li class="sett" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER'">
+            <span>
+            <a class="head_ico_ac">
+            <img src="/assets/images/setting.png">
+            </a>
+            </span>
+            <a class="active">Setting<i class="fas fa-angle-down"></i></a>
+            <div class="sub_men sett_sub">
+               <ul>
+                  <li ng-class="active.page=='shippingTerms'?'active':''">
+                     <span>
+                     <a ui-sref="shippingTerms" class="head_ico_ac">
+                     <img src="/assets/images/Sheet.png">
+                     </a>
+                     </span>
+                     <a ui-sref="shippingTerms">Shipping Terms</a>
+                     <!-- <div class="tool_info">Shipping Terms</div> -->
+                  </li>
+                  <li ng-class="active.page=='currency'?'active':''">
+                     <span>
+                     <a ui-sref="currency" class="head_ico_ac">
+                     <img src="/assets/images/Currency.png">
+                     </a>
+                     </span>
+                     <a ui-sref="currency">Currency</a>
+                     <!-- <div class="tool_info">Currency</div> -->
+                  </li>
+                  <li ng-class="active.page=='bags'?'active':''">
+                     <span>
+                     <a ui-sref="bags" class="head_ico_ac">
+                     <img src="/assets/images/bag.png">
+                     </a>
+                     </span>
+                     <a ui-sref="bags">Baggings</a>
+                     <!-- <div class="tool_info">Bags</div> -->
+                  </li>
+                  <li ng-class="active.page=='country'?'active':''">
+                     <span>
+                     <a ui-sref="country" class="head_ico_ac">
+                     <img src="/assets/images/13.Country.png">
+                     </a>
+                     </span>
+                     <a ui-sref="country">Country</a>
+                     <!-- <div class="tool_info">Country</div> -->
+                  </li>
+                  <li ng-class="active.page=='loadingPort'?'active':''">
+                     <span>
+                     <a ui-sref="loadingPort" class="head_ico_ac">
+                     <img src="/assets/images/14.LoadingPort.png">
+                     </a>
+                     </span>
+                     <a ui-sref="loadingPort">Loading Port</a>
+                     <!-- <div class="tool_info">Loading Port</div> -->
+                  </li>
+                  <li ng-class="active.page=='freightSetting'?'active':''">
+                     <span>
+                     <a ui-sref="freightSetting" class="head_ico_ac">
+                     <img src="/assets/images/Freight.png">
+                     </a>
+                     </span>
+                     <a ui-sref="freightSetting">Freight Setting</a>
+                     <!-- <div class="tool_info">Loading Port</div> -->
+                  </li>
+                  <li ng-class="active.page=='weather'?'active':''" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER'">
+                     <span>
+                     <a ui-sref="weather" class="head_ico_ac">
+                     <img src="/assets/images/Weather.png">
+                     </a>
+                     </span>
+                     <a ui-sref="weather">Weather</a>
+                     <!-- <div class="tool_info">Loading Port</div> -->
+                  </li>
+                  <li ng-class="active.page=='certificateCost'?'active':''" ng-show="userInfo.type=='SUPERADMIN' || userInfo.type=='ADMIN' || userInfo.type=='USER'">
+                     <span>
+                     <a ui-sref="certificateCost" class="head_ico_ac">
+                     <img src="/assets/images/Certificate cost.png">
+                     </a>
+                     </span>
+                     <a ui-sref="certificateCost">Certificate Cost</a>
+                     <!-- <div class="tool_info">Loading Port</div> -->
+                  </li>
+               </ul>
+            </div>
+         </li>
+      </ul>
+   </div>
+   <div class="nav_logout">
+      <a ng-click="logout()" class="head_ico_ac"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+   </div>
+</div>

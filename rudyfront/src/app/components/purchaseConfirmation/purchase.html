@@ -1,0 +1,420 @@
+<style>
+  th, td   {overflow:auto;
+     text-align: center;
+      width: auto !important;
+   }
+
+  
+   </style>
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="DoCtrlPagingAct('')">
+      <h3 class="heading_cls">Purchase Confirmation Report</h3>
+      <hr class="heading_hr">
+      <div class="panel_body_inner inner_box">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="tabla_header">
+                <div class="tbl" style="width: 14%!important;">
+                  <label>Grower First Name</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="searchModel.firstName">
+                </div>
+                <div class="tbl" style="width: 14%!important;">
+                  <label>Grower Farm Name</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="searchModel.farmName">
+                </div>
+                <div class="tbl" style="width: 16.3%!important;">
+                  <label>Commodity</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;" name="commodity"
+                    ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                    ng-model="searchModel.commodityId" ng-change="search()">
+                    <option value="">Select Commodity</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 14%;max-width: 150px;margin: 0 5px 0px 12px;">
+                  <label>Contract #</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="searchModel.contractNumber">
+                </div>
+
+                <div class="tbl" style="width: 14%;max-width: 150px;">
+                  <label>From Date</label>
+                  <datepicker style="width: 100%;height: 34px;" class="date_pic fromDateCls" date-format="yyyy-MM-dd"
+                    selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                    button-next="<i class='fa fa-arrow-right'></i>">
+                    <div class="input-group">
+                      <input class="form-control" ng-model="searchModel.fromDate" placeholder="Choose a date"
+                        ng-change="search()" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+
+                <div class="tbl" style="width: 14%;max-width: 150px;">
+                  <label>To Date</label>
+                  <datepicker style="width: 100%;height: 34px;" class="date_pic fromDateCls" date-format="yyyy-MM-dd"
+                    selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                    button-next="<i class='fa fa-arrow-right'></i>">
+                    <div class="input-group">
+                      <input class="form-control" ng-model="searchModel.toDate" placeholder="Choose a date"
+                        ng-change="search()" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+
+                <div class="tbl" style="width: 14%;max-width: 100px;">
+                  <label>Status</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.status"
+                    ng-change="search()">
+                    <option value="0">Active</option>
+                    <option value="1">Completed</option>
+                    <option value="2">Void</option>
+                    <option value="">All</option>
+                  </select>
+                </div>
+                <div class="tbl" style="max-width: 60px;min-width: 50px;">
+                  <label>See More</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.limit"
+                    ng-change="search()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="50">50</option>
+                    <option value="120">120</option>
+                    <option value="150">150</option>
+                    <option value="200">200</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 14%;max-width: 150px;">
+                  <label>Shipment Period From</label>
+                  <datepicker style="width: 100%;height: 34px;" class="date_pic fromDateCls" date-format="yyyy-MM-dd"
+                    selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                    button-next="<i class='fa fa-arrow-right'></i>">
+                    <div class="input-group">
+                      <input class="form-control" ng-model="searchModel.shipmentPeriodFrom" placeholder="Choose a date"
+                        ng-change="search()" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+
+                <div class="tbl" style="width: 14%;max-width: 150px;">
+                  <label>Shipment Period To</label>
+                  <datepicker style="width: 100%;height: 34px;" class="date_pic fromDateCls" date-format="yyyy-MM-dd"
+                    selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                    button-next="<i class='fa fa-arrow-right'></i>">
+                    <div class="input-group">
+                      <input class="form-control" ng-model="searchModel.shipmentPeriodTo" placeholder="Choose a date"
+                        ng-change="search()" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+
+                <div class="tbl" style="width: 14%;max-width: 80px;">
+                  <label>Crop Year</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.cropYear"
+                    ng-change="search()" ng-options="cropYear as cropYear for cropYear in cropYears">
+                    <option value="">Select</option>
+                  </select>
+                </div>
+
+                <div class="tbl" style="width: 14%;max-width: 80px;">
+                  <label>Signed?</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.signed"
+                    ng-change="search()">
+                    <option value="">All</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                  </select>
+                </div>
+
+                <div class="tbl" style="width: 14%!important;">
+                  <label>Broker</label>
+
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;"
+                    ng-options="broker._id as broker.businessName for broker in brokerList"
+                    ng-model="searchModel.brokerId" ng-change="search()">
+                    <option value="">All Broker</option>
+                  </select>
+                </div>
+                <button ng-click="DoCtrlPagingAct('Clear', 1)">Clear</button>
+                <button ng-click="exportSheet(purchaseConfirmationList)">Export Xlsx</button>
+              </div>
+            </div>
+          </div>
+          <div class="comodity_table">
+            <table class="table table-striped commodity_table table_body_scroll table-responsive">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Documents</th>
+                  <th>Contract Number</th>
+                  <th>Name On Contract</th>
+                  <th>Commodity</th>
+                  <th>Grade</th>
+                  <th>Qty Lbs</th>
+                  <th>Del Qty</th>
+                  <th>Outstanding Qty</th>
+                  <th>Delivery Period</th>
+                  <th>CWT Del</th>
+                  <th style="width:4%;">Crop Year</th>
+                  <th>Delivery Point</th>
+                  <th>Status</th>
+                  <th style="width:7%;"
+                    ng-show="loginUserAccess.purchase.purchaseConfirmation.view || loginUserAccess.purchase.purchaseConfirmation.edit || loginUserAccess.purchase.purchaseConfirmation.delete">
+                    Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="contract in purchaseConfirmationList">
+                  <td>{{(contract.createdAt | date:'dd/MM/yyyy')|| contract.backDate | date:'dd/MM/yyyy'}}</td>
+                  <td ng-bind-html="getDocumentList(contract)"></td>
+                  <td
+                    data-ng-style="{'cursor':loginUserAccess.purchase.purchaseConfirmation.view == true ? 'pointer' : 'not-allowed'}">
+                    <a href="{{contract.pdfUrl}}" target="_blank"
+                      data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">{{contract.contractNumber}}</a>
+                  </td>
+                  <td ng-style="{'cursor':loginUserAccess.purchase.growers.view == true ? 'pointer' : 'not-allowed'}">
+                    <a data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}"
+                      ng-click="groweDetails(contract.growerId._id)">{{contract.personFarmType == 'Person' ? contract.growerId.firstName + ' ' + contract.growerId.lastName : (contract.farmName || contract.growerId.farmName) }}</a>
+                  </td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">
+                    {{contract.commodityId.commodityName}}</td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">
+                    {{contract.gradeId.gradeName}}</td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">
+                    {{getQuantityLbs(contract) | number:0}}</td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">
+                    <a style="cursor:pointer;" title="Reload Weight" ng-click="reloadWeight(contract.contractNumber)">
+                      <i class="fa fa-registered" aria-hidden="true"></i>
+                    </a>
+                    <a ng-disabled="!loginUserAccess.purchase.purchaseConfirmation.view" style="cursor: pointer;"
+                      ng-click="ticketList(contract.contractNumber,contract.delQty)">
+                      {{contract.delQty | number:0}}
+                    </a>
+                  </td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">
+                    {{(contract.status == 1 ? 0 : getQuantityLbs(contract) - contract.delQty) | number:0}}</td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">
+                    {{contract.shipmentPeriodFrom | date}}/{{contract.shipmentPeriodTo | date}}</td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">
+                    {{contract.CWTDel | number:3}}</td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}"
+                    style="width:4%;">{{contract.cropYear}}</td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">
+                    {{contract.deliveryPoint | date}}</td>
+                  <td
+                    data-ng-style="{'color':(contract.status=='1'?'rgb(197, 120, 17)':contract.status=='2'?'#FF3333':null)}">
+                    <select style="width: 100%;" ng-model="contract.status"
+                      ng-change="changePurchaseConfirmationStatus(contract)"
+                      ng-disabled="!loginUserAccess.purchase.purchaseConfirmation.edit || !canChangeStatus(contract)">
+                      <option value="0">Active</option>
+                      <option value="1">Completed</option>
+                      <option value="2">Void</option>
+                    </select>
+                  </td>
+                  <td class="action_cls" style="width:7%;"
+                    ng-show="loginUserAccess.purchase.purchaseConfirmation.view || loginUserAccess.purchase.purchaseConfirmation.edit || loginUserAccess.purchase.purchaseConfirmation.delete">
+                    <a ng-show="loginUserAccess.purchase.purchaseConfirmation.view" style="cursor: pointer;"
+                      ng-href="/purchaseHistory/{{contract.commodityId}}/{{contract._id}}" class="veiw_detail">
+                      <i class="fa fa-history" aria-hidden="true"></i>
+                    </a>
+
+                    <a ng-show="loginUserAccess.purchase.purchaseConfirmation.delete" class="veiw_detail"
+                      ng-click="delete(result._id)">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    <a ng-show="loginUserAccess.purchase.purchaseConfirmation.edit" class="veiw_detail"
+                      ng-href="/purchaseConfirmation/{{contract.growerId._id}}/edit/{{contract.contractNumber}}">
+                      <i class="fas fa-pen-square"></i>
+                    </a>
+                    <a ng-show="loginUserAccess.purchase.purchaseConfirmation.view" href="{{contract.pdfUrl}}"
+                      class="veiw_detail" target="_blank">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+
+                    <a class="veiw_detail" data-ng-style="contract.mailSent ? {'color':'#007e4e'} : {'color':'red'}">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </a>
+                    <a ng-click="openPop('uploadPDF',contract)" class="veiw_detail"
+                      title="Upload Signed Contract & Chemical declaration form">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr ng-if="searchModel.commodityId">
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th>Total</th>
+                  <th>{{ qtySum ? (qtySum[0].contractedQty|number:0) : '' }}</th>
+                  <th>{{ qtySum ? (qtySum[0].deliveredQty|number:0) : '' }}</th>
+                  <th>{{ qtySum ? (qtySum[0].outstandingQty|number:0) : '' }}</th>
+                  <th>
+                    <span ng-show="searchModel.commodityId" title="Weighted Average">
+                      {{ qtySum ? (qtySum[0].weightedAvg|number:4) : '' }}
+                    </span>
+                  </th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tbody>
+            </table>
+            <div paging page="page" page-size="totallimit" total="totalPages" paging-action="DoCtrlPagingAct('', page)">
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="popup_overlay"></div>
+<div class="add_coomm new_add">
+  <div class="enter_comm_typ">
+    <div class="head_comm head_2">
+      <h2>Test Head</h2>
+      <div type="button" class="close" ng-click="closepop()">&times;</div>
+    </div>
+    <div class="panel_body">
+      <div class="panel_body_inner inner_box_List_add pop">
+        <div class="col-md-12">
+          <div class="add_commodity">
+            <form name="addCommdity">
+              <div class="com_pac">
+                <label>Commodity Code</label>
+                <input type="text" ng-disabled="inputField=='view'" ng-model="updateFrom.commodityCode" name="code"
+                  required>
+              </div>
+              <div class="com_pac">
+                <label>Commodity Name</label>
+                <input type="text" ng-disabled="inputField=='view'" ng-model="updateFrom.commodityName" name="name"
+                  required>
+              </div>
+              <div class="com_pac">
+                <label>Commodity Alias</label>
+                <input ng-disabled="inputField=='view'" type="text" ng-model="updateFrom.commodityAlias" name="alias"
+                  required>
+              </div>
+              <div class="com_pac">
+                <label>Commodity Type</label>
+                <select ng-disabled="inputField=='view'" name="commodityType"
+                  ng-options="commodityType._id as commodityType.commodityTypeName for commodityType in commodityList"
+                  track by commodityType " ng-model=" updateFrom.commodityTypeId " required>
+                                <option value=" ">Select Commodity Type</option>
+                            </select>
+                            </div>
+                            <div class=" com_pac">
+                  <label>Commodity Grade</label>
+                  <div class="multi_cls" isteven-multi-select input-model="gradeList"
+                    output-model="myFrom.commodityGrade" button-label="gradeName" item-label="gradeName"
+                    tick-property="ticked"></div>
+                  <a class="add_commodityType" ng-click="plusGrade()">+</a>
+              </div>
+              <div class="com_pac">
+                <label>Commodity Weight(Bushels/CWT)</label>
+                <input class="hal_ip" ng-model="updateFrom.commodityWeight" type="text" ng-disabled="inputField=='view'"
+                  name="code">
+                <select ng-disabled="inputField=='view'" class="hal_slt" ng-model="updateFrom.commodityWeightType">
+                  <option value="">Select Unit</option>
+                  <option value="Bushels">Bushels</option>
+                  <option value="CWT">CWT</option>
+                </select>
+              </div>
+              <button ng-show="inputField=='edit'" ng-click="saveChanges()">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="add_coomm add_pdf_qty" style="width: 50%; min-width: 400px;">
+  <div class="enter_comm_typ">
+    <div class="head_comm">
+      <h2 class="ng-binding">Edit Chemical Declaration (CD), Signed Contract (SC)</h2>
+      <div type="button" class="close" ng-click="closepop()">&times;</div>
+    </div>
+  </div>
+  <div class="panel_body">
+    <div class="panel_body_inner inner_box_List_add">
+      <div class="col-md-12">
+        <div class="add_commodity">
+          <form name="addPdfAndQtyForm_342849" enctype="multipart/form-data" method="post">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="com_pac">
+                  <label>Upload Signed Contract:</label>
+                  <input type="file" accept="application/pdf" ng-model="uploadForm.signedContractPdf"
+                    name="signedContractPdf"
+                    onchange="angular.element(this).scope().selectFile(this, 'signedContractPdf')" />
+                  <button title="Upload Signed Contract" ng-click="uploadPdf('signedContractPdf')">
+                    <i class="fa fa-upload"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="com_pac">
+                  <label>Upload Chemical Declaration:</label>
+                  <input type="file" ng-model="uploadForm.chemicalDeclarationFileUrl" name="chemicalDeclarationFileUrl"
+                    onchange="angular.element(this).scope().selectFile(this, 'chemicalDeclarationFileUrl')" />
+                  <button title="Upload Chemical Declaration" ng-click="uploadPdf('chemicalDeclarationFileUrl')">
+                    <i class="fa fa-upload"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="com_pac" style="justify-content:flex-end;">
+                  <button title="Upload Signed Contract" ng-click="saveAll()">
+                    <i class="fa fa-save"></i> Save All
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" ng-show="errMsg">
+              <div class="col-md-12 text-center">
+                {{errMsg}}
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

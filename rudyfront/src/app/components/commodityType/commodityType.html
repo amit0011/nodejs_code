@@ -1,0 +1,83 @@
+<div class="dash_bord" ng-controller="commodityTypeCtrl">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="init()">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <input type="text" name="search" ng-model="commodityType" placeholder="Search">
+                        <button ng-show="loginUserAccess.setting.commodityType.add" ng-click="openPop()">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Commodity Type Name</th>
+                                    <th>Parent Type Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="result in commodityList |filter:commodityType|itemsPerPage:8" pagination-id="commodityList">
+                                    <td> {{result.commodityTypeName}} </td>
+                                    <td> {{result.parentTypeId ? result.parentTypeId.commodityTypeName : ''}} </td>
+                                    <td>
+                                        <a ng-show="loginUserAccess.setting.commodityType.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.commodityType.edit" class="edit_details" ng-click="openPop(result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls class="cus_pagination" pagination-id="commodityList" max-size="8" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm analysis" style="width: 40%;">
+        <div class="enter_comm_typ">
+            <form id="commodity_type">
+                <div class="head_comm">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <div class="com_pac">
+                    <label>Name</label>
+                    <input type="text" name="commName" ng-model="myForm.commodityTypeName" placeholder="Enter Commodity Type Name" required>
+                </div>
+                <div class="com_pac" ng-hide="myForm.byProducts.length > 0">
+                    <label>Parent type</label>
+                    <select name="country" ng-options="ct._id as ct.commodityTypeName for ct in commodityList" ng-model="myForm.parentTypeId">
+                        <option value="">Select parent type</option>
+                    </select>
+                </div>
+                <div class="com_pac" ng-hide="myForm.parentTypeId">
+                    <label style="align-self: baseline;">By Products</label>
+                    <div class="grop_rad" style="width: 70%;display: inline-block;">
+                        <label ng-repeat="byProduct in byProducts" class="grop_rad_check" style="width: 100%;padding: 3px 0 0 28px;">
+                            {{byProduct.commodityTypeName}}
+                            <input type="checkbox" ng-change="manageByProduct(byProduct)" ng-model="byProduct.selected" class="ng-valid ng-dirty ng-valid-parse ng-touched ng-empty" aria-invalid="false" style="">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="com_pac" ng-show="myForm.byProducts.length > 0">
+                    <label>Will've Total Damage</label>
+                    <select name="haveTotalDamage" ng-options="op.value as op.text for op in totalDamageOptions" ng-model="myForm.willHaveTotalDamage">
+                        <option value="">Select option</option>
+                    </select>
+                </div>
+                <div class="com_pac" style="justify-content: flex-end;">
+                    <button style="margin: 20px 2px 0 2px;" ng-show="!btn" ng-disabled="!(myForm.commodityTypeName)" ng-click="save()">SUBMIT</button>
+                    <button style="margin: 20px 2px 0 2px;" ng-click="saveChanges()" ng-show="btn" ng-disabled="!(myForm.commodityTypeName)">SAVE CHANGES</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

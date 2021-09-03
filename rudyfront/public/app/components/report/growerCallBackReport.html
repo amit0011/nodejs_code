@@ -1,0 +1,77 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+       <header></header>
+       <div class="panel_body" ng-init="DoCtrlPagingAct('bar',1)">
+          <h3 class="heading_cls">Growers Call Back Reports</h3>
+          <hr class="heading_hr">
+          <div class="panel_body_inner inner_box">
+             <div class="col-md-12">               
+               
+               <div class="col-md-12">
+                  <div class="tabla_header">
+                     <div class="tbl" style="width: 15%!important;">
+                        <label>Users</label>
+                        <select style="width: 100%;" name="weigher"
+                           ng-options="assign._id as assign.fullName for assign in adminsList"
+                           ng-model="result.assignedUserId" ng-change="search()" >
+                           <option value="">Select User</option>
+                        </select>
+                     </div>                   
+                  </div>
+               </div>
+            </div>
+                
+                <div class="comodity_table">
+                   <table class="table table-striped commodity_table table_body_scroll table-responsive">
+                      <thead>
+                         <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Call Back Date</th>
+                            <th>Phone</th>                            
+                            <th>Phone2</th>
+                            <th>Phone3</th>
+                            <th>Cell Number</th>
+                            <th>Farm Name</th>
+                            <th>Town</th>
+                            <th>Postal</th>
+                            <!-- <th>Status</th> -->
+                            <!-- <th ng-show="loginUserAccess.purchase.growers.delete ||loginUserAccess.purchase.growers.edit ||  loginUserAccess.purchase.growers.view">Action</th> -->
+                         </tr>
+                      </thead>
+                      <tbody>
+                         <tr ng-repeat="result in growerCallBackList">
+                            
+                            <td><a ng-href="/growerDetails/{{result._id}}">{{result.firstName}} {{result.lastName}}</a></td>
+                            <td style="word-break: break-all;"><a ng-href="mailto:{{ result.email }}" target="_blank">{{result.email}}</a></td>
+                            <!--   <td>{{result.phone2}}</td> -->
+                            <td>{{result.callBackDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{result.phone | phonenumber}}</td>
+                            <td>{{result.phoneNumber2| phonenumber}}</td>
+                            <td>{{result.phoneNumber3| phonenumber}}</td>
+                            <td>{{result.cellNumber}}</td>
+                            <td>{{result.farmName}}</td>
+                            <td ng-repeat="address in result.addresses">{{address.town}}</td>
+                            <td ng-repeat="address in result.addresses">{{address.postal}}</td>
+                           <!--   <td><span  ng-class="result.deleteStatus==0?'badge badge-success':'badge badge-dark'">{{result.deleteStatus==0?'ACTIVATED':'DEACTIVATED'}}</span></td>
+                           <td class="action_cls" ng-show="loginUserAccess.purchase.growers.delete ||loginUserAccess.purchase.growers.edit ||  loginUserAccess.purchase.growers.view">                              
+                               <a ng-show="loginUserAccess.purchase.growers.view" ng-click="openPop(result,'view')" class="veiw_detail"><i class="fa fa-eye" aria-hidden="true"></i></a></a>
+                            </td> -->
+                         </tr>
+                      </tbody>
+                   </table>
+                   <div paging
+                      page="page" 
+                      page-size="15" 
+                      total="totalPages"
+                      paging-action="DoCtrlPagingAct('bar', page)">
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <!-- Modal -->
+   
+ </div>

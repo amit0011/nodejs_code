@@ -1,0 +1,115 @@
+<div class="dash_bord" ng-controller="gradeCtrl">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+            <h3 class="heading_cls">Grade</h3><hr class="heading_hr">
+            <div class="panel_body_inner inner_box">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <div class="tbl" style="width: 14%!important;margin: 0 5px 0 0;">
+                           <label>Commodity</label>
+                           <select style="font-size: 14px;height: 38px;color: #000;width: 100%" name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys" ng-model="search.commodityId" ng-change="DoCtrlPagingAct('', 1)">
+                              <option value="">Select Commodity</option>
+                           </select>
+                        </div>
+                        <input type="text" name="search" ng-model="search.gradeSearch" placeholder="Search" ng-change="DoCtrlPagingAct('', 1)">
+                        <button ng-click="openPop('add')" ng-show="loginUserAccess.setting.grade.add">ADD <i class="fas fa-plus-circle"></i></button>
+
+
+                    </div>
+                    <div class="comodity_table">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Commodity Name</th>
+                                    <th>Grade Name</th>
+                                    <th>% Allowance</th>
+                                    <th>Grade Display</th>
+                                    <th>Grade Status</th>
+                                    <th ng-show="loginUserAccess.setting.grade.view || loginUserAccess.setting.grade.edit || loginUserAccess.setting.grade.delete">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in gradeList">
+                                    <td>{{result.commodityId.commodityName}}</td>
+                                    <td>{{result.gradeName}}</td>
+                                    <td>{{result.gradeAllowance}} %</td>
+                                    <td>{{gradeDisplays[result.gradeDisplay]}}</td>
+                                    <td><span  ng-class="result.status==0?'badge badge-success':'badge badge-dark'">{{result.status==0?'ACTIVATED':'DEACTIVATED'}}</span></td>
+                                    <td ng-show="loginUserAccess.setting.grade.view || loginUserAccess.setting.grade.edit || loginUserAccess.setting.grade.delete">
+
+                                        <a ng-show="loginUserAccess.setting.grade.delete" class="delete_detail" ng-click="delete(result)">
+                                            <i class="{{result.status==0 ?'fa fa-trash':'fa fa-reply'}}" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.grade.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.grade.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging
+                          page="page"
+                          page-size="10"
+                          total="totalPages"
+                          paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm grade">
+        <div class="enter_comm_typ">
+            <div class="head_comm head_2">
+                <h2>{{inputField}} Grade</h2>
+                <div type="button" class="close" ng-click="closepop()">&times;</div>
+            </div>
+            <div class="panel_body">
+                <div class="panel_body_inner inner_box_List_add grade">
+                    <div class="col-md-12">
+                        <div class="add_commodity">
+                            <form>
+                                <div class="com_pac">
+                                  <label>Commodity</label>
+                                  <select name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys"  ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)">
+                                     <option value="">Select Commodity</option>
+                                  </select>
+                               </div>
+                                <div class="com_pac">
+                                    <label style="width: 44%;">Grade Name</label>
+                                    <input type="text" name="code" ng-disabled="inputField=='view'" ng-model="myForm.gradeName">
+                                </div>
+
+                                <div class="com_pac cus_inpNum">
+                                    <label>Add Allowance %</label>
+                                    <div class="quantity">
+                                        <input type="text" numbers-Only ng-model="myForm.gradeAllowance" ng-disabled="inputField=='view'">
+                                    </div>
+                                </div>
+                                <div class="com_pac">
+                                    <label>Grade Display</label>
+                                    <select ng-model="myForm.gradeDisplay" ng-disabled="inputField=='view'">
+                                        <option value="">Select Grade Display</option>
+                                        <option value="All">All (Inv + Contract + Call as)</option>
+                                        <option value="Inventory Grade">Inventory Grade</option>
+                                        <option value="Contract Grade">Contract Grade</option>
+                                        <option value="Both">Both (Inv + Contract)</option>
+                                        <option value="Call as">Call as</option>
+                                    </select>
+                                </div>
+                                <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="!(myForm.gradeName && myForm.gradeDisplay && myForm.commodityId)">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

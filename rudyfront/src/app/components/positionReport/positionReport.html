@@ -1,0 +1,476 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="initSalesSummaryReport()">
+      <div class="panel_body_inner inner_box">
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="nav nav-pills nav-stacked row" style="margin-bottom: 14px;    margin-left: 0px;">
+              <li ng-class="{ active: isSet(1) }" style="float: left;width: 50%;background: white;">
+                <a href ng-click="setTab(1)"><b>Summary</b></a>
+              </li>
+              <li ng-class="{ active: isSet(3) }"
+                style="float: left;width: 50%;background: white;margin: 2px 0px 0 0px">
+                <a href ng-click="setTab(3)"><b>Position Report</b></a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="tabla_header">
+              <div class="tbl" style="width: 15%!important;">
+                <label>Crop Year</label>
+                <select name="commodity" ng-model="myForm.year" ng-options="cropYear as cropYear for cropYear in cropYears" ng-change="cropYearFilter(myForm.commodityId)"
+                  style="width: 100%">
+                  <option value="">Select</option>
+                </select>
+              </div>
+              <div class="tbl" style="width: 15%!important;">
+                <label>Commodity</label>
+                <select name="commodity"
+                  ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                  ng-model="myForm.commodityId" ng-change="commodityFilter(myForm.commodityId)" style="width: 100%">
+                  <option value="">Select Commodity</option>
+                </select>
+              </div>
+
+              <div class="tbl" style="width: 15%!important;">
+                <label>Inventory Grade</label>
+                <select name="inventoryGrade" ng-model="myForm.inventoryGrade"
+                  ng-change="inventoryGradeFilter(myForm.commodityId)" style="width: 100%">
+                  <option value="">Select Inventory</option>
+                  <option ng-repeat="i in inventoryGrademyForm" value="{{i._id}}">{{i.gradeName}}</option>
+
+                </select>
+              </div>
+
+              <button ng-click="initSalesSummaryReport()">Clear</button>
+              <button ng-click="exportData()">EXPORT to XL</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;" id="printSectionId"
+          ng-show="isSet(3)">
+          <style type="text/css">
+            @media print {
+              @page {
+                size: A4 landscape;
+              }
+
+              img {
+                height: 90%;
+                margin: 0;
+                padding: 0;
+              }
+            }
+
+            table tbody tr td {
+              border: 0.50px solid #000;
+            }
+
+          </style>
+          <div class="comodity_table comodity_table_list">
+            <div style="margin: 0;padding: 0;float: left;font-weight: 700;color: #000;font-size: 16px;">Position
+              Report</div>
+            <div
+              style="margin: 0;padding: 0 0 0 0;width: 100%;float: left;font-weight: 700;color: #000;font-size: 16px;text-align: center;">
+              Shipping Period</div>
+            <table class="table table-striped commodity_table" style="width: 2220px;">
+              <thead>
+                <tr>
+                  <td>Date</td>
+                  <td>Crop Year</td>
+                  <td>Contract Name</td>
+                  <td>Contract #</td>
+                  <td>Total Lbs</td>
+                  <td>Total CWT</td>
+                  <td>Sept</td>
+                  <td>Oct</td>
+                  <td>Nov</td>
+                  <td>Dec</td>
+                  <td>Jan</td>
+                  <td>Feb</td>
+                  <td>March</td>
+                  <td>April</td>
+                  <td>May</td>
+                  <td>June</td>
+                  <td>July</td>
+                  <td>August</td>
+                  <td>TL CWT</td>
+                  <td>NET FOB CAD/CWT</td>
+                  <td>Weight Avg Calc</td>
+                </tr>
+              </thead>
+              <tbody ng-repeat="result in positionReport">
+                <tr ng-repeat="report in result.list">
+                  <td class="{{getClass(report)}}">{{report.createdAt | date:'dd/MM/yyyy'}}</td>
+                  <td class="{{getClass(report)}}">{{report.cropYear}}</td>
+                  <td><a ng-href="{{report.user}}" target="_blank"
+                      class="{{getClass(report)}}">{{report.contractName}}</a></td>
+                  <td><a ng-href="{{report.url}}" target="_blank"
+                      class="{{getClass(report)}}">{{report.showContractNumber}}</a></td>
+                  <td class="text-right {{getClass(report)}}">{{(report.quantityLbs||0) | number:2}}</td>
+                  <td class="text-right {{getClass(report)}}">{{(report.totalCWT||0) | number:2}}</td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==9?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==10?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==11?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==12?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">
+                    {{(report.deliveryMonth==1?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==2?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==3?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==4?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==5?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==6?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==7?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">
+                    {{(report.deliveryMonth==8?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.totalCWT) | number:2}}</td>
+                  <td class="text-right {{getClass(report)}}">{{(report.CWTDel) | number:2}}</td>
+                  <td class="text-right {{getClass(report)}}">{{(report.weightAvg)|number:2}}</td>
+                </tr>
+              </tbody>
+              <tfoot style="background-color: burlywood;">
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="text-right">{{(TotalProQuantityLbs) | number:2}}</td>
+                  <td class="text-right">{{(TotalProCWT) | number:2}}</td>
+                  <td class="text-right">{{(TotalProSept)|number:2}}</td>
+                  <td class="text-right">{{(TotalProOct)|number:2}}</td>
+                  <td class="text-right">{{(TotalProNov)|number:2}}</td>
+                  <td class="text-right">{{(TotalProDec)|number:2}}</td>
+                  <td class="text-right">{{(TotalProJan)|number:2}}</td>
+                  <td class="text-right">{{(TotalProFeb)|number:2}}</td>
+                  <td class="text-right">{{(TotalProMarch)|number:2}}</td>
+                  <td class="text-right">{{(TotalProApril)|number:2}}</td>
+                  <td class="text-right">{{(TotalProMay)|number:2}}</td>
+                  <td class="text-right">{{(TotalProJune)|number:2}}</td>
+                  <td class="text-right">{{(TotalProJuly)|number:2}}</td>
+                  <td class="text-right">{{(TotalProAugust)|number:2}}</td>
+                  <td class="text-right">{{(TotalProCWT) | number:2}}</td>
+                  <td class="text-right">{{(TotalProNetFOBCAD) | number:2}}</td>
+                  <td class="text-right">{{(TotalProWeightAvg)|number:2}}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;" id="printSectionId"
+          ng-show="isSet(3)">
+          <style type="text/css">
+            @media print {
+              @page {
+                size: A4 landscape;
+              }
+
+              img {
+                height: 90%;
+                margin: 0;
+                padding: 0;
+              }
+            }
+
+            table tbody tr td {
+              border: 0.50px solid #000;
+            }
+
+          </style>
+          <div class="comodity_table comodity_table_list">
+
+            <div style="margin: 0;padding: 0;float: left;font-weight: 700;color: #000;font-size: 16px;">Sales
+              Contracts</div>
+            <div
+              style="margin: 0;padding: 0 0 0 0;width: 100%;float: left;font-weight: 700;color: #000;font-size: 16px;text-align: center;">
+              Shipping Period</div>
+            <table class="table table-striped commodity_table" style="width: 2220px;">
+              <thead>
+                <tr>
+                  <td>Date</td>
+                  <td>Crop Year</td>
+                  <td>Contract Name</td>
+                  <td>Contract #</td>
+                  <td>Total Lbs</td>
+                  <td>Total CWT</td>
+                  <td>Sept</td>
+                  <td>Oct</td>
+                  <td>Nov</td>
+                  <td>Dec</td>
+                  <td>Jan</td>
+                  <td>Feb</td>
+                  <td>March</td>
+                  <td>April</td>
+                  <td>May</td>
+                  <td>June</td>
+                  <td>July</td>
+                  <td>August</td>
+                  <td>TL CWT</td>
+                  <td>NET FOB CAD/CWT</td>
+                  <td>Weight Avg Calc</td>
+                </tr>
+              </thead>
+              <tbody ng-repeat="result in positionSalesReport">
+                <tr ng-repeat="report in result.list">
+                  <td class="{{getClass(report)}}">{{report.createdAt | date:'dd/MM/yyyy'}}</td>
+                  <td class="{{getClass(report)}}">{{report.cropYear}}</td>
+                  <td class="{{getClass(report)}}">
+                    <a ng-href="{{report.profileUrl}}" target="_blank">{{report.contractName}}</a>
+                  </td>
+                  <td class="{{getClass(report)}}">
+                    <a class="{{getClass(report)}}" ng-href="{{report.contractUrl}}"
+                      target="_blank">{{report.showContractNumber}}</a>
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.quantityLbs) | number:2}}</td>
+                  <td class="text-right {{getClass(report)}}">{{(report.totalCWT) | number:2}}</td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==9?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==10?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==11?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==12?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">
+                    {{(report.deliveryMonth==1?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==2?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==3?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==4?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==5?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==6?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.deliveryMonth==7?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">
+                    {{(report.deliveryMonth==8?report.totalCWT:'')|number:2}}
+                  </td>
+                  <td class="text-right {{getClass(report)}}">{{(report.totalCWT) | number:2}}</td>
+                  <td class="text-right {{getClass(report)}}">{{(report.netFOBCAD) | number:2}}</td>
+                  <td class="text-right {{getClass(report)}}">{{(report.weightAvg)|number:2}}</td>
+                </tr>
+              </tbody>
+              <tfoot style="background-color: burlywood;">
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="text-right">{{(TotalSaleQuantityLbs) | number:2}}</td>
+                  <td class="text-right">{{(TotalSaleCWT) | number:2}}</td>
+                  <td class="text-right">{{(TotalSaleSept)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleOct)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleNov)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleDec)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleJan)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleFeb)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleMarch)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleApril)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleMay)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleJune)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleJuly)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleAugust)|number:2}}</td>
+                  <td class="text-right">{{(TotalSaleCWT) | number:2}}</td>
+                  <td class="text-right">{{(TotalSaleNetFOBCAD) | number:2}}</td>
+                  <td class="text-right">{{(TotalSaleWeightAvg)|number:2}}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+
+        <!-- --------[ SUMMARY ]-------- -->
+        <div id="printSectionId" ng-show="isSet(1)">
+          <div class="comodity_table comodity_table_list">
+            <div>
+              <h4><strong>Position Report {{startYear}}{{endYear?'-'+endYear:''}}</h4></strong>
+            </div>
+            <!-- <div>RAL Del Grower (CWT) As of</div> -->
+            <div class="list-actions">
+              <label style="color: #222222;padding-left:0;">Last Updated: </label>
+              <span
+                style="color: red;font-size: larger;">{{ (reportUpdated | date:'EEE, dd-MMM-yyyy HH:mm') || 'NA' }}</span>
+              <button ng-click="regenerateReport()">Reload</button>
+            </div>
+            <div style="color: gray;font-style: italic;text-align: left;font-size: smaller;">
+              For current crop year position report will be reloaded every hour. <b
+                style="text-decoration: underline;">{{ whenWillBeUpdated | date:'EEE, dd-MMM-yyyy HH:mm' }}</b>
+            </div>
+            <table class="table table-striped commodity_table">
+              <thead>
+                <tr>
+                  <td>#</td>
+                  <td>Commodity</td>
+                  <td>Grade</td>
+                  <td>TL Purchases</td>
+                  <td>AVG Purchase</td>
+                  <td>TL Sales</td>
+                  <td>Avg Sales</td>
+                  <td>Long/Short</td>
+                  <td>MG/CWT</td>
+                  <td>YTD Gross Margin</td>
+                  <td>Gain/Loss (CAD$)</td>
+                  <td>Long/Short</td>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="result in salesSummaryReport"
+                  ng-show="(!commodityFilterValue || result.commodityId._id == commodityFilterValue) && (!inventoryGradeFilterValue || result.inventoryGrade._id == inventoryGradeFilterValue)">
+                  <td>
+                    <a class="edit_details" ng-click="openPop(result)" title="Monthly adjustment">
+                      <i class="fas fa-plus-circle"></i>
+                    </a>
+                  </td>
+                  <td><a style="cursor: pointer;"
+                      ng-click="setTab(3,result.commodityId._id,result.inventoryGrade._id)">{{result.commodityId.commodityName}}</a>
+                  </td>
+                  <td>{{result.inventoryGrade.gradeName}}</td>
+                  <td class="text-right">{{result.total_production_purchase | number:2}}</td>
+                  <td class="text-right">{{result.total_weightedAvg | number:2}}</td>
+                  <td class="text-right">{{result.totalSale | number:2}}</td>
+                  <td class="text-right">{{result.total_salesAvg | number:2}}</td>
+                  <td class="text-right" ng-class="{{(result.total_production_purchase-result.totalSale)<0}}?'alert alert-danger':''">
+                    {{(result.total_production_purchase-result.totalSale) | number:2}}
+                  </td>
+                  <td class="text-right"
+                    ng-init="mg_cwt = ((result.total_salesAvg && result.total_weightedAvg) ? (result.total_salesAvg-result.total_weightedAvg) : 0)"
+                    ng-class="{{mg_cwt<0}}?'alert alert-danger':''">
+                    {{ mg_cwt | number:2}}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <!--add inventory adjustment popup rajeev-->
+        <div class="add_coomm buyerAddressEdit">
+          <div class="head_comm head_2">
+            <h2>Monthly Adjustment - {{adjustmentForm.cropYear}}</h2>
+            <div type="button" class="close" ng-click="closepop()">&times;</div>
+          </div>
+          <div class="panel_body">
+            <div class="panel_body_inner inner_box_List_add">
+              <div class="col-md-12">
+                <div class="add_commodity">
+                  <form name="addCommodityAdjustment" ng-submit="addMonthlyAdjustment()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="com_pac">
+                          <label>Date</label>
+                          <datepicker style="width: 100%" class="date_pic fromDateCls" date-format="yyyy-MM-dd"
+                            selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                            button-next="<i class='fa fa-arrow-right'></i>">
+                            <div class="input-group">
+                              <input class="form-control" ng-model="adjustmentForm.adjustmentDate"
+                                placeholder="Choose a date" autocomplete="off" required />
+                              <span class="input-group-addon" style="cursor: pointer">
+                                <i class="fa fa-lg fa-calendar"></i>
+                              </span>
+                            </div>
+                          </datepicker>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="com_pac">
+                          <label>Commodity</label>
+                          <select name="commodity" disabled
+                            ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                            ng-model="adjustmentForm.commodityId"
+                            ng-change="getGrade(adjustmentForm.commodityId, 'adjustmentForm')" style="width: 100%">
+                            <option value="">Select Commodity</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="com_pac">
+                          <label>Grade</label>
+                          <select name="inventoryGrade" ng-model="adjustmentForm.inventoryGrade" disabled
+                            style="width: 100%">
+                            <option value="">Select Inventory</option>
+                            <option ng-repeat="i in inventoryGradeadjustmentForm" value="{{i._id}}">{{i.gradeName}}
+                            </option>
+
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="com_pac">
+                          <label>Purchase/Sale</label>
+                          <select style="font-size: 14px;height: 34px;color: #000;width: 100%;"
+                            ng-model="adjustmentForm.purchaseSale" required>
+                            <option value="">-- Select --</option>
+                            <option value="purchase">Purchase</option>
+                            <option value="sale">Sale</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="com_pac">
+                          <label>Quantity in CWT</label>
+                          <input type="text" n-only ng-model="adjustmentForm.qtyCwt" placeholder="Quantity in CWT"
+                            name="qtyCwt" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="com_pac">
+                          <label>Net FOB</label>
+                          <input type="text" n-only ng-model="adjustmentForm.amount" required placeholder="Net FOB"
+                            name="price" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="com_pac">
+                          <label>Note Reason</label>
+                          <input type="text" ng-model="adjustmentForm.reason" required placeholder="Reason"
+                            name="reason">
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <button name="monthlyAdjustment" type="submit">Save</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--End edit Address popup rajeev-->
+
+      </div>
+    </div>
+  </div>
+</div>

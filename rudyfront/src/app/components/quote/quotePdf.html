@@ -1,0 +1,93 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="action_btn" 
+      style="margin: 13px -14px 16px;
+            padding: 0;
+            width: 100%;
+            float: left;
+            text-align: right;">
+         <button ng-click="print('quotePdf')">Print</button>
+         <a ng-if="quote.quote.buyerId != null" ng-href="buyerDetails/{{quote.quote.buyerId._id}}">Back</a>
+         <a  ng-if="quote.quote.brokerId != null"  ng-href="brokerDetails/{{quote.quote.brokerId._id}}">Back</a>
+      </div>
+
+
+ <div id="quotePdf" style="margin: 0 auto;padding: 0;display: block;width:100%;font-family: 'Open Sans', sans-serif!important;">
+  <style>@media print{@page {size: landscape}}
+</style>
+    <div style="margin: 0;padding: 0px;width: 100%;float: left;border: 1px solid #bfbfbf;background: #ffffff;">
+          <div style="margin: 0 0 10px 0;padding: 0 0 10px 0;float: left;width:100%;border-bottom: 2px solid #000;">
+            <div style="margin: 0;padding: 0;float: left;width: 15%;">
+              <img src="{{imagePath}}/images/rudyLogo2.png">
+            </div>
+            <div style="margin: 0;padding: 0;float: left;width:27%;">
+              <h1 style="color: #000;margin: 0;padding: 0;float: left;width:100%;font-size: 22px;font-weight: 700;">RUDY AGRO LTD</h1>
+              <h2 style="margin: 0;padding: 0;float: left;width:100%;font-size: 14px;font-weight: 700;color: #000;">PO BOX 100,OUTLOOK</h2>
+              <h3 style="margin: 0;padding: 0;float: left;width:100%;font-size: 14px;font-weight: 700;color: #000;">SASKATCHEWAN, CANADA SOL 2NO</h3>
+            </div>
+            <div style="margin: 17px 0 0  0;padding: 0;float: left;width:38%;">
+              <p style="margin: 0;padding: 0;float: left;width:100%;font-size: 16px;font-weight: 400;color: #000;">Ph. 306-867-8667 Fax 306-867-8290 Mob 306-873-7733</p>
+              <p style="margin: 0;padding: 0;float: left;width:100%;font-size: 16px;font-weight: 400;color: #000;">E-Mail wesw@rudyagro.ca Web www.rudyagro.ca</p>
+            </div>
+            <div style="margin: 17px 0 0 0;padding: 0;float: left;width:20%;">
+              <p style="margin: 0;padding: 0;float: left;width:100%;font-size: 16px;font-weight: 400;color: #000;">Date : {{quote.quote.createdAt | date:'MMMM dd,yyyy'}}</p>
+            </div>
+          </div>          
+
+        <div style="margin: 0;padding: 0;width: 100%;float: left;">
+
+          <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 15px;color: #000;">
+            <b style="margin: 0;padding: 0;width: 12%;float: left;">{{quote.quote.buyerId==null?'Broker':'Buyer'}} Name</b> <i style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.quote.brokerId.businessName}}{{quote.quote.buyerId.businessName}}</i></p>
+
+          <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 15px;color: #000;"><b style="margin: 0;padding: 0;width: 12%;float: left;">Current USD/CAD</b> <i style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.quote.exchangeRate}}</i></p>
+
+          <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 15px;color: #000;"><b style="margin: 0;padding: 0;width: 12%;float: left;">Currency</b> <i style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.currency.currencyUpdate}}</i></p>
+          <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 15px;color: #000;"><b style="margin: 0;padding: 0;width: 12%;float: left;">Market Update :</b> <i style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.weather ? quote.weather.weather :'N/A'}}</i></p>
+          <p style="margin: 0;padding: 0;width: 100%;float: left;font-size: 15px;color: #000;"><b>We are pleased to provide you with the following price indications updates based on todays date, subject to reconfirmation by Rudy Agro Ltd. Prices in {{quote.quote.currency}}</b></p>
+        </div>
+        <div style="margin: 50px 0 0 0;padding: 0;width: 100%;float: left;color: #000;">
+          <div class="table-responsive">          
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th style="color: #000;font-weight: 400;font-size: 15px;text-align: center;">COMMODITY</th>
+                  <th style="color: #000;font-weight: 400;font-size: 15px;text-align: center;width: 100px;">GRADE</th>
+                  <th style="color: #000;font-weight: 400;font-size: 15px;text-align: center;">Shipping Period</th>
+                  <th style="color: #000;font-weight: 400;font-size: 15px;text-align: center;">Crop Year</th>
+                  <th style="color: #000;font-weight: 400;font-size: 15px;text-align: center;">Quantity Available</th>
+                  <th style="color: #000;font-weight: 400;font-size: 15px;text-align: center;">Upcharge</th>
+                  <th 
+                  style="color: #000;font-weight: 400;font-size: 15px;text-align: center;" 
+                  ng-repeat="col in quote.quote.columnsCol">
+                  <b>{{col.shippingtermsId.term}} {{quote.quote.commission ? quote.quote.commission :'' }}</b><br> 
+                  {{col.destinationPort}} <br> 
+                  {{col.bagId.name}} {{col.upChange?'(':''}}{{col.upChange?(col.upChange):''}} {{col.upChange?')':''}}</th>                 
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="row in quote.quote.commoditiesRow track by $index">
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;">{{row.commodityId.commodityName}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;">{{row.gradeId.gradeName}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;">{{row.shippingPeriod | trim :3}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;">{{row.cropYear}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;">{{row.quantity}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;">{{row.upCharge}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;" ng-if="row.one">${{row.one | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;" ng-if="row.two">${{row.two | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;" ng-if="row.three">${{row.three | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;" ng-if="row.four">${{row.four | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;" ng-if="row.five">${{row.five | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;" ng-if="row.six">${{row.six | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;" ng-if="row.seven">${{row.seven | roundOff :2}}</td>
+                  <td style="color: #000;font-weight: 300;font-size: 14px;text-align: center;" ng-if="row.eight">${{row.eight | roundOff :2}}</td>                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>  
+  </div> 
+   </div>
+</div>

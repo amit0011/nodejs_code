@@ -1,0 +1,113 @@
+<style type="text/css">
+    table thead tr td, table tbody tr td{
+                     width: 140px !important;
+ }
+</style>
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="initPosition()">
+         <div class="panel_body_inner inner_box">
+          <div class="">
+                <ul class="nav nav-pills nav-stacked row" style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;" class="page">
+                  <li>
+                      <b>Performance Report</b>
+                 </li>               
+              </ul>
+           </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="tabla_header">
+                    <div class="tbl" style="width: 12%!important;">
+                        <label>From Date</label>
+                        <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                            <div class="input-group">
+                                <input name="dateFrom" class="form-control" ng-model="myForm.fromDate" placeholder="Choose a date" ng-change="search()" autocomplete="off" />
+                                    <span class="input-group-addon" style="cursor: pointer">
+                                       <i class="fa fa-lg fa-calendar"></i>
+                                    </span>
+                            </div>
+                        </datepicker>                                  
+                    </div>
+                    <div class="tbl" style="width: 12%!important;">
+                                    <label>To Date</label>
+                                    <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                                        <div class="input-group">
+                                            <input name="dateFrom" class="form-control" ng-model="myForm.toDate" placeholder="Choose a date" ng-change="search()" autocomplete="off" />
+                                            <span class="input-group-addon" style="cursor: pointer">
+                                   <i class="fa fa-lg fa-calendar"></i>
+                                   </span>
+                                        </div>
+                                    </datepicker>
+                                </div>
+                     <button ng-click="clear()">Clear</button>
+                     <button ng-click="exportToXl()">EXPORT to XL</button>
+                 </div>
+               </div>
+            </div>
+            <div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;">
+               <style type="text/css">
+                  @media print {
+                     @page {
+                        size: A4 landscape;
+                     }
+                     img {
+                           height: 90%;
+                           margin: 0;
+                           padding: 0;
+                        }
+                     }
+                     table tbody tr td {
+                        border: 0.50px solid #000;
+                     }
+                  }
+                 
+               </style>
+              
+              <div class="comodity_table" id="printSectionId">
+                  <table class="table table-striped commodity_table table_body_scroll table-responsive" style="width: 1670px;">
+                        <thead>
+                           <tr>
+                              <td>Name</td>
+                              <!-- <td>Email</td>
+                              <td>Phone Number</td> -->
+                              <td>Production<br>Record</td>
+                              <td>Production<br>Contract</td>
+                              <td>Purchase<br>Confirmation</td>
+                              <td>Sales Contract</td>
+                              <td>Phone Note</td>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr ng-repeat="val in list track by $index">
+                             
+                              <td><a ng-href="performanceDetails/{{val._id}}">{{val.fullName}}</a></td>
+                             <!--  <td style="word-break: break-all;">{{val.email}}</td>
+                              <td>{{val.mobileNumber}}</td> -->
+                              <td>{{val.sample}}</td>
+                              <td>{{val.productionContract}}</td>
+                              <td>{{val.puchaseConfirmationContract}}</td>
+                              <td>{{val.salesContract}}</td>
+                              <td>{{val.phoneNote}}</td>
+                           </tr>
+                           <tr>
+                             
+                              <td>Total</td>
+                             <!--  <td style="word-break: break-all;"></td>
+                              <td>Total</td> -->
+                              <td>{{p_record}}</td>
+                              <td>{{p_contract}}</td>
+                              <td>{{p_confirmation}}</td>
+                              <td>{{s_contract}}</td>
+                              <td>{{p_note}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                   
+                  </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,40 @@
+<div>
+    <div class="login_header">
+        <div class="login_logo">
+            <img src="/assets/images/logo.png">
+        </div>
+        <div class="login_head">
+            <h1>Rudy Agriculture ERP </h1>
+        </div>
+    </div>
+</div>
+<section>
+    <div class="login_body">
+        <div class="login_outter_form">
+            <div class="login_upper_header">
+                <h2><a ui-sref="login" style="float: left;color: #fff"><i class="fa fa-arrow-left"></i></a> Reset Password</h2>
+            </div>
+            <div class="login_lower_body">
+                <form name="loginForm">
+                <div class="content">
+                    <div class="form-group">
+                        <label><i class="fa fa-lock" aria-hidden="true"></i>
+                            <input type="password" class="passa" ng-model="myForm.password" placeholder="Password" name="password" ng-minlength="5" ng-maxlength="20" required>
+                            <span class="validation_error_reset" ng-show="!changePassword.password.$error.required && (changePassword.password.$error.minlength || changePassword.password.$error.maxlength) && changePassword.password.$dirty">Passwords must be between 5 and 20 characters.</span>
+                        </label>
+                    </div>
+                    <div class="form-group" ng-class="{ 'cls-pswrdMissmatch':myForm.password2!=myForm.password && myForm.password2.length>0}">
+                        <label><i class="fa fa-lock" aria-hidden="true"></i>
+                            <input type="password" class="passa" ng-model="myForm.password2" placeholder="Confirm Password" name="password2" required>
+                            <span class="validation_error_reset" ng-show="myForm.password2!=myForm.password &&myForm.password2.length>0 ">Password Mismatch ..!!</span>
+                        </label>
+                    </div>
+                    <span class="validation_error_reset" ng-show="msg!=null">{{msg}}</span>
+                </div>
+                <span class="validation_error_resetError" ng-show="errormsg">{{errormsg}}</span>
+                <button ng-click="submit()" ng-disabled="!(myForm.password && myForm.password2)">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

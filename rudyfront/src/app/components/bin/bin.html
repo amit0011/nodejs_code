@@ -1,0 +1,65 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+            <h3 class="heading_cls">Bin Table</h3>
+         <hr class="heading_hr">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <input type="text" name="search" ng-model="tags" placeholder="Search">
+                        <button ng-click="openPop()" ng-show="loginUserAccess.setting.bin.add">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                        <th>Bin #</th>
+                                        <th>Created At</th>
+                                        <th ng-show="loginUserAccess.setting.bin.view || loginUserAccess.setting.bin.edit || loginUserAccess.setting.bin.delete">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr ng-repeat="result in binList">
+                                        <td>{{result.binName}}</td>
+                                        <td>{{result.createdAt | date}}</td>
+                                    <td ng-show="loginUserAccess.setting.bin.view || loginUserAccess.setting.bin.edit || loginUserAccess.setting.bin.delete">
+                                        <a ng-show="loginUserAccess.setting.bin.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.bin.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.bin.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging
+                          page="page" 
+                          page-size="10" 
+                          total="totalPages"
+                          paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                        <!-- <dir-pagination-controls class="cus_pagination" pagination-id="binList" max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm analysis">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <input type="text" name="commName" ng-model="myForm.binName" placeholder="Enter Bin Name" required>
+            <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="!(myForm.binName)">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+        </div>
+    </div>
+</div>

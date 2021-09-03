@@ -1,0 +1,86 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="initAdmins()">
+            <h3 class="heading_cls">Profile</h3>
+            <hr class="heading_hr">
+            <div class="panel_body_inner inner_box">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="panel-heading no-title"></div>
+                                <div class="panel-body" style="padding: 15px 25px 25px;">
+                                    <div class="text-center vd_info-parent" style="position: relative;">
+                                        <img alt="profileImage" src="{{imageUrl}}{{userInfo.avatar}}" style="max-width: 100%;vertical-align: middle;">
+                                     </div>
+                                        <!-- <h3 class="font-semibold mgbt-xs-5">{{businessDetails.fullName}}</h3> -->
+                                        <h4>{{userInfo.fullName}}</h4>
+                                        <h6>{{userInfo.email}}</h6>
+                                        <h6>{{userInfo.mobileNumber}}</h6>
+                                        <p><img alt="signatureImage" src="{{imageUrl}}{{userInfo.signature}}" style="max-width: 100%;vertical-align: middle;"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="profileSec">
+                                        <img alt="profileImage" src="{{imageUrl}}{{userInfo.avatar}}" style="max-width: 100%;vertical-align: middle;border-radius: 50%;width: 150px;">
+                                        <input class="profilePic" type="file" id="files" class="form-control" onchange="angular.element(this).scope().signatureImage(this,'image')" accept="image/x-png,image/gif,image/jpeg">
+                                    </div>
+                                    <div class="com_pac">
+                                        <label style="width: 43%;">Full Name</label>
+                                        <input type="text" ng-minlength="2" maxlength="50" ng-model="userInfo.fullName" placeholder="Full Name" name="fullName" ng-disabled="inputField=='view'" required>
+                                    </div>
+                                    <div class="com_pac">
+                                        <label style="width: 43%;">Email</label>
+                                        <input type="text" ng-model="userInfo.email" placeholder="Email" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-disabled="inputField=='view'">
+                                        <span class="validation_error_admin" ng-show="addSubAdmin.email.$dirty && addSubAdmin.email.$invalid">
+                                        <span class="validation_error_admin" ng-show="addSubAdmin.email.$error.required">Email is required.</span>
+                                        <span class="validation_error_admin" ng-if="addSubAdmin.email.$error.pattern">Please Enter Vaild Email.</span></span>
+                                    </div>
+                                    <div class="com_pac">
+                                        <label style="width: 43%;">Mobile Number</label>
+                                        <input type="text" ng-model="userInfo.mobileNumber" placeholder="Mobile Number" name="mobileNumber" numbers-Only ng-disabled="inputField=='view'" required>
+                                    </div>
+                                    <div class="com_pac">
+                                        <label style="width: 43%;">Upload Signature</label>
+                                        <input style="margin: 0;" type="file" id="files" class="form-control" onchange="angular.element(this).scope().signatureImage(this,'signature')" accept="image/x-png,image/gif,image/jpeg">
+                                    </div>
+                                    <button ng-click="saveChanges()" class="buttonCls">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form name="registerForm" novalidate>
+                                        <div class="com_pac">
+                                            <label style="width: 43%;">Current Password</label>
+                                            <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.password" placeholder="Current Password" name="password" ng-disabled="inputField=='view'" required>
+                                        </div>
+                                        <div class="com_pac">
+                                            <label style="width: 43%;">New Password</label>
+                                            <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.newPassword" placeholder="New Password" name="newPassword" ng-disabled="inputField=='view'" required>
+                                            <span class="validation_error_profile" ng-show="!registerForm.newPassword.$error.required && (registerForm.newPassword.$error.minlength || registerForm.newPassword.$error.maxlength) && registerForm.newPassword.$dirty">Passwords must be between 5 and 30 characters.</span>
+                                            <span ng-show="registerForm.newPassword.$invalid && registerForm.newPassword.$pristine && submitted" class="validation_error_profile">Password is required.</span>
+                                        </div>
+                                        <div class="com_pac" ng-class="{ 'cls-pswrdMissmatch':myForm.confirmPassword!=myForm.newPassword && myForm.confirmPassword.length>0}">
+                                            <label style="width: 43%;">Confirm Password</label>
+                                            <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.confirmPassword" placeholder="Confirm Password" name="confirmPassword" ng-disabled="inputField=='view'" required>
+                                            <span class="validation_error_password" ng-show="myForm.confirmPassword!=myForm.newPassword &&myForm.confirmPassword.length>0">Password Mismatch ..!!</span>
+                                            <span ng-show="registerForm.confirmPassword.$invalid && registerForm.confirmPassword.$pristine && submitted" class="validation_error_profile">Password is required.</span>
+                                        </div>
+                                        <button class="buttonCls" ng-click="updatePassword()">Change Password</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

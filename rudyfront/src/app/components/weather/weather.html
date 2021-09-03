@@ -1,0 +1,76 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+             <h3 class="heading_cls">Weather</h3><hr class="heading_hr">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <button ng-click="openPop()" ng-show="weatherList.length==0 && loginUserAccess.setting.weather.add">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Weather Update</th>
+                                    <th>Weather Map</th>
+                                    <th>Plant Jpeg</th>
+                                    <th ng-show="loginUserAccess.setting.weather.view || loginUserAccess.setting.weather.edit || loginUserAccess.setting.weather.delete">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in weatherList">
+                                    <td>{{result.weather}}</td>
+                                    <td><img src="{{weatherMap}}" alt="weather Map" width="50" height="50"></td>
+                                    <td><img src="{{plantJpeg}}" alt="Plant Jpeg" width="50" height="50"></td>
+                                    <td ng-show="loginUserAccess.setting.weather.view || loginUserAccess.setting.weather.edit || loginUserAccess.setting.weather.delete">
+                                        <a ng-show="loginUserAccess.setting.weather.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.weather.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.weather.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm country">
+     <form name="country">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <h2>{{inputField == 'edit'?'Update Weather Details':'Weather Details'}}</h2>
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <div class="com_pac">
+                <label>Weather Update</label>
+                <textarea type="text" name="weather" ng-model="myForm.weather" placeholder="Enter weather update" required></textarea>
+            </div>
+
+            <div class="com_pac">
+                <label style="width: 44%;">Weather Map</label>
+                <img src="{{weatherMap}}" alt="weather Map" width="150" height="100" ng-if="inputField =='view'">           
+                <input type="file" id="files" onchange="angular.element(this).scope().uploadMap(this)" style="border-bottom:none;" accept="image/x-png,image/gif,image/jpeg" ng-if="inputField =='edit'" />
+            </div>
+
+            <div class="com_pac">
+                <label style="width: 44%;">Plant Image</label>
+                <img src="{{plantJpeg}}" alt="weather Map" width="150" height="100" ng-if="inputField =='view'">          
+                <input type="file" id="files" onchange="angular.element(this).scope().uploadImage(this)" style="border-bottom:none;" accept="image/x-png,image/gif,image/jpeg" ng-if="inputField =='edit'" />
+            </div>
+
+            <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="country.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+        </div>
+        </form>
+    </div>
+</div>

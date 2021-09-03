@@ -1,0 +1,704 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="DoCtrlPagingAct('bar')">
+      <h3 class="heading_cls">
+        Growers
+        <button
+          class="btn_top"
+          ng-show="loginUserAccess.purchase.growers.add"
+          ng-click="openPop()"
+        >
+          ADD <i class="fas fa-plus-circle"></i>
+        </button>
+      </h3>
+      <hr class="heading_hr" />
+      <div class="panel_body_inner inner_box">
+        <div class="col-md-12">
+          <div
+            class="add_commodity_bar add_commodity_bar_nobg"
+            style="margin: 0;"
+          ></div>
+
+          <div class="col-md-12">
+            <div class="tabla_header tabla_header_gro">
+              <div class="tbl" style="width: 10% !important">
+                <label>First Name</label>
+                <input
+                  type="text"
+                  name=""
+                  ng-enter="search()"
+                  ng-model="searchModel.firstName"
+                />
+              </div>
+
+              <div class="tbl" style="width: 10% !important">
+                <label>Last Name</label>
+                <input
+                  type="text"
+                  name=""
+                  ng-enter="search()"
+                  ng-model="searchModel.lastName"
+                />
+              </div>
+
+              <div class="tbl" style="width: 10% !important">
+                <label>Phone</label>
+                <input
+                  type="text"
+                  name=""
+                  ng-enter="search()"
+                  ng-model="searchModel.phone"
+                />
+              </div>
+
+              <div class="tbl" style="width: 10% !important">
+                <label>Farm Name</label>
+                <input
+                  type="text"
+                  name=""
+                  ng-enter="search()"
+                  ng-model="searchModel.farmName"
+                />
+              </div>
+
+              <div class="tbl" style="width: 10% !important">
+                <label>Postal Code</label>
+                <input
+                  type="text"
+                  name=""
+                  ng-enter="search()"
+                  ng-model="searchModel.postalCode"
+                />
+              </div>
+
+              <div class="tbl" style="width: 10% !important">
+                <label>Town</label>
+                <input
+                  type="text"
+                  name=""
+                  ng-enter="search()"
+                  ng-model="searchModel.town"
+                />
+              </div>
+
+              <div class="tbl" style="width: 10% !important">
+                <label>Search By</label>
+                <select
+                  ng-model="searchModel.type"
+                  ng-change="search()"
+                  class="form-control"
+                >
+                  <option value="">All</option>
+                  <option value="Organic">Organic</option>
+                </select>
+              </div>
+
+              <div class="tbl" style="width: 10% !important">
+                <label>Status</label>
+                <select
+                  ng-model="searchModel.deleteStatus"
+                  ng-change="search()"
+                  class="form-control"
+                >
+                  <option value="0">Activated</option>
+                  <option value="1">DeActivated</option>
+                </select>
+              </div>
+
+              <button ng-click="DoCtrlPagingAct('clear', 1)">Clear</button>
+              <button ng-click="exportSheet()">
+                <span class="fa fa-table"></span>
+                Export
+              </button>
+            </div>
+          </div>
+          <div class="comodity_table">
+            <table
+              class="table table-striped commodity_table table_body_scroll table-responsive"
+            >
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <!-- <th>Phone1</th> -->
+                  <th>Phone2</th>
+                  <th>Phone3</th>
+                  <th>Cell Number</th>
+                  <th>Farm Name</th>
+                  <th>Town</th>
+                  <th>Postal</th>
+                  <th>Status</th>
+                  <th
+                    ng-show="loginUserAccess.purchase.growers.delete ||loginUserAccess.purchase.growers.edit ||  loginUserAccess.purchase.growers.view"
+                  >
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="result in growerList">
+                  <td>
+                    <a ng-href="/growerDetails/{{result._id}}"
+                      >{{result.firstName}} {{result.lastName}}</a
+                    >
+                  </td>
+                  <td style="word-break: break-all;">
+                    <a ng-href="mailto:{{ result.email }}" target="_blank"
+                      >{{result.email}}</a
+                    >
+                  </td>
+                  <!--   <td>{{result.phone2}}</td> -->
+                  <td>{{result.phone | phonenumber}}</td>
+                  <td>{{result.phoneNumber2| phonenumber}}</td>
+                  <td>{{result.phoneNumber3| phonenumber}}</td>
+                  <td>{{result.cellNumber}}</td>
+                  <td>{{result.farmName}}</td>
+                  <td ng-repeat="address in result.addresses">
+                    {{address.town}}
+                  </td>
+                  <td ng-repeat="address in result.addresses">
+                    {{address.postal}}
+                  </td>
+                  <td>
+                    <span
+                      ng-class="result.deleteStatus==0?'badge badge-success':'badge badge-dark'"
+                      >{{result.deleteStatus==0?'ACTIVATED':'DEACTIVATED'}}</span
+                    >
+                  </td>
+                  <td
+                    class="action_cls"
+                    ng-show="loginUserAccess.purchase.growers.delete ||loginUserAccess.purchase.growers.edit ||  loginUserAccess.purchase.growers.view"
+                  >
+                    <a
+                      ng-show="loginUserAccess.purchase.growers.delete"
+                      class="veiw_detail"
+                      ng-click="delete(result._id,result.deleteStatus)"
+                    >
+                      <i
+                        ng-show="result.deleteStatus==0"
+                        class="fa fa-trash"
+                        aria-hidden="true"
+                      ></i>
+                      <i
+                        ng-show="result.deleteStatus==1"
+                        class="fa fa-undo"
+                        aria-hidden="true"
+                      ></i>
+                    </a>
+                    <a
+                      ng-show="loginUserAccess.purchase.growers.edit"
+                      class="veiw_detail"
+                      ng-click="openPop(result,'edit')"
+                      ><i class="fas fa-pen-square"></i>
+                      <a
+                        ng-show="loginUserAccess.purchase.growers.view"
+                        ng-click="openPop(result,'view')"
+                        class="veiw_detail"
+                        ><i class="fa fa-eye" aria-hidden="true"></i></a
+                    ></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div
+              paging
+              page="page"
+              page-size="15"
+              total="totalPages"
+              paging-action="DoCtrlPagingAct('bar', page)"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="popup_overlay"></div>
+  <div class="add_coomm new_add grower_popup">
+    <div class="enter_comm_typ">
+      <div class="head_comm head_2">
+        <h2>{{inputField}} Grower</h2>
+        <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+      <div class="panel_body">
+        <div class="panel_body_inner inner_box_List_add pop">
+          <div class="col-md-12">
+            <div class="add_commodity add_growers_form">
+              <form name="addgrower">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>First Name</label>
+                      <input
+                        type="text"
+                        ng-minlength="2"
+                        maxlength="50"
+                        ng-model="myForm.firstName"
+                        placeholder="First Name"
+                        name="firstName"
+                        ng-disabled="inputField=='view'"
+                        required
+                      />
+                      <span
+                        class="validation_error_grower"
+                        ng-show="addgrower.firstName.$dirty && addgrower.firstName.$invalid"
+                      >
+                        <span
+                          class="validation_error_grower"
+                          ng-show="addgrower.firstName.$error.minlength"
+                          >First name should be 2 and less then 50
+                          Characters.</span
+                        >
+                        <span
+                          class="validation_error_grower"
+                          ng-show="addgrower.firstName.$error.required"
+                          >First name is required.</span
+                        ></span
+                      >
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Last Name</label>
+                      <input
+                        type="text"
+                        ng-model="myForm.lastName"
+                        placeholder="Last Name"
+                        name="lastName"
+                        ng-minlength="2"
+                        maxlength="50"
+                        ng-disabled="inputField=='view'"
+                      />
+                      <span
+                        class="validation_error_grower"
+                        ng-show="addgrower.lastName.$dirty && addgrower.lastName.$invalid"
+                      >
+                        <span
+                          class="validation_error_grower"
+                          ng-show="addgrower.lastName.$error.minlength"
+                          >Last name should be 2 and less then 50
+                          Characters.</span
+                        >
+                        <span
+                          class="validation_error_grower"
+                          ng-show="addgrower.lastName.$error.required"
+                          >Last name is required.</span
+                        ></span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Phone Number 1</label>
+
+                      <input
+                        type="text"
+                        ng-model="myForm.name1"
+                        placeholder="Enter name 1"
+                        name="name1"
+                        ng-disabled="inputField=='view'"
+                      />
+
+                      <input
+                        type="text"
+                        ng-model="myForm.phone"
+                        placeholder="Phone Number 1"
+                        name="phone"
+                        ng-disabled="inputField=='view'"
+                        numbers-only
+                        maxlength="17"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Phone Number 2</label>
+
+                      <input
+                        type="text"
+                        ng-model="myForm.name2"
+                        placeholder="Enter name 2"
+                        name="name2"
+                        ng-disabled="inputField=='view'"
+                      />
+
+                      <input
+                        type="text"
+                        ng-model="myForm.phoneNumber2"
+                        placeholder="Phone Number 2"
+                        name="phone2"
+                        ng-disabled="inputField=='view'"
+                        numbers-only
+                        maxlength="17"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Phone Number 3</label>
+
+                      <input
+                        type="text"
+                        ng-model="myForm.name3"
+                        placeholder="Enter name 3"
+                        name="name3"
+                        ng-disabled="inputField=='view'"
+                      />
+
+                      <input
+                        type="text"
+                        ng-model="myForm.phoneNumber3"
+                        placeholder="Phone Number 3"
+                        name="phone3"
+                        ng-disabled="inputField=='view'"
+                        numbers-only
+                        maxlength="17"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Fax Number</label>
+                      <input
+                        type="text"
+                        ng-disabled="inputField=='view'"
+                        numbers-only
+                        ng-model="myForm.fax"
+                        placeholder="Fax Number"
+                        maxlength="25"
+                        name="fax"
+                      />
+                      <span
+                        class="validation_error_grower"
+                        ng-show="addgrower.fax.$dirty && addgrower.fax.$invalid"
+                      >
+                        <span
+                          class="validation_error_grower"
+                          ng-show="addgrower.fax.$error.required"
+                          >Fax Number is required.</span
+                        ></span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Reference</label>
+                      <input
+                        type="text"
+                        ng-disabled="inputField=='view'"
+                        ng-model="myForm.reference"
+                        numbers-only
+                        placeholder="Reference Code"
+                        name="reference"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Email</label>
+                      <input
+                        type="text"
+                        ng-model="myForm.email"
+                        placeholder="Email"
+                        name="email"
+                        ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                        ng-disabled="inputField=='view'"
+                      />
+                      <span
+                        class="validation_error_grower"
+                        ng-show="addgrower.email.$dirty && addgrower.email.$invalid"
+                      >
+                        <span
+                          class="validation_error_grower"
+                          ng-show="addgrower.email.$error.required"
+                          >Email is required.</span
+                        >
+                        <span
+                          class="validation_error_grower"
+                          ng-if="addgrower.email.$error.pattern"
+                          >Please Enter Vaild Email.</span
+                        ></span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="com_pac">
+                      <label style="width: 15%;">Farm(s)</label>
+                      <input
+                        type="text"
+                        ng-enter="manageFarms('enter')"
+                        ng-blur="manageFarms('blur')"
+                        ng-model="myForm.farmName"
+                        placeholder="Farm(s) [To add multiple farm press enter after typing name]"
+                        name="farmName"
+                        ng-disabled="inputField=='view'"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div style="display: inline-block;width: 15%;"></div>
+                    <table class="table">
+                      <tbody>
+                        <tr ng-repeat="farm in myForm.farmNames" drag-drop>
+                          <td>{{farm}}</td>
+                          <td style="width: 15px;">
+                            <div style="float: none;" type="button" ng-click="removeFarm($index)">
+                              <span class="fa fa-trash"></span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Cell Number</label>
+                      <input
+                        type="text"
+                        numbers-only
+                        ng-model="myForm.cellNumber"
+                        placeholder="Cell Number"
+                        name="cellNumber"
+                        ng-pattern="/(^0$)|(^[1-9]\d{1,10}$)/"
+                        ng-disabled="inputField=='view'"
+                      />
+                      <span
+                        class="validation_error_grower"
+                        ng-show="addgrower.cellNumber.$dirty && addgrower.cellNumber.$invalid"
+                      >
+                        <span
+                          class="validation_error_grower"
+                          ng-show="addgrower.cellNumber.$error.required"
+                          >Cell Number is required.</span
+                        >
+                        <span
+                          class="validation_error_grower"
+                          ng-if="addgrower.cellNumber.$error.pattern"
+                          >Please Enter Vaild cell Number. cell Number should be
+                          10 digit <br />and does not start with 0.</span
+                        >
+                        <!-- <span class="validation_error_grower" ng-if="addgrower.cellNumber.$error.pattern">Only numeric value are allowed and does not start with 0.</span> -->
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Address</label>
+                      <input
+                        type="text"
+                        ng-model="myForm.street"
+                        placeholder="Address"
+                        name="alias"
+                        ng-disabled="inputField=='view'"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Town</label>
+                      <select
+                        ng-model="myForm.town"
+                        ng-disabled="inputField=='view'"
+                      >
+                        <option value="">Select Town</option>
+                        <option ng-repeat="t in townList track by $index"
+                          >{{t}}</option
+                        >
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>RM</label>
+                      <input
+                        type="text"
+                        ng-model="myForm.rm"
+                        placeholder="RM"
+                        name="alias"
+                        ng-disabled="inputField=='view'"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Address prov</label>
+                      <select
+                        ng-model="myForm.province"
+                        ng-disabled="inputField=='view'"
+                        name="alias"
+                      >
+                        <option value="">Select Address Prov</option>
+                        <option>AB</option>
+                        <option>BC</option>
+                        <option>ID</option>
+                        <option>MB</option>
+                        <option>MN</option>
+                        <option>MT</option>
+                        <option>NB</option>
+                        <option>ND</option>
+                        <option>NS</option>
+                        <option>NV</option>
+                        <option>ON</option>
+                        <option>OR</option>
+                        <option>PEI</option>
+                        <option>QC</option>
+                        <option>SD</option>
+                        <option>SK</option>
+                        <option>WA</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Postal Code</label>
+                      <input
+                        type="text"
+                        ng-model="myForm.postal"
+                        placeholder="Postal Code"
+                        name="alias"
+                        ng-disabled="inputField=='view'"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Freight Rate</label>
+                      <input
+                        type="text"
+                        numbers-only
+                        ng-model="myForm.freightRate"
+                        placeholder="Freight Rate"
+                        name="alias"
+                        ng-disabled="inputField=='view'"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>GST Number</label>
+                      <input
+                        type="text"
+                        ng-model="myForm.GST"
+                        placeholder="GST Number"
+                        name="gst"
+                        ng-disabled="inputField=='view'"
+                      />
+                      <span
+                        class="validation_error_grower"
+                        ng-show="addgrower.gst.$dirty && addgrower.gst.$invalid"
+                      >
+                        <span
+                          class="validation_error_grower"
+                          ng-show="addgrower.gst.$error.required"
+                          >GST Number is required.</span
+                        >
+                        <!-- <span class="validation_error_grower" ng-if="addgrower.gst.$error.pattern">Please enter valid GST number.</span> -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Organic Acres</label>
+                      <input
+                        type="text"
+                        ng-model="myForm.organicAcres"
+                        placeholder="Organic Acres"
+                        name="organicAcres"
+                        ng-disabled="inputField=='view'"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Farm size/Acres</label>
+                      <input
+                        type="text"
+                        numbers-only
+                        ng-model="myForm.farmSize"
+                        placeholder="Farm Size"
+                        name="alias"
+                        ng-disabled="inputField=='view'"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <!-- Country is RM -->
+                    <div class="com_pac">
+                      <label>Country</label>
+                      <select
+                        name="alias"
+                        ng-options="country.name as country.name for country in countryList"
+                        ng-model="myForm.country"
+                        ng-disabled="inputField=='view'"
+                      >
+                        <option value="">Select Country</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Crop District</label>
+                      <input
+                        type="text"
+                        ng-model="myForm.cropDistrict"
+                        placeholder="Crop District"
+                        name="alias"
+                        ng-disabled="inputField=='view'"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <button
+                  ng-disabled="addgrower.$invalid"
+                  ng-hide="inputField=='view' || inputField=='edit'"
+                  ng-click="save()"
+                >
+                  Save
+                </button>
+                <button
+                  ng-disabled="addgrower.$invalid"
+                  ng-show="inputField=='edit'"
+                  ng-click="saveChanges()"
+                >
+                  Save Changes
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script language="JavaScript">
+    function addDashes(f) {
+      f.value =
+        f.value.slice(0, 3) +
+        "-" +
+        f.value.slice(3, 6) +
+        "-" +
+        f.value.slice(6, 10);
+    }
+  </script>
+</div>

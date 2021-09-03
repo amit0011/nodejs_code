@@ -1,0 +1,189 @@
+<style type="text/css">
+  .fixed {
+    position: fixed;
+    top: 98px;
+    width: 96%;
+  }
+
+  .panel_body_inner.inner_box {
+    position: relative;
+  }
+
+  .width-2000 {
+    width: 2000px
+  }
+
+  @media (min-width:1500px) {
+    .width-2000 {
+      width: 100%
+    }
+  }
+
+  .width-2000>div:nth-child(2)>b {
+    margin-top: 70px !important;
+  }
+
+  b {
+    color: #000
+  }
+
+</style>
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body">
+      <div class="">
+        <ul class="nav nav-pills nav-stacked row"
+          style="float: left;width: 94%;background: white !important;margin: 0 47px 15px;font-size: 20px;padding: 15px;text-align: center;"
+          class="page">
+          <li>
+            <b>Commission Payable</b>
+          </li>
+        </ul>
+      </div>
+      <div class="panel_body_inner inner_box_List" style="padding: 0 2% !important">
+        <div class="col-md-12">
+          <div class="">
+            <div class="row">
+              <div class="col-md-12">
+                <form name="searchForm">
+                  <div class="tabla_header">
+
+                    <div class="tbl" style="width: 15%!important;">
+                      <label>Buyer Name/Farm</label>
+                      <input type="text" name="contract" ng-model="myForm.buyer" placeholder="Buyer Name"
+                        style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-enter="initList(1)">
+                    </div>
+
+                    <div class="tbl" style="width: 14%!important;">
+                      <label>Broker</label>
+                      <select style="font-size: 14px;height: 34px;color: #000;width: 100%;"
+                        ng-options="broker._id as broker.businessName for broker in brokerList"
+                        ng-model="myForm.brokerId" ng-change="initList(1)">
+                        <option value="">All Broker</option>
+                      </select>
+                    </div>
+
+                    <div class="tbl" style="width: 20%!important;">
+                      <label>Contract No.</label>
+                      <input type="text" name="contractNumber" ng-model="myForm.contractNumber"
+                        placeholder="Contract Number" ng-enter="initList(1)">
+                    </div>
+
+                    <div class="tbl" style="width: 20%!important;">
+                      <label>Ticket</label>
+                      <input type="text" name="ticketNumber" ng-model="myForm.ticketNumber" placeholder="Ticket number"
+                        ng-enter="initList(1)">
+                    </div>
+
+                    <div class="tbl" style="width: 20%!important;">
+                      <label>Commodity</label>
+                      <select style="font-size: 14px;height: 34px;color: #000;" name="commodity"
+                        ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                        ng-model="myForm.commodityId" ng-change="initList(1)">
+                        <option value="">Select Commodity</option>
+                      </select>
+                    </div>
+
+                    <div class="tbl" style="width: 14%!important;">
+                      <label>From Date</label>
+                      <datepicker style="width: 100%" class="date_pic fromDateCls" date-format="yyyy-MM-dd"
+                        selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                        button-next="<i class='fa fa-arrow-right'></i>">
+                        <div class="input-group">
+                          <input class="form-control" ng-model="myForm.fromDate" placeholder="Choose a date"
+                            ng-change="initList(1)" autocomplete="off" />
+                          <span class="input-group-addon" style="cursor: pointer">
+                            <i class="fa fa-lg fa-calendar"></i>
+                          </span>
+                        </div>
+                      </datepicker>
+                    </div>
+
+                    <div class="tbl" style="width: 14%!important;">
+                      <label>To Date</label>
+                      <datepicker style="width: 100%" class="date_pic toDateCls" date-format="yyyy-MM-dd"
+                        selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                        button-next="<i class='fa fa-arrow-right'></i>">
+                        <div class="input-group">
+                          <input class="form-control" ng-model="myForm.toDate" placeholder="Choose a date"
+                            ng-change="initList(1)" autocomplete="off" />
+                          <span class="input-group-addon" style="cursor: pointer">
+                            <i class="fa fa-lg fa-calendar"></i>
+                          </span>
+                        </div>
+                      </datepicker>
+                    </div>
+
+                    <button ng-click="clear()">Clear</button>
+                    <button ng-click="exportData()">{{ exporting ? 'Exporting..':'Export XL'}}</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="comodity_table comodity_table_list">
+            <table class="table table-striped table_body_scroll commodity_table" style="width: 2000px;">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Contract No.</th>
+                  <th>Ticket No.</th>
+                  <th>Commodity</th>
+                  <th>Buyer Name</th>
+                  <th>Broker Name</th>
+                  <th>Comm. Type</th>
+                  <th>Comm. Amt</th>
+                  <th>Net Wt(MT)</th>
+                  <th>Price on contract($/MT)</th>
+                  <th>FX Rate on Stamp</th>
+                  <th>Contract Currency</th>
+                  <th>Total CAD Owing</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="l in list track by $index">
+                  <td style="white-space: nowrap;">{{l.scales.date | date }}</td>
+                  <td style="white-space: nowrap;">
+                    <a ng-click="editSalesCont(l.buyerId,l.contractNumber)"
+                      style="word-break: break-all;cursor: pointer;">
+                      {{l.contractNumber}}
+                    </a>
+                  </td>
+                  <td style="white-space: nowrap;">
+                    <a ng-click="goToScale(l.scales._id)" style="word-break: break-all;cursor: pointer;">
+                      RO-{{l.scales.ticketNumber}}
+                    </a>
+                  </td>
+                  <td>{{l.commodity.commodityName }}</td>
+                  <td>
+                    <a ng-style="{'cursor':loginUserAccess.sales.buyers.view == true ? 'pointer' : 'not-allowed'}"
+                      ng-click="buyerDetails(l.buyerId)" style="word-break: break-all;cursor: pointer;">
+                      {{l.buyer.businessName}}
+                    </a>
+                  </td>
+                  <td>
+                    <a ng-style="{'cursor':loginUserAccess.sales.buyers.view == true ? 'pointer' : 'not-allowed'}"
+                      ng-click="brokerDetails(l.brokerId)" style="word-break: break-all;cursor: pointer;">
+                      {{l.broker.businessName}}
+                    </a>
+                  </td>
+                  <td>{{commissionType(l.commissionType)}}</td>
+                  <td class="text-right">{{l.brokerCommision | formatCommission : l.commissionType}}</td>
+                  <td class="text-right">{{l.scales.unloadWeidhtMT | number : 3 }}</td>
+                  <td class="text-right">{{l.amountPerMT | currency}}</td>
+                  <td class="text-right">{{l.exchangeRate | number : 4}}</td>
+                  <td class="text-right">{{l.contractCurrency}}</td>
+                  <td class="text-right" ng-style="{'color': (l.commission > 0 ? 'black' : 'red')}">
+                    {{l.commission | number : 2}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div paging page="page" page-size="10" total="totalPages" paging-action="initList(page)">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

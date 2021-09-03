@@ -1,0 +1,198 @@
+<style>
+    .panel_body_inner {
+        overflow: visible;
+        height: auto;
+    }
+    
+    .com_pac label {
+        min-width: 160px;
+    }
+    
+    .cke_toolbar_break {
+        clear: none;
+    }
+    
+    .cke_inner {
+        position: relative;
+    }
+    
+    #cke_1_top {
+        position: absolute;
+        bottom: 27px;
+        width: 98%;
+    }
+</style>
+
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body">
+            <h3 class="heading_cls">Performance Report Details Of {{fullName}}</h3>
+            <hr class="heading_hr">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="tabla_header">
+                    <div class="tbl" style="width: 12%!important;">
+                        <label>From Date</label>
+                        <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                            <div class="input-group">
+                                <input name="dateFrom" class="form-control" ng-model="myForm.fromDate" placeholder="Choose a date" ng-change="search()" autocomplete="off" />
+                                    <span class="input-group-addon" style="cursor: pointer">
+                                       <i class="fa fa-lg fa-calendar"></i>
+                                    </span>
+                            </div>
+                        </datepicker>                                  
+                    </div>
+                    <div class="tbl" style="width: 12%!important;">
+                                    <label>To Date</label>
+                                    <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                                        <div class="input-group">
+                                            <input name="dateFrom" class="form-control" ng-model="myForm.toDate" placeholder="Choose a date" ng-change="search()" autocomplete="off" />
+                                            <span class="input-group-addon" style="cursor: pointer">
+                                   <i class="fa fa-lg fa-calendar"></i>
+                                   </span>
+                                        </div>
+                                    </datepicker>
+                                </div>
+
+                 </div>
+               </div>
+            </div>
+            <div class="panel_body_inner inner_box_List_add pop">
+                <div class="col-md-12">
+                    <div class="add_commodity add_growers_form growers_detail">
+
+                        <div class="comodity_table">
+                            <div class="head_of_table">
+                                <h2>PRODUCTION RECORDS (SAMPLE) - {{totalPages}} </h2>
+                                <button ng-show="totalPages" ng-click="exportXl('productionRecord')">Export XL</button>
+                            </div>
+                            <table class="table table-striped commodity_table">
+                                <thead>
+                                    <tr>
+                                        <th>Grower Name/Farm Name</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="sample in sampleList">
+                                        <td><a ng-href="growerDetails/{{sample.growerId._id}}">{{getGrowerNameOfFarmName(sample)}}</a></td>
+                                        <td>{{sample.createdAt | date:'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div paging page="samplePage" page-size="5" total="totalPages" paging-action="getSample(page)">
+                            </div>
+                        </div>
+
+
+                        <div class="comodity_table">
+                            <div class="head_of_table">
+                                <h2>PRODUCTION Contract - {{p_totalPages}}</h2>
+                                <button ng-show="p_totalPages" ng-click="exportXl('productionContract')">Export XL</button>
+                            </div>
+                            <table class="table table-striped commodity_table">
+                                <thead>
+                                    <tr>
+                                        <th>Grower Name/Farm Name</th>
+                                        <th>Contract Number</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="p in productionContractList">
+                                        <td><a ng-href="growerDetails/{{p.growerId._id}}">{{getGrowerNameOfFarmName(p)}}</a></td>
+                                        <td><a ng-href="{{p.pdfUrl}}"  target="_blank">{{p.contractNumber}}</a></td>
+                                        <td>{{p.createdAt | date:'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div paging page="p_contract" page-size="5" total="p_totalPages" paging-action="getProductionContract(page)">
+                            </div>
+                        </div>
+
+                        <div class="comodity_table">
+                            <div class="head_of_table">
+                                <h2>Purchase Confirmation - {{pc_totalPagesPages}}</h2>
+                                <button ng-show="pc_totalPagesPages" ng-click="exportXl('purchaseConfirmation')">Export XL</button>
+                            </div>
+                            <table class="table table-striped commodity_table">
+                                <thead>
+                                    <tr>
+                                        <th>Grower Name/Farm Name</th>
+                                        <th>Contract Number</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="p in purchaseConfirmationList">
+                                        <td><a ng-href="growerDetails/{{p.growerId._id}}">{{getGrowerNameOfFarmName(p)}}</a></td>
+                                        <td><a ng-href="{{p.pdfUrl}}"  target="_blank">{{p.contractNumber}}</a></td>
+                                        <td>{{p.createdAt | date:'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div paging page="p_confirmation" page-size="5" total="pc_totalPagesPages" paging-action="getPurchaseConfirmation(page)">
+                            </div>
+                        </div>
+
+
+                         <div class="comodity_table">
+                            <div class="head_of_table">
+                                <h2>Sales Contract - {{s_totalPages}}</h2>
+                                <button ng-show="s_totalPages" ng-click="exportXl('salesContract')">Export XL</button>
+                            </div>
+                            <table class="table table-striped commodity_table">
+                                <thead>
+                                    <tr>
+                                        <th>Buyer Name</th>
+                                        <th>Contract Number</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="s in salesContractList">
+                                        <td><a ng-href="buyerDetails/{{s.buyerId._id}}">{{s.buyerId.businessName}}</a></td>
+                                        <td><a ng-href="{{s.pdfUrl}}"  target="_blank">{{s.contractNumber}}</a></td>
+                                        <td>{{s.createdAt | date:'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div paging page="s_contract" page-size="5" total="s_totalPages" paging-action="getSalesContractList(page)">
+                            </div>
+                        </div>
+
+
+
+                        <div class="comodity_table">
+                            <div class="head_of_table">
+                                <h2>Phone Note - {{pn_totalPages}}</h2>
+                                <button ng-show="pn_totalPages" ng-click="exportXl('phoneNote')">Export XL</button>
+                            </div>
+                            <table class="table table-striped commodity_table">
+                                <thead>
+                                    <tr>
+                                        <th>Grower Name/Farm Name</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="p in phoneNoteList">
+                                        <td><a ng-href="growerDetails/{{p.growerId._id}}">{{ p.growerId.farmName ? p.growerId.farmName :p.growerId.firstName + ' '+ p.growerId.lastName}}</a></td>
+                                        <td>{{p.createdAt | date:'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div paging page="p_note" page-size="5" total="pn_totalPages" paging-action="getPhoneNoteList(page)">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,970 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body">
+      <h3 class="heading_cls">Generate Sales Stamp</h3>
+      <hr class="heading_hr">
+      <div class="panel_body_inner inner_box">
+        <div class="scale_outer">
+          <div class="scale_inner scale_inner_sg">
+            <div class="row">
+              <div class="col-md-6">
+                <div style="background: #fff;float: left;margin: 0;padding: 0;">
+                  <div style="margin: 0;padding: 0 0 5px 0;float: left;width: 100%;border-bottom: 2px solid #cdcdcd;">
+                    <div style="margin: 0;padding: 0;float: left;width: 20%;">
+                      <img src="{{imagePath}}/images/rudyLogo2.png">
+                    </div>
+                    <div style="margin: 0;padding: 0;float: right;width: 30%;">
+                      <h2 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 18px;color: #000;">RUDY AGRO
+                        LTD.</h2>
+                      <h2 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 18px;color: #000;">Box 100,
+                        Outlook Sask. S0L 2N0</h2>
+                      <h3 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 16px;color: #000;">Tel (306)
+                        867-8667</h3>
+                      <h3 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 16px;color: #000;">Fax (306
+                        867-8290</h3>
+                    </div>
+                  </div>
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                    <div style="display: flex;justify-content: space-around;">
+                      <h2
+                        style="margin: 0 0 10px 0;padding: 0;font-size: 24px;color: #000;">
+                        SALE STAMP</h2>
+                      <div ng-show="myForm.amendedDate" style="color: red;">
+                        <b>Amended Date:</b> {{myForm.amendedDate | date}}
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          DATE:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.date | date}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;">CONTRACT
+                          #:</b>
+                        <b
+                          style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">{{myForm.contractNumber}}</b>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Contract Price/CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.pricePerCWT | number:2}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Exchange Rate:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.exchangeRate}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Contract Quantity (CWT):</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.qtyCWT | number:4}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          No of Shipments:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.noOfShipment}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          FCL’s/shipment:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.packedIn}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Broker:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.brokerId ? myForm.brokerId.businessName : '' }}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Brokerage/CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.commisionCWT | number:4}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Brokerage Commission:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.brokerageCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          FCL/Shipment:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.packedIn}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Ocean frt/CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.oceanFreightCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Bl/fee:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.blFee}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          BL/fee per CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.blFeeCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Ocean freight + $100/FCL:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.oceanFreightBL | number:4}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Total Freight/CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.totalBlFeeCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Documentation Costing:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.documentCosting}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Document cost/CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.documentCostingCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          LC Costing:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          (%){{myForm.lcCost}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          LC Costing/CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          (%){{myForm.lcCostCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Insurance Rate:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.insuranceRate}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Insurance Rate CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.insuranceRateCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          ARI Policy:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.ariPolicy}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          ARI Policy CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.ariPolicyCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Price in USD:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.priceUSD | number:4}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #fff;font-weight: bold;">
+                          Interest days X Rate:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #fff;">
+                          ${{myForm.interestDays}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Price in CAD:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.priceCAD | number:4}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          CA$ Price/CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.cadCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Interest days X Rate:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.interestDays | number:4}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Interest Rate/CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.interestRateCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Stuffing:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.stuffingType}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Stuffing/CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.stuffingCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Inland Freight:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.inlineFreight}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Inland Freight CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.inlineFreightCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Bag Type:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.bagCostType}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Bag Cost CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.bagCostCWT | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Certificate of Analysis:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.certificateAnalysis.certificateName}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          COA Cost CWT:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.coaCost | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Inland freight stuffing buffer:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.stuffingBuffer}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Misc Type - {{myForm.missCost1}}:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.missCostCWT1 | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Freight Option:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{ freightOption }}
+                        </p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Misc Type - {{myForm.missCost2}}:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.missCostCWT2 | number:4}}</p>
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Adjustment:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          ${{myForm.adjustment | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #fff;font-weight: bold;">
+                          Inland freight stuffing buffer:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #fff;">
+                          {{myForm.stuffingBuffer}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 2px;float: left;width: 50%;border-top: 2px solid #000;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Net FOB(CAD):</p>
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;font-weight: bold;">
+                          ${{myForm.netFOBCAD | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #fff;font-weight: bold;">
+                          Inland freight stuffing buffer:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #fff;">
+                          {{myForm.stuffingBuffer}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Target FOB(CAD):</p>
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;font-weight: bold;">
+                          ${{myForm.targetFOBCAD | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Special Plant Instructions:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{getPlantIns(myForm.checkLists)}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Over/Under Target:</p>
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;font-weight: bold;">
+                          ${{myForm.underTarget | number:4}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 98%;">
+                      <div style="margin: 0 0 5px 0;padding: 0px;float: left;width: 100%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 40%;font-size: 12px;color: #000;">CURRENCY
+                          POSITION:</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">DATE</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">% Ship</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;">Exchange</b>
+                      </div>
+                      <div
+                        style="margin: 0;padding: 10px;float: left;width: 100%;border: 2px solid #cdcdcd;border-radius: 5px;">
+                        <div style="margin: 0;padding: 0px;float: left;width: 100%;" ng-repeat="d in shipmentScheldule">
+                          <p style="margin: 0;padding: 0;float: left;width: 40%;font-size: 12px;color: #000;">
+                            {{d.shipmentType || '--'}}</p>
+                          <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">
+                            {{(d.end_date | date)|| '--'}}</p>
+                          <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">
+                            {{ (d.ship | number:2) || '--'}}</p>
+                          <p style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;">
+                            {{d.exchangeRate|| '--'}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Contract Signature Required:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{(myForm.contractSignature ? 'Yes' : 'No')}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Shipment on Hold:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{(myForm.shipmentHold ? 'Yes' : 'No')}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Why on Hold:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.whyOnHold}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Quality Certificate(State Type):</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.certificateAnalysis.certificateName}}</p>
+                      </div>
+                    </div>
+                    <div style="margin: 0 0px 6px 0px;padding: 0;float: left;width: 100%;">
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Ship Line:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.shipLine}}</p>
+                      </div>
+                      <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <p
+                          style="margin: 0;padding: 0;float: left;width: 50%;font-size: 12px;color: #000;font-weight: bold;">
+                          Quote reference:</p>
+                        <p style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">
+                          {{myForm.quoteReference}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <form name="saleStampForm">
+                  <div class="col-sm-12">
+                    <div class="form-strips">
+                      <h4>Pricing</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Price/MT</label>
+                      <span class="input-span">{{myForm.pricePerMT | number:2}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Qty/MT</label>
+                      <span class="input-span">{{myForm.qtyMT | number:2}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Price/CWT</label>
+                      <span class="input-span">{{myForm.pricePerCWT | number:2}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Qty/CWT</label>
+                      <span class="input-span">{{myForm.qtyCWT | number:2}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Contract Price</label>
+                      <span class="input-span">{{myForm.amount | number:2}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Contract Qty</label>
+                      <span class="input-span">{{myForm.contractQuantity | number:2}}</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-strips">
+                      <h4>Shipment</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">No of Shipments</label>
+                      <input type="text" disabled maxlength="3" placeholder="No of Shipments"
+                        ng-model="myForm.noOfShipment">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">FCL/Shipments</label>
+                      <input type="text" readonly maxlength="3" placeholder="FCL/Shipments" ng-model="myForm.packedIn">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Broker Commission</label>
+                      <span class="input-span">{{myForm.brokerCommision}}
+                        {{getCommissionType(myForm.commissionType)}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Commission/CWT</label>
+                      <span class="input-span">{{myForm.commisionCWT | number:4}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Ocean Freight</label>
+                      <input type="text" placeholder="" ng-model="myForm.oceanFreightBL" position="4"
+                        ng-change="calculateOceanFreightBLMT()">
+
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Ocean Freight/CWT</label>
+                      <span class="input-span">{{myForm.oceanFreightCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Bl Fee*</label>
+                      <input type="text" placeholder="Bl Fee" ng-model="myForm.blFee"
+                        ng-change="getDocumentCosting('blFee')">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Bl Fee/CWT</label>
+                      <span class="input-span">{{myForm.blFeeCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-offset-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Total Freight/CWT</label>
+                      <span class="input-span">{{myForm.totalBlFeeCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Doc Costing*</label>
+                      <input type="text" numbers-Only placeholder="Document Costing" ng-model="myForm.documentCosting"
+                        ng-change="getDocumentCosting('DOC')">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Doc Costing/CWT</label>
+                      <span class="input-span">{{myForm.documentCostingCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">LC Cost(%)*</label>
+                      <input type="text" placeholder="LC Cost" numbers-Only ng-model="myForm.lcCost"
+                        ng-change="getDocumentCosting('LC')" position="4">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">LC Cost/CWT</label>
+                      <span class="input-span">{{myForm.lcCostCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Insurance Rate*</label>
+                      <input type="text" placeholder="Insurance Rate" numbers-Only ng-model="myForm.insuranceRate"
+                        ng-change="getDocumentCosting('Insurance')" position="4">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Ins Rate/CWT</label>
+                      <span class="input-span">{{myForm.insuranceRateCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">ARI Policy*</label>
+                      <input type="text" placeholder="ARI Policy" numbers-Only ng-model="myForm.ariPolicy"
+                        ng-change="getDocumentCosting('ARI')" position="4">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">ARI Policy/CWT</label>
+                      <span class="input-span">{{myForm.ariPolicyCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Exchange</label>
+                      <input type="text" placeholder="Exchange" numbers-Only disabled ng-model="myForm.exchangeRate">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Price CAD</label>
+                      <span class="input-span">{{myForm.priceCAD | number:2}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Price USD</label>
+                      <span class="input-span">{{myForm.priceUSD | number:2}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">CAD CWT</label>
+                      <span class="input-span">{{myForm.cadCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Interest Rate*</label>
+                      <input type="text" placeholder="Interest Rate" numbers-Only ng-model="myForm.interestRate"
+                        ng-change="getDocumentCosting('Interest')" position="2">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Interest Rate/CWT</label>
+                      <span class="input-span">{{myForm.interestRateCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12" style="margin-right: 50%">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Interest Days*</label>
+                      <input type="text" placeholder="Interest Rate" numbers-Only ng-model="myForm.interestDays"
+                        ng-change="getDocumentCosting('Interest')" position="0">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-strips">
+                      <h4>Bagging</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Stuffing Type</label>
+                      <select ng-model="myForm.stuffingType" style="padding: 3px;">
+                        <option value="">Stuffing Type</option>
+                        <option value="50 Kg/ 100 LB">50 Kg/ 100 LB</option>
+                        <option value="25 Kg">25 Kg</option>
+                        <option value="Bulk">Bulk</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Stuffing CWT*</label>
+                      <input type="text" placeholder="Stuffing CWT" numbers-Only ng-model="myForm.stuffingCWT"
+                        ng-change="calculateInterestAndFOB()" position="4">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12" style="margin-left: 50%;">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Stuffing Buffer</label>
+                      <input type="text" placeholder="Stuffing Buffer" numbers-Only ng-model="myForm.stuffingBuffer"
+                        ng-change="calculateInterestAndFOB()" position="4">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Bag Type</label>
+                      <span class="input-span">{{myForm.bagCostType}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Bag Cost CWT</label>
+                      <span class="input-span">{{myForm.bagCostCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Inland Freight</label>
+                      <span class="input-span">{{myForm.equipmentId.equipmentName}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Inland Freight/CWT</label>
+                      <span class="input-span">{{myForm.inlineFreightCWT | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-strips">
+                      <h4>Others</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">COA</label>
+                      <span class="input-span">{{myForm.certificateAnalysis.certificateName}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">COA/Cost(CWT)</label>
+                      <span class="input-span">{{myForm.coaCost | number:4}}</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="col-md-6 col-sm-6 col-xs-12" ng-repeat="checkList in myForm.checkLists">
+                      <div class="frval">
+                        <label style="width: 56%;text-align: left;">{{$index + 1}}. {{checkList.name}}</label>
+                        <div class="grop_rad">
+                            <label class="grop_rad_check">Yes
+                                <input type="checkbox" ng-change="calculateCheckListSum()" value="checkList.code" ng-model="myForm.checkLists[$index].checked">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div class="frval">
+                        <label style="width: 56%;text-align: left;">Total Price</label>
+                        <span class="input-span">{{myForm.totalCheckListPrice | number:4}}</span>
+                      </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Misc Type</label>
+                      <input type="text" placeholder="Misc Type" ng-model="myForm.missCost1">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Misc Type CWT</label>
+                      <input type="text" placeholder="Misc Type CWT" numbers-Only ng-model="myForm.missCostCWT1"
+                        ng-change="getDocumentCosting()" position="4">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Misc Type</label>
+                      <input type="text" placeholder="Misc Type" ng-model="myForm.missCost2">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Misc Type CWT</label>
+                      <input type="text" placeholder="Misc Type CWT" numbers-Only ng-model="myForm.missCostCWT2"
+                        ng-change="getDocumentCosting()" position="4">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Adjustment</label>
+                      <input type="text" name="adjustment" placeholder="Adjustment"
+                        ng-change="calculateInterestAndFOB()" sign="*" position="4" numbers-only
+                        ng-model="myForm.adjustment" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Adjustment Note</label>
+                      <input type="text" placeholder="Adjustment Note" ng-model="myForm.adjustmentNote"
+                        ng-required="isAdjustmentNoteRequired()">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Net FOB(CAD)</label>
+                      <span class="input-span">{{myForm.netFOBCAD | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Target FOB(CAD)</label>
+                      <input type="text" placeholder="Target FOB(CAD)" numbers-Only ng-model="myForm.targetFOBCAD"
+                        ng-change="getDocumentCosting('Target')" position="4">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Over/Under Target</label>
+                      <span class="input-span">{{myForm.underTarget | number:4}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="com_pac plus_row">
+                      <label class="land_loaction ful_lab">Currency Position</label>
+                    </div>
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="com_pac plus_row" ng-repeat="d in shipmentScheldule track by $index">
+                      <div class="data_input full_width">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <select style="border-bottom: 1px solid #000000;" class="fuloo_lab"
+                              ng-model="d.shipmentType" disabled>
+                              <option value="">Select Shipment</option>
+                              <option value="Shipment {{$index+1}}">Shipment {{$index+1}}</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <datepicker class="date_pic fuloo_lab" date-format="MMM-yyyy" selector="form-control">
+                              <div class="input-group">
+                                <input class="form-control" ng-model="d.end_date" placeholder="Date" disabled>
+                              </div>
+                            </datepicker>
+                          </div>
+                          <div class="col-md-2">
+                            <input style="border-bottom: 1px solid #000000;" type="text" class="fuloo_lab"
+                              ng-model="d.ship" placeholder="% Ship" name="" disabled>
+                          </div>
+                          <div class="col-md-2">
+                            <input style="border-bottom: 1px solid #000000;" type="text" class="fuloo_lab"
+                              ng-model="d.exchangeRate" placeholder="Exchange rate" name="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Contract Signature Required</label>
+                      <select name="contractSignature" ng-model="myForm.contractSignature"
+                        ng-options="keyValue.index as keyValue.value for keyValue in yesNoList">
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Shipment on Hold</label>
+                      <select name="shipmentHold" ng-model="myForm.shipmentHold"
+                        ng-options="keyValue.index as keyValue.value for keyValue in yesNoList" required>
+                        <option value="">-- Select --</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Why on Hold</label>
+                      <select name="whyOnHold" ng-model="myForm.whyOnHold" ng-required="myForm.shipmentHold">
+                        <option value="">-- Why on Hold --</option>
+                        <option ng-repeat="woh in whyOnHoldList" value="{{ woh }}">{{ woh }}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6 col-xs-12" ng-show="myForm.whyOnHold == 'Other'">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Why on Hold (Other Reason)</label>
+                      <input type="text" placeholder="Other Reason" ng-model="myForm.wohOtherReason"
+                        ng-required="myForm.whyOnHold == 'Other'">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Quality Certificate (State Type)</label>
+                      <input type="text" placeholder="Quality Certificat"
+                        ng-model="myForm.certificateAnalysis.certificateName" disabled>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Ship Line</label>
+                      <input type="text" placeholder="Ship Line" ng-model="myForm.shipLine" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Quote reference</label>
+                      <input type="text" placeholder="Quote reference" ng-model="myForm.quoteReference" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="frval frval_two">
+                      <label style="width: 58%;">Call as</label>
+                      <select name="callAsGrade" ng-model="myForm.callAsGrade" required
+                        ng-options="grade._id as grade.gradeName for grade in callAsGrades">
+                        <option value="">-- Select --</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <button class="sboo" ng-click="submit(saleStampForm.$valid)">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

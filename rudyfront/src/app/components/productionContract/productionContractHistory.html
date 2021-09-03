@@ -1,0 +1,198 @@
+<style>
+    body {
+        background: #ececec;
+        height: auto;
+    }
+
+    .changesBox {
+        padding: 0 2%;
+        color: #000000
+    }
+
+    .changesBox h3 {
+        font-size: 17px;
+        font-weight: 800;
+        color: #578424;
+        border-bottom: 2px solid #578424;
+        margin: 10px 0;
+        padding: 10px 0px;
+    }
+
+    .userCreated,
+    .userChanges {
+        background: #fff;
+        padding: 15px;
+        /* border: 1px solid rgba(0,0,0,.125); */
+        box-shadow: 0 4px 6px #cdcdcd;
+        min-height: 85px;
+        margin-bottom: 40px;
+    }
+
+    .userCreated,
+    .userCreated h5 {
+        font-size: 16px;
+        color: #000000
+    }
+
+    .userCreated p,
+    .userChanges p {
+        margin: 0;
+    }
+
+    .userCreated {
+        position: relative;
+    }
+
+    .userChanges .keyName {
+        font-size: 16px;
+        padding: 10px;
+        display: inline-block;
+        width: 20%;
+        font-weight: 600;
+    }
+
+    .userChanges .valueA,
+    .userChanges .valueB {
+        display: inline-block;
+        color: #578424;
+        padding: 10px;
+        font-size: 16px;
+        max-width: 40%;
+        min-width: 5%
+    }
+
+    .userChanges .valueA {
+        padding-right: 30px;
+        position: relative;
+    }
+
+    .userChanges .valueA svg {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%)
+    }
+
+    .userChanges h6 {
+        font-size: 1rem;
+        color: #000000;
+        font-weight: 400;
+        width: 100%;
+        display: flex;
+        margin: 0;
+    }
+
+    .userChanges h4 {
+        color: #000000;
+    }
+
+    .bottomArrow {
+        color: #578424;
+        font-size: 25px;
+        position: absolute;
+        left: 50%;
+        bottom: -37px;
+        transform: translateX(-50%);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .animated {
+        animation-duration: 2s;
+        animation-fill-mode: both;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-fill-mode: both;
+    }
+
+    .animatedFadeIn {
+        opacity: 0;
+    }
+
+    .fadeIn {
+        opacity: 0;
+        animation-name: fadeIn;
+        -webkit-animation-name: fadeIn;
+    }
+</style>
+<header></header>
+<div class="panel_body" class="example-animate-container">
+    <h3 class="heading_cls">Production Contract {{contractNumber}} History</h3>
+    <div class="changesBox mt-3" class="animate-repeat">
+        <div class="container-fluid">
+            <div class="row animated animatedFadeIn fadeIn">
+                <div class="col-md-3">
+                    <h3 class="text-center">User</h3>
+                </div>
+                <div class="col-md-9">
+                    <h3 class="text-center">Changes</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="panel_body_inner inner_box">
+    <div class="container-fluid">
+        <div class="row" class="animate-repeat">
+            <div class="col-md-3">
+                <div class="userCreated">
+                    <h5>{{createdBy.fullName}}</h5>
+                    <p><b>Date: </b> {{createdAt | date :"yyyy-MM-dd HH:mm:ss"}}</p>
+                    <span class="bottomArrow"><i class="fas fa-long-arrow-alt-down"></i></span>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="userChanges">
+                    <h4>Contract Created</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row animated animatedFadeIn fadeIn" ng-repeat="val in updatedList track by $index">
+            <div class="col-md-3">
+                <div class="userCreated">
+                    <h5>{{val.createdBy.fullName}}</h5>
+                    <p><b>Date: </b> {{val.createdAt | date :"yyyy-MM-dd HH:mm:ss"}}</p>
+                    <span class="bottomArrow" ng-hide="$last"><i class="fas fa-long-arrow-alt-down"></i></span>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="userChanges">
+                    <div ng-repeat="c in val.changedList">
+                        <h6><span class="keyName">{{c.key}}</span>
+                            <span class="valueA">{{c.prevValue}}
+                                <i class="fas fa-long-arrow-alt-right"></i>
+
+                            </span>
+                            <span class="valueB"> {{c.newValue}}</span>
+                        </h6>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>

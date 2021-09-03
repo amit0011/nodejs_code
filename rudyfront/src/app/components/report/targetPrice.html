@@ -1,0 +1,125 @@
+<style type="text/css">
+    table thead tr td, table tbody tr td{
+                     width: 140px !important;
+ }
+</style>
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="initPosition()">
+         <div class="panel_body_inner inner_box">
+            <div class="">
+                <ul class="nav nav-pills nav-stacked row" style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;" class="page">
+                  <li>
+                      <b>Target Price Match Report</b>
+                 </li>
+              </ul>
+           </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="tabla_header">
+                               <div class="tbl" style="width: 15%!important;">
+                                    <label>Commodity</label>
+                                    <select name="commodity" ng-model="myForm.commodityId" style="width: 100%" ng-change="getList(1);getGrade(myForm.commodityId);">
+                                       <option value="">Select Commodity</option>
+                                       <option ng-repeat="c in commoditys track by $index" value="{{c._id}}">{{c.commodityName}}</option>
+                                    </select>
+                                </div>
+                                <div class="tbl" style="width: 15%!important;">
+                                    <label>Grade</label>
+                                    <select name="commodity" ng-model="myForm.gradeId" style="width: 100%" ng-change="getList(1)">
+                                       <option value="">Select Grade</option>
+                                       <option ng-repeat="g in grades track by $index" value="{{g._id}}">{{g.gradeName}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="tbl" style="width: 10%!important;">
+                                    <label>Crop Year</label>
+                                    <select ng-model="myForm.cropYear" ng-change="getList(1)"
+                                      ng-options="cropYear as cropYear for cropYear in cropYears"style="width: 100%">
+                                       <option value="">Crop Year</option>
+                                    </select>
+                                </div>
+
+                     <button ng-click="clear()">Clear</button>
+                     <button ng-click="exportSheet()" ng-show="list.length">EXPORT to XL</button>
+                     <!-- <button ng-click="OpenMailPopUp()">Send Mail</button> -->
+
+                 </div>
+               </div>
+            </div>
+            <div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;">
+               <style type="text/css">
+                  @media print {
+                     @page {
+                        size: A4 landscape;
+                     }
+                     img {
+                           height: 90%;
+                           margin: 0;
+                           padding: 0;
+                        }
+                     }
+                     table tbody tr td {
+                        border: 0.50px solid #000;
+                     }
+                  }
+
+               </style>
+
+              <div class="comodity_table" id="printSectionId">
+                  <table class="table table-striped commodity_table table_body_scroll table-responsive" style="width: 1670px;">
+                        <thead>
+                           <tr>
+                              <td>Grower Name</td>
+                              <td>Commodity</td>
+                              <td>Grade</td>
+                              <td>Crop Year</td>
+                              <td>Phone</td>
+                              <td>Target Price</td>
+                              <td>Bid Price (Aug/Sep)</td>
+                           </tr>
+                        </thead>
+                        <tbody >
+                           <tr ng-repeat="val in list track by $index">
+                              <td><a ng-href="growerDetails/{{val.growerId._id}}">{{val.growerId.firstName}} {{val.growerId.lastName}}</a></td>
+                              <td>{{val.commodityId.commodityName}}</td>
+                              <td>{{val.gradeId.gradeName}}</td>
+                              <td>{{val.cropYear}}</td>
+                               <td>{{val.growerId.phone || val.growerId.phonenumber}}</td>
+                              <td>{{val.targetCWT}}/CWT</td>
+                              <td>{{val.bidPriceCWT}}/CWT</td>
+                           </tr>
+                        </tbody>
+                     </table>
+
+                  </div>
+                  <div paging page="page" page-size="10" total="totalPage" paging-action="getList(page)"></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

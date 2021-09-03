@@ -1,0 +1,61 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div ng-hide="scaleTicketNumberList.length==1"  class="add_commodity_bar">
+                        <button ng-click="openPop('add')" ng-show="loginUserAccess.setting.scaleTicketNumber.add">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Incoming Ticket Number</th>
+                                    <th>Outgoing Ticket Number</th>
+                                    <th ng-show="loginUserAccess.setting.scaleTicketNumber.view || loginUserAccess.setting.scaleTicketNumber.edit">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in scaleTicketNumberList">
+                                    <td>{{result.incomingNumber}}</td>
+                                    <td>{{result.outgoingNumber}}</td>
+                                    <td ng-show="loginUserAccess.setting.scaleTicketNumber.view || loginUserAccess.setting.scaleTicketNumber.edit">
+                                       
+                                        <a ng-show="loginUserAccess.setting.scaleTicketNumber.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.scaleTicketNumber.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging page="page" page-size="10" total="totalPages" paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm analysis" style="width: 45%;">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <div class="com_pac">
+                <label>Incoming Ticket</label>
+                <input type="text" name="commName" ng-model="myForm.incomingNumber" numbers-only placeholder="Enter Incoming Ticket Number" required>
+            </div>
+            <div class="com_pac">
+                <label>Outgoing Ticket</label>
+                <input type="text" name="commName" ng-model="myForm.outgoingNumber" numbers-only placeholder="Enter Outgoing Ticket Number" required>
+            </div>
+            <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="!(myForm.outgoingNumber && myForm.incomingNumber)">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+        </div>
+    </div>
+</div>

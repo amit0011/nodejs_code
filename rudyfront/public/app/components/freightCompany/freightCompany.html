@@ -1,0 +1,148 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <a ng-click="delete()" ng-show="arr.length!=0 && loginUserAccess.setting.freightCompany.delete"><i class="fas fa-trash-alt delete_comm"></i></a>
+                        <input type="text" name="search" ng-model="commodityType" placeholder="Search">
+                        <button ng-click="openPop()" ng-show="loginUserAccess.setting.freightCompany.add">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Freight Company Name</th>
+                                    <th>Stuffer</th>
+                                    <th ng-show="loginUserAccess.setting.freightCompany.viewMenu">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in freightCompanyList">
+                                    <td>{{result.freightCompanyName}}</td>
+                                    <td>{{result.stuffer ? 'Yes' : 'No'}}</td>
+                                    <td ng-show="loginUserAccess.setting.freightCompany.viewMenu">
+                                        <a ng-show="loginUserAccess.setting.freightCompany.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.freightCompany.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.freightCompany.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging
+                            page="page" 
+                            page-size="10" 
+                            total="totalPages"
+                            paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm analysis">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="frval frval_two">
+                        <label>Company Name</label>
+                        <input type="text" name="companyName" ng-model="myForm.freightCompanyName" placeholder="Enter Freight Company Name" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="frval frval_two">
+                        <label>Stuffer</label>
+                        <div class="grop_rad">
+                            <label class="grop_rad_check" style="padding: 9px 0 0 11%">Stuffer
+                                <input type="checkbox" value="true" ng-model="myForm.stuffer">
+                                <span class="checkmark" style="top: 8px;"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="frval frval_two">
+                        <label>Address Line 1</label>
+                        <input type="text" name="addressLine1" ng-model="myForm.addressLine1" placeholder="Enter Address Line 1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="frval frval_two">
+                        <label>Address Line 2</label>
+                        <input type="text" name="addressLine2" ng-model="myForm.addressLine2" placeholder="Enter Address Line 2" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="frval frval_two">
+                        <label>Province</label>
+                        <select name="province" ng-model="myForm.province" required>
+                            <option value="">Select Provice</option>
+                            <option>AB</option>
+                            <option>BC</option>
+                            <option>ID</option>
+                            <option>MB</option>
+                            <option>MN</option>
+                            <option>MT</option>
+                            <option>NB</option>
+                            <option>ND</option>
+                            <option>NS</option>
+                            <option>NV</option>
+                            <option>ON</option>
+                            <option>OR</option>
+                            <option>PEI</option>
+                            <option>QC</option>
+                            <option>SD</option>
+                            <option>SK</option>
+                            <option>WA</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="frval frval_two">
+                        <label>Postal Code</label>
+                        <input type="text" name="postalCode" ng-model="myForm.postalCode" placeholder="Enter Postal Code" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="frval frval_two">
+                        <label>Country</label>
+                        <select
+                            name="country"
+                            ng-options="country.name as country.name for country in countryList"
+                            ng-model="myForm.country"
+                            class="form-control">
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="!(myForm.freightCompanyName)">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,3632 @@
+<div class="dash_bord" ng-controller="accessRoleCtrl">
+	<sidebar></sidebar>
+	<div class="right_panel">
+		<header></header>
+		<div class="panel_body" style="background-color: #fff">
+			<div class="panel_body_inner inner_box_List">
+				<div class="col-md-12">
+
+					<div class="acessrole">
+						<label>Access Role:</label>
+						<p>{{fullName}}</p>
+					</div>
+
+					<div class="table-responsive style_table">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Menu</th>
+									<th>Select All
+									</th>
+									<th>
+										<label class="custom_chk" style="display: inline;">
+											<input type="checkbox" checked="checked" ng-model="all.add"
+												ng-change="addSelectAll()">
+											<span class="checkmark"></span>
+										</label>
+										Add
+									</th>
+									<th>
+										<label class="custom_chk" style="display: inline;">
+											<input type="checkbox" checked="checked" ng-model="all.edit"
+												ng-change="editSelectAll()">
+											<span class="checkmark"></span>
+										</label>
+										Edit
+									</th>
+									<th>
+										<label class="custom_chk" style="display: inline;">
+											<input type="checkbox" checked="checked" ng-model="all.view"
+												ng-change="viewSelectAll()">
+											<span class="checkmark"></span>
+										</label>
+										View
+									</th>
+									<th>
+										<label class="custom_chk" style="display: inline;">
+											<input type="checkbox" checked="checked" ng-model="all.delete"
+												ng-change="deleteSelectAll()">
+											<span class="checkmark"></span>
+										</label>
+										Delete
+
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Dashbord</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked" ng-model="data.dashboard.selectAll"
+												ng-change="selectAll(data.dashboard)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.dashboard)"
+												ng-model="data.dashboard.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.dashboard)"
+												ng-model="data.dashboard.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.dashboard)"
+												ng-model="data.dashboard.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-changed="checkAllOptionSelected(data.dashboard)"
+												ng-model="data.dashboard.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="6">
+										<b style="display: flex;">Purchase
+											<label class="custom_chk" style="margin-left: 30px;">
+												<input type="checkbox" checked="checked" ng-model="all.purchase"
+													ng-change="purchaseSelectAll()">
+												<span class="checkmark"></span>
+											</label>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td>Growers</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.purchase.growers.selectAll"
+												ng-change="selectAll(data.purchase.growers)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.growers)"
+												ng-model="data.purchase.growers.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.growers)"
+												ng-model="data.purchase.growers.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.growers)"
+												ng-model="data.purchase.growers.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.growers)"
+												ng-model="data.purchase.growers.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Production Records</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.purchase.productionRecords.selectAll"
+												ng-change="selectAll(data.purchase.productionRecords)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.productionRecords)"
+												ng-model="data.purchase.productionRecords.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.productionRecords)"
+												ng-model="data.purchase.productionRecords.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.productionRecords)"
+												ng-model="data.purchase.productionRecords.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.productionRecords)"
+												ng-model="data.purchase.productionRecords.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Production Contracts</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.purchase.productionContracts.selectAll"
+												ng-change="selectAll(data.purchase.productionContracts)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.productionContracts)"
+												ng-model="data.purchase.productionContracts.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.productionContracts)"
+												ng-model="data.purchase.productionContracts.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.productionContracts)"
+												ng-model="data.purchase.productionContracts.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.productionContracts)"
+												ng-model="data.purchase.productionContracts.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Sample Dump List</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.purchase.sampleDumpList.selectAll"
+												ng-change="selectAll(data.purchase.sampleDumpList)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.sampleDumpList)"
+												ng-model="data.purchase.sampleDumpList.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.sampleDumpList)"
+												ng-model="data.purchase.sampleDumpList.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.sampleDumpList)"
+												ng-model="data.purchase.sampleDumpList.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.sampleDumpList)"
+												ng-model="data.purchase.sampleDumpList.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Purchase Confirmation</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.purchase.purchaseConfirmation.selectAll"
+												ng-change="selectAll(data.purchase.purchaseConfirmation)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.purchaseConfirmation)"
+												ng-model="data.purchase.purchaseConfirmation.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.purchaseConfirmation)"
+												ng-model="data.purchase.purchaseConfirmation.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.purchaseConfirmation)"
+												ng-model="data.purchase.purchaseConfirmation.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.purchaseConfirmation)"
+												ng-model="data.purchase.purchaseConfirmation.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Bid Sheet</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.purchase.bidSheet.selectAll"
+												ng-change="selectAll(data.purchase.bidSheet)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.bidSheet)"
+												ng-model="data.purchase.bidSheet.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.bidSheet)"
+												ng-model="data.purchase.bidSheet.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.bidSheet)"
+												ng-model="data.purchase.bidSheet.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.purchase.bidSheet)"
+												ng-model="data.purchase.bidSheet.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="6">
+										<b style="display: flex;">Rollover
+											<label class="custom_chk" style="margin-left: 30px;">
+												<input type="checkbox" checked="checked" ng-model="all.rollover"
+													ng-change="rolloverSelectAll()">
+												<span class="checkmark"></span>
+											</label>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td>Production</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.rollover.productionContracts.selectAll"
+												ng-change="selectAll(data.rollover.productionContracts)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.productionContracts)"
+												ng-model="data.rollover.productionContracts.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.productionContracts)"
+												ng-model="data.rollover.productionContracts.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.productionContracts)"
+												ng-model="data.rollover.productionContracts.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.productionContracts)"
+												ng-model="data.rollover.productionContracts.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Purchase</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.rollover.purchaseConfirmation.selectAll"
+												ng-change="selectAll(data.rollover.purchaseConfirmation)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.purchaseConfirmation)"
+												ng-model="data.rollover.purchaseConfirmation.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.purchaseConfirmation)"
+												ng-model="data.rollover.purchaseConfirmation.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.purchaseConfirmation)"
+												ng-model="data.rollover.purchaseConfirmation.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.purchaseConfirmation)"
+												ng-model="data.rollover.purchaseConfirmation.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Sales</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.rollover.salesContract.selectAll"
+												ng-change="selectAll(data.rollover.salesContract)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.salesContract)"
+												ng-model="data.rollover.salesContract.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.salesContract)"
+												ng-model="data.rollover.salesContract.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.salesContract)"
+												ng-model="data.rollover.salesContract.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.rollover.salesContract)"
+												ng-model="data.rollover.salesContract.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="6">
+										<b style="display: flex;">Sales
+											<label class="custom_chk" style="margin-left: 30px;">
+												<input type="checkbox" checked="checked" ng-model="all.sales"
+													ng-change="salesSelectAll()">
+												<span class="checkmark"></span>
+											</label>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td>Brokers</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.sales.brokers.selectAll"
+												ng-change="selectAll(data.sales.brokers)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.brokers)"
+												ng-model="data.sales.brokers.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.brokers)"
+												ng-model="data.sales.brokers.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.brokers)"
+												ng-model="data.sales.brokers.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.brokers)"
+												ng-model="data.sales.brokers.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Buyers</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.sales.buyers.selectAll"
+												ng-change="selectAll(data.sales.buyers)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.buyers)"
+												ng-model="data.sales.buyers.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.buyers)"
+												ng-model="data.sales.buyers.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.buyers)"
+												ng-model="data.sales.buyers.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.buyers)"
+												ng-model="data.sales.buyers.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Sales Contracts</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.sales.salesContract.selectAll"
+												ng-change="selectAll(data.sales.salesContract)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.salesContract)"
+												ng-model="data.sales.salesContract.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.salesContract)"
+												ng-model="data.sales.salesContract.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.salesContract)"
+												ng-model="data.sales.salesContract.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.salesContract)"
+												ng-model="data.sales.salesContract.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Commodity Pricing</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.sales.commodityPricing.selectAll"
+												ng-change="selectAll(data.sales.commodityPricing)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.commodityPricing)"
+												ng-model="data.sales.commodityPricing.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.commodityPricing)"
+												ng-model="data.sales.commodityPricing.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.commodityPricing)"
+												ng-model="data.sales.commodityPricing.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.commodityPricing)"
+												ng-model="data.sales.commodityPricing.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Trade Purchase Contract</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.sales.tradePurchaseContract.selectAll"
+												ng-change="selectAll(data.sales.tradePurchaseContract)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.tradePurchaseContract)"
+												ng-model="data.sales.tradePurchaseContract.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.tradePurchaseContract)"
+												ng-model="data.sales.tradePurchaseContract.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.tradePurchaseContract)"
+												ng-model="data.sales.tradePurchaseContract.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.sales.tradePurchaseContract)"
+												ng-model="data.sales.tradePurchaseContract.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<td colspan="6"><b style="display:flex">Truck Scale
+										<label class="custom_chk" style="margin-left: 30px;">
+											<input type="checkbox" checked="checked" ng-model="all.truckScale"
+												ng-change="truckScaleSelectAll()">
+											<span class="checkmark"></span>
+										</label>
+									</b></td>
+								</tr>
+								<tr>
+									<td>Incoming</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.truckScale.incoming.selectAll"
+												ng-change="selectAll(data.truckScale.incoming)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.incoming)"
+												ng-model="data.truckScale.incoming.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.incoming)"
+												ng-model="data.truckScale.incoming.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.incoming)"
+												ng-model="data.truckScale.incoming.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.incoming)"
+												ng-model="data.truckScale.incoming.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Outgoing</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.truckScale.outgoing.selectAll"
+												ng-change="selectAll(data.truckScale.outgoing)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoing)"
+												ng-model="data.truckScale.outgoing.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoing)"
+												ng-model="data.truckScale.outgoing.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoing)"
+												ng-model="data.truckScale.outgoing.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoing)"
+												ng-model="data.truckScale.outgoing.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Outgoing Seed Sales</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.truckScale.outgoingSeedSales.selectAll"
+												ng-change="selectAll(data.truckScale.outgoingSeedSales)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoingSeedSales)"
+												ng-model="data.truckScale.outgoingSeedSales.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoingSeedSales)"
+												ng-model="data.truckScale.outgoingSeedSales.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoingSeedSales)"
+												ng-model="data.truckScale.outgoingSeedSales.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoingSeedSales)"
+												ng-model="data.truckScale.outgoingSeedSales.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Trade Purchase</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.truckScale.tradePurchase.selectAll"
+												ng-change="selectAll(data.truckScale.tradePurchase)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.tradePurchase)"
+												ng-model="data.truckScale.tradePurchase.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.tradePurchase)"
+												ng-model="data.truckScale.tradePurchase.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.tradePurchase)"
+												ng-model="data.truckScale.tradePurchase.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.tradePurchase)"
+												ng-model="data.truckScale.tradePurchase.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Incoming Inventory</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.truckScale.incomingInventory.selectAll"
+												ng-change="selectAll(data.truckScale.incomingInventory)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.incomingInventory)"
+												ng-model="data.truckScale.incomingInventory.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.incomingInventory)"
+												ng-model="data.truckScale.incomingInventory.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.incomingInventory)"
+												ng-model="data.truckScale.incomingInventory.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.incomingInventory)"
+												ng-model="data.truckScale.incomingInventory.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Outgoing Inventory</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.truckScale.outgoingInventory.selectAll"
+												ng-change="selectAll(data.truckScale.outgoingInventory)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoingInventory)"
+												ng-model="data.truckScale.outgoingInventory.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoingInventory)"
+												ng-model="data.truckScale.outgoingInventory.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoingInventory)"
+												ng-model="data.truckScale.outgoingInventory.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.truckScale.outgoingInventory)"
+												ng-model="data.truckScale.outgoingInventory.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6"><b style="display:flex">Reports
+											<label class="custom_chk" style="margin-left: 30px;">
+												<input type="checkbox" checked="checked" ng-model="all.reports"
+													ng-change="reportsSelectAll()">
+												<span class="checkmark"></span>
+											</label>
+										</b></td>
+								</tr>
+
+								<tr>
+									<td>Commission Payable</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.commission.selectAll"
+												ng-change="selectAll(data.reports.commission)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.commission)"
+												ng-model="data.reports.commission.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.commission)"
+												ng-model="data.reports.commission.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.commission)"
+												ng-model="data.reports.commission.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.commission)"
+												ng-model="data.reports.commission.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Failed Quotes</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.failedQuotes.selectAll"
+												ng-change="selectAll(data.reports.failedQuotes)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.failedQuotes)"
+												ng-model="data.reports.failedQuotes.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.failedQuotes)"
+												ng-model="data.reports.failedQuotes.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.failedQuotes)"
+												ng-model="data.reports.failedQuotes.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.failedQuotes)"
+												ng-model="data.reports.failedQuotes.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Freight Variance</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.freightVariance.selectAll"
+												ng-change="selectAll(data.reports.freightVariance)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.freightVariance)"
+												ng-model="data.reports.freightVariance.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.freightVariance)"
+												ng-model="data.reports.freightVariance.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.freightVariance)"
+												ng-model="data.reports.freightVariance.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.freightVariance)"
+												ng-model="data.reports.freightVariance.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Shipped Weight Analysis</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.shippedWeightAnalysis.selectAll"
+												ng-change="selectAll(data.reports.shippedWeightAnalysis)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.shippedWeightAnalysis)"
+												ng-model="data.reports.shippedWeightAnalysis.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.shippedWeightAnalysis)"
+												ng-model="data.reports.shippedWeightAnalysis.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.shippedWeightAnalysis)"
+												ng-model="data.reports.shippedWeightAnalysis.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.shippedWeightAnalysis)"
+												ng-model="data.reports.shippedWeightAnalysis.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Position Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.position.selectAll"
+												ng-change="selectAll(data.reports.position)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.position)"
+												ng-model="data.reports.position.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.position)"
+												ng-model="data.reports.position.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.position)"
+												ng-model="data.reports.position.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.position)"
+												ng-model="data.reports.position.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Sales Summary</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.salesSummary.selectAll"
+												ng-change="selectAll(data.reports.salesSummary)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.salesSummary)"
+												ng-model="data.reports.salesSummary.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.salesSummary)"
+												ng-model="data.reports.salesSummary.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.salesSummary)"
+												ng-model="data.reports.salesSummary.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.salesSummary)"
+												ng-model="data.reports.salesSummary.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Forex Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.forex.selectAll"
+												ng-change="selectAll(data.reports.forex)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.forex)"
+												ng-model="data.reports.forex.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.forex)"
+												ng-model="data.reports.forex.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.forex)"
+												ng-model="data.reports.forex.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.forex)"
+												ng-model="data.reports.forex.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td>Production Record Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.productionRecord.selectAll"
+												ng-change="selectAll(data.reports.productionRecord)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.productionRecord)"
+												ng-model="data.reports.productionRecord.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.productionRecord)"
+												ng-model="data.reports.productionRecord.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.productionRecord)"
+												ng-model="data.reports.productionRecord.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.productionRecord)"
+												ng-model="data.reports.productionRecord.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Sample Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.sample.selectAll"
+												ng-change="selectAll(data.reports.sample)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.sample)"
+												ng-model="data.reports.sample.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.sample)"
+												ng-model="data.reports.sample.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.sample)"
+												ng-model="data.reports.sample.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.sample)"
+												ng-model="data.reports.sample.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Sample Dump Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.sampleDump.selectAll"
+												ng-change="selectAll(data.reports.sampleDump)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.sampleDump)"
+												ng-model="data.reports.sampleDump.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.sampleDump)"
+												ng-model="data.reports.sampleDump.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.sampleDump)"
+												ng-model="data.reports.sampleDump.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.sampleDump)"
+												ng-model="data.reports.sampleDump.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Production Contract Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.productionContract.selectAll"
+												ng-change="selectAll(data.reports.productionContract)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.productionContract)"
+												ng-model="data.reports.productionContract.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.productionContract)"
+												ng-model="data.reports.productionContract.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.productionContract)"
+												ng-model="data.reports.productionContract.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.productionContract)"
+												ng-model="data.reports.productionContract.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td>Purchase Confirmation Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.purchaseConfirmation.selectAll"
+												ng-change="selectAll(data.reports.purchaseConfirmation)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.purchaseConfirmation)"
+												ng-model="data.reports.purchaseConfirmation.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.purchaseConfirmation)"
+												ng-model="data.reports.purchaseConfirmation.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.purchaseConfirmation)"
+												ng-model="data.reports.purchaseConfirmation.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.purchaseConfirmation)"
+												ng-model="data.reports.purchaseConfirmation.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Area Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.area.selectAll"
+												ng-change="selectAll(data.reports.area)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.area)"
+												ng-model="data.reports.area.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.area)"
+												ng-model="data.reports.area.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.area)"
+												ng-model="data.reports.area.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.area)"
+												ng-model="data.reports.area.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Open Contracts Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.openContracts.selectAll"
+												ng-change="selectAll(data.reports.openContracts)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.openContracts)"
+												ng-model="data.reports.openContracts.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.openContracts)"
+												ng-model="data.reports.openContracts.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.openContracts)"
+												ng-model="data.reports.openContracts.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.openContracts)"
+												ng-model="data.reports.openContracts.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Performance Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.performance.selectAll"
+												ng-change="selectAll(data.reports.performance)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.performance)"
+												ng-model="data.reports.performance.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.performance)"
+												ng-model="data.reports.performance.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.performance)"
+												ng-model="data.reports.performance.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.performance)"
+												ng-model="data.reports.performance.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Group Emails</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.groupEmail.selectAll"
+												ng-change="selectAll(data.reports.groupEmail)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.groupEmail)"
+												ng-model="data.reports.groupEmail.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.groupEmail)"
+												ng-model="data.reports.groupEmail.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.groupEmail)"
+												ng-model="data.reports.groupEmail.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.groupEmail)"
+												ng-model="data.reports.groupEmail.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Target Price Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.targetPrice.selectAll"
+												ng-change="selectAll(data.reports.targetPrice)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.targetPrice)"
+												ng-model="data.reports.targetPrice.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.targetPrice)"
+												ng-model="data.reports.targetPrice.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.targetPrice)"
+												ng-model="data.reports.targetPrice.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.targetPrice)"
+												ng-model="data.reports.targetPrice.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>FX Contract</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.fxContract.selectAll"
+												ng-change="selectAll(data.reports.fxContract)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.fxContract)"
+												ng-model="data.reports.fxContract.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.fxContract)"
+												ng-model="data.reports.fxContract.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.fxContract)"
+												ng-model="data.reports.fxContract.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.fxContract)"
+												ng-model="data.reports.fxContract.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>FX Hedge Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.fxHedge.selectAll"
+												ng-change="selectAll(data.reports.fxHedge)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.fxHedge)"
+												ng-model="data.reports.fxHedge.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.fxHedge)"
+												ng-model="data.reports.fxHedge.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.fxHedge)"
+												ng-model="data.reports.fxHedge.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.fxHedge)"
+												ng-model="data.reports.fxHedge.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Grower Call Back Report</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.reports.growerCallBackReport.selectAll"
+												ng-change="selectAll(data.reports.growerCallBackReport)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.growerCallBackReport)"
+												ng-model="data.reports.growerCallBackReport.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.growerCallBackReport)"
+												ng-model="data.reports.growerCallBackReport.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.growerCallBackReport)"
+												ng-model="data.reports.growerCallBackReport.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.reports.growerCallBackReport)"
+												ng-model="data.reports.growerCallBackReport.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="6"><b style="display: flex">Settings
+											<label class="custom_chk" style="margin-left: 30px;">
+												<input type="checkbox" checked="checked" ng-model="all.setting"
+													ng-change="settingSelectAll()">
+												<span class="checkmark"></span>
+											</label>
+										</b></td>
+								</tr>
+
+								<tr>
+									<td style="color: green;">Sub-Admin</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.subAdmin.selectAll"
+												ng-change="selectAll(data.setting.subAdmin)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.subAdmin)"
+												ng-model="data.setting.subAdmin.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.subAdmin)"
+												ng-model="data.setting.subAdmin.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.subAdmin)"
+												ng-model="data.setting.subAdmin.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.subAdmin)"
+												ng-model="data.setting.subAdmin.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="6" style="color: green;">Commodity</td>
+								</tr>
+								<tr>
+									<td>Commodities</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.commodities.selectAll"
+												ng-change="selectAll(data.setting.commodities)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.commodities)"
+												ng-model="data.setting.commodities.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.commodities)"
+												ng-model="data.setting.commodities.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.commodities)"
+												ng-model="data.setting.commodities.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.commodities)"
+												ng-model="data.setting.commodities.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Commodity Type</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.commodityType.selectAll"
+												ng-change="selectAll(data.setting.commodityType)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.commodityType)"
+												ng-model="data.setting.commodityType.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.commodityType)"
+												ng-model="data.setting.commodityType.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.commodityType)"
+												ng-model="data.setting.commodityType.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.commodityType)"
+												ng-model="data.setting.commodityType.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Grade</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.grade.selectAll"
+												ng-change="selectAll(data.setting.grade)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.grade)"
+												ng-model="data.setting.grade.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.grade)"
+												ng-model="data.setting.grade.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.grade)"
+												ng-model="data.setting.grade.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.grade)"
+												ng-model="data.setting.grade.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Analysis List</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.analysisList.selectAll"
+												ng-change="selectAll(data.setting.analysisList)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.analysisList)"
+												ng-model="data.setting.analysisList.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.analysisList)"
+												ng-model="data.setting.analysisList.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.analysisList)"
+												ng-model="data.setting.analysisList.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.analysisList)"
+												ng-model="data.setting.analysisList.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Variety</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.variety.selectAll"
+												ng-change="selectAll(data.setting.variety)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.variety)"
+												ng-model="data.setting.variety.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.variety)"
+												ng-model="data.setting.variety.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.variety)"
+												ng-model="data.setting.variety.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.variety)"
+												ng-model="data.setting.variety.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="6" style="color: green;">
+										Sales Contract Settings
+										<label class="custom_chk" style="display: inline;margin-left: 30px;">
+											<input type="checkbox" checked="checked" ng-model="all.salesContractSetting"
+												ng-change="salesContractSettingSelectAll()">
+											<span class="checkmark"></span>
+										</label>
+
+									</td>
+								</tr>
+
+								<tr>
+									<td>Pricing Terms</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.pricingTerms.selectAll"
+												ng-change="selectAll(data.setting.pricingTerms)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.pricingTerms)"
+												ng-model="data.setting.pricingTerms.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.pricingTerms)"
+												ng-model="data.setting.pricingTerms.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.pricingTerms)"
+												ng-model="data.setting.pricingTerms.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.pricingTerms)"
+												ng-model="data.setting.pricingTerms.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Tags</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.tags.selectAll"
+												ng-change="selectAll(data.setting.tags)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.tags)"
+												ng-model="data.setting.tags.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.tags)"
+												ng-model="data.setting.tags.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.tags)"
+												ng-model="data.setting.tags.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.tags)"
+												ng-model="data.setting.tags.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Documents</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.documents.selectAll"
+												ng-change="selectAll(data.setting.documents)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.documents)"
+												ng-model="data.setting.documents.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.documents)"
+												ng-model="data.setting.documents.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.documents)"
+												ng-model="data.setting.documents.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.documents)"
+												ng-model="data.setting.documents.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Trade Rules</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.tradeRules.selectAll"
+												ng-change="selectAll(data.setting.tradeRules)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.tradeRules)"
+												ng-model="data.setting.tradeRules.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.tradeRules)"
+												ng-model="data.setting.tradeRules.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.tradeRules)"
+												ng-model="data.setting.tradeRules.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.tradeRules)"
+												ng-model="data.setting.tradeRules.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Payment Method</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.paymentMethod.selectAll"
+												ng-change="selectAll(data.setting.paymentMethod)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.paymentMethod)"
+												ng-model="data.setting.paymentMethod.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.paymentMethod)"
+												ng-model="data.setting.paymentMethod.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.paymentMethod)"
+												ng-model="data.setting.paymentMethod.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.paymentMethod)"
+												ng-model="data.setting.paymentMethod.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Payment Terms</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.paymentTerms.selectAll"
+												ng-change="selectAll(data.setting.paymentTerms)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.paymentTerms)"
+												ng-model="data.setting.paymentTerms.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.paymentTerms)"
+												ng-model="data.setting.paymentTerms.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.paymentTerms)"
+												ng-model="data.setting.paymentTerms.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.paymentTerms)"
+												ng-model="data.setting.paymentTerms.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Variance</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.variance.selectAll"
+												ng-change="selectAll(data.setting.variance)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.variance)"
+												ng-model="data.setting.variance.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.variance)"
+												ng-model="data.setting.variance.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.variance)"
+												ng-model="data.setting.variance.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.variance)"
+												ng-model="data.setting.variance.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td>Certificate Cost</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.certificateCost.selectAll"
+												ng-change="selectAll(data.setting.certificateCost)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.certificateCost)"
+												ng-model="data.setting.certificateCost.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.certificateCost)"
+												ng-model="data.setting.certificateCost.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.certificateCost)"
+												ng-model="data.setting.certificateCost.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.certificateCost)"
+												ng-model="data.setting.certificateCost.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Add Bag</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.baggings.selectAll"
+												ng-change="selectAll(data.setting.baggings)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.baggings)"
+												ng-model="data.setting.baggings.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.baggings)"
+												ng-model="data.setting.baggings.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.baggings)"
+												ng-model="data.setting.baggings.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.baggings)"
+												ng-model="data.setting.baggings.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Bag Category</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.bagCategory.selectAll"
+												ng-change="selectAll(data.setting.bagCategory)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bagCategory)"
+												ng-model="data.setting.bagCategory.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bagCategory)"
+												ng-model="data.setting.bagCategory.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bagCategory)"
+												ng-model="data.setting.bagCategory.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bagCategory)"
+												ng-model="data.setting.bagCategory.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>EDC</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.eDC.selectAll"
+												ng-change="selectAll(data.setting.eDC)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.eDC)"
+												ng-model="data.setting.eDC.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.eDC)"
+												ng-model="data.setting.eDC.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.eDC)"
+												ng-model="data.setting.eDC.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.eDC)"
+												ng-model="data.setting.eDC.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Max Weight</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.maxWeight.selectAll"
+												ng-change="selectAll(data.setting.maxWeight)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.maxWeight)"
+												ng-model="data.setting.maxWeight.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.maxWeight)"
+												ng-model="data.setting.maxWeight.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.maxWeight)"
+												ng-model="data.setting.maxWeight.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.maxWeight)"
+												ng-model="data.setting.maxWeight.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td colspan="6" style="color: green;">Shipment settings
+										<label class="custom_chk" style="display: inline;margin-left: 30px;">
+											<input type="checkbox" checked="checked"
+												ng-model="all.shipmentSettingSetting"
+												ng-change="shipmentSettingSelectAll()">
+											<span class="checkmark"></span>
+										</label>
+
+									</td>
+								</tr>
+
+								<tr>
+									<td>Add Equipment</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.equipment.selectAll"
+												ng-change="selectAll(data.setting.equipment)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.equipment)"
+												ng-model="data.setting.equipment.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.equipment)"
+												ng-model="data.setting.equipment.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.equipment)"
+												ng-model="data.setting.equipment.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.equipment)"
+												ng-model="data.setting.equipment.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Add Freight</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.freight.selectAll"
+												ng-change="selectAll(data.setting.freight)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freight)"
+												ng-model="data.setting.freight.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freight)"
+												ng-model="data.setting.freight.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freight)"
+												ng-model="data.setting.freight.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freight)"
+												ng-model="data.setting.freight.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td>Add Freight Company</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.freightCompany.selectAll"
+												ng-change="selectAll(data.setting.freightCompany)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freightCompany)"
+												ng-model="data.setting.freightCompany.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freightCompany)"
+												ng-model="data.setting.freightCompany.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freightCompany)"
+												ng-model="data.setting.freightCompany.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freightCompany)"
+												ng-model="data.setting.freightCompany.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Add Shipping Line</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.shippingLine.selectAll"
+												ng-change="selectAll(data.setting.shippingLine)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.shippingLine)"
+												ng-model="data.setting.shippingLine.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.shippingLine)"
+												ng-model="data.setting.shippingLine.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.shippingLine)"
+												ng-model="data.setting.shippingLine.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.shippingLine)"
+												ng-model="data.setting.shippingLine.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Add Shipping Terms</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.shippingTerms.selectAll"
+												ng-change="selectAll(data.setting.shippingTerms)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.shippingTerms)"
+												ng-model="data.setting.shippingTerms.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.shippingTerms)"
+												ng-model="data.setting.shippingTerms.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.shippingTerms)"
+												ng-model="data.setting.shippingTerms.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.shippingTerms)"
+												ng-model="data.setting.shippingTerms.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Add Loading Port</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.loadingPort.selectAll"
+												ng-change="selectAll(data.setting.loadingPort)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.loadingPort)"
+												ng-model="data.setting.loadingPort.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.loadingPort)"
+												ng-model="data.setting.loadingPort.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.loadingPort)"
+												ng-model="data.setting.loadingPort.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.loadingPort)"
+												ng-model="data.setting.loadingPort.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Add New Destination</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.newDestination.selectAll"
+												ng-change="selectAll(data.setting.newDestination)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.newDestination)"
+												ng-model="data.setting.newDestination.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.newDestination)"
+												ng-model="data.setting.newDestination.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.newDestination)"
+												ng-model="data.setting.newDestination.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.newDestination)"
+												ng-model="data.setting.newDestination.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td>Other Freight Settings</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.freightSettings.selectAll"
+												ng-change="selectAll(data.setting.freightSettings)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freightSettings)"
+												ng-model="data.setting.freightSettings.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freightSettings)"
+												ng-model="data.setting.freightSettings.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freightSettings)"
+												ng-model="data.setting.freightSettings.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.freightSettings)"
+												ng-model="data.setting.freightSettings.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+                </tr>
+
+								<tr>
+									<td>Container</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.container.selectAll"
+												ng-change="selectAll(data.setting.container)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.container)"
+												ng-model="data.setting.container.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.container)"
+												ng-model="data.setting.container.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.container)"
+												ng-model="data.setting.container.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.container)"
+												ng-model="data.setting.container.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+
+								<tr>
+									<td colspan="6" style="color: green;">Other Controls
+										<label class="custom_chk" style="display: inline;margin-left: 30px;">
+											<input type="checkbox" checked="checked" ng-model="all.othercontrolSetting"
+												ng-change="othercontrolSelectAll()">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Weather Update</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.weather.selectAll"
+												ng-change="selectAll(data.setting.weather)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.weather)"
+												ng-model="data.setting.weather.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.weather)"
+												ng-model="data.setting.weather.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.weather)"
+												ng-model="data.setting.weather.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.weather)"
+												ng-model="data.setting.weather.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Currency Update</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.currency.selectAll"
+												ng-change="selectAll(data.setting.currency)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.currency)"
+												ng-model="data.setting.currency.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.currency)"
+												ng-model="data.setting.currency.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.currency)"
+												ng-model="data.setting.currency.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.currency)"
+												ng-model="data.setting.currency.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Country</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.country.selectAll"
+												ng-change="selectAll(data.setting.country)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.country)"
+												ng-model="data.setting.country.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.country)"
+												ng-model="data.setting.country.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.country)"
+												ng-model="data.setting.country.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.country)"
+												ng-model="data.setting.country.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>City</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.city.selectAll"
+												ng-change="selectAll(data.setting.city)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.city)"
+												ng-model="data.setting.city.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.city)"
+												ng-model="data.setting.city.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.city)"
+												ng-model="data.setting.city.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.city)"
+												ng-model="data.setting.city.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+                </tr>
+
+								<tr>
+									<td>Origin</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.origin.selectAll"
+												ng-change="selectAll(data.setting.origin)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.origin)"
+												ng-model="data.setting.origin.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.origin)"
+												ng-model="data.setting.origin.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.origin)"
+												ng-model="data.setting.origin.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.origin)"
+												ng-model="data.setting.origin.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Town</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.town.selectAll"
+												ng-change="selectAll(data.setting.town)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.town)"
+												ng-model="data.setting.town.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.town)"
+												ng-model="data.setting.town.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.town)"
+												ng-model="data.setting.town.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.town)"
+												ng-model="data.setting.town.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Trucker</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.trucker.selectAll"
+												ng-change="selectAll(data.setting.trucker)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.trucker)"
+												ng-model="data.setting.trucker.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.trucker)"
+												ng-model="data.setting.trucker.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.trucker)"
+												ng-model="data.setting.trucker.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.trucker)"
+												ng-model="data.setting.trucker.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+								<tr>
+									<td>Bid Period</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.bidPeriod.selectAll"
+												ng-change="selectAll(data.setting.bidPeriod)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bidPeriod)"
+												ng-model="data.setting.bidPeriod.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bidPeriod)"
+												ng-model="data.setting.bidPeriod.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bidPeriod)"
+												ng-model="data.setting.bidPeriod.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bidPeriod)"
+												ng-model="data.setting.bidPeriod.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Scale Ticket Number</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.scaleTicketNumber.selectAll"
+												ng-change="selectAll(data.setting.scaleTicketNumber)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.scaleTicketNumber)"
+												ng-model="data.setting.scaleTicketNumber.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.scaleTicketNumber)"
+												ng-model="data.setting.scaleTicketNumber.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.scaleTicketNumber)"
+												ng-model="data.setting.scaleTicketNumber.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.scaleTicketNumber)"
+												ng-model="data.setting.scaleTicketNumber.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Receiver</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.receiver.selectAll"
+												ng-change="selectAll(data.setting.receiver)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.receiver)"
+												ng-model="data.setting.receiver.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.receiver)"
+												ng-model="data.setting.receiver.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.receiver)"
+												ng-model="data.setting.receiver.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.receiver)"
+												ng-model="data.setting.receiver.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+
+
+								<tr>
+									<td colspan="6" style="color: green;">Company Settings Bin Controls
+										<label class="custom_chk" style="display: inline;margin-left: 30px;">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.bin.selectAll"
+												ng-change="selectAll(data.setting.bin)">
+											<span class="checkmark"></span>
+										</label>
+
+									</td>
+								</tr>
+
+
+								<tr>
+									<td>Add Bin</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-model="data.setting.bin.selectAll"
+												ng-change="selectAll(data.setting.bin)">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bin)"
+												ng-model="data.setting.bin.add">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bin)"
+												ng-model="data.setting.bin.edit">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bin)"
+												ng-model="data.setting.bin.view">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+									<td>
+										<label class="custom_chk">
+											<input type="checkbox" checked="checked"
+												ng-change="checkAllOptionSelected(data.setting.bin)"
+												ng-model="data.setting.bin.delete">
+											<span class="checkmark"></span>
+										</label>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+						<button ng-click="update()" class="btn-success text-center">Update</button>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

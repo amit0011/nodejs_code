@@ -1,0 +1,520 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+         <h3 style="padding: 0 0 0 345px;" class="heading_cls">BidSheet
+            <button class="btn_top" ng-click="print(printSectionId)">Print</button>
+            <button class="btn_top" ng-click="openPop('data','Add')">Add Commodity</button>
+            <button class="btn_top" ng-click="openPopBidPeriod()" ng-show="loginUserAccess.purchase.bidSheet.add">Add Bid Period</button>
+            <datepicker style="width: auto;float: right;margin: 0 8px;clear: none;" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+               <div class="input-group">
+                  <input class="form-control" ng-model="searchForm.date" placeholder="Choose report date" autocomplete="off" />
+               </div>
+            </datepicker>
+            <button  class="btn_top" ng-click="excelReport()"><i class="far fa-file-excel"></i> Export Excel</button>
+         </h3>
+
+         <hr class="heading_hr">
+         <div class="panel_body_inner inner_box_List inner_box_List_spl">
+            <div class="col-md-12">
+
+               <div class="comodity_table comodity_table_list">
+                  <table class="table table-striped commodity_table table_body_scroll table-responsive" style="font-size: 14px;">
+                     <thead>
+                              <div class="" style="float: left;width: 100%;">
+
+                              
+                              <div style="float: right;width: 77%;margin: 0 0% 0 0; color: #000;font-weight: 700;">
+                                 <div class="" style="float: left;width: 30%;">
+                                    <select name="bidPeriodName" ng-options="bidPeriod.bidPeriodName as bidPeriod.bidPeriodName for bidPeriod in bidPeriodList" ng-model="myForm.bidPeriod1" style="width: 100%;height: 30px;margin:0;font-size: 11px;border-radius: 0px!important;" ng-change="changeBidPeriod()">
+                                 <option value="">Select Bid Period 1</option>
+                              </select>
+                                 </div>
+                                 <div class="" style="float: left;width: 29%;    margin: 0 0 0 5px;">
+                                    <select name="bidPeriodName" ng-options="bidPeriod.bidPeriodName as bidPeriod.bidPeriodName for bidPeriod in bidPeriodList" ng-model="myForm.bidPeriod2" style="width: 100%;height: 30px;margin:0;font-size: 11px;border-radius: 0px!important;" ng-change="changeBidPeriod()">
+                                 <option value="">Select Bid Period 2</option>
+                              </select>
+                                 </div>
+                                 <div class="" style="float: left;width: 30%;    margin: 0 0 0 5px;">
+                                    <select name="bidPeriodName" ng-options="bidPeriod.bidPeriodName as bidPeriod.bidPeriodName for bidPeriod in bidPeriodList" ng-model="myForm.bidPeriod3" style="width: 100%;height: 30px;margin:0;font-size: 11px;border-radius: 0px!important;" ng-change="changeBidPeriod()">
+                                 <option value="">Select Bid Period 3</option>
+                              </select>
+                                 </div>  
+                              </div>
+
+                              </div>
+                        <tr>
+                           <th>Commodity</th>
+                           <th>Grade</th>
+                           <th>Qty Reqd</th>
+                           <th style="background: #56b74e;">B/Q</th>
+                           <th style="background: #56b74e;">Del</th>
+                           <th style="background: #56b74e;">Fob</th>
+                           <th>B/Q</th>
+                           <th>Del</th>
+                           <th>Fob</th>
+                           <th style="background: #56b74e;">B/Q</th>
+                           <th style="background: #56b74e;">Del</th>
+                           <th style="background: #56b74e;">Fob</th>
+                           <th ng-show="loginUserAccess.purchase.bidSheet.view || loginUserAccess.purchase.bidSheet.edit || loginUserAccess.purchase.bidSheet.delete">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="result in bidsheetList">
+                           <td data-ng-hide="editMode">{{result.commodityId.commodityName}}</td>
+                           <td data-ng-show="editMode">
+                              <select name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys" ng-model="result.commodityId._id" ng-change="getGrade(result.commodityId._id)">
+                                 <option value="">Select Commodity</option>
+                              </select>
+                           </td>
+                           <td data-ng-hide="editMode">{{result.gradeId.gradeName}}</td>
+                           <td data-ng-show="editMode">
+                              <select name="grade" ng-options="grade._id as grade.gradeName for grade in grades" ng-model="result.gradeId._id">
+                                 <option value="">Select Grade</option>
+                              </select>
+                           </td>
+                           <td data-ng-hide="editMode">{{result.maxQuantity}} {{result.unit}}</td>
+                           <td data-ng-show="editMode">
+                              <input style="width: 100%;" type="text" ng-model="result.maxQuantity" numbers-Only placeholder="Max Qty" name="MaxQty" required position="4">
+                              <select style="width: 100%;" name="" ng-model="result.unit">
+                                 <option value="">Unit</option>
+                                 <option value="Bu">Bu</option>
+                                 <option value="CWT">CWT</option>
+                                 <option value="MT">MT</option>
+                                 <option value="Lbs">Lbs</option>
+                           </select>
+                           </td>
+                           <td data-ng-hide="editMode">{{result.bidPeriod[0].bidType}}</td>
+                           <td data-ng-show="editMode">
+                              <select name="" ng-model="result.bidPeriod[0].bidType">
+                              <option value="">Bid Type</option>
+                              <option value="B">B</option>
+                              <option value="Q">Q</option>
+                           </select>
+                           </td>
+                           <td data-ng-hide="editMode">{{round_off(result.bidPeriod[0].bidDel,result.bidPeriod[0].bidDelUnit)}}  {{result.bidPeriod[0].bidDelUnit}}</td>
+                           <td data-ng-show="editMode">
+                              <input style="width: 100%;" type="text" numbers-Only ng-model="result.bidPeriod[0].bidDel" placeholder="Del" name="bidDel" maxlength="8" required position="4">
+                              <select style="width: 100%;" name="" ng-model="result.bidPeriod[0].bidDelUnit">
+                                 <option value="">Unit</option>
+                                 <option value="Bu">Bu</option>
+                                 <option value="CWT">CWT</option>
+                                 <option value="MT">MT</option>
+                                 <option value="Lbs">Lbs</option>
+                              </select>
+                           </td>
+                           <td data-ng-hide="editMode">{{round_off(result.bidPeriod[0].bidFob,result.bidPeriod[0].bidFOBUnit)}}  {{result.bidPeriod[0].bidFOBUnit}}</td>
+                           <td data-ng-show="editMode">
+                              <input style="width: 100%;" type="text" numbers-Only ng-model="result.bidPeriod[0].bidFob" placeholder="FOB" name="bidDel" maxlength="8" required position="4">
+                              <select style="width: 100%;" name="" ng-model="result.bidPeriod[0].bidFOBUnit">
+                                 <option value="">Unit</option>
+                                 <option value="Bu">Bu</option>
+                                 <option value="CWT">CWT</option>
+                                 <option value="MT">MT</option>
+                                 <option value="Lbs">Lbs</option>
+                              </select>
+                           </td>
+                           <!-- <td>{{result.bidPeriod[1].bidType}}</td> -->
+                           <td data-ng-hide="editMode">{{result.bidPeriod[1].bidType}}</td>
+                           <td data-ng-show="editMode">
+                              <select name="" ng-model="result.bidPeriod[1].bidType">
+                              <option value="">Bid Type</option>
+                              <option value="B">B</option>
+                              <option value="Q">Q</option>
+                           </select>
+                           </td>
+                           <!-- <td>{{result.bidPeriod[1].bidDel}}</td> -->
+                           <td data-ng-hide="editMode">{{round_off(result.bidPeriod[1].bidDel,result.bidPeriod[1].bidDelUnit)}}  {{result.bidPeriod[1].bidDelUnit}}</td>
+                           <td data-ng-show="editMode">
+                              <input style="width: 100%;" type="text" numbers-Only ng-model="result.bidPeriod[1].bidDel" placeholder="Del" name="bidDel" maxlength="8" required position="4">
+                              <select style="width: 100%;" name="" ng-model="result.bidPeriod[1].bidDelUnit">
+                                 <option value="">Unit</option>
+                                 <option value="Bu">Bu</option>
+                                 <option value="CWT">CWT</option>
+                                 <option value="MT">MT</option>
+                                 <option value="Lbs">Lbs</option>
+                              </select>
+                           </td>
+                           <!-- <td>{{result.bidPeriod[1].bidFob}}</td> -->
+                           <td data-ng-hide="editMode">{{round_off(result.bidPeriod[1].bidFob,result.bidPeriod[1].bidFOBUnit)}}  {{result.bidPeriod[1].bidFOBUnit}}</td>
+                           <td data-ng-show="editMode">
+                              <input style="width: 100%;" type="text" numbers-Only ng-model="result.bidPeriod[1].bidFob" placeholder="FOB" name="bidDel" maxlength="8" required position="4">
+                              <select style="width: 100%;" name="" ng-model="result.bidPeriod[1].bidFOBUnit">
+                                 <option value="">Unit</option>
+                                 <option value="Bu">Bu</option>
+                                 <option value="CWT">CWT</option>
+                                 <option value="MT">MT</option>
+                                 <option value="Lbs">Lbs</option>
+                              </select>
+                           </td>
+                           <!-- <td>{{result.bidPeriod[2].bidType}}</td>
+                           <td>{{result.bidPeriod[2].bidDel}}</td>
+                           <td>{{result.bidPeriod[2].bidFob}}</td> -->
+                           <td data-ng-hide="editMode">{{result.bidPeriod[2].bidType}}</td>
+                           <td data-ng-show="editMode">
+                              <select name="" ng-model="result.bidPeriod[2].bidType">
+                              <option value="">Bid Type</option>
+                              <option value="B">B</option>
+                              <option value="Q">Q</option>
+                           </select>
+                           </td>
+                           <!-- <td>{{result.bidPeriod[2].bidDel}}</td> -->
+                           <td data-ng-hide="editMode">{{round_off(result.bidPeriod[2].bidDel,result.bidPeriod[2].bidDelUnit)}}  {{result.bidPeriod[2].bidDelUnit}}</td>
+                           <td data-ng-show="editMode">
+                              <input style="width: 100%;" type="text" numbers-Only ng-model="result.bidPeriod[2].bidDel" placeholder="Del" name="bidDel" maxlength="8" required position="4">
+                              <select style="width: 100%;" name="" ng-model="result.bidPeriod[2].bidDelUnit">
+                                 <option value="">Unit</option>
+                                 <option value="Bu">Bu</option>
+                                 <option value="CWT">CWT</option>
+                                 <option value="MT">MT</option>
+                                 <option value="Lbs">Lbs</option>
+                              </select>
+                           </td>
+                           <!-- <td>{{result.bidPeriod[2].bidFob}}</td> -->
+                           <td data-ng-hide="editMode">{{round_off(result.bidPeriod[2].bidFob,result.bidPeriod[2].bidFOBUnit)}}  {{result.bidPeriod[2].bidFOBUnit}}</td>
+                           <td data-ng-show="editMode">
+                              <input style="width: 100%;" type="text" numbers-Only ng-model="result.bidPeriod[2].bidFob" placeholder="FOB" name="bidDel" maxlength="8" required position="4">
+                              <select style="width: 100%;" name="" ng-model="result.bidPeriod[2].bidFOBUnit">
+                                 <option value="">Unit</option>
+                                 <option value="Bu">Bu</option>
+                                 <option value="CWT">CWT</option>
+                                 <option value="MT">MT</option>
+                                 <option value="Lbs">Lbs</option>
+                              </select>
+                           </td>
+                           <td ng-show="loginUserAccess.purchase.bidSheet.view || loginUserAccess.purchase.bidSheet.edit || loginUserAccess.purchase.bidSheet.delete">
+                              <span style="width: 100%;float: left;font-size: 12px;">
+                              <a data-ng-hide="editMode || !loginUserAccess.purchase.bidSheet.view"  ng-click="openPop(result,'view')" class="delete_detail_bidSheet">
+                              <i style="width: 20px;" class="fa fa-eye" aria-hidden="true"></i>
+                              </a>
+
+                              <a class="delete_detail_bidSheet" data-ng-hide="editMode || !loginUserAccess.purchase.bidSheet.edit" data-ng-click="editMode = true; editAppKey(result)">
+                              <i style="width: 13px;" class="fas fa-pen-square"></i>
+                              </a>
+                              <a class="delete_detail_bidSheet"  data-ng-show="editMode" data-ng-click="editMode = false; saveField(result)">
+                              <i style="margin: 4px 0 0 4px;font-size: 25px;" class="fas fa-save"></i>
+                              </a>
+                              <a class="delete_detail_bidSheet"  data-ng-show="editMode" data-ng-click="editMode = false; cancel()">
+                              <i style="margin: 4px 0 0 4px;font-size: 25px;" class="fas fa-window-close"></i>
+                              </a>
+                              <a data-ng-hide="editMode || !loginUserAccess.purchase.bidSheet.delete" class="delete_detail_bidSheet" ng-click="delete(result._id)">
+                              <i style="width: 13px;" class="fa fa-trash" aria-hidden="true"></i>
+                              </a>
+                              </span>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+<div class="popup_overlay"></div>
+<div class="add_coomm bidPeriod" style="width: 26% !important;top: 50% ! important;">
+   <div class="enter_comm_typ">
+      <div class="head_comm">
+         <div type="button" class="close" data-dismiss="modal">&times;</div>
+      </div>
+      <input type="text" name="commName" ng-model="myForm.bidPeriodName" placeholder="Enter Bid Period Name" required>
+      <button ng-click="saveBidPeriod()">SUBMIT</button>
+   </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="popup_overlay"></div>
+<div class="add_coomm">
+   <div class="head_comm head_2">
+      <h2>{{inputField}} Commodity</h2>
+      <div type="button" class="close" ng-click="closepop()">&times;</div>
+   </div>
+   <div class="panel_body">
+      <div class="panel_body_inner inner_box_List_add">
+         <div class="col-md-12">
+            <div class="add_commodity">
+               <form name="addBidsheet">
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="com_pac">
+                           <label>Company</label>
+                           <select name="" ng-model="myForm.company">
+                              <option value="">Select Company Name</option>
+                              <option value="Rudy Agro">Rudy Agro</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="com_pac">
+                           <label style="width: 40%">Commodity</label>
+                           <select name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys"  ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)">
+                              <option value="">Select Commodity</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="com_pac">
+                           <label>Grade</label>
+                           <select name="grade" ng-options="grade._id as grade.gradeName for grade in grades"  ng-model="myForm.gradeId">
+                              <option value="">Select Grade</option>
+                           </select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="com_pac">
+                           <label>Code</label>
+                           <input type="text" ng-model="myForm.code" placeholder="Code" name="firstName" ng-disabled="inputField=='view'" disabled required>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="com_pac">
+                           <label style="width: 40%">Unit</label>
+                           <select name="" ng-model="myForm.unit">
+                              <option value="">Select Unit</option>
+                              <option value="Bu">Bu</option>
+                              <option value="CWT">CWT</option>
+                              <option value="MT">MT</option>
+                              <option value="Lbs">Lbs</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="com_pac">
+                           <label>Max Qty</label>
+                           <input type="text" ng-model="myForm.maxQuantity" numbers-Only placeholder="Max Qty" name="MaxQty" ng-disabled="inputField=='view'" required position="4">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="com_pac">
+                           <label>Bid Period 1</label>
+                           <select name="" ng-model="myForm.bidPeriod1" ng-disabled="inputField=='view'">
+                              <option value="">Select Bid Period 1</option>
+                              <option value="January">January</option>
+                              <option value="February">February</option>
+                              <option value="March">March</option>
+                              <option value="April">April</option>
+                              <option value="May">May</option>
+                              <option value="June">June</option>
+                              <option value="July">July</option>
+                              <option value="August">August</option>
+                              <option value="September">September</option>
+                              <option value="October">October</option>
+                              <option value="November">November</option>
+                              <option value="December">December</option>
+                           </select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Bid</label>
+                           <select name="" ng-model="myForm.bidType1">
+                              <option value="">Bid Type</option>
+                              <option value="B">Bid</option>
+                              <option value="Q">Quote</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Del</label>
+                           <input type="number" ng-model="myForm.bidDel1" placeholder="Del" name="bidDel" ng-minlength="2" maxlength="50" ng-disabled="inputField=='view'" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Fob</label>
+                           <input type="text" ng-model="myForm.bidFob1" placeholder="Bid Fob" name="bidFob" ng-disabled="inputField=='view'" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>HB</label>
+                           <input type="text" ng-model="myForm.bidHb1" numbers-Only placeholder="High Bid" name="bidHb" ng-disabled="inputField=='view'" required position="4">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="com_pac">
+                           <label>Bid Period 2</label>
+                           <select name="" ng-model="myForm.bidPeriod2" ng-disabled="inputField=='view'">
+                              <option value="">Select Bid Period 2</option>
+                              <option value="January">January</option>
+                              <option value="February">February</option>
+                              <option value="March">March</option>
+                              <option value="April">April</option>
+                              <option value="May">May</option>
+                              <option value="June">June</option>
+                              <option value="July">July</option>
+                              <option value="August">August</option>
+                              <option value="September">September</option>
+                              <option value="October">October</option>
+                              <option value="November">November</option>
+                              <option value="December">December</option>
+                           </select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Bid</label>
+                           <select name="" ng-model="myForm.bidType2">
+                              <option value="">Bid Type</option>
+                              <option value="B">Bid</option>
+                              <option value="Q">Quote</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Del</label>
+                           <input type="number" ng-model="myForm.bidDel2" placeholder="Del" name="bidDel" ng-disabled="inputField=='view'" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Fob</label>
+                           <input type="text" ng-model="myForm.bidFob2" placeholder="Bid Fob" name="bidFob" ng-disabled="inputField=='view'" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>HB</label>
+                           <input type="text" ng-model="myForm.bidHb2" placeholder="High Bid" name="bidHb" numbers-Only ng-disabled="inputField=='view'" required position="4">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="com_pac">
+                           <label>Bid Period 3</label>
+                           <select name="" ng-model="myForm.bidPeriod3" ng-disabled="inputField=='view'">
+                              <option value="">Select Bid Period 3</option>
+                              <option value="January">January</option>
+                              <option value="February">February</option>
+                              <option value="March">March</option>
+                              <option value="April">April</option>
+                              <option value="May">May</option>
+                              <option value="June">June</option>
+                              <option value="July">July</option>
+                              <option value="August">August</option>
+                              <option value="September">September</option>
+                              <option value="October">October</option>
+                              <option value="November">November</option>
+                              <option value="December">December</option>
+                           </select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Bid</label>
+                           <select name="" ng-model="myForm.bidType3">
+                              <option value="">Bid Type</option>
+                              <option value="B">Bid</option>
+                              <option value="Q">Quote</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Del</label>
+                           <input type="number" ng-model="myForm.bidDel3" placeholder="Del" name="bidDel" ng-disabled="inputField=='view'" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Fob</label>
+                           <input type="text" ng-model="myForm.bidFob3" placeholder="Bid Fob" name="bidFob" ng-disabled="inputField=='view'" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>HB</label>
+                           <input type="text" ng-model="myForm.bidHb3" placeholder="High Bid" name="bidHb"  ng-disabled="inputField=='view'" numbers-Only required position="4">
+                        </div>
+                     </div>
+                  </div>
+                  <button ng-disabled="addgrower.$invalid" ng-hide="inputField=='view' || inputField=='edit'" ng-click="save()">Save</button>
+                  <button ng-disabled="addgrower.$invalid" ng-show="inputField=='edit'" ng-click="save()">Submit Changes</button>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+
+
+<div ng-show="Pdf" class="panel_body_inner inner_box_List_add add_commodity" id="printSectionId" style="padding: 0 15px;">
+   <style type="text/css">
+      table {
+         border-collapse: collapse;
+      }
+      table, th, td {
+         border: 1px solid #dddddd;
+      }
+   </style>
+   <div class="" style="margin: 0;padding: 0 0px;width: 100%;float: left;">
+      <table class="" style="width: 100%;max-width: 100%;margin-bottom: 0px;margin-top: 0px;border-collapse: collapse;">
+         <thead>
+            
+         </thead>
+      </table>
+      <table class="" style="width: 100%;max-width: 100%;margin-bottom: 0px;margin-top: 0px;border-collapse: collapse;">
+         <thead>
+            <tr>
+               <th colspan="4" style="text-align: left;font-size: 17px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 42%;border: 1px solid #000;">Bid Sheet - REL, {{currentDate | date}}</th>
+               <th colspan="3" style="text-align: left;font-size: 17px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 20.1%;border: 1px solid #000;">{{myForm.bidPeriod1}}</th>
+               <th colspan="3" style="text-align: left;font-size: 17px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 19%;border: 1px solid #000;">{{myForm.bidPeriod2}}</th>
+               <th colspan="3" style="text-align: left;font-size: 17px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">{{myForm.bidPeriod3}}</th>
+            </tr>
+            <tr>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 14%;border: 1px solid #000; ">Commodity</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 13%;border: 1px solid #000; ">Grade</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 3%;border: 1px solid #000; ">Code</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 4%;border: 1px solid #000; ">Max Qty</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 3%;border: 1px solid #000; ">B/Q</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 4%;border: 1px solid #000; ">Del</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 4%;border: 1px solid #000; ">FOB</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 2%;border: 1px solid #000; ">B/Q</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 4%;border: 1px solid #000; ">Del</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 4%;border: 1px solid #000; ">FOB</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 2%;border: 1px solid #000; ">B/Q</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 4%;border: 1px solid #000; ">Del</th>
+               <th style="text-align: left;font-size: 8px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 4%;border: 1px solid #000; ">FOB</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr style="border-bottom: 1px solid #cdcdcd;" ng-repeat="result in bidsheetList |orderBy:orderByField:reverseSort">
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.commodityId.commodityName}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.gradeId.gradeName}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.code}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.maxQuantity}} {{result.unit}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.bidPeriod[0].bidType}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.bidPeriod[0].bidDel}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.bidPeriod[0].bidFob}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.bidPeriod[1].bidType}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.bidPeriod[1].bidDel}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.bidPeriod[1].bidFob}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.bidPeriod[2].bidType}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.bidPeriod[2].bidDel}}</td>
+               <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 8px;border: 1px solid #000;">{{result.bidPeriod[2].bidFob}}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+</div>

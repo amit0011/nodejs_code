@@ -1,0 +1,82 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+         <h3 class="heading_cls">Certificate Cost</h3>
+         <hr class="heading_hr">
+         <div class="panel_body_inner inner_box_List">
+            <div class="col-md-12">
+               <div class="add_commodity_bar setting add_commodity_bar_nobg">
+                  <button ng-show="loginUserAccess.setting.certificateCost.add" ng-click="openPop()">ADD <i class="fas fa-plus-circle"></i></button>
+               </div>
+               <div class="comodity_table comodity_table_list">
+                  <table class="table table-striped commodity_table">
+                     <thead>
+                        <tr>
+                           <th>Certificate Name</th>
+                           <th>Cost</th>
+                           <th ng-show="loginUserAccess.setting.certificateCost.view || loginUserAccess.setting.certificateCost.edit || loginUserAccess.setting.certificateCost.delete">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="result in certificateCostList">
+                           <td>{{result.certificateName}}</td>
+                           <td>{{result.cost}}</td>
+                           <td ng-show="loginUserAccess.setting.certificateCost.view || loginUserAccess.setting.certificateCost.edit || loginUserAccess.setting.certificateCost.delete">
+                              <a ng-show="loginUserAccess.setting.certificateCost.delete" class="delete_detail" ng-click="delete(result._id)">
+                                 <i class="fa fa-trash" aria-hidden="true"></i>
+                              </a>
+                              <a ng-show="loginUserAccess.setting.certificateCost.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                 <i class="fas fa-pen-square"></i>
+                              </a>
+                              <a ng-show="loginUserAccess.setting.certificateCost.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                 <i class="fa fa-eye" aria-hidden="true"></i>
+                              </a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <div paging
+                     page="page" 
+                     page-size="10" 
+                     total="totalPages"
+                     paging-action="DoCtrlPagingAct('bar', page)">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Modal -->
+   <div class="popup_overlay"></div>
+   <div class="add_coomm country">
+      <div class="enter_comm_typ">
+         <div class="head_comm head_2">
+            <h2>{{inputField}} Certificate Cost</h2>
+            <div type="button" class="close" ng-click="closepop()">&times;</div>
+         </div>
+         <div class="panel_body">
+            <div class="panel_body_inner inner_box_List_add pop">
+               <div class="col-md-12">
+                  <div class="add_commodity add_growers_form">
+                    <form name="country">
+                        <div class="enter_comm_typ">
+                           <div class="com_pac">
+                              <label style="width: 43.5%;">Certificate Name</label>
+                              <input type="text" name="certificateName" ng-model="myForm.certificateName" placeholder="Enter Certificate Name" required>
+                           </div>
+                           <div class="com_pac">
+                              <label style="width: 43.5%;">Cost</label>
+                              <input type="text" name="cost" numbers-Only ng-model="myForm.cost" placeholder="Enter Cost" required>
+                           </div>
+                           <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="country.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+                        </div>
+                     </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+</div>

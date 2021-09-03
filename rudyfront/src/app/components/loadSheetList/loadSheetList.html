@@ -1,0 +1,44 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body">
+         <h3 class="heading_cls">
+            Contract {{contractNumber}} Load Sheets
+         </h3>
+         <hr class="heading_hr">
+         <div class="panel_body_inner inner_box">
+            <div class="col-md-12">
+               <div class="comodity_table">
+                  <table class="table table-striped commodity_table">
+                     <thead>
+                        <tr>
+                           <th>Buyer Name</th>
+                           <th>Contract #</th>
+                           <th>Ticket #</th>
+                           <th>Date</th>
+                           <th>Net Weight</th>
+                           <th>Dockage</th>
+                           <th>Splits</th>
+                           <th>Moisture</th>
+                        </tr>
+                     </thead>
+                     <tbody class="example-animate-container">
+                        <tr ng-repeat="t in loadSheets" class="animate-repeat">               
+                           <td class="{{getClass(t)}}">{{t.buyerId.businessName}}</td>
+                           <td class="{{getClass(t)}}">{{t.contractNumber}}</td>
+                           <td class="{{getClass(t)}}">{{preFix}}{{t.ticketNumber}}</td>
+                           <td class="{{getClass(t)}}">{{t.date | date}}</td>
+                           <td class="{{getClass(t)}}">{{t.unloadWeidht | number :3}}</td>
+                           <td class="{{getClass(t)}}">{{getValue(t.analysis,'Dockage')}}</td>
+                           <td class="{{getClass(t)}}">{{getValue(t.analysis,'Splits')}}</td>
+                           <td class="{{getClass(t)}}">{{t.moisture}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

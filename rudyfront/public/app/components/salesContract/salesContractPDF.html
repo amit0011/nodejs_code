@@ -1,0 +1,189 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="action_btn">
+         <button ng-click="print(printSectionId)">Print</button>
+         <!-- <a ng-href="/growerDetails/{{growerId}}">Save</a> -->
+         <a class="button_cls" ng-href="editSalesContract/{{salesContractDetails.buyerId._id}}/{{salesContractDetails.contractNumber}}/edit">Edit</a>
+      </div>
+      <div class="panel_body">
+         <div class="panel_body_inner inner_box_List_add add_commodity" style="padding: 0 15px;">
+            <div id="printSectionId">
+              <style type="text/css">
+                  @media print {
+                    .ng-show {
+                      /*display: none !important;*/
+                      visibility: hidden;
+                    }
+                    .ng-hide {
+                      /*display: none !important;*/
+                      visibility: hidden;
+                    }
+                  }
+               </style>
+               <div style="background: #fff;float: left;margin: 0;padding: 0;">
+                  <div style="margin: 0;padding: 0 0 5px 0;float: left;width: 100%;border-bottom: 2px solid #cdcdcd;">
+                     <div style="margin: 0;padding: 0;float: left;width: 20%;">
+                        <img src="{{imagePath}}/images/rudyLogo2.png">
+                     </div>
+                     <div style="margin: 0;padding: 0;float: right;width: 30%;">
+                        <h2 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 15px;color: #000;">RUDY AGRO LTD.</h2>
+                        <h2 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 15px;color: #000;">Box 100, Outlook Sask. S0L 2N0</h2>
+                        <h3 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 13px;color: #000;">Tel (306) 867-8667</h3>
+                        <h3 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 13px;color: #000;">Fax (306 867-8290</h3>
+                     </div>
+                  </div>
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <h1 style="margin: 0 0 10px 0;padding: 0;float: left;width: 100%;text-align: center;font-size: 24px;color: #000;">COMMODITY SALE AGREEMENT <br> Between Rudy Agro Ltd and:</h1>
+                     <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">BUYER:</b>
+                        <p style="margin: 0;padding: 0;float: left;width: 80%;font-size: 12px;color: #000;">{{salesContractDetails.buyerId.businessName}} <br> {{salesContractDetails.buyerId.addresses[0].street}} <br> {{salesContractDetails.buyerId.addresses[0].city}}, {{salesContractDetails.buyerId.addresses[0].postal}}, {{salesContractDetails.buyerId.addresses[0].country}}<br><span ng-show="salesContractDetails.buyerId.cellNumber">Cell- {{salesContractDetails.buyerId.cellNumber}},</span> <br><span ng-show="salesContractDetails.buyerId.phone">PH- {{salesContractDetails.buyerId.phone}}</span></p>
+                     </div>
+                     <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <div style="margin: 0;padding: 0;float: left;width: 100%;">
+                           <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 12px;color: #000;">DATE:</b>
+                           <p style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 12px;color: #000;"> {{salesContractDetails.date | date}}</p>
+                        </div>
+                        <div style="margin: 0;padding: 0;float: left;width: 100%;">
+                           <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 12px;color: #000;">CONTRACT #:</b>
+                           <b style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.contractNumber}}</b>
+                        </div>
+                        <div ng-show="salesContractDetails.showBroker" style="margin: 0;padding: 0;float: left;width: 100%;">
+                           <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 12px;color: #000;">Broker:</b>
+                           <b style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.brokerId.businessName}}</b>
+                        </div>
+                        <div ng-show="salesContractDetails.showBroker" style="margin: 0;padding: 0;float: left;width: 100%;">
+                           <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 12px;color: #000;">Broker #:</b>
+                           <b style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.brokerNumber}}</b>
+                        </div>
+                     </div>
+                  </div>
+                  <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">COMMODITY:</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.commodityId.commodityAlias}}</b>
+                     </div>
+                     <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">GRADE:</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.gradeId.gradeName}}</b>
+                     </div>
+                  </div>
+                  <div style="margin: 15px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">ORIGIN:</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.countryId}}</b>
+                     </div>
+                     <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">CROP YEAR:</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.cropYear}}</b>
+                     </div>
+                  </div>
+                  <div style="margin: 15px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <div style="margin: 0;padding: 0;float: left;width: 100%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 5%;font-size: 12px;color: #000;"></b>
+                        <b style="margin: 0;padding: 0;float: left;width: 95%;font-size: 12px;color: #000;font-weight: 400;">Quality final as per sellers sealed sample at time and place of shipment.</b>
+                     </div>
+                  </div>
+                  <div style="margin: 15px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">PACKING UNIT:</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.packingUnit.name}}</b>
+                     </div>
+                     <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">WITH TAGS:</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.tagType.tags}}</b>
+                     </div>
+                  </div>
+                  <!-- <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <div style="margin: 0;padding: 0;float: right;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">PORT:</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;">{{salesContractDetails.loadingPortId.loadingPortName}}</b>
+                     </div>
+                  </div> -->
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">CONTRACTED QUANTITY:</b>
+                     <p ng-show="salesContractDetails.packingUnit.bulkBag=='Bulk'" style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;">{{salesContractDetails.contractQuantity}} {{salesContractDetails.units}} {{salesContractDetails.variance.varianceName || salesContractDetails.varianceName}}, packed in {{salesContractDetails.packedIn}} x {{salesContractDetails.equipmentType.equipmentName || salesContractDetails.equipmentTypeName}} Total of {{salesContractDetails.contractQuantity}} {{salesContractDetails.units}}</p>
+                     <p ng-show="salesContractDetails.packingUnit.bulkBag=='Bag'" style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;">{{salesContractDetails.contractQuantity}} {{salesContractDetails.units}} {{salesContractDetails.variance.varianceName || salesContractDetails.varianceName}}, packed in {{salesContractDetails.packedIn}} x {{salesContractDetails.equipmentType.equipmentName || salesContractDetails.equipmentTypeName}} of {{salesContractDetails.loadingType=='Palletized and Shrink Wrapped'?salesContractDetails.noOfPallets+ ' Pallets '+salesContractDetails.noOfBags:salesContractDetails.noOfBags}} x {{salesContractDetails.bagWeight}} {{salesContractDetails.packingUnit.bagWeightUnit || salesContractDetails.packingUnitBagsUnit}} each. Total of {{salesContractDetails.contractQuantity}} {{salesContractDetails.units}}</p>
+                  </div>
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <div style="margin: 0;padding: 0;float: left;width: 100%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 4%;font-size: 12px;color: #000;"></b>
+                        <b style="margin: 0;padding: 0;float: left;width: 96%;font-size: 12px;color: #000;font-weight: 400;">Quality and weight final at time of loading {{salesContractDetails.qualityClause}}</b>
+                     </div>
+                  </div>
+                  <!-- <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">METHOD OF SHIPMENT:</b>
+                     <p style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;">{{salesContractDetails.methodOfShipment.equipmentName}}</p>
+                  </div> -->
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">SHIPPING COMMENT:</b>
+                     <p style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;">{{salesContractDetails.shippingOption}}, {{salesContractDetails.shippingComment}}</p>
+                  </div>
+                  <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 98%;">
+                     <div style="margin: 0 0 5px 0;padding: 0px;float: left;width: 100%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 37%;font-size: 12px;color: #000;">SHIPPING SCHEDULE:</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;"> START DATE</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">END DATE</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;text-align: center;">UNITS</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;text-align: center;">Quantity</b>
+                     </div>
+                     <div style="margin: 0;padding: 10px 0;float: left;width: 100%;border: 2px solid #cdcdcd;border-radius: 5px;">
+                        <div style="margin: 0;padding: 0px;float: left;width: 100%;" ng-repeat="shipment in salesContractDetails.shipmentScheldule">
+                           <p style="margin: 0;padding: 0;float: left;width: 37%;font-size: 12px;color: #000;">{{shipment.shipmentType}}</p>
+                           <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">{{shipment.startDate | date}}</p>
+                           <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">{{shipment.endDate | date}}</p>
+                           <p style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;text-align: center;">{{shipment.units}}</p>
+                           <p style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;text-align: center;">{{shipment.quantity}}</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">CONTRACT PRICE:</b>
+                     <b style="margin: 0;padding: 0;float: left;width: 40%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.contractCurrency}} ${{salesContractDetails.amount | number:2}} {{salesContractDetails.amountUnit}}  {{salesContractDetails.pricingTerms.pricingTerms}}</b>
+                     <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">TL UNITS: {{salesContractDetails.packedIn}}</p>
+                     <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">TL QTY: {{salesContractDetails.contractQuantity}} {{salesContractDetails.units}}</p>
+                  </div>
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <div style="margin: 0;padding: 0;width: 50%;">
+                        <b style="margin: 0;padding: 0;float: left;width: 40%;font-size: 12px;color: #000;">DESTINATION :</b>
+                        <b style="margin: 0;padding: 0;float: left;width: 60%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.destination}}</b>
+                     </div>
+                  </div>
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;font-size: 12px;color: #000;">
+                     <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">PAYMENT METHOD:</b>
+                     <b style="margin: 0;padding: 0;float: left;width: 80%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.paymentMethod.paymentMethod}}</b>
+                  </div>
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;font-size: 12px;color: #000;">
+                     <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">PAYMENT TERM:</b>
+                     <b style="margin: 0;padding: 0;float: left;width: 80%;font-size: 12px;color: #000;font-weight: 400;">{{salesContractDetails.paymentTerms.paymentTerms}}</b>
+                  </div>
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;" ng-show="salesContractDetails.showDocuments">
+                     <b style="margin: 0;padding: 0;float: left;width: 15%;font-size: 12px;color: #000;">DOCUMENTS:</b>
+                     <p style="margin: 0;padding: 0;float: left;width: auto;font-size: 12px;color: #000;" ng-repeat="docs in salesContractDetails.documents">Sets of documents must also include: {{docs.documents}} {{$last ? '.' : ($index==docs.length-2) ? ' and ' : ', '}}</p>
+                  </div>
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">TRADE RULES:</b>
+                     <p style="margin: 0;padding: 0;float: left;width: 80%;font-size: 12px;color: #000;">When not in conflict with the terms of this contract, {{salesContractDetails.tradeRules.tradeRules}} will apply.</p>
+                  </div>
+                  <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">OTHER CONDITIONS:</b>
+                     <p style="margin: 0;padding: 0;float: left;width: 80%;font-size: 12px;color: #000;">{{salesContractDetails.otherConditions}}. <b>Thank-you for your business!</b></p>
+                  </div>
+                  <div style="margin: 30px 0 0 0;padding: 0;float: left;width: 100%;">
+                     <p style="margin: 0;padding: 0;float: left;width: 50%;">
+                        <img src="{{imagePath}}{{salesContractDetails.signee.signature}}" alt="" style="width: 240px;height:80px;margin: 0;float: left;border-bottom: 2px solid #000;padding: 0 50px 0 0;">
+                        <!-- <b style="margin: 0;padding: 0;float: left;width: 40%;height: 2px;background: #000;"></b> -->
+                        <i style="margin: 5px 0 0 0;padding: 0;width: 100%;float: left;font-size: 12px;color: #000;">Accepted for Rudy Agro Ltd</i>
+                     </p>
+                     <p style="margin: 75px 0 0 0;padding: 0;float: left;width: 50%;">
+                        <!-- <b style="margin: 0;padding: 0;float: left;width: 40%;height: 2px;background: #000;"></b> -->
+                        <i style="margin: 5px 0 0 0;padding: 0;width: 65%;float: left;font-size: 12px;color: #000;border-top: 2px solid #000;">Accepted for Buyer</i>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

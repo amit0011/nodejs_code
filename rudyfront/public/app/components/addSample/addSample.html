@@ -1,0 +1,207 @@
+<div class="dash_bord" ng-controller="addSampleCtrl">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="getCommodityType()">
+            <div class="panel_body_inner inner_box_List_add add_commodity">
+                <div class="col-md-12">
+                    <div class="add_commodity">
+                        <form name="add_sample_form">
+
+                            <div class="grower_name">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2>Sample Form</h2>
+                                    </div>
+                                </div>
+
+                                <div class="row msps">
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Sample#</label>
+                                        <input type="text" placeholder="###">
+                                    </div>
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Requested Date</label>
+                                        <!-- <input type="text" placeholder="20/07/16"> -->
+                                        <datepicker class="date_pic date_pic_sam" date-format="yyyy-MM-dd" selector="form-control" ng-model="myForm.deliveryDateFrom">
+                                           <div class="input-group">
+                                              <input class="form-control" placeholder="Choose a date"/>
+                                              <span class="input-group-addon" style="cursor: pointer">
+                                              <i class="fa fa-lg fa-calendar"></i>
+                                              </span>
+                                           </div>
+                                        </datepicker>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Received Date</label>
+                                        <!-- <input type="text" placeholder="16/07/16"> -->
+                                        <datepicker class="date_pic date_pic_sam" date-format="yyyy-MM-dd" selector="form-control" ng-model="myForm.deliveryDateFrom">
+                                           <div class="input-group">
+                                              <input class="form-control" placeholder="Choose a date"/>
+                                              <span class="input-group-addon" style="cursor: pointer">
+                                              <i class="fa fa-lg fa-calendar"></i>
+                                              </span>
+                                           </div>
+                                        </datepicker>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Status</label>
+                                        <input type="text" disabled placeholder="Text">
+                                    </div>
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Commodity</label>
+                                        <select class="form-control" name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys" track by commodityType" ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)">
+                                           <option value="">Select Commodity</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Grade</label>
+                                        <select class="form-control" name="grade" ng-options="grade._id as grade.gradeName for grade in grades" track by gradeName" ng-model="myForm.gradeId">
+                                           <option value="">Select Grade</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Crop Year</label>
+                                        <select class="form-control">
+                                           <option value="">Select Crop Year</option>
+                                           <option value="2016">2016</option>
+                                           <option value="2017">2017</option>
+                                           <option value="2018">2018</option>
+                                           <option value="2019">2019</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 msps_inp">
+                                        <label>Variety</label>
+                                        <select class="form-control">
+                                            <option value="">Select Variety</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                          </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="row msps">
+                                    <div class="col-md-4">
+                                        <label>Quantity(lbs)</label>
+                                        <input type="number" placeholder="Quantity(lbs)">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Acers</label>
+                                        <input type="number" placeholder="Acers">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label>Formers Lot</label>
+                                        <input type="text" placeholder="Formers Lot">
+                                    </div>
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-3">
+                                        <label>Bid</label>
+                                        <input type="number" placeholder="Bid">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Target</label>
+                                        <input type="text" placeholder="Text">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label>Unit</label>
+                                        <select class="form-control">
+                                            <option value="">Select Unit</option>
+                                            <option value="lbs">lbs</option>
+                                            <option value="CWT">CWT</option>
+                                            <option value="MT">MT</option>
+                                            <option value="Kgs">Kgs</option>
+                                          </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Target/CWT</label>
+                                        <input type="text" placeholder="Text" disabled>
+                                    </div>
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-2">
+                                        <label>Dockage</label>
+                                        <input type="text" placeholder="Dockage">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>%RH</label>
+                                        <input type="text" placeholder="%RH">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>PBS</label>
+                                        <input type="text" placeholder="PBS">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>O.D.</label>
+                                        <input type="text" placeholder="O.D.">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Stain</label>
+                                        <input type="text" placeholder="Stain">
+                                    </div>
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-4 pro_con">
+                                        <label>Analysis Completed</label>
+                                        <div class="radio_check_cls new_rad">
+                                           <label class="slt_usrs slt_one">
+                                           <input type="radio" name="gender" ng-model="myForm.analyzed" value="Yes">
+                                           <span class="checkmark"></span> Yes
+                                           </label>
+                                           <label class="slt_usrs">
+                                           <input type="radio" ng-model="myForm.analyzed" name="gender" value="No">
+                                           <span class="checkmark"></span> No
+                                           </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pro_con">
+                                        <label>Mark For Dump</label>
+                                        <div class="radio_check_cls new_rad">
+                                           <label class="slt_usrs slt_one">
+                                           <input type="radio" name="gender" ng-model="myForm.markForDump" value="Yes">
+                                           <span class="checkmark"></span> Yes
+                                           </label>
+                                           <label class="slt_usrs">
+                                           <input type="radio" ng-model="myForm.markForDump" name="gender" value="No">
+                                           <span class="checkmark"></span> No
+                                           </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pro_con">
+                                        <label>Dumped</label>
+                                        <div class="radio_check_cls new_rad">
+                                           <label class="slt_usrs slt_one">
+                                           <input type="radio" name="gender" ng-model="myForm.dumped" value="Yes">
+                                           <span class="checkmark"></span> Yes
+                                           </label>
+                                           <label class="slt_usrs">
+                                           <input type="radio" ng-model="myForm.dumped" name="gender" value="No">
+                                           <span class="checkmark"></span> No
+                                           </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row msps">
+                                    <div class="col-md-8">
+                                        <label>Comment</label>
+                                        <textarea placeholder="Add Your Comment Here!"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button ng-disabled="!(myForm.commodityCode && myForm.commodityName && myForm.commodityAlias && myForm.commodityTypeId  && myForm.commodityWeight && myForm.commodityWeightType)" ng-click="save()">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

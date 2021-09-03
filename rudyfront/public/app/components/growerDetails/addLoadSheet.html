@@ -1,0 +1,392 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div>
+        <header></header>
+        <div class="panel_body" id="outgoingTicket">
+            <h3 class="heading_cls">
+                Grower's Load Sheet
+            </h3>
+            <hr class="heading_hr">
+            <div class="panel_body_inner inner_box">
+                <div class="pro_header">
+                    <div class="row" ng-show="type == 'add'">
+                        <div class="col-md-4">
+                            <label>Commodity</label>
+                            <select style="width: 100%;" name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys"  ng-model="myForm.commodityId" ng-change="getContractList()">
+                                <option value="">Select Commodity</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Grower Name</label>
+                            <select style="width: 100%;" name="grower" ng-options="grower._id as grower.farmName for grower in growerList"  ng-model="myForm.growerId" ng-change="getContractList()">
+                                <option value="">Select Grower</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Contract</label>
+                            <select style="width: 100%;" name="sales" ng-options="trade.contractNumber as trade.contractNumber for trade in contractList"  ng-model="myForm.contractNumber" ng-change="getContractInfo()">
+                                <option value="">Select Contract</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="scale_outer">
+                    <div class="scale_inner">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <div class="frval">
+                                    <label>Grower Name</label>
+                                    <select name="grower" ng-options="grower._id as grower.farmName for grower in growerList" ng-model="myForm.growerId">
+                                        <option value="">Select Grower</option>
+                                    </select>
+                                </div>
+                                <div class="frval">
+                                    <label>Commodity</label>
+                                    <select disabled name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys"  ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)">
+                                        <option value="">Select Commodity</option>
+                                    </select>
+                                </div>
+                                <div class="frval">
+                                    <label>Grade</label>
+                                    <select name="grade" ng-options="grade._id as grade.gradeName for grade in grades"  ng-model="myForm.gradeId" ng-change="selectGrade(grade)">
+                                        <option value="">Select Grade</option>
+                                    </select>
+                                </div>
+                                <div class="frval">
+                                    <label>Weigher</label>
+
+                                    <select name="weigher" ng-options="receiver.fullName as receiver.fullName for receiver in receiverList"  ng-model="myForm.weigher">
+                                        <option value="">Select Weigher</option>
+                                    </select>
+                                </div>
+                                <div class="frval">
+                                    <label>Docked By</label>
+
+                                    <select name="dockageBy" ng-options="receiver.fullName as receiver.fullName for receiver in receiverList" ng-model="myForm.dockageBy">
+                                        <option value="">Select DockageBy</option>
+                                    </select>
+                                </div>
+                                <div class="frval">
+                                    <label>Receipt Type</label>
+                                    <select ng-model="myForm.receiptType" ng-change="changeStatus()">
+                                        <option value="Special Bin Elevator Receipt">Special Bin Elevator Receipt</option>
+                                        <option value="Interim Primary Elevator Receipt">Interim Primary Elevator Receipt</option>
+                                        <option value="Primary Elevator Receipt">Primary Elevator Receipt</option>
+                                        <option value="Non CGA Grain">Non CGA Grain</option>
+                                        <option value="Non Producer Purchase">Non Producer Purchase</option> 
+                                        <option value="Void">Void</option>
+                                    </select>
+                                </div>
+
+                                <div class="frval">
+                                    <div class="grop_rad" style="width: 100%;height: 44px;">
+                                        <label class="grop_rad_check" style="padding: 9px 0 0 11%">Vehicle Inspected
+                                            <input type="checkbox" value="Vehicle Inspected" ng-model="myForm.vehicleInstected">
+                                            <span class="checkmark" style="top: 8px;"></span>
+                                        </label>
+                                        <label class="grop_rad_check" style="padding: 9px 0 0 11%">Infestation Check
+                                            <input type="checkbox" value="Infestation Check" ng-model="myForm.infestationCheck">
+                                            <span class="checkmark" style="top: 8px;"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="frval">
+                                    <label>Specification Met</label>
+                                    <select ng-model="myForm.specificationMet">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                        <option value="No, But approved by Wes">No, But approved by Wes</option>
+                                    </select>
+                                </div>
+                                <div class="frval">
+                                    <label>Analysis Completed</label>
+                                    <div class="grop_rad">
+                                        <label class="grop_rad_check">Yes
+                                        <input type="checkbox" value="true" ng-model="myForm.analysisCompleted">
+                                        <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="frval" ng-hide="!myForm._id">
+                                    <div class="grop_rad" style="width: 100%;height: 44px;">
+                                        <label class="grop_rad_check" style="padding: 9px 0 0 11%">Void
+                                            <input
+                                                type="checkbox"
+                                                value="Vehicle Inspected"
+                                                ng-model="myForm.void"
+                                            />
+                                            <span class="checkmark" style="top: 8px;"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="row" ng-repeat="sample in commodityShipmentAnalysis track by $index">
+                                    <div class="col-md-12 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>{{sample.analysisName}}</label>
+                                            <input type="text" numbers-Only placeholder="Enter Value"  ng-model="sample.value">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row" ng-show="showAllow">
+                                    <div class="col-md-8 no-rt">
+                                        <div class="frval  frval_two">
+                                            <label>Allow</label>
+                                            <input type="text" disabled numbers-Only name="" placeholder="Value" ng-model="myForm.allow">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 no-lt">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-9 no-rt">
+                                        <div class="frval frval_two">
+                                            <label style="width: 59%">Contract #</label>
+                                            <select ng-model="myForm.contractNumber" class="form-control">
+                                                <option value="">Select Contract</option>
+                                                <option ng-repeat="c in contractList" value="{{c.contractNumber}}">{{c.contractNumber}}</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 no-rt">
+                                        <div class="frval frval_two">
+                                            <input type="text" numbers-Only name="" placeholder="Value" ng-model="myForm.contractExtra">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>3rd Party Contract#</label>
+                                            <input type="" name="" placeholder="" ng-model="myForm.partyContract">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>Truck/Unit#</label>
+                                            <input type="" name="" placeholder="" ng-model="myForm.trackUnit">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>Seal#</label>
+                                            <input type="" name="" placeholder="" ng-model="myForm.seal">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>Clean Bin No</label>
+                                            <input type="" name="" placeholder="" ng-model="myForm.cleanBinNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>Lot Number</label>
+                                            <input type="" name="" placeholder="" ng-model="myForm.lotNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>Invoice Number</label>
+                                            <input type="" name="" placeholder="" ng-model="myForm.invoiceNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-show="showMoisture">
+                                    <div class="col-md-8 no-rt">
+                                        <div class="frval  frval_two">
+                                            <label style="width: 44%;">Moisture Adjustment</label>
+                                            <span>{{myForm.moistureAdjustment | number:2}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 no-lt">
+                                        <div class="frval_send">
+                                            <i>%</i>
+                                            <span>{{myForm.moistureAdjustmentWeight | number:3}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="frval frval_two">
+                                    <label>Ticket</label>
+                                    <input type="text" name="" placeholder="Ticket No" ng-model="myForm.ticketNumber">
+                                </div>
+                                <div class="frval frval_two">
+                                    <label>Reference No</label>
+                                    <input type="text" name="refNo" ng-model="myForm.referenceNo" class="form-control">
+                                </div>
+                                <div class="frval frval_two">
+                                    <label style="width: 46%">Date</label>
+                                    <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                                        <div class="input-group">
+                                            <input class="form-control" ng-model="myForm.date" placeholder="Choose a date" autocomplete="off" />
+                                        </div>
+                                    </datepicker>
+                                </div>
+                                <div class="frval frval_two">
+                                    <label>In Time</label>
+                                    <input type="" name="" disabled placeholder="In Time" ng-model="myForm.inTimeFormat">
+                                </div>
+                                <div class="frval frval_two">
+                                    <label>Exit Time</label>
+                                    <input type="" name="" disabled placeholder="Exit Time" ng-model="myForm.exitTimeFormat">
+                                </div>
+                                <div class="frval frval_two">
+                                    <label>Bin #</label>
+                                    <select name="weigher"  ng-model="myForm.binNumber">
+                                        <option value="">Select Bin#</option>
+                                        <option ng-repeat="bin in binList" value="{{bin._id}}">{{bin.binName}}</option>
+                                    </select>
+
+                                </div>
+                                <div class="frval frval_two">
+                                    <label>Moisture</label>
+                                    <input type="" name="" placeholder="" ng-model="myForm.moisture" ng-change="calculateMoisture()">
+                                </div>
+                                <div class="frval frval_two" ng-show="sizeKabuli!='show'">
+                                    <label>Size</label>
+                                    <input type="" name="" placeholder="" ng-model="myForm.size">
+                                </div>
+                                <div class="frval frval_two" ng-show="sizeKabuli=='show'">
+                                    <label>Size 7</label>
+                                    <input type="" name="" numbers-Only placeholder="" ng-model="myForm.size7">
+                                </div>
+                                <div class="frval frval_two" ng-show="sizeKabuli=='show'">
+                                    <label>Size 8</label>
+                                    <input type="" name="" numbers-Only placeholder="" ng-model="myForm.size8">
+                                </div>
+                                <div class="frval frval_two" ng-show="sizeKabuli=='show'">
+                                    <label>Size 9</label>
+                                    <input type="" name="" numbers-Only placeholder="" ng-model="myForm.size9">
+                                </div>
+                                <div class="frval frval_two" ng-show="sizeKabuli=='show'">
+                                    <label>Size 10</label>
+                                    <input type="" name="" numbers-Only placeholder="" ng-model="myForm.size10">
+                                </div>
+                                <div class="frval frval_two">
+                                    <label>Trucker</label>
+                                    <select name="commodity" ng-options="trucker._id as trucker.truckerName for trucker in truckerList"  ng-model="myForm.truckingCompany">
+                                        <option value="">Select Trucker</option>
+                                    </select>
+                                </div>
+                                <div class="frval frval_two">
+                                    <label>Trucker B/L</label>
+                                    <input type="" name="" placeholder="Trucker B/L" ng-model="myForm.truckerBL">
+                                </div>
+                                <div class="frval frval_two">
+                                    <label>Container Number</label>
+                                    <input type="" name="" placeholder="Container Number" ng-model="myForm.containeNumber">
+                                </div>
+
+                            </div>
+                            <a ng-show="showLightbulb=='red'"><i style="float: right;font-size: 30px;color: red;" class="fas fa-lightbulb"></i></a>
+                            <a ng-show="showLightbulb=='green'"><i style="float: right;font-size: 30px;color: green;" class="fas fa-lightbulb"></i></a>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <div class="row">
+                                    <div class="col-md-8 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>Gross</label>
+                                            <input type="text" name="" placeholder="Gross Weight(KG)" numbers-Only ng-model="myForm.grossWeight" ng-change="calculateWeightMT('gross')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 no-lt">
+                                        <div class="frval_send">
+                                            <i>.</i>
+                                            <b>{{myForm.grossWeightMT}}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>Tare</label>
+                                            <input type="" name="" placeholder="Tare Weight(KG)" numbers-Only ng-model="myForm.tareWeight" ng-change="calculateWeightMT('tara')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 no-lt">
+                                        <div class="frval_send">
+                                            <i>.</i>
+                                            <b>{{myForm.tareWeightMT}}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8 no-rt">
+                                        <div class="frval frval_two">
+                                            <label>Load</label>
+                                            <input type="" name="" placeholder="Load Weight(KG)" numbers-Only ng-model="myForm.unloadWeidht" ng-change="calculateWeightMT('unload')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 no-lt">
+                                        <div class="frval_send">
+                                            <i>.</i>
+                                            <b>{{myForm.unloadWeidhtMT}}</b>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="commtr_box">
+                                        <h2>Comment</h2>
+                                        <textarea ng-model="myForm.comments"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="frval">
+                                        <label>Print Comment</label>
+                                        <div class="grop_rad">
+                                            <label class="grop_rad_check">Yes
+                                            <input type="checkbox" value="true" ng-model="myForm.printComment">
+                                            <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="frval">
+                                        <label>Buyer Name</label>
+                                        <select style="width: 100%;" name="salesBuyer"
+                                            ng-options="buyer._id as buyer.businessName for buyer in buyerListByCommodity"
+                                            ng-model="myForm.salesBuyerId" ng-change="getSalesContractList(myForm.commodityId,myForm.salesBuyerId)">
+                                            <option value="">-- Buyer --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="frval">
+                                        <label>Sales Contract</label>
+                                        <select style="width: 100%;" name="salesContract"
+                                            ng-options="salesContract.contractNumber as salesContract.contractNumber for salesContract in salesContractList"
+                                            ng-model="myForm.salesContractNumber" ng-change="getSalesContractInfo(salesContractNumber)">
+                                            <option value="">-- Sales Contract --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="sboo" ng-hide="myForm.dockageCompleted && userType=='ADMIN' && userType=='SUPERADMIN'" ng-disabled="!(myForm.tareWeight)" ng-click="submit()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

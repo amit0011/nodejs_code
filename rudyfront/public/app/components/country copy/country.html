@@ -1,0 +1,85 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+             <h3 class="heading_cls">Country Table</h3><hr class="heading_hr">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <i class="fas fa-download download"></i>
+
+                        <input type="text" name="search" ng-model="cityName" ng-change="searchCity()" placeholder="Search">
+                        <button ng-show="loginUserAccess.setting.country.add" ng-click="openPop()">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Port</th>
+                                    <th>Country</th>
+                                    <th>Status</th>
+                                    <th ng-show="loginUserAccess.setting.country.view || loginUserAccess.setting.country.edit || loginUserAccess.setting.country.delete">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in countryList">
+                                        <td>{{result.name}}</td>
+                                        <td>{{result.country}}</td>
+                                        <td><span  ng-class="result.status==0?'badge badge-success':'badge badge-dark'">{{result.status==0?'ACTIVATED':'DEACTIVATED'}}</span></td>
+                                    <td ng-show="loginUserAccess.setting.country.view || loginUserAccess.setting.country.edit || loginUserAccess.setting.country.delete">
+                                        <a ng-show="loginUserAccess.setting.country.delete" class="delete_detail" ng-click="delete(result._id,result.status)">
+                                            <i ng-show="result.status==0" class="fa fa-trash" aria-hidden="true"></i>
+                                            <i ng-show="result.status==1" class="fa fa-undo" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.country.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.country.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging
+                          page="page" 
+                          page-size="10" 
+                          total="totalPages"
+                          paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm country">
+     <form name="country">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <div class="com_pac">
+                <label>Name</label>
+                <input type="text" name="name" ng-model="myForm.name" placeholder="Enter Name" required>
+            </div>
+            <div class="com_pac">
+                <label>City Name</label>
+                <input type="text" name="city" ng-model="myForm.city" placeholder="Enter City Name" required>
+            </div>
+            <div class="com_pac">
+                <label>Country Name</label>
+                <select ng-show="!countryInput" name="country" ng-options="country.country as country.country for country in countries"  ng-model="myForm.country">
+                    <option value="">Select Country</option>
+                </select>
+                <input type="text" class="input_commodityType" ng-model="myForm.country" name="name" ng-show="countryInput">
+                <a ng-show="!countryPlus" class="add_countryInput" ng-click="plusCountry('close')">x</a>
+            </div>
+            <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="country.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+        </div>
+        </form>
+    </div>
+</div>

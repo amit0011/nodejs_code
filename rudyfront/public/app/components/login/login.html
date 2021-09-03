@@ -1,0 +1,40 @@
+<div>
+    <div class="login_header">
+        <div class="login_logo">
+            <img src="/assets/images/logo.png">
+        </div>
+        <div class="login_head">
+            <h1>Rudy Agriculture ERP </h1>
+        </div>
+    </div>
+</div>
+<section>
+    <div class="login_body">
+        <div class="login_outter_form">
+            <div class="login_upper_header">
+                <h2>Log In</h2>
+            </div>
+            <div class="login_lower_body">
+                <form name="loginForm">
+                <label><i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input class="emaila" type="text" name="email" ng-model="myForm.email" placeholder="Email Address" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+                    <span class="validation_error" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+                    <span class="validation_error" ng-show="loginForm.email.$error.required">Email  is required.</span>
+                    <span class="validation_error" ng-if="loginForm.email.$error.pattern">Please Enter Vaild Email.</span></span>
+                </label>
+                <label style="margin-bottom: 40px;"><i class="fa fa-lock" aria-hidden="true"></i>
+                    <input class="passa" type="password" ng-minlength="6" ng-maxlength="20" name="password" ng-model="myForm.password" placeholder="Password" required>
+                    <span class="validation_error" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+                    <span class="validation_error" ng-show="loginForm.password.$error.required">Password  is required.</span>
+                    <span class="validation_error" ng-show="loginForm.password.$error.minlength">Password must have minimum 6 characters.</span>
+                    <span class="validation_error" ng-show="loginForm.password.$error.maxlength">Password must have maximum 20 characters.</span>
+                    </span>
+                </label>
+                <span class="validation_error1" ng-show="errormsg">{{errormsg}}</span>
+                <button ng-click="login()" ng-disabled="!(myForm.email && myForm.password) || loginRequest ">{{loginRequest ? 'Please wait...':'Submit'}}</button>
+                <a ui-sref="forgot">Forgot Password?</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

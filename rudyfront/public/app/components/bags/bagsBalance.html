@@ -1,0 +1,167 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+            <h3 class="heading_cls">Shipping Material</h3><hr class="heading_hr">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <input type="text" name="search" ng-model="cityName" ng-change="searchCity()" placeholder="Search">
+                        <button ng-show="loginUserAccess.setting.baggings.add" ng-click="openPop('add')">ADD <i class="fas fa-plus-circle"></i></button>
+                        <button class="mx-2" ng-show="loginUserAccess.setting.baggings.add" ng-click="downloadInventoryExcel()">Bag Inventory <i class="fas fa-table"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Cost</th>
+                                    <th>Type</th>
+                                    <th>Count</th>
+                                    <th>Alert Count</th>
+                                    <th>Bag Wt.</th>
+                                    <th ng-show="loginUserAccess.setting.baggings.view || loginUserAccess.setting.baggings.edit || loginUserAccess.setting.baggings.delete">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in bagsList">
+                                    <td>
+                                        <a class="edit_details" ng-click="openBagCountPopup(result)" title="Bag Inventory" ng-show="['Bag', 'Pallet'].includes(result.bulkBag)">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+                                    </td>
+                                    <td>{{result.name}}</td>
+                                    <td>{{result.bagCost}}</td>
+                                    <td>{{result.bulkBag}}</td>
+                                    <td>{{result.bagCount}}</td>
+                                    <td>{{result.alertCount}}</td>
+                                    <td>{{result.weightOfBag}}</td>
+                                    <td ng-show="loginUserAccess.setting.baggings.view || loginUserAccess.setting.baggings.edit || loginUserAccess.setting.baggings.delete">
+                                        <a ng-show="loginUserAccess.setting.baggings.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.baggings.edit" class="edit_details" ng-click="openPop('edit',result)"><i class="fas fa-pen-square"></i></a>
+                                        <a ng-show="loginUserAccess.setting.baggings.view" ng-click="openPop('view',result)" class="veiw_detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                        <a class="edit_details pr-3" ng-show="['Bag', 'Pallet'].includes(result.bulkBag)" ng-click="downloadBBExcel(result)"><i class="fa fa-table"></i></a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging
+                            page="page"
+                            page-size="10"
+                            total="totalPages"
+                            paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm country">
+        <form name="country">
+            <div class="enter_comm_typ">
+                <div class="head_comm">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <div class="com_pac">
+                    <label style="width: 44%;">Name</label>
+                    <input type="text" name="name" ng-model="myForm.name" placeholder="Enter Name" required>
+                </div>
+                <div class="com_pac">
+                    <label style="width: 44%;">Cost</label>
+                    <input type="text" name="bagCost" numbers-Only ng-model="myForm.bagCost" placeholder="Enter Bag Cost" required>
+                </div>
+                <div class="com_pac">
+                    <label>Type</label>
+                    <select ng-model="myForm.bulkBag">
+                        <option value="">-- Bag Type --</option>
+                        <option value="Bulk">Bulk</option>
+                        <option value="Bag">Bag</option>
+                        <option value="Pallet">Pallet</option>
+                    </select>
+                </div>
+                <div class="com_pac">
+                    <label style="width: 44%;">Capacity</label>
+                    <input type="text" name="bagCount" numbers-Only ng-model="myForm.bagWeight" placeholder="Enter Bag Weight">
+                </div>
+                <div class="com_pac">
+                    <label>Bag Weight Unit</label>
+                    <select ng-model="myForm.bagWeightUnit">
+                    <option value="">-- Bag Weight Unit --</option>
+                    <option value="MT">MT</option>
+                    <option value="KGS">KGS</option>
+                    <option value="LBS">LBS</option>
+                    </select>
+                </div>
+                <div class="com_pac" ng-hide="hideBagCount">
+                    <label style="width: 44%;">Bag Count</label>
+                    <input type="text" name="bagCount" numbers-Only ng-model="myForm.bagCount" placeholder="Enter Bag Count" required>
+                </div>
+                <div class="com_pac">
+                    <label style="width: 44%;">Bag Count Alert</label>
+                    <input type="text" number-only name="alertCount" ng-model="myForm.alertCount" placeholder="Alert Count" required>
+                </div>
+                <div class="com_pac">
+                    <label style="width: 44%;">Weight of Bag (in gms)</label>
+                    <input type="text" name="weightOfBag" numbers-Only ng-model="myForm.weightOfBag" placeholder="Enter weight of Bag">
+                </div>
+                <div class="com_pac">
+                    <label>Include Pallets</label>
+                    <div class="grop_rad">
+                        <label class="grop_rad_check">Yes
+                            <input type="checkbox" ng-model="myForm.includePallets">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="country.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+            </div>
+        </form>
+    </div>
+    <div class="add_coomm bag-count" style="width: 42%;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+        <form name="bagCount">
+            <div class="">
+                <div class="head_comm">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <div class="com_pac mb-3">
+                    <label style="width: 44%;">Date</label>
+                    <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control" required>
+                        <div class="input-group">
+                            <input name="date" class="form-control" ng-model="addBagCount.date" required
+                            placeholder="Only back dates upto 7 days" autocomplete="off" ng-change="validateDate()" />
+                            <span class="input-group-addon" style="cursor: pointer">
+                            <i class="fa fa-lg fa-calendar"></i>
+                            </span>
+                        </div>
+                    </datepicker>
+                </div>
+                <div class="com_pac mb-3">
+                    <label style="width: 44%;">Add/Remove bags</label>
+                    <input type="text" numbers-only sign="*" ng-change="updateBagCount()" name="noOfBags" ng-model="addBagCount.noOfBags" placeholder="No. of bags" required>
+                </div>
+                <div class="com_pac mb-3">
+                    <label style="width: 44%;">Reason</label>
+                    <input type="text" name="reason" ng-model="addBagCount.reason" placeholder="Reason">
+                </div>
+                <div class="com_pac mb-3">
+                    <label style="width: 44%;">Invoice/BL Number</label>
+                    <input type="text" name="invoiceBLNumber" ng-model="addBagCount.invoiceBLNumber" placeholder="Invoice/BL Number">
+                </div>
+                <div class="com_pac mb-3">
+                    <label style="width: 44%;">Bag Count</label>
+                    <input type="text" name="bagCount" ng-model="addBagCount.bagCount" placeholder="Bag Count" ng-readonly="true">
+                </div>
+                <div class="enter_comm_typ mt-4">
+                    <button ng-click="saveBagCount()" ng-disabled="bagCount.$invalid">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

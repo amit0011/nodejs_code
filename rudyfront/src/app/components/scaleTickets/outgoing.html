@@ -1,0 +1,264 @@
+<style>
+  .edit_details,
+  .veiw_details,
+  .veiw_detail {
+    float: none !important;
+    margin: 0;
+    padding: 2px 5px;
+  }
+
+</style>
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="DoCtrlPagingAct()">
+      <h3 class="heading_cls" style="padding: 0 0 0 170px;">Outgoing Scale Tickets
+        <button class="btn_top" ng-click="exportSheet()">Export/Print</button>
+        <button class="btn_top" ng-click="exportCGCReport()">Export CGC Report</button>
+        <button class="btn_top" ng-click="exportAllData()">Export All</button>
+        <a class="btn_top" ng-href="/addoutgoingscale/add" ng-show=" loginUserAccess.truckScale.outgoing.add">NEW
+          TICKET <i class="fas fa-plus-circle"></i></a>
+        <!-- </div> -->
+      </h3>
+      <hr class="heading_hr">
+      <div class="panel_body_inner inner_box" style="padding: 0;">
+        <div class="col-md-12">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="tabla_header">
+                <div class="tbl" style="width: 10%!important;">
+                  <label>Name/Farm</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="myForm.name">
+                </div>
+                <div class="tbl" style="width: 10%!important;">
+                  <label>Commodity</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="commodity"
+                    ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                    ng-model="myForm.commodity" ng-change="search()">
+                    <option value="">Select Commodity</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 9%!important;">
+                  <label>Contract #</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="myForm.contractNumber">
+                </div>
+                <div class="tbl" style="width: 5%!important;">
+                  <label>Ticket #</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="myForm.ticketNumber">
+                </div>
+                <div class="tbl" style="width: 10%!important;">
+                  <label>From Date</label>
+                  <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                    <div class="input-group">
+                      <input name="dateFrom" class="form-control" ng-model="myForm.fromDate" placeholder="Choose a date"
+                        autocomplete="off" ng-change="search()" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+                <div class="tbl" style="width: 10%!important;">
+                  <label>To Date</label>
+                  <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                    <div class="input-group">
+                      <input name="dateFrom" class="form-control" ng-model="myForm.toDate" placeholder="Choose a date"
+                        autocomplete="off" ng-change="search()" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+                <div class="tbl" style="width: 3%!important;">
+                  <label>See</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="seeMore"
+                    ng-model="myForm.limit" ng-change="search()">
+                    <option value="">Select</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>50</option>
+                    <option>120</option>
+                    <option>150</option>
+                    <option>200</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 10%!important;">
+                  <label>Ticket Type</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="ticketType"
+                    ng-model="myForm.ticketType" ng-change="search()">
+                    <option value="Outgoing">Outgoing Sales</option>
+                    <option value="OutgoingSeed">Seed Tickets</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 10%!important;">
+                  <label>Equipment</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;"
+                    ng-options="et._id as et.name for et in equipmentTypes" ng-change="search()" name="equipmentType"
+                    ng-model="myForm.equipmentType">
+                    <option value="">-- Equipment Type --</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 10%!important;">
+                  <label>Actual Freight By</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;"
+                    ng-model="myForm.actualFreightBy" required name="actualFreightBy" ng-change="search()"
+                    ng-options="fb._id as fb.freightCompanyName for fb in freightCompanyList">
+                    <option value="">--Select--</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 10%!important;">
+                  <label>Trucker</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="trucker"
+                    ng-model="myForm.truckingCompany" ng-change="search()"
+                    ng-options="trucker._id as trucker.truckerName for trucker in truckerList">
+                    <option value="">Select Trucker</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 10%!important;">
+                  <label>Freight By</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="myForm.freightBy">
+                </div>
+                <button ng-click="clear()">Clear</button>
+              </div>
+            </div>
+          </div>
+          <div class="comodity_table comodity_table_list">
+            <table class="table table-striped commodity_table" style="font-size: 14px;">
+              <thead>
+                <tr>
+                  <th style="width: 10%;">Date</th>
+                  <th style="width: 8%;">Ticket No.</th>
+                  <th>Load Time</th>
+                  <th>Ticket Prepared</th>
+                  <th>Commodity</th>
+                  <th ng-show="myForm.ticketType == 'Outgoing'">Buyer Name</th>
+                  <th ng-show="myForm.ticketType == 'OutgoingSeed'">Grower Name</th>
+                  <th>Contract #</th>
+                  <th>Gross</th>
+                  <th>Tare</th>
+                  <th>Load</th>
+                  <th>Equip. Type</th>
+                  <th>Trucker</th>
+                  <th>Freight By</th>
+                  <th>Xero Invoice #</th>
+                  <th>Actual Freight By</th>
+                  <th style="width: 10%;"
+                    ng-show="loginUserAccess.truckScale.outgoing.view || loginUserAccess.truckScale.outgoing.edit">
+                    Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="result in outgoingList">
+
+                  <td class="{{getClass(result)}}">{{result.date | date}}</td>
+                  <td>
+                    <a class="{{getClass(result)}}" style="cursor: pointer;"
+                      ng-click="openPdf(result.pdfUrl)">RO-{{result.ticketNumber}}
+                      &nbsp;&nbsp;&nbsp;<span ng-show="result.generateIncomingScalePDF">
+                        <i class="fa fa-info-circle" aria-hidden="true" title="Save ticket to get updated pdf"></i>
+                      </span>
+                    </a>
+                  </td>
+                  <td class="{{getClass(result)}}">{{result.cLoadTime}}</td>
+                  <td class="{{getClass(result)}}">{{result.timeToTicket}}</td>
+                  <td class="{{getClass(result)}}">{{result.commodityId.commodityName}}</td>
+                  <td class="{{getClass(result)}}" ng-show="myForm.ticketType == 'Outgoing'">
+                    {{result.buyerId.businessName}}</td>
+                  <td class="{{getClass(result)}}" ng-show="myForm.ticketType == 'OutgoingSeed'">
+                    {{result.growerId.farmName || (result.growerId.firstName + ' ' + result.growerId.lastName)}}
+                  </td>
+                  <td class="{{getClass(result)}}">
+                    {{result.contractNumber}}{{result.contractExtra ? ('-' + result.contractExtra) : ''}}</td>
+                  <td class="{{getClass(result)}}">{{result.grossWeight| number:3}}</td>
+                  <td class="{{getClass(result)}}">{{result.tareWeight| number:3}}</td>
+                  <td class="{{getClass(result)}}">{{result.unloadWeidht | number:3}}</td>
+                  <td class="{{getClass(result)}}">{{result.equipmentType}}</td>
+                  <td class="{{getClass(result)}}">{{result.truckingCompany.truckerName}}</td>
+                  <td class="{{getClass(result)}}">{{result.freightBy}}</td>
+                  <td class="{{getClass(result)}}">
+                    <input type="text" ng-model="result.invoiceNumberTemp" required ng-hide="result.invoiceNumber"
+                    style="max-width: 100px;" name="invoiceNumber" autocomplete="off" ng-enter="updateField(result, 'invoiceNumber')">
+                    <span ng-show="result.invoiceNumber">
+                      {{result.invoiceNumber}}
+                    </span>
+                  </td>
+                  <td class="{{getClass(result)}}">
+                    <select ng-model="result.actualFreightBy" required ng-hide="result.actualFreightBy"
+                      style="max-width: 150px;" name="actualFreightBy" ng-change="updateField(result, 'actualFreightBy')">
+                      <option value="">--Select--</option>
+                      <option
+                        ng-repeat="freightBy in freightCompanyList"
+                        value="{{freightBy._id}}"
+                        >
+                        {{freightBy.freightCompanyName}}
+                        </option
+                      >
+                    </select>
+                    <span ng-show="result.actualFreightBy">
+                      {{result.actualFreightBy ? result.actualFreightBy.freightCompanyName : ''}}
+                    </span>
+                  </td>
+                  <td class="text-right" ng-show="myForm.ticketType == 'Outgoing'"
+                    ng-show="loginUserAccess.truckScale.outgoing.view || loginUserAccess.truckScale.outgoing.edit">
+
+                    <a title="Unlock" ng-show="result.analysisCompleted && loginUserAccess.truckScale.outgoing.edit"
+                      style="cursor: pointer;" ng-click="unlockScaleTicket(result,'analysisCompleted')"
+                      class="edit_details">
+                      <i class="fa fa-unlock" aria-hidden="true"></i>
+                    </a>
+
+                    <a title="History" ng-show="loginUserAccess.truckScale.outgoing.view" style="cursor: pointer;"
+                      ng-href="scaleOutgoingHistory/{{result.ticketNumber}}/{{result._id}}" class="edit_details">
+                      <i class="fa fa-history" aria-hidden="true"></i>
+                    </a>
+
+                    <a title="View" ng-show="loginUserAccess.truckScale.outgoing.view" ng-click="openPdf(result.pdfUrl)"
+                      class="veiw_detail">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+
+                    <a title="Edit" ng-href="addoutgoingscale/{{result._id}}"
+                      ng-show="loginUserAccess.truckScale.outgoing.edit && !result.growerId" class="edit_details">
+                      <i class="fas fa-pen-square"></i>
+                    </a>
+
+                    <a class="edit_details"
+                      ng-click="generateBillOfLading(result, $event, $index)"
+                      ng-href="{{result.billOfLadingURL}}" target="_blank" title="Generate B/L">
+                      <i class="fas fa-file-invoice"></i>
+                    </a>
+                  </td>
+                  <td class="text-right" ng-show="myForm.ticketType == 'OutgoingSeed'">
+
+                    <a ng-show="result.analysisCompleted && loginUserAccess.truckScale.outgoingSeedSales.edit"
+                      style="cursor: pointer;" ng-click="unlockScaleTicket(result,'analysisCompleted')"
+                      class="edit_details">
+                      <i class="fa fa-unlock" aria-hidden="true"></i>
+                    </a>
+                    <a ng-show="loginUserAccess.truckScale.outgoingSeedSales.view" ng-click="openPdf(result.pdfUrl)"
+                      class="veiw_detail">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+
+                    <a ng-href="editoutgoingSeedScale/{{result.growerId._id}}/{{result._id}}"
+                      ng-show="loginUserAccess.truckScale.outgoingSeedSales.edit" class="edit_details">
+                      <i class="fas fa-pen-square"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div paging page="page" page-size="myForm.limit" total="totalPages" paging-action="DoCtrlPagingAct(page)">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

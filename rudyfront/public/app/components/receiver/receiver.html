@@ -1,0 +1,71 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+         <h3 class="heading_cls">Receiver</h3>
+         <hr class="heading_hr">
+         <div class="panel_body_inner inner_box">
+            <div class="col-md-12">
+               <div class="add_commodity_bar">
+                  <input type="text" name="search" placeholder="Search">
+                  <button ng-click="openPop('add')" ng-show="loginUserAccess.setting.receiver.add">ADD <i class="fas fa-plus-circle"></i></button>
+               </div>
+               <div class="comodity_table">
+                  <table class="table table-striped commodity_table">
+                     <thead>
+                        <tr>
+                           <th>Full Name</th>
+                           <th>Status</th>
+                           <th ng-show="loginUserAccess.setting.receiver.view || loginUserAccess.setting.receiver.edit || loginUserAccess.setting.receiver.delete">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="result in gradeList">
+                           <td>{{result.fullName}}</td>
+                           <td><span  ng-class="result.status==0?'badge badge-success':'badge badge-dark'">{{result.status==0?'ACTIVATED':'DEACTIVATED'}}</span></td>
+                           <td ng-show="loginUserAccess.setting.receiver.view || loginUserAccess.setting.receiver.edit || loginUserAccess.setting.receiver.delete">
+                              <a style="float: none;" ng-click="openPop('view',result)" class="veiw_detail" ng-show="loginUserAccess.setting.receiver.view"><i class="fa fa-eye" aria-hidden="true"></i></a></a>
+                              <a style="float: none;" class="edit_details" ng-click="openPop('edit',result)" ng-show="loginUserAccess.setting.receiver.edit"><i class="fas fa-pen-square"></i>
+                              <a style="float: none;" class="delete_detail" ng-click="delete(result._id)" ng-show="loginUserAccess.setting.receiver.delete">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                              </a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Modal -->
+   <div class="popup_overlay"></div>
+   <div class="add_coomm subadmin" style="width: 38%">
+      <div class="enter_comm_typ">
+         <div class="head_comm head_2">
+            <h2>{{inputField}} Receiver</h2>
+            <div type="button" class="close" ng-click="closepop()">&times;</div>
+         </div>
+         <div class="panel_body">
+            <div class="panel_body_inner inner_box_List_add grade">
+               <div class="col-md-12">
+                  <div class="add_commodity">
+                     <form name="addSubAdmin">
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="com_pac">
+                                 <label style="width: 43%;">Full Name</label>
+                                 <input style="margin: 0;" type="text" ng-minlength="2" maxlength="50" ng-model="myForm.fullName" placeholder="Enter Name" name="userName" ng-disabled="inputField=='view'" required>
+                              </div>
+                           </div>
+                        </div>
+                        <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="addSubAdmin.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

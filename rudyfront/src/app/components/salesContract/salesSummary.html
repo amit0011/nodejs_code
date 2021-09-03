@@ -1,0 +1,262 @@
+<style type="text/css">
+  table thead tr td,
+  table tbody tr td {
+    width: 140px !important;
+  }
+</style>
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="initPosition()">
+      <div class="panel_body_inner inner_box">
+        <div class="">
+          <ul class="nav nav-pills nav-stacked row"
+            style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;"
+            class="page">
+            <li>
+              <b>Sales Summary Report</b>
+            </li>
+          </ul>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="tabla_header">
+              <div class="tbl" style="width: 15%!important;">
+                <label>Buyer Name/Farm</label>
+                <input type="text" name="contract" ng-model="myForm.buyer" placeholder="Buyer Name"
+                  ng-enter="inItList('1')" style="font-size: 14px;height: 34px;color: #000;width: 100%;">
+              </div>
+
+              <div class="tbl" style="width: 14%!important;">
+                <label>Broker</label>
+                <select style="font-size: 14px;height: 34px;color: #000;width: 100%;"
+                  ng-options="broker._id as broker.businessName for broker in brokerList" ng-model="myForm.brokerId"
+                  ng-change="inItList('1')">
+                  <option value="">All Broker</option>
+                </select>
+              </div>
+
+              <div class="tbl" style="width: 15%!important;">
+                <label>Commodity</label>
+                <select name="commodity" ng-model="myForm.commodityId" ng-change="inItList('1')"
+                  style="width: 100%;height: 34px;">
+                  <option value="">Select Commodity</option>
+                  <option ng-repeat="commodity in commoditys  track by $index" value="{{commodity._id}}">
+                    {{commodity.commodityName}}</option>
+                </select>
+              </div>
+
+              <div class="tbl" style="width: 15%!important;">
+                <label>Contract Number</label>
+                <input type="text" name="contract" ng-model="myForm.contractNumber" placeholder="Contract number"
+                  ng-enter="inItList('1')" style="font-size: 14px;height: 34px;color: #000;width: 100%;">
+              </div>
+              <div class="tbl" style="width: 10%!important;">
+                <label>Crop Year</label>
+                <select ng-model="myForm.cropYear" ng-options="cropYear as cropYear for cropYear in cropYears" ng-change="inItList('1')" style="width: 100%;height: 34px;">
+                  <option value="">Crop Year</option>
+                </select>
+              </div>
+
+              <div class="tbl" style="width: 13%">
+                <label>From Date</label>
+                <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                  <div class="input-group">
+                    <input name="dateFrom" class="form-control" ng-model="myForm.fromDate" placeholder="Choose a date"
+                      ng-change="inItList('1')" autocomplete="off" />
+                    <span class="input-group-addon" style="cursor: pointer">
+                      <i class="fa fa-lg fa-calendar"></i>
+                    </span>
+                  </div>
+                </datepicker>
+
+              </div>
+              <div class="tbl" style="width: 13%">
+                <label>To Date</label>
+                <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                  <div class="input-group">
+                    <input name="dateFrom" class="form-control" ng-model="myForm.toDate" placeholder="Choose a date"
+                      ng-change="inItList('1')" autocomplete="off" />
+                    <span class="input-group-addon" style="cursor: pointer">
+                      <i class="fa fa-lg fa-calendar"></i>
+                    </span>
+                  </div>
+                </datepicker>
+              </div>
+
+              <div class="tbl" style="width: 12%!important;">
+                <label>See More</label>
+                <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="myForm.limit"
+                  ng-change="inItList('1')">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="50">50</option>
+                  <option value="120">120</option>
+                  <option value="150">150</option>
+                  <option value="200">200</option>
+                </select>
+              </div>
+              <button ng-click="clear()">Clear</button>
+              <button ng-click="exportData()">EXPORT to XL</button>
+
+              <!-- <button ng-click="print()">EXPORT to PDF</button> -->
+            </div>
+          </div>
+        </div>
+        <!--div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;"-->
+        <style type="text/css">
+          @media print {
+            @page {
+              size: A4 landscape;
+            }
+
+            img {
+              height: 90%;
+              margin: 0;
+              padding: 0;
+            }
+          }
+
+          table tbody tr td {
+            border: 0.50px solid #000;
+          }
+
+        </style>
+        <div class="comodity_table" id="printSectionId" style="overflow: auto;">
+          <table class="table table-striped commodity_table table_body_scroll table-responsive" style="width: 2220px;">
+            <thead>
+              <tr>
+                <td>Contract<br>Date</td>
+                <td>Signed Contract<br>On File</td>
+                <td>Entered On<br>Clean/Ship</td>
+                <td>SHIPMENT PERIOD<br>Start</td>
+                <td>SHIPMENT PERIOD<br>End</td>
+                <td>MERCHANDISER</td>
+                <td>CONTRACT #</td>
+                <!-- <td>CONTRACT<br>QTY. (LBS)</td> -->
+                <td>Shipment Qty</td>
+                <td>BUYER NAME</td>
+                <td>Address 1</td>
+                <td>Address 2</td>
+                <td>Address 3</td>
+                <td>Address 4</td>
+                <td>ON HOLD</td>
+                <td>CROP YEAR</td>
+                <td>COMMODITY</td>
+                <td>INVENTORY<br>GRADE</td>
+                <td>CONTRACT<br>GRADE</td>
+                <td>CALL AS</td>
+                <td>CONTRACT #<br>OF BAGS</td>
+                <td>BAG TYPE</td>
+                <td>PALLET TYPE</td>
+                <td>BAG SIZE<br>OR BULK</td>
+                <td>LB/KG</td>
+                <td>TAGS</td>
+                <td>STUFFING INS.</td>
+                <td>INLAND<br>DESTINATION</td>
+                <td>EQUIPMENT<br>TYPE</td>
+                <td>PHYTO<br>REQUIRED</td>
+                <td>GRADE<br>CERTIFICATE</td>
+                <td>BROKER</td>
+                <td>BROKER<br>CONTRACT #</td>
+                <td>BROKER<br>COMMISSION</td>
+                <td>BUYER PO #</td>
+                <td>ORIGIN</td>
+                <td>Shipment Qty</td>
+                <td>Terms</td>
+                <td>Destination <br>Country</td>
+                <td>Destination <br>Port</td>
+                <td>Ocean Frt<br>On stamp</td>
+                <td>ACTUAL<br>OCEAN FRT</td>
+                <td>OCEAN FRT<br>VARIANCE</td>
+                <td>SIGNATURE<br>RECEIVED</td>
+                <td>REASON<br>BY</td>
+                <td>REASON<br>CANCELLED</td>
+                <td>CONTRACT<br>ISSUED BY</td>
+                <td>AMENDED<br>DATE</td>
+                <td>Special Plant Instructions</td>
+                <td>USD Amount</td>
+                <td>Net FOB</td>
+                <td>USD Rate</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="sales in newList track by $index">
+
+                <td>{{sales.date | date:'dd/MM/yyyy'}}</td> <!-- td>Contract<br>Date</td> -->
+                <td>{{sales.shippingOption ? sales.shippingOption : '--'}}</td>
+                <!-- <td>Signed Contract<br>On File</td> -->
+                <td>--</td> <!-- <td>Entered On<br>Clean/Ship</td> -->
+                <td>{{sales.shipping_schedule.startDate}}</td><!-- <td>SHIPMENT PERIOD<br>Start</td> -->
+                <td>{{sales.shipping_schedule.endDate}}</td><!-- <td>SHIPMENT PERIOD<br>End</td> -->
+                <td>{{sales.createdBy.fullName}}</td><!-- <td>MERCHANDISER</td> -->
+                <td>{{sales.contract_number}}</td><!-- <td>CONTRACT #</td> -->
+                <!--td>{{sales.quantityLbs |number:2}}</td -->
+                <!-- <td>CONTRACT<br>QTY. (LBS)</td> -->
+                <td class="text-right">{{sales.quantity_lbs |number:2}}</td><!-- <td>Volume (Lbs)</td> -->
+
+                <td>{{sales.buyerId.businessName}}</td><!-- <td>BUYER NAME</td> -->
+                <td>{{sales.buyerId.addresses[0].street}}</td><!-- <td>Address 1</td> -->
+                <td>{{sales.buyerId.addresses[0].city}} {{sales.buyerId.addresses[0].postal}}</td>
+                <!-- <td>Address 2</td> -->
+                <td>{{sales.buyerId.addresses[0].province}}</td>
+                <td>{{sales.buyerId.addresses[0].country}}</td><!-- <td>Address 3</td> -->
+                <td>{{sales.shipmentHold ? 'YES':'NO'}}</td><!-- <td>ON HOLD</td> -->
+                <td>{{sales.cropYear}}</td><!-- <td>CROP YEAR</td> -->
+                <td>{{sales.commodityId.commodityName}}</td><!-- td>COMMODITY</td> -->
+                <td>{{sales.inventoryGrade.gradeName}}</td><!-- <td>INVENTORY<br>GRADE</td> -->
+                <td>{{sales.gradeId.gradeName}}</td><!-- <td>CONTRACT<br>GRADE</td> -->
+                <td>{{sales.callAsGrade ? sales.callAsGrade.gradeName : '--'}}</td><!-- <td>CALL AS</td> -->
+                <td class="text-right">{{sales.noOfBags}}</td><!-- <td>CONTRACT #<br>OF BAGS</td> -->
+                <td>{{sales.packingUnit.name}}</td><!-- <td>BAG TYPE</td> -->
+                <td>{{sales.palletUnit && sales.palletUnit.name}}</td><!-- <td>PALLET TYPE</td> -->
+                <td>{{sales.bagWeight}}</td><!-- <td>BAG SIZE<br>OR BULK</td> -->
+                <td>{{sales.packingUnit.bagWeightUnit}}</td><!-- <td>LB/KG</td> -->
+                <td>{{sales.tagType.tags}}</td><!-- <td>TAGS</td> -->
+                <td>{{sales.stuffingInstruction}}</td><!-- <td>STUFFING INS</td> -->
+                <td>
+                  {{['Vancouver','Montreal'].indexOf(sales.loadingPortId.loadingPortName)!= -1 ? sales.loadingPortId.loadingPortName : sales.destination}}
+                </td><!-- <td>INLAND<br>DESTINATION</td> -->
+                <td>{{sales.equipmentType.equipmentName}}</td><!-- <td>EQUIPMENT<br>TYPE</td> -->
+                <td>--</td><!-- <td>PHYTO<br>REQUIRED</td> -->
+                <td>{{sales.certificateAnalysis.certificateName}}</td><!-- <td>GRADE<br>CERTIFICATE</td> -->
+                <td>{{sales.brokerId.businessName}}</td><!-- <td>BROKER</td> -->
+                <td>{{sales.buyerReferenceNumber}}</td><!-- <td>BROKER<br>CONTRACT #</td> -->
+                <td>{{formatBrokerCommission(sales)}}</td><!-- <td>BROKER<br>COMMISSION</td> -->
+                <td>--</td><!-- <td>BUYER PO #</td> -->
+                <td>{{sales.countryId}}</td><!-- <td>ORIGIN</td> -->
+                <td class="text-right">{{sales.quantity_lbs |number:2}}</td><!-- <td>Volume (Lbs)</td> -->
+                <td>{{sales.pricingTerms.pricingTerms}} {{sales.destination}}</td><!-- <td></td> -->
+                <td>{{sales.country}}</td><!-- <td>Destination <br>Country</td> -->
+                <td>{{sales.destination}}</td><!-- <td>Destination <br>Port</td> -->
+                <td class="text-right">{{sales.oceanFreightBL | number:2}}</td><!-- <td>Ocean Frt<br>On stamp</td> -->
+                <td>--</td><!-- <td>ACTUAL<br>OCEAN FRT</td> -->
+                <td>--</td><!-- <td>OCEAN FRT<br>VARIANCE</td> -->
+                <td>--</td><!-- <td>SIGNATURE<br>RECEIVED</td> -->
+                <td>--</td><!-- <td>REASON<br>BY</td> -->
+                <td>--</td><!-- <td>REASON<br>CANCELLED</td> -->
+                <td>{{sales.createdBy.fullName}}</td><!-- <td>CONTRACT<br>ISSUED BY</td> -->
+                <td>{{sales.amendedDate |  date:'dd/MM/yyyy'}}</td><!-- <td>AMENDED<br>DATE</td> -->
+                <td>
+                  <ol style="margin-bottom: 0;">
+                    <li ng-repeat="checkList in sales.checkLists | filter:true">{{checkList.name}}</li>
+                  </ol>
+                </td><!-- <td>Special Plant<br/>Instructions</td> -->
+                <td class="text-right">{{sales.priceUSD |number:2}}</td><!-- <td>USD Amount</td> -->
+                <td class="text-right">{{sales.netFOBCAD |number:2}}</td><!-- <td>NET FOB</td> -->
+                <td class="text-right">{{sales.exchangeRate |number:2}}</td><!-- <td>USD Rate</td> -->
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div paging page="page" page-size="myForm.limit" total="totalPages" paging-action="inItList(page)">
+
+          <!--/div-->
+        </div>
+      </div>
+    </div>
+  </div>

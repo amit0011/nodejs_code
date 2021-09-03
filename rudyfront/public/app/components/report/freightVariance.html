@@ -1,0 +1,224 @@
+<style type="text/css">
+  .fixed {
+    position: fixed;
+    top: 98px;
+    width: 96%;
+  }
+
+  .panel_body_inner.inner_box {
+    position: relative;
+  }
+
+  .width-2000 {
+    width: 2000px
+  }
+
+  @media (min-width:1500px) {
+    .width-2000 {
+      width: 100%
+    }
+  }
+
+  .width-2000>div:nth-child(2)>b {
+    margin-top: 70px !important;
+  }
+
+  b {
+    color: #000
+  }
+</style>
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body">
+      <div class="">
+        <ul class="nav nav-pills nav-stacked row"
+          style="float: left;width: 94%;background: white !important;margin: 0 47px 15px;font-size: 20px;padding: 15px;text-align: center;"
+          class="page">
+          <li>
+            <b>Freight Variance</b>
+          </li>
+        </ul>
+      </div>
+      <div class="panel_body_inner inner_box_List" style="padding: 0 2% !important">
+        <div class="col-md-12">
+          <div class="">
+            <div class="row">
+              <div class="col-md-12">
+                <form name="searchForm">
+                  <div class="tabla_header">
+                    <div class="tbl" style="width: 9%!important;">
+                      <label>Contract #</label>
+                      <input type="text" name="" ng-enter="initList()" ng-model="myForm.contractNumber">
+                    </div>
+                    <div class="tbl" style="width: 10%!important;">
+                      <label>From Date</label>
+                      <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                        <div class="input-group">
+                          <input name="dateFrom" class="form-control" ng-model="myForm.fromDate" placeholder="Choose a date"
+                            autocomplete="off" ng-change="initList()" />
+                          <span class="input-group-addon" style="cursor: pointer">
+                            <i class="fa fa-lg fa-calendar"></i>
+                          </span>
+                        </div>
+                      </datepicker>
+                    </div>
+                    <div class="tbl" style="width: 10%!important;">
+                      <label>To Date</label>
+                      <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                        <div class="input-group">
+                          <input name="dateFrom" class="form-control" ng-model="myForm.toDate" placeholder="Choose a date"
+                            autocomplete="off" ng-change="initList()" />
+                          <span class="input-group-addon" style="cursor: pointer">
+                            <i class="fa fa-lg fa-calendar"></i>
+                          </span>
+                        </div>
+                      </datepicker>
+                    </div>
+
+                    <div class="tbl" style="width: 12%!important;">
+                      <label>See More</label>
+                      <select style="font-size: 14px;height: 34px;color: #000;width: 100%;"
+                          ng-model="myForm.limit" ng-change="initList()">
+                          <option>10</option>
+                          <option>20</option>
+                          <option>30</option>
+                          <option>50</option>
+                          <option>120</option>
+                          <option>150</option>
+                          <option>200</option>
+                      </select>
+                    </div>
+
+                    <button ng-click="clear()">Clear</button>
+                    <button ng-click="exportSheet()">Export</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="comodity_table comodity_table_list" style="width: 100%;overflow: auto;">
+            <table class="table table-striped table_body_scroll commodity_table" style="width: 5800px">
+              <thead>
+                <tr>
+                  <th rowspan="3">Date</th>
+                  <th rowspan="3">Ticket No.</th>
+                  <th rowspan="3">Bin</th>
+                  <th rowspan="3">Trucking Company</th>
+                  <th rowspan="3">Gross</th>
+                  <th rowspan="3">Tare</th>
+                  <th rowspan="3">Net</th>
+                  <th rowspan="3">Contract #</th>
+                  <th rowspan="3">Buyer Name</th>
+                  <th rowspan="3">Commodity</th>
+                  <th rowspan="3">Grade</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Equipment</th>
+                  <th rowspan="3">Freight By</th>
+                  <th colspan="4" style="white-space: nowrap;">Budgeted Freight (from sales stamp)</th>
+                  <th colspan="5">Actual Freight Costs</th>
+                  <th rowspan="3" style="white-space: nowrap;">Frt Variance</th>
+                  <th rowspan="3">Comment</th>
+                  <th rowspan="3">Action</th>
+                </tr>
+
+                <tr>
+                  <th rowspan="2" style="white-space: nowrap;">Inland (CAD Stamp)</th>
+                  <th colspan="2">Ocean</th>
+                  <th rowspan="2" style="white-space: nowrap;">Total CAD Budget</th>
+                  <th rowspan="2" style="white-space: nowrap;">Inland (CAD Actual)</th>
+                  <th colspan="2">Ocean</th>
+                  <th rowspan="2" style="white-space: nowrap;">Total Misc Freight Charges</th>
+                  <th rowspan="2" style="white-space: nowrap;">Total CAD Actual</th>
+                </tr>
+
+                <tr>
+                  <th style="white-space: nowrap;">USD $ Stamp</th>
+                  <th style="white-space: nowrap;">Adj Cad at Stamp fx</th>
+                  <th style="white-space: nowrap;">Actual USD Charges</th>
+                  <th style="white-space: nowrap;">USD to Cad at Stamp FX</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="ticket in tickets">
+                  <td style="white-space: nowrap;">{{ticket.date | date}}</td>
+                  <td style="white-space: nowrap;">
+                    <a style="cursor: pointer;"
+                      ng-click="openPdf(ticket.pdfUrl)">RO-{{ticket.ticketNumber}}
+                      &nbsp;&nbsp;&nbsp;<span ng-show="ticket.generateIncomingScalePDF">
+                        <i class="fa fa-info-circle" aria-hidden="true" title="Save ticket to get updated pdf"></i>
+                      </span>
+                    </a>
+                  </td>
+                  <td style="white-space: nowrap;">{{ticket.binNumber ? ticket.binNumber.binName : ''}}</td>
+                  <td>{{ticket.truckingCompany.truckerName}}</td>
+                  <td style="white-space: nowrap;">{{ticket.grossWeight| number:3}}</td>
+                  <td style="white-space: nowrap;">{{ticket.tareWeight| number:3}}</td>
+                  <td style="white-space: nowrap;">{{ticket.unloadWeidht | number:3}}</td>
+                  <td style="white-space: nowrap;">
+                    {{ticket.contractNumber}}{{ticket.contractExtra ? ('-' + ticket.contractExtra) : ''}}
+                  </td>
+                  <td>
+                    {{ticket.buyerId.businessName || (ticket.buyerId.firstName + ' ' + ticket.buyerId.lastName)}}
+                  </td>
+                  <td>{{ticket.commodityId.commodityName}}</td>
+                  <td>{{ticket.gradeId.gradeName}}</td>
+                  <td style="white-space: nowrap;">{{ticket.commodityId.commodityCode}}</td>
+                  <td style="white-space: nowrap;">{{ticket.equipmentType}}</td>
+                  <td style="white-space: nowrap;">{{ticket.freightBy}}</td>
+
+                  <td>{{ticket.budgeted_inland | number: 2}}</td>
+                  <td>{{ticket.sales_contract.oceanFreightBL | number: 2}}</td>
+                  <td>{{ticket.budgeted_inland_adj_cad | number: 2}}</td>
+                  <td>
+                    {{ticket.budgeted_inland_total_cad | number: 2}}
+                  </td>
+
+                  <td>
+                    <input class="form-control" ng-show="ticket.inEditMode" ng-model="ticket.actual.inland" type="text" />
+                    <span ng-hide="ticket.inEditMode">{{ticket.actual.inland}}</span>
+                  </td>
+                  <td>
+                    <input class="form-control" ng-show="ticket.inEditMode" ng-model="ticket.actual.oceanUSD" type="text" />
+                    <span ng-hide="ticket.inEditMode">{{ticket.actual.oceanUSD}}</span>
+                  </td>
+                  <td>{{ticket.actual.usd_cad_stamp_fx}}</td>
+                  <td>
+                    <input class="form-control" ng-show="ticket.inEditMode" ng-model="ticket.actual.miscFreightCharge" required type="text" />
+                    <span ng-hide="ticket.inEditMode">{{ticket.actual.miscFreightCharge}}</span>
+                  </td>
+                  <td>{{ticket.actual.total_cad_actual || ''}}</td>
+                  <td>{{ticket.freightVariance | number: 2 || ''}}</td>
+                  <td>
+                    <textarea class="form-control" ng-show="ticket.inEditMode" ng-model="ticket.actual.comment"></textarea>
+                    <span ng-hide="ticket.inEditMode">{{ticket.actual.comment}}</span>
+                  </td>
+                  <td>
+                    <a class="delete_detail_bidSheet" ng-hide="ticket.inEditMode" ng-click="editMode(ticket)">
+                      <i style="width: 13px;" class="fas fa-pen-square"></i>
+                    </a>
+                    <a class="delete_detail_bidSheet" ng-show="ticket.inEditMode" ng-click="save(ticket)">
+                      <i style="margin: 4px 0 0 4px;font-size: 25px;" class="fas fa-save"></i>
+                    </a>
+                    <a class="delete_detail_bidSheet" ng-show="ticket.inEditMode" ng-click="cancel(ticket)">
+                      <i style="margin: 4px 0 0 4px;font-size: 25px;" class="fa fa-times"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr ng-show="myForm.fromDate && myForm.toDate">
+                  <td colspan="23"></td>
+                  <td>{{freightVarianceTotal | number:2}}</td>
+                  <td colspan="2"></td>
+                </tr>
+              </tfoot>
+            </table>
+            <div paging page="page" page-size="form.limit" total="totalPages" paging-action="initList(page)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

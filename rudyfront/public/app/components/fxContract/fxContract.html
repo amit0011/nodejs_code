@@ -1,0 +1,553 @@
+<style>
+  ul {
+    list-style: none;
+  }
+
+  .chatbox-holder {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    height: 0;
+  }
+
+  .chatbox {
+    width: 500px;
+    height: 500px;
+    margin: 0 20px 0 0;
+    position: relative;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
+    display: flex;
+    flex-flow: column;
+    border-radius: 10px 10px 0 0;
+    background: white;
+    bottom: 0;
+    transition: .1s ease-out;
+  }
+
+  .chatbox-top {
+    position: relative;
+    display: flex;
+    padding: 10px 0;
+    border-radius: 10px 10px 0 0;
+    background: rgba(0, 0, 0, .05);
+  }
+
+  .chatbox-icons {
+    padding: 0 10px 0 0;
+    display: flex;
+    position: relative;
+  }
+
+  .chatbox-icons .fa {
+    background: rgba(220, 0, 0, .6);
+    padding: 3px 5px;
+    margin: 0 0 0 3px;
+    color: white;
+    border-radius: 0 5px 0 5px;
+    transition: 0.3s;
+  }
+
+  .chatbox-icons .fa:hover {
+    border-radius: 5px 0 5px 0;
+    background: rgba(220, 0, 0, 1);
+  }
+
+  .chatbox-icons a,
+  .chatbox-icons a:link,
+  .chatbox-icons a:visited {
+    color: white;
+  }
+
+  .chat-partner-name,
+  .chat-group-name {
+    flex: 1;
+    padding: 0 0 0 95px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #30649c;
+    text-shadow: 1px 1px 0 white;
+    transition: .1s ease-out;
+  }
+
+  .status {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: #cacaca;
+    margin: 0 3px 0 0;
+  }
+
+  .online {
+    background: #b7fb00;
+  }
+
+  .away {
+    background: #ffae00;
+  }
+
+  .donot-disturb {
+    background: #ff4343;
+  }
+
+  .chatbox-avatar {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: white;
+    padding: 3px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
+    position: absolute;
+    transition: .1s ease-out;
+    bottom: 0;
+    left: 6px;
+  }
+
+  .chatbox-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .chat-messages {
+    border-top: 1px solid rgba(0, 0, 0, .05);
+    padding: 10px;
+    overflow: auto;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    flex: 1;
+  }
+
+  .message-box-holder {
+    width: 100%;
+    margin: 0 0 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+  }
+
+  .message-sender {
+    font-size: 15px;
+    margin: 0 0 15px;
+    color: #333;
+    align-self: flex-start;
+  }
+
+  .message-sender a,
+  .message-sender a:link,
+  .message-sender a:visited,
+  .chat-partner-name a,
+  .chat-partner-name a:link,
+  .chat-partner-name a:visited {
+    color: #30649c;
+    text-decoration: none;
+  }
+
+  .message-box {
+    padding: 6px 10px;
+    border-radius: 6px 0 6px 0;
+    position: relative;
+    background: rgba(100, 170, 0, .1);
+    border: 2px solid rgba(100, 170, 0, .1);
+    color: #6c6c6c;
+    font-size: 14px;
+  }
+
+  .message-box:after {
+    content: "";
+    position: absolute;
+    border: 10px solid transparent;
+    border-top: 10px solid rgba(100, 170, 0, .2);
+    border-right: none;
+    bottom: -22px;
+    right: 10px;
+  }
+
+  .message-partner {
+    background: rgba(0, 114, 135, .1);
+    border: 2px solid rgba(0, 114, 135, .1);
+    align-self: flex-start;
+  }
+
+  .message-partner:after {
+    right: auto;
+    bottom: auto;
+    top: -22px;
+    left: 9px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid rgba(0, 114, 135, .2);
+    border-left: none;
+  }
+
+  .chat-input-holder {
+    display: flex;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+  }
+
+  .chat-input {
+    resize: none;
+    padding: 5px 10px;
+    height: 40px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    color: #333;
+    flex: 1;
+    border: none;
+    background: rgba(0, 0, 0, .05);
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+  }
+
+  .chat-input:focus,
+  .message-send:focus {
+    outline: none;
+  }
+
+  .message-send::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  .message-send {
+    -webkit-appearance: none;
+    background: #9cc900;
+    background: -moz-linear-gradient(180deg, #00d8ff, #00b5d6);
+    background: -webkit-linear-gradient(180deg, #00d8ff, #00b5d6);
+    background: -o-linear-gradient(180deg, #00d8ff, #00b5d6);
+    background: -ms-linear-gradient(180deg, #00d8ff, #00b5d6);
+    background: linear-gradient(180deg, #00d8ff, #00b5d6);
+    color: white;
+    font-size: 12px;
+    padding: 0 15px;
+    border: none;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .attachment-panel {
+    padding: 3px 10px;
+    text-align: right;
+  }
+
+  .attachment-panel a,
+  .attachment-panel a:link,
+  .attachment-panel a:visited {
+    margin: 0 0 0 7px;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .chatbox-min {
+    margin-bottom: -455px;
+    /*   height: 46px; */
+  }
+
+  .chatbox-min .chatbox-avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .chatbox-min .chat-partner-name,
+  .chatbox-min .chat-group-name {
+    padding: 0 0 0 75px;
+  }
+
+</style>
+
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body">
+      <div class="">
+        <ul class="nav nav-pills nav-stacked row"
+          style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;"
+          class="page">
+          <li>
+            <b>FX Contract Report</b>
+          </li>
+        </ul>
+      </div>
+      <div class="panel_body_inner inner_box_List" style="padding: 0 2% !important">
+        <div class="col-md-12">
+          <div class="tabla_header">
+            <div class="tbl" style="width: 14%!important;">
+              <label>Contract #</label>
+              <input type="text" name="search" ng-model="searchForm.search" ng-enter="initList()"
+                placeholder="Search" />
+            </div>
+
+            <div class="tbl" style="width: 14%!important;">
+              <label>Closed</label>
+              <select ng-model="searchForm.isClose" name="pdfFile" ng-change="initList()"
+                style="font-size: 14px; height: 34px; color: rgb(0, 0, 0); width: 100%;"
+                ng-options="closeOption.value as closeOption.label for closeOption in closeOptionList">
+                <option value="">All</option>
+              </select>
+            </div>
+
+            <div class="tbl" style="width: 14%!important;">
+              <label>From Date</label>
+              <datepicker style="width: 100%" class="date_pic fromDateCls" date-format="yyyy-MM-dd"
+                selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                button-next="<i class='fa fa-arrow-right'></i>">
+                <div class="input-group">
+                  <input class="form-control" ng-model="searchForm.fromDate" placeholder="Choose a date"
+                    ng-change="initList()" autocomplete="off" />
+                  <span class="input-group-addon" style="cursor: pointer">
+                    <i class="fa fa-lg fa-calendar"></i>
+                  </span>
+                </div>
+              </datepicker>
+            </div>
+
+            <div class="tbl" style="width: 14%!important;">
+              <label>To Date</label>
+              <datepicker style="width: 100%" class="date_pic toDateCls" date-format="yyyy-MM-dd"
+                selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                button-next="<i class='fa fa-arrow-right'></i>">
+                <div class="input-group">
+                  <input class="form-control" ng-model="searchForm.toDate" placeholder="Choose a date"
+                    ng-change="initList()" autocomplete="off" />
+                  <span class="input-group-addon" style="cursor: pointer">
+                    <i class="fa fa-lg fa-calendar"></i>
+                  </span>
+                </div>
+              </datepicker>
+            </div>
+
+            <button ng-click="openPop('Add')" ng-show="loginUserAccess.reports.fxContract.add">ADD <i
+                class="fas fa-plus-circle"></i></button>
+          </div>
+          <div class="comodity_table comodity_table_list">
+            <table class="table table-striped table_body_scroll commodity_table" style="width: 1650px;">
+              <thead>
+                <tr>
+                  <th>Contract #</th>
+                  <th>Trade Date</th>
+                  <th>Expiry Date</th>
+                  <th>Structure</th>
+                  <th>USD Amount</th>
+                  <th>CAD Amount</th>
+                  <th>Strike/Rate</th>
+                  <th>Created Date</th>
+                  <th>Comment</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="l in contractList track by $index">
+
+                  <td>
+                    <a ng-href="{{ l.pdfFile }}" target="{{l.contractNumber}}">
+                      {{l.contractNumber}}
+                    </a>
+                  </td>
+                  <td>{{l.tradeDate | date}}</td>
+                  <td>{{l.expiryDate | date}}</td>
+                  <td>{{l.structure}}</td>
+                  <td class="text-right" ng-bind-html="formatAmount(l)"></td>
+                  <td class="text-right">{{l.cadAmount| number:2}}</td>
+                  <td class="text-right">{{l.strikeRate | number: 4}}</td>
+                  <td>{{l.createdAt | date}}</td>
+                  <td><a ng-click="openComment(l)" style="cursor: pointer;">Comment</a></td>
+                  <td>
+                    <a ng-show="loginUserAccess.reports.fxContract.edit" class="edit_details"
+                      ng-click="openPop('Edit',l,$index)">
+                      <i class="fas fa-pen-square"></i>
+                    </a>
+                  </td>
+
+                </tr>
+                <tr ng-show="contractList.length">
+
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><b>Total</b></td>
+                  <td class="text-right"><b>{{totalUSDAmount | number : 4}}</b></td>
+                  <td class="text-right"><b>{{totalCADAmount | number : 4}}</b></td>
+                  <td class="text-right"><b>{{totalStrikeRate | number : 4}}</b></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+
+                </tr>
+              </tbody>
+            </table>
+            <!-- <div paging page="page" page-size="10" total="totalPages" paging-action="initList(page)">
+                        </div> -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div ng-show="enableChatBox">
+    <div class="chatbox-holder">
+      <div class="chatbox">
+        <div class="chatbox-top">
+
+          <div class="chat-partner-name">
+            <!--  <span class="status online"></span> -->
+            <a>Contract {{note.contractNumber}} Comments</a>
+          </div>
+          <div class="chatbox-icons">
+            <a href="javascript:void(0);"><i style="font-size:20px;color: black;" class="fa">&#xf068;</i></a>&nbsp;
+            &nbsp;
+            <a href="javascript:void(0);" class="fa-close"><i style="font-size:20px;color: black;"
+                class="fa">&#xf00d;</i></a>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="scrollArea">
+
+          <label style="margin: 0px 0px 0px 200px;" ng-if="commentRequest">Loading ...</label>
+          <div class="message-box-holder" ng-repeat="msg in note.list">
+            <div class="message-sender">
+              {{msg.createdBy.fullName}} - {{msg.createdAt | date : 'medium'}}
+            </div>
+            <div class="message-box message-partner">
+              {{msg.message}}
+            </div>
+          </div>
+
+          <label style="margin:378px 14px 5px 200px;;" ng-if="note.list.length ==0">List empty.</label>
+
+        </div>
+
+        <div class="chat-input-holder">
+          <textarea class="chat-input" ng-model="messageForm.message" ng-enter="addNote()"></textarea>
+          <input type="submit" value="{{noteRequest?'Sending..':'Send'}}" class="message-send" ng-click="addNote()" />
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="popup_overlay"></div>
+  <div class="add_coomm">
+    <div class="head_comm head_2">
+      <h2>{{inputField}} FX Contract</h2>
+      <div type="button" class="close" ng-click="closepop()">&times;</div>
+    </div>
+    <div class="panel_body">
+      <div class="inner_box_List_add">
+        <div class="col-md-12">
+          <div class="add_commodity">
+            <form name="form">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>Contract Number</label>
+                    <input type="text" ng-model="myForm.contractNumber" placeholder="
+                                            Contract Number" name="contractNumber" required>
+                    <span ng-show="form.contractNumber.$invalid && submitted"
+                      class="validationErrorSalesContract"></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>Trade Date</label>
+                    <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control"
+                      date-max-limit={{myForm.expiryDate}}>
+                      <div class="input-group">
+                        <input name="tradeDate" class="form-control" ng-model="myForm.tradeDate"
+                          placeholder="Choose a date" autocomplete="off" required />
+                        <span class="input-group-addon" style="cursor: pointer">
+                          <i class="fa fa-lg fa-calendar"></i>
+                        </span>
+                      </div>
+                    </datepicker>
+                    <span ng-show="form.tradeDate.$invalid && submitted" class="validationErrorSalesContract"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>Expiry Date</label>
+                    <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control"
+                      date-min-limit={{myForm.tradeDate}}>
+                      <div class="input-group">
+                        <input name="expiryDate" class="form-control" ng-model="myForm.expiryDate"
+                          placeholder="Choose a date" autocomplete="off" required />
+                        <span class="input-group-addon" style="cursor: pointer">
+                          <i class="fa fa-lg fa-calendar"></i>
+                        </span>
+                      </div>
+                    </datepicker>
+                    <span ng-show="form.expiryDate.$invalid && submitted" class="validationErrorSalesContract"></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>Structure</label>
+                    <select ng-model="myForm.structure" name="structure" required class="form-control">
+                      <option value="">Select</option>
+                      <option>Collar</option>
+                      <option>Roll</option>
+                      <option>Forward Confirmation</option>
+                      <option>Drawdown</option>
+                      <option>Ratio Forward</option>
+                      <option>Collar Expiry</option>
+                    </select>
+                    <span ng-show="form.structure.$invalid && submitted" class="validationErrorSalesContract"></span>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>USD Amount</label>
+                    <input type="text" ng-model="myForm.usdAmount" placeholder="USD Amount"
+                      ng-change="calculateStrikeRate()" name="usdAmount" numbers-Only position="4" required>
+                    <span ng-show="form.usdAmount.$invalid && submitted" class="validationErrorSalesContract"></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>CAD Amount</label>
+                    <input type="text" ng-model="myForm.cadAmount" placeholder="CAD Amount"
+                      ng-change="calculateStrikeRate()" name="cadAmount" numbers-Only position="4" required>
+                    <span ng-show="form.cadAmount.$invalid && submitted" class="validationErrorSalesContract"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>Strike/Rate</label>
+                    <input type="text" ng-model="myForm.strikeRate" placeholder="Strike/Rate" readonly name="strikeRate"
+                      numbers-Only position="4" required>
+                    <span ng-show="form.strikeRate.$invalid && submitted" class="validationErrorSalesContract"></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>Closed</label>
+                    <select ng-model="myForm.isClose" name="pdfFile"
+                      ng-options="closeOption.value as closeOption.label for closeOption in closeOptionList">
+                    </select>
+                    <span ng-show="form.pdfFile.$invalid && submitted" class="validationErrorSalesContract"></span>
+                  </div>
+                </div>
+              </div>
+
+              <button ng-hide="inputField=='Edit'" ng-click="save(form.$valid)">Save</button>
+              <button ng-show="inputField=='Edit'" ng-click="saveChanges(form.$valid)">Save
+                Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

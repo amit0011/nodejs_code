@@ -1,0 +1,148 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+         <h3 class="heading_cls">Sub-Admin</h3>
+         <hr class="heading_hr">
+         <div class="panel_body_inner inner_box">
+            <div class="col-md-12">
+               <div class="add_commodity_bar">
+                  <input type="text" name="search" placeholder="Search" ng-model="search">
+                  <button ui-sref="addSubAdmin" ng-show="loginUserAccess.setting.subAdmin.add">ADD <i class="fas fa-plus-circle"></i></button>
+               </div>
+               <div class="comodity_table">
+                  <table class="table table-striped commodity_table">
+                     <thead>
+                        <tr>
+                           
+                           <th>Name</th>
+                           <th>Email</th>
+                           <th>Mobile Number</th>
+                           <th>Access Type</th>
+                           <th>Role</th>
+                           <th ng-show="loginUserAccess.setting.subAdmin.view || loginUserAccess.setting.subAdmin.delete || loginUserAccess.setting.subAdmin.edit">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody class="example-animate-container"> 
+                        <tr ng-repeat="result in gradeList | filter:search" class="animate-repeat">                        
+                           <td>{{result.fullName}}</td>
+                           <td>{{result.email}}</td>
+                           <td>{{result.mobileNumber}}</td>
+                           <td>{{result.type}}</td>
+                           <td>{{result.roles}}</td>
+                           <td ng-show="loginUserAccess.setting.subAdmin.view || loginUserAccess.setting.subAdmin.delete || loginUserAccess.setting.subAdmin.edit">
+                              <a class="delete_detail" ng-click="changeState(result._id)" ng-show="loginUserAccess.setting.subAdmin.edit">
+                                 <i class="fa fa-universal-access" aria-hidden="true"></i>
+                              </a>
+                              <a class="delete_detail" ng-click="delete(result)" ng-show="loginUserAccess.setting.subAdmin.delete">
+                                 <i class="{{result.status == 0 ?'fa fa-trash':'fa fa-undo'}}" aria-hidden="true"></i>
+                              </a>
+                              <a class="edit_details" ng-click="openPop('edit',result)" ng-show="loginUserAccess.setting.subAdmin.edit">
+                                 <i class="fas fa-pen-square"></i>
+                              </a>
+                              <a ng-click="openPop('view',result)" class="veiw_detail" ng-show="loginUserAccess.setting.subAdmin.view"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Modal -->
+   <div class="popup_overlay"></div>
+   <div class="add_coomm subadmin">
+      <div class="enter_comm_typ">
+         <div class="head_comm head_2">
+            <h2>{{inputField}} Sub-Admin</h2>
+            <div type="button" class="close" ng-click="closepop()">&times;</div>
+         </div>
+         <div class="panel_body">
+            <div class="panel_body_inner inner_box_List_add grade">
+               <div class="col-md-12">
+                  <div class="add_commodity">
+                     <form name="addSubAdmin">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label style="width: 70%;">User Name</label>
+                                 <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.userName" placeholder="User Name" name="userName" ng-disabled="inputField=='view'" ng-change="checkUserName()" required>
+                                 <div ng-show="showCheck=='show'">
+                                    <i class="fa fa-check-circle" style="font-size:20px;color:#007e4e;margin: 0 4px 8px 0"></i>
+                                 </div>
+                                 <div ng-show="showCheck=='hide'">
+                                    <i class="fa fa-close-square" style="font-size:20px;color:red;margin: 0 4px 8px 0"></i>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label style="width: 43%;">Full Name</label>
+                                 <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.fullName" placeholder="Full Name" name="fullName" ng-disabled="inputField=='view'" required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label style="width: 70%;">Email</label>
+                                 <input type="text" ng-model="myForm.email" placeholder="Email" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-disabled="inputField=='view'">
+                                 <span class="validation_error_admin" ng-show="addSubAdmin.email.$dirty && addSubAdmin.email.$invalid">
+                                 <span class="validation_error_admin" ng-show="addSubAdmin.email.$error.required">Email is required.</span>
+                                 <span class="validation_error_admin" ng-if="addSubAdmin.email.$error.pattern">Please Enter Vaild Email.</span></span>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label style="width: 43%;">Mobile Number</label>
+                                 <input type="text" ng-model="myForm.mobileNumber" placeholder="Mobile Number" name="mobileNumber"  numbers-Only ng-disabled="inputField=='view'" required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                        
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label style="width: 44%;">Access Type</label>
+                                 <select ng-model="myForm.type">
+                                    <option value="">Select Access Type</option>
+                                    <option value="ADMIN">ADMIN</option>
+                                    <option value="MANAGER">MANAGER</option>
+                                    <option value="USER">USER</option>
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label style="width: 30%;">Roles</label>
+                                 <select ng-model="myForm.roles">
+                                    <option value="">Select Roles</option>
+                                    <option value="Grain Buyer">Grain Buyer</option>
+                                    <option value="Grader">Grader</option>
+                                    <option value="Receiver">Receiver</option>
+                                    <option value="Sales">Sales</option>
+                                    <option value="All">All</option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                     
+                           <div class="row">
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                              <label style="width: 70%;">Upload Signature</label>
+                              <input style="margin: 0;" type="file" id="files" class="form-control" onchange="angular.element(this).scope().signatureImage(this)" accept="image/x-png,image/gif,image/jpeg">
+                           </div>
+                           </div>
+                        </div>
+                        <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="addSubAdmin.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

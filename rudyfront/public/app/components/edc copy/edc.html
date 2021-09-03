@@ -1,0 +1,61 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+             <h3 class="heading_cls">EDC</h3><hr class="heading_hr">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <input type="text" name="search" ng-model="search.name" ng-change="initEdc(1,search.name)" placeholder="Search">
+                        <button ng-click="openPop()" ng-show="loginUserAccess.setting.eDC.add">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                        <th>Name</th>
+                                        <th ng-show="loginUserAccess.setting.eDC.delete || loginUserAccess.setting.eDC.edit">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in edcList">
+                                        <td>{{result.name}}</td>
+                                    <td  ng-show="loginUserAccess.setting.eDC.delete || loginUserAccess.setting.eDC.edit">
+                                        <a ng-show="loginUserAccess.setting.eDC.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.eDC.edit" class="edit_details" ng-click="openPop('edit',result)"><i class="fas fa-pen-square"></i></a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging
+                          page="page" 
+                          page-size="10" 
+                          total="totalPages"
+                          paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm country">
+     <form name="edc">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <div class="com_pac">
+                <label style="width: 44%;">Name</label>
+                <input type="text" name="name" ng-model="myForm.name" placeholder="Enter Name" required>
+            </div>
+            <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="edc.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+        </div>
+        </form>
+    </div>
+</div>

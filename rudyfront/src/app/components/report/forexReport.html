@@ -1,0 +1,636 @@
+<style type="text/css">
+  table thead tr td,
+  table tbody tr td {
+    width: 140px !important;
+  }
+
+</style>
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="initPosition()">
+      <div class="panel_body_inner inner_box">
+        <div class="">
+          <ul class="nav nav-pills nav-stacked row"
+            style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;"
+            class="page">
+            <li>
+              <b>Forex Report</b>
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="tabla_header">
+
+              <div class="tbl" style="width: 15%!important;">
+                <label>Contract Number</label>
+                <input type="text" name="contract" ng-model="myForm.contractNumber" placeholder="Contract number"
+                  ng-enter="inItList('1')" style="font-size: 14px;height: 24px;color: #000;width: 100%;">
+
+              </div>
+              <div class="tbl" style="width: 10%!important;">
+                <label>Crop Year</label>
+                <select ng-model="myForm.cropYear" ng-options="cropYear as cropYear for cropYear in cropYears" ng-change="inItList('1')" style="width: 100%">
+                  <option value="">Crop Year</option>
+                </select>
+              </div>
+              <div class="tbl" style="width: 10%!important;">
+                <label>Show Accounting Completed</label>
+                <label class="grop_rad_check" style="margin: 0;font-size: medium;">
+                  <input style="margin: 0;" type="checkbox" value="1" ng-model="myForm.accountingCompleted" ng-change="inItList('1')"/>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+
+              <button ng-click="clear()">Clear</button>
+              <button ng-click="exportData()">EXPORT to XL</button>
+
+            </div>
+          </div>
+        </div>
+        <div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;">
+          <style type="text/css">
+            @media print {
+              @page {
+                size: A4 landscape;
+              }
+
+              img {
+                height: 90%;
+                margin: 0;
+                padding: 0;
+              }
+            }
+
+            table tbody tr td {
+              border: 0.50px solid #000;
+            }
+
+          </style>
+
+        <div class="row">
+          <div style="width: 50%;border: 1px solid #000;border-radius: 4px;padding: 5px;margin: 10px 0 10px auto;">
+            <div class="row">
+              <div class="col-md-7">
+                <label style="float: left;color: #000;width: 70%;">Total Net USD From Stamp</label>
+                <p style="float: left;color: #000;width: 30%;text-align: right;">{{total.total_net_usd | number : 2}}</p>
+              </div>
+              <div class="col-md-5">
+                <label style="float: left;color: #000;width: 70%;">Average FX</label>
+                <p style="float: left;color: #000;width: 30%;">{{total.o_s_total | number : 4}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7">
+                <label style="float: left;color: #000;width: 70%;">Total payment received</label>
+                <p style="float: left;color: #000;width: 30%;text-align: right;">{{total.paymentReceived | number : 2}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7">
+                <label style="float: left;color: #000;width: 70%;">Total Balance Net USD From Stamp</label>
+                <p style="float: left;color: #000;width: 30%;text-align: right;">{{(total.total_net_usd - total.paymentReceived) | number : 2}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7">
+                <label style="float: left;color: #000;width: 70%;">Total USD Purchases</label>
+                <p style="float: left;color: #000;width: 30%;text-align: right;">
+                  <a href="javascript:void(0);" ng-click="showContractPopup()">{{(purchasesInfo ? purchasesInfo.usdPurchases : 0) | number:2}}</a>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7">
+                <label style="float: left;color: #000;width: 70%;">Balance USD</label>
+                <p style="float: left;color: #000;width: 30%;text-align: right;">
+                  {{(total.total_net_usd - total.paymentReceived - (purchasesInfo ? purchasesInfo.usdPurchases : 0)) | number:2}}
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7">
+                <label style="float: left;color: #000;width: 70%;">Total Hedge</label>
+                <p style="float: left;color: #000;width: 30%;text-align: right;">{{fxContract.totalUSD | number:2}}</p>
+              </div>
+              <div class="col-md-5">
+                <label style="float: left;color: #000;width: 70%;">Average FX</label>
+                <p style="float: left;color: #000;width: 30%;">{{avgRate | number : 4}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7">
+                <label style="float: left;color: #000;width: 70%;">Total Long/Short</label>
+                <p style="float: left;color: #000;width: 30%;text-align: right;">{{(total.total_net_usd - fxContract.totalUSD - total.paymentReceived - (purchasesInfo ? purchasesInfo.usdPurchases : 0)) | number : 2}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="comodity_table" id="printSectionId">
+            <table ng-show="showFxHedgeTotal" class="table table-striped table-responsive commodity_table">
+              <thead>
+                <tr>
+                  <td></td>
+                  <td>SEP</td>
+                  <td>OCT</td>
+                  <td>NOV</td>
+                  <td>DEC</td>
+                  <td>JAN</td>
+                  <td>FEB</td>
+                  <td>MAR</td>
+                  <td>APR</td>
+                  <td>MAY</td>
+                  <td>JUN</td>
+                  <td>JUL</td>
+                  <td>AUG</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="background: #007e4e;color: #ffffff;">Total USD</td>
+                  <td class="text-right">{{ fxContract.usd.sep }}</td>
+                  <td class="text-right">{{ fxContract.usd.oct }}</td>
+                  <td class="text-right">{{ fxContract.usd.nov }}</td>
+                  <td class="text-right">{{ fxContract.usd.dec }}</td>
+                  <td class="text-right">{{ fxContract.usd.jan }}</td>
+                  <td class="text-right">{{ fxContract.usd.feb }}</td>
+                  <td class="text-right">{{ fxContract.usd.mar }}</td>
+                  <td class="text-right">{{ fxContract.usd.apr }}</td>
+                  <td class="text-right">{{ fxContract.usd.may }}</td>
+                  <td class="text-right">{{ fxContract.usd.jun }}</td>
+                  <td class="text-right">{{ fxContract.usd.jul }}</td>
+                  <td class="text-right">{{ fxContract.usd.aug }}</td>
+                </tr>
+
+                <tr>
+                  <td style="background: #007e4e;color: #ffffff;">Total Sales</td>
+                  <td class="text-right">{{total.total_sep | number:2}}</td>
+                  <td class="text-right">{{total.total_oct | number:2}}</td>
+                  <td class="text-right">{{total.total_nov | number:2}}</td>
+                  <td class="text-right">{{total.total_dec | number:2}}</td>
+                  <td class="text-right">{{total.total_jan | number:2}}</td>
+                  <td class="text-right">{{total.total_feb | number:2}}</td>
+                  <td class="text-right">{{total.total_mar | number:2}}</td>
+                  <td class="text-right">{{total.total_apr | number:2}}</td>
+                  <td class="text-right">{{total.total_may | number:2}}</td>
+                  <td class="text-right">{{total.total_jun | number:2}}</td>
+                  <td class="text-right">{{total.total_jul | number:2}}</td>
+                  <td class="text-right">{{total.total_aug | number:2}}</td>
+                </tr>
+
+                <tr>
+                  <td style="background: #007e4e;color: #ffffff;">Avg Rate</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.sep | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.oct | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.nov | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.dec | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.jan | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.feb | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.mar | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.apr | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.may | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.jun | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.jul | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.totalAvgRate.aug | number : 4 }}</td>
+                </tr>
+
+                <tr>
+                  <td style="background: #007e4e;color: #ffffff;">FX Weighted Average</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.sep | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.oct | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.nov | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.dec | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.jan | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.feb | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.mar | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.apr | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.may | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.jun | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.jul | number : 4 }}</td>
+                  <td class="text-right">{{ fxContract.fxWeightedAverageRate.aug | number : 4 }}</td>
+                </tr>
+
+                <tr>
+                  <td style="background: #007e4e;color: #ffffff;">Total Hedge</td>
+                  <td class="text-right">{{fxContract.totalUSD | number:4}}</td>
+                  <td colspan="11"></td>
+                </tr>
+
+                <tr>
+                  <td style="background: #007e4e;color: #ffffff;">FX Position by Month (short/long)</td>
+                  <td class="text-right">{{(fxContract.usd.sep - total.total_sep ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.oct - total.total_oct ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.nov - total.total_nov ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.dec - total.total_dec ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.jan - total.total_jan ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.feb - total.total_feb ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.mar - total.total_mar ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.apr - total.total_apr ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.may - total.total_may ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.jun - total.total_jun ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.jul - total.total_jul ) | number : 4}}</td>
+                  <td class="text-right">{{(fxContract.usd.aug - total.total_aug ) | number : 4}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="commodity_table table_body_scroll table-responsive"
+              style="width: 2220px;">
+              <thead>
+                <tr>
+                  <td style="padding: 5px;">CONTRACT<br>Date</td>
+                  <td style="padding: 5px;">CONTRACT#</td>
+                  <td style="padding: 5px;">CONTRACT<br>QTY. (LBS)</td>
+                  <td style="padding: 5px;">BUYER NAME</td>
+                  <td style="padding: 5px;">Net USD From Stamp</td>
+                  <td style="padding: 5px;">TOTAL USD AMOUNT</td>
+                  <td style="padding: 5px;">Hedge %</td>
+                  <td style="padding: 5px;">Payment<br>received</td>
+                  <td style="padding: 5px;">Last Payment<br>received on</td>
+                  <td style="padding: 5px;">BALANCE<br>Net USD from Stamp</td>
+                  <td style="padding: 5px;">TOTAL USD<br>CONTRACT O/S</td>
+                  <td style="padding: 5px;">TOTAL FOB<br>CAD $/CWT</td>
+                  <td style="padding: 5px;">Cost. FOB<br>CAD $/CWT</td>
+                  <td style="padding: 5px;">EST. MARGIN<br>CAD $/CWT</td>
+
+                  <td style="padding: 5px;">EST. MARGIN<br>CAD</td>
+                  <td style="padding: 5px;">CONTRACT<br>FX RATE</td>
+                  <td style="padding: 5px;">SEPT</td>
+                  <td style="padding: 5px;">OCT</td>
+                  <td style="padding: 5px;">NOV</td>
+                  <td style="padding: 5px;">DEC</td>
+                  <td style="padding: 5px;">JAN</td>
+                  <td style="padding: 5px;">FEB</td>
+                  <td style="padding: 5px;">MARCH</td>
+                  <td style="padding: 5px;">APRIL</td>
+                  <td style="padding: 5px;">MAY</td>
+                  <td style="padding: 5px;">JUNE</td>
+                  <td style="padding: 5px;">JULY</td>
+                  <td style="padding: 5px;">AUGUST</td>
+                  <td style="padding: 5px;">AMOUNT<br>ALLOCATED</td>
+                  <td style="padding: 5px;">FX CONT #</td>
+                  <td style="padding: 5px;">HEDGE RATE#</td>
+                  <td style="padding: 5px;">HEDGE <br>GAIN/LOSS</td>
+                  <td style="padding: 5px;">SEPT</td>
+                  <td style="padding: 5px;">OCT</td>
+                  <td style="padding: 5px;">NOV</td>
+                  <td style="padding: 5px;">DEC</td>
+                  <td style="padding: 5px;">JAN</td>
+                  <td style="padding: 5px;">FEB</td>
+                  <td style="padding: 5px;">MARCH</td>
+                  <td style="padding: 5px;">APRIL</td>
+                  <td style="padding: 5px;">MAY</td>
+                  <td style="padding: 5px;">JUNE</td>
+                  <td style="padding: 5px;">JULY</td>
+                  <td style="padding: 5px;">AUGUST</td>
+                  <td style="padding: 5px;">O/S</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="forex in forexList track by $index" class="tab_body" ng-class="getClass(forex)">
+                  <td style="padding: 5px;">{{forex.date | date:'dd/MM/yyyy'}}</td> <!-- <td>CONTRACT<br>Date</td>-->
+                  <td style="padding: 5px;">{{forex.contract_number}}</td> <!-- <td>CONTRACT#</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.quantity_lbs |number:2}}</td> <!-- <td>CONTRACT<br>QTY. (LBS)</td>-->
+                  <td style="padding: 5px;">{{forex.buyerId.businessName}}</td> <!-- <td>BUYER NAME</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.usd_amount | number:2}}</td> <!-- <td>Net USD From Stamp</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.total_usd_amount_sales | number:2}}</td> <!-- <td>TOTAL USD AMOUNT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.hedge_percentage | number:2}}</td> <!-- <td>Hedge %</td>-->
+                  <td style="padding: 5px;" class="text-right">
+                    <span1 ng-hide="forex.edit">{{forex.paymentReceived|number:2}}</span1>
+                    <a ng-click="openPop(forex)" class="delete_detail">
+                      <span class="fa fa-info-circle"></span>
+                    </a>
+                  </td> <!-- <td>Payment<br>received</td>-->
+                  <td style="padding: 5px;">{{forex.paymentReceivedOn | date:'dd/MM/yyyy'}}</td><!-- <td>Last Payment<br>received on</td>-->
+                  <td style="padding: 5px;" class="text-right">{{outstandingBalance(forex)|number:2}}</td> <!-- <td>BALANCE<br>Net USD From Stamp</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.total_usd_contract | number:2}}</td> <!-- <td>TOTAL USD<br>CONTRACT o/s</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.netFOBCAD | number:2}}</td> <!-- <td>TOTAL FOB<br>CAD $/CWT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.targetFOBCAD | number:2}}</td> <!-- <td>Cost. FOB<br>CAD $/CWT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{(forex.netFOBCAD - forex.targetFOBCAD) | number:2 }}</td>
+                  <!-- <td>EST. MARGIN<br>CAD $/CWT</td>-->
+
+                  <td style="padding: 5px;" class="text-right">{{forex.totalFOB}}</td> <!-- <td>EST. MARGIN<br>CAD</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.exchangeRate}}</td> <!-- <td>CONTRACT<br>FX RATE</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.sep | number:2}}</td> <!-- <td>SEPT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.oct | number:2}}</td> <!-- <td>OCT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.nov | number:2}}</td> <!-- <td>NOV</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.dec | number:2}}</td> <!-- <td>DEC</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.jan | number:2}}</td> <!-- <td>JAN</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.feb | number:2}}</td> <!-- <td>FEB</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.mar | number:2}}</td> <!-- <td>MARCH</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.apr | number:2}}</td> <!-- <td>APRIL</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.may | number:2}}</td> <!-- <td>MAY</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.jun | number:2}}</td> <!-- <td>JUNE</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.jul | number:2}}</td> <!-- <td>JULY</td>-->
+                  <td style="padding: 5px;" class="text-right">{{forex.aug | number:2}}</td> <!-- <td>AUGUST</td>-->
+                  <td style="padding: 5px;" class="text-right">{{allocatedAmount(forex)|number:2}}</td> <!-- <td>AMOUNT<br>ALLOCATED</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>FX CONT #</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>HEDGE RATE#</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>HEDGE <br>GAIN/LOSS</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_sep,forex.sep,forex.exchangeRate)}}</td>
+                  <!-- <td>SEPT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_oct,forex.oct,forex.exchangeRate)}}</td>
+                  <!-- <td>OCT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_nov,forex.nov,forex.exchangeRate)}}</td>
+                  <!-- <td>NOV</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_dec,forex.dec,forex.exchangeRate)}}</td>
+                  <!-- <td>DEC</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_jan,forex.jan,forex.exchangeRate)}}</td>
+                  <!-- <td>JAN</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_feb,forex.feb,forex.exchangeRate)}}</td>
+                  <!-- <td>FEB</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_mar,forex.mar,forex.exchangeRate)}}</td>
+                  <!-- <td>MARCH</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_apr,forex.apr,forex.exchangeRate)}}</td>
+                  <!-- <td>APRIL</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_may,forex.may,forex.exchangeRate)}}</td>
+                  <!-- <td>MAY</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_jun,forex.jun,forex.exchangeRate)}}</td>
+                  <!-- <td>JUNE</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_jul,forex.jul,forex.exchangeRate)}}</td>
+                  <!-- <td>JULY</td>-->
+                  <td style="padding: 5px;" class="text-right">{{calculatePrice(total.total_aug,forex.aug,forex.exchangeRate)}}</td>
+                  <!-- <td>AUGUST</td>-->
+                  <td style="padding: 5px;" class="text-right">{{outStandingBalanceTotal(forex)|number:4}}</td> <!-- <td>o/s</td>-->
+                </tr>
+
+                <tr>
+                  <td style="padding: 5px;"></td> <!-- <td>CONTRACT<br>Date</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>CONTRACT#</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>CONTRACT<br>QTY. (LBS)</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>BUYER NAME</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_net_usd | number : 2}}</td> <!-- <td>Net USD From Stamp</td> -->
+                  <td style="padding: 5px;"></td> <!-- <td>TOTAL USD AMOUNT</td> -->
+                  <td style="padding: 5px;"></td> <!-- <td>Hedge %</td> -->
+                  <td style="padding: 5px;" class="text-right">{{total.paymentReceived | number : 2}}</td> <!-- <td>Payment<br>received</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>Last Payment<br>received on</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_balance_outstanding | number : 2}}</td> <!-- <td>BALANCE<br>Net USD From Stamp</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_usd_contract | number : 2}}</td> <!-- <td>TOTAL USD<br>CONTRACT o/s</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>TOTAL FOB<br>CAD $/CWT</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>Cost. FOB<br>CAD $/CWT</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>EST. MARGIN<br>CAD $/CWT</td>-->
+
+                  <td style="padding: 5px;"></td> <!-- <td>EST. MARGIN<br>CAD</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.averageFX | number : 4}}</td>
+                  <!-- <td>CONTRACT<br>FX RATE</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_sep | number:2}}</td> <!-- <td>SEPT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_oct | number:2}}</td> <!-- <td>OCT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_nov | number:2}}</td> <!-- <td>NOV</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_dec | number:2}}</td> <!-- <td>DEC</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_jan | number:2}}</td> <!-- <td>JAN</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_feb | number:2}}</td> <!-- <td>FEB</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_mar | number:2}}</td> <!-- <td>MARCH</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_apr | number:2}}</td> <!-- <td>APRIL</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_may | number:2}}</td> <!-- <td>MAY</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_jun | number:2}}</td> <!-- <td>JUNE</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_jul | number:2}}</td> <!-- <td>JULY</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_aug | number:2}}</td> <!-- <td>AUGUST</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.total_amount_allocated | number : 2 }}</td> <!-- <td>AMOUNT<br>ALLOCATED</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>FX CONT #</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>HEDGE RATE#</td>-->
+                  <td style="padding: 5px;"></td> <!-- <td>HEDGE <br>GAIN/LOSS</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.septempber | number :9}}</td> <!-- <td>SEPT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.october| number :9}}</td> <!-- <td>OCT</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.november| number :9}}</td> <!-- <td>NOV</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.december| number :9}}</td> <!-- <td>DEC</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.january| number :9}}</td> <!-- <td>JAN</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.feburary| number :9}}</td> <!-- <td>FEB</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.march| number :9}}</td> <!-- <td>MARCH</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.april| number :9}}</td> <!-- <td>APRIL</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.May| number :9}}</td> <!-- <td>MAY</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.june| number :9}}</td> <!-- <td>JUNE</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.july| number :9}}</td> <!-- <td>JULY</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.august| number :9}}</td> <!-- <td>AUGUST</td>-->
+                  <td style="padding: 5px;" class="text-right">{{total.o_s_total| number :9}}</td> <!-- <td>o/s</td>-->
+                </tr>
+
+              </tbody>
+            </table>
+
+            <div paging page="page" page-size="myForm.limit" total="totalPages" paging-action="inItList(page)">
+            </div>
+            <div class="row">
+              <div style="float: right;width: 50%;border: 1px solid #000;border-radius: 4px;padding: 5px;margin: 0;">
+                <div class="row">
+                  <div class="col-md-7">
+                    <label style="float: left;color: #000;width: 70%;">Total Net USD From Stamp</label>
+                    <p style="float: left;color: #000;width: 30%;text-align: right;">{{total.total_net_usd | number : 2}}</p>
+                  </div>
+                  <div class="col-md-5">
+                    <label style="float: left;color: #000;width: 70%;">Average FX</label>
+                    <p style="float: left;color: #000;width: 30%;">{{total.o_s_total | number : 4}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <label style="float: left;color: #000;width: 70%;">Total payment received</label>
+                    <p style="float: left;color: #000;width: 30%;text-align: right;">{{total.paymentReceived | number : 2}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <label style="float: left;color: #000;width: 70%;">Total Balance Net USD From Stamp</label>
+                    <p style="float: left;color: #000;width: 30%;text-align: right;">{{(total.total_net_usd - total.paymentReceived) | number : 2}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <label style="float: left;color: #000;width: 70%;">Total USD Purchases</label>
+                    <p style="float: left;color: #000;width: 30%;text-align: right;">
+                      <a href="javascript:void(0);" ng-click="showContractPopup()">{{(purchasesInfo ? purchasesInfo.usdPurchases : 0) | number:2}}</a>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <label style="float: left;color: #000;width: 70%;">Balance USD</label>
+                    <p style="float: left;color: #000;width: 30%;text-align: right;">
+                      {{(total.total_net_usd - total.paymentReceived - (purchasesInfo ? purchasesInfo.usdPurchases : 0)) | number:2}}
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <label style="float: left;color: #000;width: 70%;">Total Hedge</label>
+                    <p style="float: left;color: #000;width: 30%;text-align: right;">{{fxContract.totalUSD | number:2}}</p>
+                  </div>
+                  <div class="col-md-5">
+                    <label style="float: left;color: #000;width: 70%;">Average FX</label>
+                    <p style="float: left;color: #000;width: 30%;">{{avgRate | number : 4}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-7">
+                    <label style="float: left;color: #000;width: 70%;">Total Long/Short</label>
+                    <p style="float: left;color: #000;width: 30%;text-align: right;">{{(total.total_net_usd - fxContract.totalUSD - total.paymentReceived - (purchasesInfo ? purchasesInfo.usdPurchases : 0)) | number : 2}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="popup_overlay"></div>
+  <div class="add_coomm country">
+    <form name="payment">
+      <div class="enter_comm_typ">
+        <div class="head_comm">
+          <h2>Payment Received</h2>
+          <div
+            type="button"
+            class="close"
+            ng-click="closepop()"
+            role="button"
+            tabindex="0"
+          >
+            ×
+          </div>
+        </div>
+        <div class="com_pac">
+          <label style="width: 40%;">Amount</label>
+          <input
+            type="text"
+            name="amount"
+            ng-model="paymentForm.amount"
+            placeholder="Enter amount"
+            required
+            style="margin-bottom: 0;"
+            class="form-control"
+            autocomplete="off"
+          />
+        </div>
+        <div class="com_pac">
+          <label style="width: 40%;">Received Date</label>
+          <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+            <div class="input-group">
+              <input name="date" class="form-control" ng-model="paymentForm.date" placeholder="Choose a date"
+                autocomplete="off" />
+              <span class="input-group-addon" style="cursor: pointer">
+                <i class="fa fa-lg fa-calendar"></i>
+              </span>
+            </div>
+          </datepicker>
+        </div>
+        <div class="com_pac">
+          <label style="width: 40%;">Comment</label>
+          <textarea
+            name="comment"
+            ng-model="paymentForm.comment"
+            style="width: 100%;"
+            placeholder="Enter comment"></textarea>
+        </div>
+        <button
+          ng-click="add()"
+          type="button"
+          ng-disabled="payment.$invalid"
+          style="margin: 15px 0 15px auto;cursor: pointer;"
+          ng-hide="editMode"
+        >
+          <span class="fa fa-plus"></span>
+          Add
+        </button>
+        <div ng-show="editMode">
+          <button
+            ng-click="update()"
+            type="button"
+            ng-disabled="payment.$invalid"
+            style="margin: 15px 0 15px;cursor: pointer;float: right;"
+          >
+            <span class="fa fa-upload"></span>
+            Apply Changes
+          </button>
+          <button
+            type="button"
+            ng-click="cancel()"
+            style="margin: 15px 10px 15px;cursor: pointer;float: right;"
+          >
+            <span class="fa fa-times"></span>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="enter_comm_typ">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Comment</th>
+            <th>
+              <label class="grop_rad_check" style="margin: 0;font-size: medium;"> Accounting Completed
+                <input style="margin: 0;" type="checkbox" value="1" ng-model="selectedForex.accountingCompleted" />
+                <span class="checkmark" style="right: 0;left: unset;"></span>
+              </label>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="payment in selectedForex.shipmentScheldule[selectedForex.index].payments">
+            <td>{{payment.amount}}</td>
+            <td>{{payment.date | date:'dd/MM/yyyy'}}</td>
+            <td>{{payment.comment}}</td>
+            <td>
+              <a class="delete_detail" ng-click="delete($index)">
+                <span class="fa fa-trash"></span>
+              </a>
+              <a class="delete_detail" ng-click="edit($index, payment)">
+                <span class="fa fa-edit"></span>
+              </a>
+            </td>
+          </tr>
+          <tr ng-hide="selectedForex.shipmentScheldule[selectedForex.index].payments.length">
+            <td colspan="4">No payment received.</td>
+          </tr>
+        </tbody>
+      </table>
+      <button
+        ng-click="save()"
+        type="button"
+        ng-hide="editMode"
+        style="margin: 15px 0 15px auto;cursor: pointer;"
+      >
+        <span class="fa fa-save"></span>
+        Save
+      </button>
+    </div>
+  </div>
+
+  <div class="add_coomm new_add">
+      <div class="enter_comm_typ">
+          <div class="head_comm head_2">
+              <h2>USD Purchases Contracts</h2>
+              <div type="button" class="close" ng-click="closepop()">&times;</div>
+          </div>
+          <div class="panel_body">
+              <div class="panel_body_inner inner_box_List_add pop">
+                  <div class="col-md-12">
+                      <div class="add_commodity">
+                        <table class="table table-striped commodity_table">
+                          <thead>
+                            <tr>
+                              <th>Contract #</th>
+                              <th>Total Price</th>
+                              <th>Exchange Rate</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="contract in usdPurchasesContractsList">
+                              <td>{{contract.contractNumber}}</td>
+                              <td>{{contract.contractPrice}}</td>
+                              <td>{{contract.exchangeRate| number : 4}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

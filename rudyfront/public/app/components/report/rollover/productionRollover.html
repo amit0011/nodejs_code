@@ -1,0 +1,225 @@
+<style type="text/css">
+    table thead tr td, table tbody tr td{
+        width: 140px !important;
+    }
+</style>
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="initPosition()">
+         <div class="panel_body_inner inner_box">
+            <div class="row">
+               <div class="col-md-12">
+                  <ul class="nav nav-pills nav-stacked row" style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;" class="page">
+                     <li>
+                        <b>Production Rollover</b>
+                     </li>               
+                  </ul>
+               </div>
+               <div class="col-md-12">
+                  <ul class="list-inline " style="margin-bottom: 20px;">
+                     <li ng-if="access.rollover.purchaseConfirmation.viewMenu">
+                        <a ui-sref="purchaseRollover" class="green-btn">Purchase Rollover</a>
+                     </li>
+                     <li ng-if="access.rollover.salesContract.viewMenu">
+                        <a ui-sref="salesRollover" class="green-btn">Sales Rollover</a>
+                     </li>
+                  </ul>
+               </div>
+           </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="tabla_header">
+                     <div class="tbl" style="width: 15%!important;">
+                        <label>Commodity</label>
+                        <select name="commodity" ng-model="myForm.commodityId" style="width: 100%;height: 34px;" ng-change="getRolloverList(1)">
+                           <option value="">Select Commodity</option>
+                           <option ng-repeat="c in commoditys track by $index" value="{{c._id}}">{{c.commodityName}}</option>
+                        </select>
+                     </div>
+                     <div class="tbl" style="width: 15%!important;">
+                        <label>Contract Number</label>
+                        <input type="text" ng-model="myForm.contractNumber" ng-change="getRolloverList(1)">
+                     </div>                          
+                    
+                     <button ng-click="clear()">Clear</button>                     
+                 </div>
+               </div>
+            </div>
+            <div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;">
+               <style type="text/css">
+                  @media print {
+                     @page {
+                        size: A4 landscape;
+                     }
+                     img {
+                           height: 90%;
+                           margin: 0;
+                           padding: 0;
+                        }
+                     }
+                     table tbody tr td {
+                        border: 0.50px solid #000;
+                     }                 
+               </style>
+              
+              <div class="comodity_table" id="printSectionId">
+                  <table class="table table-striped commodity_table table_body_scroll table-responsive" style="width: 1670px;">
+                     <thead>
+                        <tr>
+                           <td>Contract #</td>
+                           <td>Grower Name</td>
+                           <td>Commodity</td>
+                           <td>Grade</td>
+                           <td>Crop Year</td>
+                           <td>Quantity(Lbs)</td>
+                           <td>Action</td>
+                        </tr>
+                     </thead>
+                     <tbody >
+                        <tr ng-repeat="contract in list track by $index">   
+                           <td>{{contract.contractNumber}}</td>                          
+                           <td>
+                              <a ng-href="growerDetails/{{contract.growerId._id}}">
+                                 {{ contract.growerId.farmName ? contract.growerId.farmName : contract.growerId.firstName + ' ' + contract.growerId.lastName }}
+                              </a>
+                           </td>
+                           <td>{{contract.commodityId.commodityName}}</td>
+                           <td>{{contract.gradeId.gradeName}}</td>
+                           <td>{{contract.cropYear}}</td>
+                           <td>{{contract.quantityLbs}}</td>
+                           <td>                                                                          
+                              <a ng-show="loginUserAccess.rollover.purchaseConfirmation.add" title="Create Contract Rollover" 
+                                 class="veiw_detail" ng-click="showRolloverPopup(contract)">
+                                 <i class="far fa-arrow-alt-circle-right" aria-hidden="true"></i>
+                              </a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>                   
+               </div>              
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="popup_overlay"></div>
+   <div class="add_coomm rollover_popup" style="width: 30% !important;">
+         <div class="enter_comm_typ">
+            <div class="head_comm">
+               <h2>Rollover for <u>{{ rolloverContract.contractNumber }}</u></h2>
+               <div type="button" class="close" ng-click="closepop()">&times;</div>
+            </div>
+         </div>
+         <div class="panel_body">
+            <div class="panel_body_inner inner_box_List_add" style="overflow-y:initial">
+               <div class="col-md-12">
+                  <div class="add_commodity">
+                     <form name="rolloverForm">
+                        
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="com_pac">
+                                 <label class="land_date">Quantity (Lbs)</label>
+                                 <input type="number" ng-min="0.001" ng-max="{{ rolloverForm.quantityLbs }}" 
+                                    step="0.001" name="rolloverQuantity" ng-model="rolloverForm.quantityLbs" required />
+                                 <span ng-show="rolloverForm.rolloverQuantity.$invalid && rolloverForm.rolloverQuantity.$pristine && submitted" class="validationErrorSpecification"></span>
+                              </div>
+                           </div>
+                        </div> 
+      
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="com_pac">
+                                 <label class="land_date">Inventory Grade</label>
+                                 <select name="inventoryGrades" ng-options="grade._id as grade.gradeName for grade in inventoryGrade" ng-model="rolloverForm.inventoryGrade" required>
+                                    <option value="">Select Inventory Grade</option>
+                                 </select>
+                                 <span ng-show="rolloverForm.inventoryGrades.$invalid && rolloverForm.inventoryGrades.$pristine && submitted" class="validationErrorSpecification"></span>
+                              </div>
+                           </div>
+                        </div> 
+   
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="com_pac">
+                                 <label class="land_date">Delivery Date</label>
+                                 <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                                    <div class="input-group">
+                                       <input name="dateFrom" class="form-control" ng-model="rolloverForm.deliveryDateFrom" placeholder="Choose a date" autocomplete="off" required/>
+                                       <span class="input-group-addon" style="cursor: pointer">
+                                          <i class="fa fa-lg fa-calendar"></i>
+                                       </span>
+                                    </div>
+                                 </datepicker>
+                                 <span ng-show="rolloverForm.dateFrom.$invalid && rolloverForm.dateFrom.$pristine && submitted" class="validationErrorSpecification"></span>
+                              </div>
+                           </div>
+                        </div>
+   
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="com_pac">
+                                 <label class="land_date">To</label>
+                                 <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control" >
+                                    <div class="input-group">
+                                       <input name="dateTo" class="form-control" ng-model="rolloverForm.deliveryDateTo" placeholder="Choose a date" autocomplete="off" required />
+                                        <span class="input-group-addon" style="cursor: pointer">
+                                          <i class="fa fa-lg fa-calendar"></i>
+                                       </span>
+                                    </div>
+                                 </datepicker>
+                                 <span ng-show="rolloverForm.dateTo.$invalid && rolloverForm.dateTo.$pristine && submitted" class="validationErrorSpecification"></span>
+                              </div>
+                           </div>
+                        </div> 
+   
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="com_pac">
+                                 <label>Note:</label>
+                                 <input type="text" ng-model="rolloverForm.note" />
+                              </div>
+                           </div>
+                        </div> 
+   
+                        <br/>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="com_pac">
+                                 <div class="enter_comm_typ">
+                                    <button class="button_cls" ng-click="createRollover(rolloverForm.$valid)" ng-disabled="rolloverForm.$invalid">Create</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>                             
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

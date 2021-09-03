@@ -1,0 +1,165 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+         <h3 class="heading_cls">Freight Setting</h3>
+         <hr class="heading_hr">
+         <div class="panel_body_inner inner_box" style="padding: 0;">
+            <div class="col-md-12">
+               <div class="add_commodity_bar setting add_commodity_bar_nobg" ng-show="freightSettingList==0">
+                  <button ng-show="loginUserAccess.setting.freightSettings.add" ng-click="openPop()">ADD <i class="fas fa-plus-circle"></i></button>
+               </div>
+               <div class="comodity_table comodity_table_list">
+                  <table class="table table-striped commodity_table">
+                     <thead>
+                        <tr>
+                           <th>Intermodal VCR</th>
+                           <th>Intermodal MTL</th>
+                           <th>Intermodal VCR(USD)</th>
+                           <th>Intermodal MTL(USD)</th>
+                           <th>Bl Fee</th>
+                           <th>Cy Usd</th>
+                           <th>Cwts Fcl</th>
+                           <th>Fob Sktn Boxcar</th>
+                           <th>Fob Sktn Hoppercar</th>
+                           <th>Fob Wpg Boxcar</th>
+                           <th>Fob Wpg Hoppercar</th>
+                           <th style="width: 13%;" ng-show="loginUserAccess.setting.freightSettings.view || loginUserAccess.setting.freightSettings.edit || loginUserAccess.setting.freightSettings.delete">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="result in freightSettingList">
+                           
+                           <td>{{result.intermodalVCR}}</td>
+                           <td>{{result.intermodalMTL}}</td>
+                           <td>{{result.intermodalVCRUSD | number:2}}</td>
+                           <td>{{result.intermodalMTLUSD | number:2}}</td>
+                           <td>{{result.blFee}}</td>
+                           <td>{{result.CyUsd}}</td>
+                           <td>{{result.cwtsFcl}}</td>
+                           <td>{{result.fobSktnBoxcar}}</td>
+                           <td>{{result.fobSktnHoppercar}}</td>
+                           <td>{{result.fobWpgBoxcar}}</td>
+                           <td>{{result.fobWpgHoppercar}}</td>
+                           <td ng-show="loginUserAccess.setting.freightSettings.view || loginUserAccess.setting.freightSettings.edit || loginUserAccess.setting.freightSettings.delete">
+                              
+                              <a ng-show="loginUserAccess.setting.freightSettings.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                 <i class="fas fa-pen-square"></i>
+                              </a>
+                              <a ng-show="loginUserAccess.setting.freightSettings.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                 <i class="fa fa-eye" aria-hidden="true"></i>
+                              </a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  
+               </div>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+               <div style="border: 2px solid #007e4e;height: 17.6em;background-color: #ffff;">
+                  <div style="max-height: 19em;overflow: scroll;">
+                     <div style="width: 100%;border-bottom: 1px solid;padding: 6px;color: black;" ng-repeat="note in freightNoteList">
+                        <span style="word-break: break-all;font-size: 15px;">{{note.message}}</span><br>
+                        <span style="margin: 0 0 0 70%;font-size: 10px;">{{note.fullName}} {{note.createdAt | date:'medium'}}</span>
+                     </div>
+                  </div>
+               </div>
+               <div style="border: 2px solid #007e4e;height: 4em;background-color: #ffff;float: left;width: 95.5%;position: absolute;left: 2.2%;">
+                  <div style="width: 100%;">
+                     <input style="margin: 14px 0 0px 8px;width: 92%;" type="" name="" ng-model="noteForm.message" placeholder="Enter here" ng-enter="freightNoteSubmit()">
+                     <a ng-click="freightNoteSubmit()" style="color: #007e4e; margin: 13px 0 0 0;padding: 3px 3px 4px 4px;line-height: 2;font-size: 24px;cursor: pointer;"><i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Modal -->
+   <div class="popup_overlay"></div>
+   <div class="add_coomm setting">
+      <div class="enter_comm_typ">
+         <div class="head_comm head_2">
+            <h2>{{inputField}} Freight Setting</h2>
+            <div type="button" class="close" ng-click="closepop()">&times;</div>
+         </div>
+         <div class="panel_body">
+            <div class="panel_body_inner inner_box_List_add pop">
+               <div class="col-md-12">
+                  <div class="add_commodity add_growers_form">
+                     <form name="country">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label>Inter Modal VCR</label>
+                                 <input type="text" name="intermodalVCR" numbers-Only ng-model="myForm.intermodalVCR" placeholder="Enter Intermodal VCR" required>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label>Inter Modal MTL</label>
+                                 <input type="text" name="intermodalMTL" numbers-Only ng-model="myForm.intermodalMTL" placeholder="Enter Bag Cost" required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label>Bl Fee</label>
+                                 <input type="text" name="blFee" numbers-Only ng-model="myForm.blFee" placeholder="Enter BL Fee" required>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label>Cy(USD)</label>
+                                 <input type="text" name="CyUsd" numbers-Only ng-model="myForm.CyUsd" placeholder="Enter Cy USD" required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label>CWT FCL</label>
+                                 <input type="text" name="cwtsFcl" numbers-Only ng-model="myForm.cwtsFcl" placeholder="Enter CWT FCL" required>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label>Fob Saskatoon Boxcar</label>
+                                 <input type="text" name="fobSktnBoxcar" numbers-Only ng-model="myForm.fobSktnBoxcar" placeholder="Enter Fob Box Car" required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label>Fob Saskatoon Hoppercar</label>
+                                 <input type="text" name="fobSktnHoppercar" numbers-Only ng-model="myForm.fobSktnHoppercar" placeholder="Enter Fob Sktn Hopper Car" required>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label>Fob Winning Boxcar</label>
+                                 <input type="text" name="fobWpgBoxcar" numbers-Only ng-model="myForm.fobWpgBoxcar" placeholder="Enter Fob WPG Boxcar" required>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="com_pac">
+                                 <label>Fob Winning Hoppercar</label>
+                                 <input type="text" name="fobWpgHoppercar" numbers-Only ng-model="myForm.fobWpgHoppercar" placeholder="Enter Fob Wpg Hopper Car" required>
+                              </div>
+                           </div>
+                        </div>
+                        <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="country.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

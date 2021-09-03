@@ -1,0 +1,57 @@
+<div class="dash_bord" ng-controller="analysisCtrl">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="initAnalysis()">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <input type="text" name="search" ng-model="analysisName" placeholder="Search">
+                        <button ng-show="loginUserAccess.setting.analysisList.add" ng-click="openPop()">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Analysis List Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="result in analysisList |filter:analysisName|itemsPerPage:10" pagination-id="analysisList">
+                                    <td>
+                                        {{result.analysisName}}
+                                        <a ng-show="loginUserAccess.setting.analysisList.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.analysisList.edit" class="edit_details" ng-click="openPop(result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls class="cus_pagination" pagination-id="analysisList" max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm analysis">
+        <div class="enter_comm_typ">
+            <form name="analysisFrom" id="analysisFrom">
+                <div class="head_comm">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <input type="text" name="analysisName" ng-model="myForm.analysisName" placeholder="Enter Analysis Name" required>
+                <span class="validation_error_analysis" ng-show="analysisFrom.analysisName.$dirty && analysisFrom.analysisName.$invalid">
+                <span class="validation_error_analysis" ng-show="analysisFrom.analysisName.$error.minlength">Analysis name should be 2 and less then 50 Characters.</span>
+                <span class="validation_error_analysis" ng-show="analysisFrom.analysisName.$error.required">Analysis name is required.</span></span>
+                <button ng-click="save()" ng-show="!btn" ng-disabled="!(myForm.analysisName)">SUBMIT</button>
+                <button ng-click="saveChanges()" ng-show="btn" ng-disabled="!(myForm.analysisName)">SAVE CHANGES</button>
+            </form>
+        </div>
+    </div>
+</div>

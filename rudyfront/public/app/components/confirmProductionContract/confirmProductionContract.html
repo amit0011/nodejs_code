@@ -1,0 +1,663 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="action_btn">
+       <button ng-click="print(printSectionId)">Print</button>
+       <!-- <a ng-href="/growerDetails/{{growerId}}">Save</a> -->
+       <a ng-href="addProductionContract/{{growerId}}/edit/{{myForm.contractNumber}}">Edit</a>
+    </div>
+      <div class="panel_body">
+         <div class="panel_body_inner inner_box_List_add add_commodity" id="printSectionId" style="padding: 0 15px;">
+            <link rel="stylesheet" type="text/css" href="/assets/font-awesome/css/font-awesome.css">
+            <style type="text/css">
+
+            .boxCls {
+               width: 10px!important;margin: 0 0 -2px 2px;color: white;border: 1px solid black;
+            }
+                  @media print {
+                    .ng-show {
+                      /*display: none !important;*/
+                      display: none !important;
+                    }
+                    .ng-hide {
+                      /*display: none !important;*/
+                      display: none !important;
+                      visibility: visible!important;
+                    }
+                    .boxCls {
+                         width: 10px!important;margin: 0 0 -2px 2px;color: white;border: 1px solid black;
+            }
+                  }
+               </style>
+            <div class="" style="width: 100%; float: left;">
+               <div class="" style="margin: 0;padding: 0px;width: 100%;float: left;background: #fff;">
+                  <div class="" style="margin: 0 0 4px 0;padding: 0 0 4px 0;width: 100%;float: left;  border-bottom: 5px solid #007e4e;">
+                     <div class="" style="width: 27.33%; float: left;padding: 0 0px;">
+                        <div class="" style="margin: 0;padding: 0;width: 100%;float: left">
+                           <img src="{{imagePath}}/images/rudyLogo2.png" style="margin: 0;padding: 0;float: left;">
+                        </div>
+                     </div>
+                     <div class="" style="width: 38.33%; float: left;padding: 0 0px;">
+                        <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                           <h3 style="margin: 0;padding: 0;width: 100%;float: left;color: #000;font-size: 16px;">Production Contract</h3>
+                           <h4 style="margin: 3px 0;padding: 0;width: 100%;float: left;color: #000;font-size: 16px">Commodity: {{myForm.commodityName}}</h4>
+                           <h5 style="margin: 0;padding: 0 0px;width: 100%;float: left;color: #000;   font-size: 16px;">Grade:  {{myForm.gradeName}}</h5>
+                           <h2 style="margin: 0;padding: 0;width: 100%;float: left;color: #000;font-size: 16px;">Contract #: {{myForm.contractNumber}}</h2>
+                        </div>
+                     </div>
+                     <div class="" style="width: 29.33%; float: left;padding: 0 15px;">
+                        <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                           <h2 style="margin: 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 24px;">RUDY AGRO LTD.</h2>
+                           <h3 style="margin: 3px 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 12px;">Box 100, Outlook Sask.S0L 2N0</h3>
+                           <a href="#" style="margin: 2px 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 13px;">Tel (306) 867-8667</a>
+                           <a href="#" style="margin: 2px 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 13px;">Fax (306 867-8290</a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                     <span style="float: right;margin: 0 16px 0 0;font-size: 11px;font-weight: 600;color: black;">{{myForm.CWTDel | number:2}}</span>
+                     <p style="color: #000;padding: 0;float: left;width: 100%;font-size: 12px;margin-bottom: -3px;">Made in duplicate, {{myForm.createdAt | date}}, between <b>Rudy Agro Ltd</b>, P.O. Box 100, Outlook, Saskatchewan ("the Buyer") and <b>{{myForm.growerFullName}}</b>. of <b>{{myForm.growerId.fullAddress}}</b>  “the Grower”, who agree as follows:</p>
+                     <ol style="padding: 0 0 0 15px;width: 100%;float: left;max-width: 98%">
+                        <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                           The Grower will plant, tend and harvest <b>{{myForm.acres}}</b> acres (“the Acres”) of the Commodity in the <b>{{myForm.cropYear}}</b> growing season (“the Growing Season”), on the following land:
+                           <div class="" style="margin: 0px;padding: 0 0px;width: 100%;float: left;">
+                              <div style="margin: 0;padding: 0 0px;width: 100%;float: left;">
+
+                                 <div style="margin: 0;padding: 0 0px;width: 11.50%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 20%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[0].numberOfAcres}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 80%;float: left;text-align: center;font-weight: 400;line-height: 11px;">Acres on</p>
+                                 </div>
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[0].direction}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">1/4 Sec</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[0].section}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">TWP</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[0].townShip}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">Range</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[0].range}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">W</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 4%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 70%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[0].meridien}}</span>
+                                 
+                                 </div>
+
+
+
+
+                                 <div style="margin: 0 0 0 1%;padding: 0 0px;width: 11.50%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 20%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[1].numberOfAcres}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 80%;float: left;text-align: center;font-weight: 400;line-height: 11px;">Acres on</p>
+                                 </div>
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[1].direction}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">1/4 Sec</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[1].section}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">TWP</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[1].townShip}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">Range</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[1].range}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">W</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 4%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 70%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[1].meridien}}</span>
+                                 
+                                 </div>
+
+
+
+                              </div>
+
+
+                              <div style="margin: -3px 0 0 0;padding: 0 0px;width: 100%;float: left;">
+
+                                 <div style="margin: 0;padding: 0 0px;width: 11.50%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 20%;float: left;height: 20px;border: 2px solid #000;">{{land[2].numberOfAcres}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 80%;float: left;text-align: center;font-weight: 400;line-height: 11px;">Acres on</p>
+                                 </div>
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{land[2].direction}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">1/4 Sec</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{land[2].section}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">TWP</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{land[2].townShip}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">Range</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{land[2].range}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">W</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 4%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 70%;float: left;height: 20px;border: 2px solid #000;">{{land[2].meridien}}</span>
+                                 
+                                 </div>
+
+
+
+
+                                 <div style="margin: 0 0 0 1%;padding: 0 0px;width: 11.50%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 20%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[3].numberOfAcres}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 80%;float: left;text-align: center;font-weight: 400;line-height: 11px;">Acres on</p>
+                                 </div>
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[3].direction}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">1/4 Sec</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[3].section}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">TWP</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[3].townShip}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">Range</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[3].range}}</span>
+                                    <p style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">W</p>
+                                 </div>
+
+                                 <div style="margin: 0;padding: 0 0px;width: 4%;float: left;display: flex;align-items: center;">
+                                    <span style="margin: 0;padding:  2px;width: 70%;float: left;height: 20px;border: 2px solid #000;">{{landLoaction[3].meridien}}</span>
+                                 
+                                 </div>
+
+
+
+                              </div>
+
+
+                              <!-- <table class="" style="width: 100%;max-width: 100%;margin-bottom: 0px;margin-top: 0px;">
+                                 <thead>
+                                    <tr>
+                                       <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 16%;border: 1px solid #000; ">Acres On</th>
+                                       <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 16%;border: 1px solid #000; ">Dir</th>
+                                       <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 16%;border: 1px solid #000; ">1/4 Sec</th>
+                                       <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 16%;border: 1px solid #000; ">TWP</th>
+                                       <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 16%;border: 1px solid #000; ">Range</th>
+                                       <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 16%;border: 1px solid #000; ">W</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;" ng-repeat="land in landLoaction">
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{land.numberOfAcres}}</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{land.direction}}</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{land.section}}</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{land.townShip}}</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{land.range}}</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{land.meridien}}</td>
+                                    </tr>
+                                 </tbody>
+                              </table> -->
+                           </div>
+                           
+                        </li>
+                        <div style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                         (provided that if the Grower decides to grow the Commodity on any other land, it shall immediately notify the Buyer in writing), and the Grower agrees to sell to the Buyer on the terms set forth herein and the Buyer agrees to purchase all of the crop produced from the Acres in the Growing Season (“the Production”).  
+                        </div>
+                        <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                          The Grower has selected the following pricing option for the sale of its Production to the Buyer:<br>
+                           (a) The <b><i style="width: 10px!important;margin: 0 0 -1px 2px;" class="{{myForm.showBox1}}" aria-hidden="true"></i></b> fixed price option described in paragraph 3, on the first <b>{{myForm.fixedOnFirst}} {{myForm.fixedPriceUnit}}</b> of the Production (“the Fixed Production”) with the price for any additional production to be either the 
+                           <i style="width: 10px!important;margin: 0 0 -1px 2px;" class="{{myForm.showBox11}}" aria-hidden="true"></i>
+                           <b>Agreed</b> 
+                           Price or the 
+                           <i style="width: 10px!important;margin: 0 0 -1px 2px;" class="{{myForm.showBox12}}" aria-hidden="true"></i>
+                           <b>Pooled</b> 
+                           Price as described below. Buyer agrees to take delivery of the fixed production from 
+                           <b>{{myForm.deliveryDateFrom | date}}</b>
+                           to <b>{{myForm.deliveryDateTo | date}}</b>.<br>
+                           (b) The <b><i style="width: 10px!important;margin: 0 0 -1px 2px;" class="{{myForm.showBox2}}" aria-hidden="true"></i></b> agreed price option, described in paragraph 4, or;<br>
+                           (c) The <b><i style="width: 10px!important;margin: 0 0 -1px 2px;" class="{{myForm.showBox3}}" aria-hidden="true"></i></b>
+                           pooled price option described in paragraph 5
+                         </li>
+                        <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                           The fixed price will be <b>${{myForm.fixedPriceUnit=='Bu'?(myForm.fixedPrice | number:2):(myForm.fixedPrice | number:4)}}</b>  per <b>{{myForm.fixedPriceUnit=='Lbs'?'Lb':myForm.fixedPriceUnit}}</b> (“the Fixed Price”) <b>{{myForm.deliveryOption}}</b>  for all of the Production which is graded {{myForm.gradeName}}  by the Buyer (and which, in the case of Kabuli Chickpeas sized 8,9,10mm or larger.  If the Production is graded by the Buyer as lower than #2 or better (or is, in the case of Green Peas, bleached or, for Kabuli Chickpeas, undersized), then the Grower shall receive the lower of the following prices instead of the Fixed Price:<br>
+                           (a) The applicable price as shown in the following table (and in the event the table does not show the particular grade of Commodity delivered by the Grower, the Buyer may elect to apply the price shown for the next highest grade):
+                           <div class="" style="margin: 0;padding: 0 0px;width: 100%;float: left;">
+                              <b>Other Grades Price</b>
+                              <div ng-repeat="otherGrade in myForm.otherGradePrices">
+                                 <div style="margin: 0;padding: 0 0px;width: 15%;float: left;">
+                                 {{otherGrade.gradeName}} :
+                                 </div>
+                                 <div style="margin: 0;padding: 0 0px;width: 15%;float: left;">
+                                    {{otherGrade.gradePrice}}
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- <div class="" style="margin: 0;padding: 0 0px;width: 100%;float: left;">
+                              <table class="" style="width: 100%;max-width: 100%;margin-bottom: 20px;    margin-top: 20px;">
+                                 <thead>
+                                    <tr>
+                                       <th style="text-align:left;font-size: 11px;color: #fffafa;background: #007e4e;padding: 10px;-webkit-print-color-adjust: exact; ">Peas(Green,Yellow, Maple) </th>
+                                       <th style="text-align:left;font-size: 11px;color: #fffafa;background: #007e4e;padding: 10px;-webkit-print-color-adjust: exact; ">Green Peas (MFP)</th>
+                                       <th style="text-align:left;font-size: 11px;color: #fffafa;background: #007e4e;padding: 10px;-webkit-print-color-adjust: exact; ">Lentils (All Types)</th>
+                                       <th style="text-align:left;font-size: 11px;color: #fffafa;background: #007e4e;padding: 10px;-webkit-print-color-adjust: exact; ">Chick Peas</th>
+                                       <th style="text-align:left;font-size: 11px;color: #fffafa;background: #007e4e;padding: 10px;-webkit-print-color-adjust: exact; ">Kabuli</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 11px;">Blank</td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div> -->
+                  </li>
+                  <p style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">or (b) The Buyer’s daily bid price for that grade of the Commodity as of the date of delivery.
+                            The Grower shall be excused from delivering the Fixed Production to the Buyer only if, and insofar as, the total amount of the Production is less than the Fixed Production as a
+                            direct result of an act of God occurring prior to the harvesting of the Production.</p>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The agreed price (“the Agreed Price ”) will be determined by agreement of the parties not later than June 1st of the year following the Growing Season, or such later dates as the parties may agree upon, failing which the Grower shall then be entitled to sell the portion of the Production to which the agreed price option applies or any of it to a buyer other than the Buyer only after the Buyer is provided with the full opportunity to purchase the same on a right of first refusal basis, which right of first refusal is here by granted by the Grower to the Buyer on the following terms:<br>
+                  (a)Upon receiving terms from a third party buyer that the Grower is prepared to accept, the Grower shall have the third party buyer forthwith provide the Buyer with full particulars of the terms of the proposed sale, including the quantity, grade and price, in the form of a “Production Transfer Request” which the Buyer will provide to the third party on request.<br>
+                  (b)Upon receipt of all of the said particulars, the Buyer shall have a period of 48 hours to notify the third party buyer that the Buyer is either exercising the Buyer’s right of first refusal to purchase the Production in question or that it consents to the Production Transfer Request (which consent the Grower acknowledges and agrees is acondition precedent to the sale of any of the Production to any party other than the Buyer).<br>
+                  (c)Should the Buyer consent to the Production Transfer Request as aforesaid, the Grower may proceed to sell to the third party buyer the Production as described in the Request provided that:(i) Such sale proceeds on the terms, including the timing of delivery and payment, set forth in the Request, failing which the Buyer’s consent shall be null and void, and its right of first refusal shall be reinstated.(ii)Any outstanding balance payable by the Grower to the Buyer for the Seed is first paid in full.<br>
+                  (d)The Grower acknowledges that every sale of any portion of the Production is subject to the Buyer’s first right of refusal even if a sale or sales of another portion there of to a third party have been consented to by the Buyer under the provisions above.In the event that the Agreed Price has not been determined in the manner set forth above for any portion of the Production by the end of the crop year for the GrowingSeason (“the Crop Year”), such remaining Production shall be purchased by the Buyer at the Buyer’s daily bid price for the Commodity as of the last day of the Crop Year.
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  (a) If the Grower has selected the pooled price option, the Production will be included in the pool which the Buyer has established for the Crop Year for the Commodity and Variety of the same grade (as determined pursuant to the provisions of this agreement) as the Production (“the Pooled Commodity”), and the Grower shall receive a price equal to the average (as calculated by the Buyer) of the prices paid by the Buyer for the Pooled Commodity throughout the Crop Year (“the Pooled Price”) (provided however that Commodities purchased by the Buyer at a Fixed Price or an Agreed Price will not be included in the calculation of the price paid to pools).<br>
+                  (b)All costs associated with marketing of the commodity contained within a pool, including but not limited to cleaning, bagging, handling, freight, storage, the Buyer’s carrying costs in relation to the Pooled Commodity, and the Buyer’s marketing commission as determined at its sole discretion will be for the account of the pool.<br>
+                  (c)The Buyer agrees to charge (or, where applicable, use all reasonable efforts to obtain) competitive cleaning, bagging, handling, freight and storage costs and to obtain the best prices available at the time of sale for the pool’s commodities, having regard to market fluctuations and delivery schedules, with a view to maximizing the return to the pool.<br>
+                  (d)In the event the Production contains in excess of 24% dockage or other foreign matter requiring special cleaning in addition to that required for the typical other commodities contained in the pool, the Buyer may charge the excess cleaning costs resulting therefrom directly to the Grower.<br>
+                  (e)Upon completion of delivery and determination of grade and dockage, the Buyer will make payment to the Grower of an amount equal to 85% of the price that the Buyer then estimates will eventually be paid as the Pooled Price.  Final payment to the Grower will be made not later than 60 days after closing of the pool(s).<br>
+                  (f) The Buyer will have option of purchasing commodities from any pool for seed purposes at a price equivalent to the Pooled Price.
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  In the event that the Grower has purchased seed from the Buyer for the purpose of growing the Production, The Grower shall take possession of the Seed at its own expense, and the Buyer may deduct any balance owing for such seed from the purchase price of the Production.  The Grower acknowledges that there are no agreements,warranties, conditions, terms, representations or inducements, oral or written, express or implied, legal, statutory, customary, collateral or otherwise, given or made by theBuyer with respect to, or connection with, the Seed or this agreement.   The grower acknowledges that all production from seed provided by the buyer must be returned tothe buyer other than the quantities identified in 8B below.   All production from that retained seed is automatically under a production agreement and 100% of the production must be returned to the buyer.
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The Buyer shall have the right to enter and inspect the fields planted to the Production, the Production and all buildings and places where the same is or may be located and the Grower’s records regarding the Production at any time or times deemed advisable by The Buyer. In the event of a crop failure for any reason, the Grower shall notify The Buyer within 5 days of the same. Within 7 days of harvesting the Production, the Grower shall submit to the Buyer a 2lb. representative sample and a completed harvest summary in the form required by the Buyer (“the Harvest Summary”). The Grower acknowledges that the delivery to the Buyer of a complete and accurate Harvest Summary is a condition precedent to the Buyer’s obligation to make any payment to the Grower for the Production.
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  (a) The Grower will deliver, at its own expense and in good and dry condition, all of the Production, wherever grown, including any volunteer Production, and regardless of quality to the Buyer’s facility at Outlook, Saskatchewan, unless otherwise designated by the Buyer, on 24 hour notice from the Buyer (which notice will be provided for any Production subject to an Agreed Price only after the price has been determined in accordance with Clause 4). The Buyer agrees that it shall call for delivery of any Production to which a Fixed Price applies on or before December 31, and Production to which a Pooled Price applies on or before July 31st of the Crop Year. Unless otherwise specified herein, the Grower shall bear all costs of delivery, and all risk in relation to the Production until it is delivered, and a grain receipt is issued by the Buyer as set forth below. The Grower warrants free and clear title to the Production and that the Production is not, and will not be, encumbered by contract or otherwise.
+                  <br>(b) Provided that the Grower delivers to the Buyer the Fixed Production (if applicable), the Grower may retain from the remaining Production up to {{myForm.growerRetain}} {{myForm.growerRetainUnits}} of the Commodity for the purposes of the Grower’s seeding in the next ensuing growing season, and the Grower shall describe in the Harvest Summary the quantity he wishes to retain.  It is understood that the production from future growing seasons shall remain under contract of RAL, and that all production must be delivered to the buyer’s facility.
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  (a) The Buyer, upon delivery of the Commodity, shall determine grade, dockage, amount of split product (inclusive of small whole product removed through the normal cleaning process), and moisture content and, if applicable, size and bleaching, in accordance with, where applicable, the procedures and official standards of the Canadian Grain Commission, and thereafter provide the Grower with a grain receipt. The Buyer shall be entitled to refuse to accept delivery of Production containing moisture in excess of the maximum percentage being accepted by the Buyer for the Commodity and Variety of the Production at the time of delivery; if the Buyer decides to accept delivery of such Production, it shall be entitled to apply a deduction to the price to be paid for the Production at a rate determined in its sole discretion. At the option of the Buyer a handling tariff on non-pea items including Chickpeas and Marrowfat peas of $8.00 per MT and on all other pea items $3.50 per MT will be deducted. Screenings on all of the Production shall be the property of the Buyer.<br>
+                  (b) All determinations by the Buyer as set forth in paragraph (a) above shall be final and conclusive, except that in the event of a disagreement as to grade or dockage, the parties shall forward a suitable representative sample to the Canadian Grain Commission (or, at the option of the Buyer, SGS Canada Inc.) for a final determination, which shall not be subject to appeal.<br>
+                  (c) Except as otherwise contemplated in this agreement, and provided the Grower is not in default of any provision of this Agreement, the Buyer shall make payment for the Production within 10 days of delivery, except that the Buyer may elect to withhold payment until the Grower has delivered the Fixed Production (if applicable). All prices shall be paid on the basis of net, cleaned weight as determined under the provisions this agreement. The Buyer may set off against, and deduct from, any payment to the Grower for the Production, any indebtedness of the Grower to the Buyer.
+
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  (a) The Grower shall be responsible for all loss, damage and expense incurred by the Buyer arising directly or indirectly from the failure or neglect of the Grower to sell and deliver to the Buyer all of the Production or to perform this agreement or any provision of it, whether such failure is within or beyond its control (including as a result of any acts of God occurring after the harvesting of the Production). As well, the Grower agrees that the Production does not constitute “specific goods” as defined in The Sale of Goods Act.<br>
+                  (b) In the event of any such failure or neglect, the Buyer shall be entitled to pursue all remedies available under law against the Grower, including the recovery of all losses and expenses incurred by the Buyer in any default or breach by it of any contractual arrangements between it and a 3rd party or parties in relation to the Production, in replacing or attempting to replace the Production from other sources and/or from accepting late and/or partial delivery from the Grower, as the Buyer may in its sole discretion elect.
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The Grower hereby grants the Buyer a security interest in the Production and all proceeds of any kind derived directly or indirectly from the Production, which security interest may be enforced by any method permitted by law, including, without limitation, under the provisions of applicable personal property security legislation. The Grower acknowledges receipt of a copy of this contract and waives any right to receive a financing statement or financing change statement relating to it. The Limitation of Civil Rights Act and the Lands Contracts (Actions) Act, both of Saskatchewan, shall have no application to this contract or such security where the Grower is a corporate body.
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  It is mutually agreed that time is of the essence of the Agreement and that this Agreement shall be binding upon and ensure to the benefit of the parties hereto, their heirs, executors, personal representative, successors and permitted assigns. It is further agreed that this Contract cannot be assigned by the Grower, but that it may be assigned by the Buyer at any time without notice to the Grower.
+
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The parties hereto agree that this Contract shall be governed by and construed in accordance with the laws of the Province of Saskatchewan and the parties agree to attorn to and be bound by the jurisdiction of the Courts of Saskatchewan. The failure of the Buyer to enforce at any time any term, warranty or condition of the agreement shall not be considered a waiver of the Buyer’s right to thereafter enforce each and every term, warranty and condition of the Agreement. Any notice to be provided by the Buyer to the Grower hereunder may be provided by use of any one of the telephone or facsimile numbers or post office addresses provided below.
+                  </li>
+                  <li style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The return envelope for this contract must be postmarked on or before <b>{{myForm.contractReturnDate | date}}</b> failing which this contract will be null and void at the option of the Buyer
+                  </li>
+                  <li ng-show="myForm.otherComments" style="margin-bottom: 8px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  {{myForm.otherComments}}
+                  </li>
+                  </ol>
+                  <div class="" style="margin:200px 0 0 0;padding: 0;width: 100%;float: left;">
+                     <div class="row" style="width: 100%;float: left;">
+                        <div class="col-md-6" style="width: 50%;float: left;">
+                           <h6 style="margin: 0;padding: 0;width: 100%;float: left;color: #000;font-size: 15px;">Per:</h6>
+                           <img src="{{imagePath}}{{myForm.signature}}" alt="" style="width: 200px;height:80px;margin: 0 0 0 22%;">
+                           <h2 class="ext" style="color: #000;font-size: 18px;margin: 0px 100px 0 0;border-top: 2px solid #000;padding: 10px 0 0 0; text-align: center;">Rudy Agro Ltd - Buyer</h2>
+                        </div>
+                        <div class="col-md-6" style="width: 50%;float: left;">
+                           <h3 style="margin: 0 0 11px 0px;padding: 0;  width: 100%;float: left;color: #000;font-size: 15px;">Per: {{myForm.growerId.firstName}} {{myForm.growerId.lastName}}
+                           <h3 style="margin: 0;padding: 0;  width: 100%;float: left;color: #000;font-size: 15px;">{{myForm.growerId.farmName}}</h3></h3>
+                           <h2 style="color: #000;font-size: 18px;margin: 90px 0 0 0;border-top: 2px solid #000;padding: 10px 0 0 0; text-align: center;">Grower or Authorized Signing Office</h2>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="pdf_sec pdf_sec2" style="margin: 120px 0px 0px;
+               padding: 15px;
+               width: 100%;
+               float: left;
+               background: #fff;" ng-show="myForm.contractNumber">
+               <div class="" style="margin: 0;padding: 0;width: 100%;float: left;  border-bottom: 5px solid #007e4e;">
+                     <div class="" style="width: 27.33%; float: left;padding: 0 0px;">
+                        <div class="" style="margin: 0;padding: 0;width: 100%;float: left">
+                           <img src="http://54.203.9.103/assets/images/logo.png" style="margin: 0;padding: 0;float: left;">
+                        </div>
+                     </div>
+                     <div class="" style="width: 38.33%; float: left;padding: 0 0px;display: none;">
+                        <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                           <h3 style="margin: 0;padding: 0;width: 100%;float: left;color: #000;font-size: 16px;">Production Contract</h3>
+                           <h4 style="margin: 3px 0;padding: 0;width: 100%;float: left;color: #000;font-size: 16px">Commodity: {{myForm.commodityName}}</h4>
+                           <h5 style="margin: 0;padding: 0 0px;width: 100%;float: left;color: #000;   font-size: 16px;">Grade:  {{myForm.gradeId.gradeName}}</h5>
+                           <!-- <h2 style="margin: 0;padding: 0;width: 100%;float: left;color: #000;font-size: 16px;">Contract #: {{myForm.contractNumber}}</h2> -->
+                        </div>
+                     </div>
+                     <div class="" style="width: 29.33%; float: right;padding: 0 15px;">
+                        <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                           <h2 style="margin: 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 16px;">RUDY AGRO LTD.</h2>
+                           <h3 style="margin: 3px 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 9px;">Box 100, Outlook Sask.S0L 2N0</h3>
+                           <a href="#" style="margin: 2px 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 9px;">Tel (306) 867-8667</a>
+                           <a href="#" style="margin: 2px 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 9px;">Fax (306 867-8290</a>
+                        </div>
+                     </div>
+                  </div>
+               <div class="pdf_body" style="    margin: 0;
+                  padding: 0;
+                  width: 100%;
+                  float: left;">
+                  <h3 style="    color: #000;
+                     text-align: center;
+                     font-weight: 700;
+                     margin: 0;
+                     padding: 0;
+                     float: left;
+                     width: 100%;font-size: 12px;">Chemical Declaration Form</h3>
+                  <h4 style="color: #000;
+                     margin: 0;
+                     padding: 0;
+                     float: left;
+                     width: 100%;font-size: 9px;"><b style="color: #000;
+                     font-weight: 700;
+                     margin: 0 12px 0 0;
+                     padding: 0;
+                     float: left;
+                     width: auto;font-size: 9px;">Date: </b> {{myForm.createdAt | date:'dd/MM/yyyy'}}</h4>
+                  <h4 style="color: #000;
+                     margin: 0;
+                     padding: 0;
+                     float: left;
+                     width: 100%;font-size: 9px;"><b style="    color: #000;
+                     font-weight: 700;
+                     margin: 0 12px 0 0;
+                     padding: 0;
+                     float: left;
+                     width: auto;font-size: 9px;">Grower Name/Farmer Name:</b> {{myForm.growerFullName}}</h4>
+                  <h4 style="    color: #000;
+                     margin: 0;
+                     padding: 0;
+                     float: left;
+                     width: 100%;font-size: 9px;"><b style="color: #000;
+                     font-weight: 700;
+                     margin: 0 12px 0 0;
+                     padding: 0;
+                     float: left;
+                     width: auto;font-size: 9px;">Purchase/Production Contract:</b> {{myForm.contractNumber}}</h4>
+                  <p style="color: #000;
+                     
+                     padding: 0;
+                     float: left;
+                     width: 100%;
+                     font-size: 11px;">We hereby confirm the following crop production products were applied to the above crop during the current growing season. All products were applied within the established rates and guidelines as per the manufacturers label. (Check those that were applied)</p>
+                  <div class="" style="margin: 0;padding: 0 0px;width: 100%;float: left;">
+                              <table class="" style="width: 100%;max-width: 98%;margin-bottom: 0;margin-top: 0;">
+                                 <thead>
+                                    <tr>
+                                       <th style="text-align:left;font-size: 11px;color: #000000;text-align: center; padding: 10px;-webkit-print-color-adjust: exact;border: 1px solid #000; ">HERBICIDE</th>
+                                       <th style="text-align:left;font-size: 11px;color: #000000;text-align: center; padding: 10px;-webkit-print-color-adjust: exact;border: 1px solid #000; "></th>
+                                       <th style="text-align:left;font-size: 11px;color: #000000;text-align: center; padding: 10px;-webkit-print-color-adjust: exact;border: 1px solid #000; ">FUNGICIDE</th>
+                                       <th style="text-align:left;font-size: 11px;color: #000000;text-align: center; padding: 10px;-webkit-print-color-adjust: exact;border: 1px solid #000; "></th>
+                                       <th style="text-align:left;font-size: 11px;color: #000000;text-align: center; padding: 10px;-webkit-print-color-adjust: exact;border: 1px solid #000; "></th>
+                                       <th style="text-align:left;font-size: 11px;color: #000000;text-align: center; padding: 10px;-webkit-print-color-adjust: exact;border: 1px solid #000; "></th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Ares</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Acapela</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Propel</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Authority/Authority Charge</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Allegro 500F</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">NuFarm Propiconazole</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Avadex</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Avadex</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Propi Super 25 EC</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Basagran</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Bravo 500</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Propulse</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Clethodim</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Bumper 418 EC</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Quadris</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Dual II Magnum</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Contans</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Quash</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Edge Granular</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Copper 53W</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Quilt</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Eptam Liquid EC</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Cueva</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Serenade Max/CPB</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Frontier Max</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Delaro</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Tilt 250E</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Imazethapyr</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Dithane Rainshield</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Vertisan</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Heat</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Echo 720</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">MCPA Sodium Salt/Amine</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Elatus</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="text-align:left;font-size: 11px;color: #000000;text-align: center; padding: 10px;-webkit-print-color-adjust: exact;border: 1px solid #000;">DESICCATION</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">MCPB/MCPA</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Headline EC</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">GLYPHOSATE</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Metribuzin</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Kingpin 75 WDG</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">DIQUAT</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Odyssey NXT</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Lance AG</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Odyssey Ultra</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Lance WDG</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Permit</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Manzate Pro-Stick</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">OTHER:</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Poast Ultra</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Parasol WG</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Reflex & Basagran</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Penncozeb 75DF</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Quizalofop</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Phostrol</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Solo</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Pivot 418EC</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Trifluralin</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Priaxor</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cdcdcd;">
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Viper ADV</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;">Proline 480SC</td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                       <td style="color: #000000;background: #ffffff;padding: 2px 10px;font-size: 14px;border: 1px solid #000;"></td>
+                                    </tr>
+    
+                                 </tbody>
+                              </table>
+                           </div>
+                  <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                     <div class="row" style="width: 100%;float: left;">
+                        <div class="col-md-6" style="width: 50%;float: left;padding: 0 15px;">
+                           <h6 style="color: #000;margin: 15px 0 35px 0;padding: 0;float: left;width: 100%;font-size: 15px;">Per:</h6>
+                           <h2 class="ext" style="margin: 13px 0 0 0;
+                              padding: 5px 0 0 0;
+                              width: 100%;
+                              float: left;
+                              color: #000;
+                              font-size: 15px;
+                              border-top: 2px solid #000;">Per: {{myForm.growerId.firstName}} {{myForm.growerId.lastName}}<br>{{myForm.growerId.farmName}}</h2>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>

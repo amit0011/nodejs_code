@@ -1,0 +1,643 @@
+<style type="text/css">
+  .dash_card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dash_card .head-title h4,
+  .dash_card .inner-title p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .1);
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    z-index: 999;
+  }
+
+  .loader .fa-spinner {
+    color: green;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .md-4-custom {
+    width: 28.333333%
+  }
+
+  .md-3-custom {
+    width: 22%
+  }
+
+  .md-2-custom {
+    width: 24%;
+  }
+
+  .weather-main {
+
+    background-image: url(assets/images/1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: inherit;
+    border-radius: 10px;
+    min-height: 335px;
+
+  }
+
+  .weather-title {
+    /* background-image: url(../images/1.jpg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        height: 255px;
+        width: 100%;
+        background-position: inherit; */
+    background: rgba(0, 0, 0, .4);
+    padding: 10px 10px 0;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 7px 7px -2px rgba(0, 0, 0, .3);
+
+  }
+
+  .weather-grids {
+    width: 27%;
+  }
+
+  .weather-grids:nth-child(2) {
+    padding: 10px;
+    /* margin-top: 120px; */
+    width: 45%
+  }
+
+  .weather-grids:last-child {
+    padding: 10px;
+  }
+
+  .weather-grids:nth-child(2) h3 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+  }
+
+  .weather-grids:nth-child(2) h5 {
+    color: #fff;
+    font-size: 15px;
+    margin: 0;
+    padding: 10px 0;
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+
+  .weather-grids h4 {
+    font-size: 16px;
+    color: #fff;
+    margin: 5px 0;
+    font-weight: 400;
+  }
+
+  .weather-grids h2 {
+    font-size: 35px;
+    font-weight: 300;
+    color: #fff;
+    margin: 0px;
+  }
+
+  .text-right {
+    text-align: right
+  }
+
+  .float-left {
+    float: left;
+  }
+
+  .time {
+    padding: 0 !important;
+    font-size: 20px !important;
+  }
+
+  .weather-body table {
+    width: 100%;
+  }
+
+  .weather-body table th,
+  .weather-body table td {
+    padding: 5px;
+    color: #fff;
+    font-weight: 300;
+    border: none !important;
+  }
+
+  .weather-body table tr,
+  .weather-body table {
+    border: none !important;
+  }
+
+  .weather-body {
+    padding: 15px 0;
+  }
+
+  .weather-body table th {
+    font-size: 16px;
+    text-transform: capitalize;
+  }
+
+  .weather-body table tr {
+    border-bottom: 1px solid #fff;
+  }
+
+  .sun {
+    width: 100px;
+    margin-bottom: 10px;
+  }
+
+  .weather-list {
+    padding: 0;
+    margin: 0;
+  }
+
+  .weather-list li {
+    width: 50%;
+    float: left;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px 10px
+  }
+
+  .weather-list li span {
+    width: 65%;
+    display: inline-block;
+    text-transform: capitalize;
+  }
+
+  .day-weather {
+    padding: 0 10px;
+    margin: 0;
+    margin-top: 10px;
+  }
+
+  .day-weather li {
+    float: left;
+    width: 19.97%;
+    list-style-type: none;
+    text-align: center;
+    border-right: 0.1px solid #f1f;
+    background: rgba(255, 255, 255, .1);
+  }
+
+  .day-weather li:last-child {
+    border-right: none
+  }
+
+  .day-weather li p {
+    font-size: 13px;
+    color: #fff;
+    letter-spacing: 1px;
+    margin: 10px 0;
+  }
+
+  .weather-icons {
+    height: 45px;
+  }
+</style>
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body">
+      <div class="panel_body_inner">
+        <div class="col-md-12 col-sm-12 col-xs-12 pad_RT_NO ipad_lt_pad">
+          <div class="col-md-4 col-sm-6">
+            <div
+              style="display: flex;flex-direction: column;justify-content: space-around;align-items: center;min-height: 335px;">
+              <a class="loader" ng-show="loader.weather"><i class="fa fa-spinner fa-spin"></i></a>
+              <!-- Begin WeatherLink Fragment -->
+              <iframe title="Environment Canada Weather" width="287px" height="191px"
+                src="https://weather.gc.ca/wxlink/wxlink.html?cityCode=sk-37&amp;lang=e" allowtransparency="true"
+                frameborder="0"></iframe>
+              <!-- End WeatherLink Fragment -->
+              <div class="dash_card example-animate-container" style="min-height: auto;">
+                <a class="loader" ng-show="loader.currency"><i class="fa fa-spinner fa-spin"></i></a>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <h3 style="font-size:16px !important;">Currency Exchange
+                    <a ng-click="currencyDetails()"><i style="font-size:13px;color: green" class="fa">&#xf021;</i></a>
+                  </h3>
+                </div>
+                <div class="head-title">
+                  <div class="col-md-6 col-sm-6 col-xs-6 md-6-custom">
+                    <h4 title="Exchange Rate">Exchange Rate</h4>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6 md-6-custom">
+                    <h4 title="Exchange Deduction">Exchange Deduction</h4>
+                  </div>
+                </div>
+                <div class="animate-repeat">
+                  <div class="clearfix"></div>
+                  <div class="inner-title">
+                    <div class="col-md-6 col-sm-6 col-xs-6 md-6-custom">
+                      <p title="{{currency.currencyCADUSD}}">{{currency.currencyCADUSD}}</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 md-6-custom">
+                      <p title="{{currency.exchangeDeduction}}">{{currency.exchangeDeduction}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6">
+            <div class="dash_card" class="example-animate-container">
+              <a class="loader" ng-show="loader.amendedSalesContract"><i class="fa fa-spinner fa-spin"></i></a>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 style="font-size:16px !important;display: flex;align-items:center;justify-content: space-between;">Amended Contracts
+                  <select style="margin-left: auto;font-size: 9pt;height: 22px;margin-right: 10px;" ng-model="amendedPage" ng-change="getAmendedSalesContract()" ng-options="page as page for page in amendedContractPages"></select>
+                  <a ng-click="getAmendedSalesContract()"><i style="font-size:13px;color: green"
+                    class="fa">&#xf021;</i></a>
+                </h3>
+              </div>
+              <div class="head-title">
+                <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                  <h4 title="Amended Date">Date</h4>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                  <h4 title="Amended By">Amended By</h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                  <h4 title="Contract No">Contract No</h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                  <h4 title="Buyer Name">Buyer Name</h4>
+                </div>
+              </div>
+              <div class="animate-repeat" ng-repeat="sales in as_contracts">
+                <div class="clearfix"></div>
+                <div class="inner-title">
+                  <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                    <p title="{{sales.amendedDate | date}}">{{sales.amendedDate | date}}</p>
+                  </div>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <p title="{{sales.amendedBy.fullName}}">{{sales.amendedBy.fullName}}</p>
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                    <p title="{{sales.contractNumber}}">
+                      <a href="/salesHistory/{{sales.contractNumber}}"
+                        target="_blank">{{sales.contractNumber}}</a></p>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                    <p title="{{sales.buyerId.businessName}}"><a style="cursor: pointer;"
+                        ng-click="buyerDetails(sales.buyerId._id)">{{sales.buyerId.businessName}}</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6">
+            <div class="dash_card" class="example-animate-container">
+              <a class="loader" ng-show="loader.salesContract"><i class="fa fa-spinner fa-spin"></i></a>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 style="font-size:16px !important;">Grower Call back
+                  <a ng-click="getLatestSalesContract()"><i style="font-size:13px;color: green"
+                      class="fa">&#xf021;</i></a>
+                </h3>
+              </div>
+              <div class="head-title">
+                <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                  <h4 title="Date">Date</h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                  <h4 title="Grower Name">Grower Name</h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                  <h4 title="Farm Name">Farm Name</h4>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                  <h4 title="Cell Number">Cell Number</h4>
+                </div>
+              </div>
+              <div class="animate-repeat" ng-repeat="result in growerCallBackList">
+                <div class="clearfix"></div>
+                <div class="inner-title">
+                  <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                    <p title="{{result.callBackDate | date:'dd/MM/yyyy'}}">{{result.callBackDate | date:'dd/MM/yyyy'}}
+                    </p>
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                    <p title="{{sales.contractNumber}}"><a href="/growerDetails/{{result._id}}">{{result.firstName}}
+                        {{result.lastName}}</a></p>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                    <p title="{{result.farmName}}">{{result.farmName}}</p>
+                  </div>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <p
+                      title="{{result.cellNumber}} {{result.phone | phonenumber}} {{result.phoneNumber2| phonenumber}} {{result.phoneNumber3| phonenumber}}">
+                      {{result.cellNumber}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6 pad_top">
+            <div class="dash_card" class="example-animate-container">
+              <a class="loader" ng-show="loader.salesContract"><i class="fa fa-spinner fa-spin"></i></a>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 style="font-size:16px !important;">Sales Contract
+                  <a ng-click="getLatestSalesContract()"><i style="font-size:13px;color: green"
+                      class="fa">&#xf021;</i></a>
+                </h3>
+              </div>
+              <div class="head-title">
+                <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                  <h4 title="Date">Date</h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                  <h4 title="Contract No">Contract No</h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                  <h4 title="Buyer Name">Buyer Name</h4>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                  <h4 title="Contracted QTY(Lbs)">Contracted QTY(Lbs)</h4>
+                </div>
+              </div>
+              <div class="animate-repeat" ng-repeat="sales in s_contract_list">
+                <div class="clearfix"></div>
+                <div class="inner-title">
+                  <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                    <p title="{{sales.date | date}}">{{sales.date | date}}</p>
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                    <p title="{{sales.contractNumber}}"><a href="{{sales.pdfUrl}}"
+                        target="_blank">{{sales.contractNumber}}</a></p>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                    <p title="{{sales.buyerId.businessName}}"><a style="cursor: pointer;"
+                        ng-click="buyerDetails(sales.buyerId._id)">{{sales.buyerId.businessName}}</a></p>
+                  </div>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <p title="{{sales.quantityLbs|number:0}}">{{sales.quantityLbs|number:0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6 pad_top">
+            <div class="dash_card" class="example-animate-container">
+              <a class="loader" ng-show="loader.productionContract"><i class="fa fa-spinner fa-spin"></i></a>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 style="font-size:16px !important;">Production Contract
+                  <a ng-click="getLatestProductionContract()"><i style="font-size:13px;color: green"
+                      class="fa">&#xf021;</i></a>
+                </h3>
+              </div>
+              <div class="head-title">
+                <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                  <h4 title="Date">Date</h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                  <h4 title="Contract No">Contract No</h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                  <h4 title="Name on Contract">Name on Contract</h4>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                  <h4 title="Quantity Lbs">Quantity Lbs</h4>
+                </div>
+              </div>
+
+              <div class="animate-repeat" ng-repeat="p_contract in p_contract_list">
+                <div class="clearfix"></div>
+                <div class="inner-title">
+                  <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                    <p title="{{p_contract.createdAt | date}}">{{p_contract.createdAt | date }}</p>
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                    <p title="{{p_contract.contractNumber}}"><a href="{{p_contract.pdfUrl}}"
+                        target="_blank">{{p_contract.contractNumber}}</a></p>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                    <p title="{{p_contract.growerId.firstName}} {{p_contract.growerId.lastName}}"><a
+                        style="cursor:pointer;"
+                        ng-click="growerDetails(p_contract.growerId._id)">{{p_contract.growerId.firstName}}
+                        {{p_contract.growerId.lastName}}</p></a>
+                  </div>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <p title="{{p_contract.quantityLbs | number:2}}">{{p_contract.quantityLbs | number:2}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12 pad_top">
+            <div class="dash_card" class="example-animate-container">
+              <a class="loader" ng-show="loader.purchaseConfirmation"><i class="fa fa-spinner fa-spin"></i></a>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 style="font-size:16px !important;">Purchase Confirmation
+                  <a ng-click="getLatestPurchaseConfirmationContract()"><i style="font-size:13px;color: green"
+                      class="fa">&#xf021;</i></a>
+                </h3>
+              </div>
+
+              <div class="head-title">
+                <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                  <h4 title="Date">Date</h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                  <h4 title="Contract No">Contract No</h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                  <h4 title="Name on Contract">Name on
+                    Contract</h4>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                  <h4 title="Quantity Lbs">Quantity Lbs</h4>
+                </div>
+              </div>
+              <div class="animate-repeat" ng-repeat="p_confirmation in p_confirmation_list">
+                <div class="clearfix"></div>
+                <div class="inner-title">
+                  <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                    <p title="{{(p_confirmation.createdAt | date)|| p_confirmation.backDate | date }}">
+                      {{(p_confirmation.createdAt | date)|| p_confirmation.backDate | date }}</p>
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                    <p title="{{p_confirmation.contractNumber}}"><a href="{{p_confirmation.pdfUrl}}"
+                        target="_blank">{{p_confirmation.contractNumber}}</a></p>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                    <p title="{{p_confirmation.growerId.firstName}} {{p_confirmation.growerId.lastName}}"><a
+                        style="cursor:pointer;"
+                        ng-click="growerDetails(p_confirmation.growerId._id)">{{p_confirmation.growerId.firstName}}
+                        {{p_confirmation.growerId.lastName}}</a></p>
+                  </div>
+
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <p title="{{getQuantityLbs(p_confirmation) | number:0}}">{{getQuantityLbs(p_confirmation) | number:0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12 pad_top">
+            <div class="dash_card" class="example-animate-container">
+              <a class="loader" ng-show="loader.tradePurchase"><i class="fa fa-spinner fa-spin"></i></a>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 style="font-size:16px !important;">Trade Purchase
+                  <a ng-click="getLatestTradePurchaseContract()"><i style="font-size:13px;color: green"
+                      class="fa">&#xf021;</i></a>
+                </h3>
+              </div>
+
+              <div class="head-title">
+                <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                  <h4 title="Date">Date</h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                  <h4 title="Contract No">Contract No</h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                  <h4 title="Name on Contract">Name on
+                    Contract</h4>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                  <h4 title="Quantity Lbs">Quantity Lbs</h4>
+                </div>
+              </div>
+              <div class="animate-repeat" ng-repeat="trade_purchase in trade_purchase_list">
+                <div class="clearfix"></div>
+                <div class="inner-title">
+                  <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                    <p title="{{(trade_purchase.createdAt | date)|| trade_purchase.backDate | date }}">
+                      {{(trade_purchase.createdAt | date)|| trade_purchase.backDate | date }}</p>
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                    <p title="{{trade_purchase.contractNumber}}"><a href="{{trade_purchase.pdfUrl}}"
+                        target="_blank">{{trade_purchase.contractNumber}}</a></p>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                    <p title="{{buyerName(trade_purchase)}}">
+                      <a
+                        style="cursor:pointer;"
+                        ng-click="buyerDetails(trade_purchase.buyerId._id)">{{trade_purchase.buyerName}}</a></p>
+                  </div>
+
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <p title="{{trade_purchase.quantityLbs|number:0}}">{{trade_purchase.quantityLbs|number:0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12 pad_top">
+            <div class="dash_card" class="example-animate-container">
+              <a class="loader" ng-show="loader.incomingTicket"><i class="fa fa-spinner fa-spin"></i></a>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 style="font-size:16px !important;">Delivery
+                  <a ng-click="getLatestIncomingTicket()"><i style="font-size:13px;color: green"
+                      class="fa">&#xf021;</i></a>
+                </h3>
+              </div>
+              <div class="head-title">
+                <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                  <h4 title="Date">Date</h4>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                  <h4 title="Contract No">Contract No</h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                  <h4 title="Ticket No">Ticket No</h4>
+                </div>
+
+                <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                  <h4 title="Net Weight">Net Weight</h4>
+                </div>
+              </div>
+
+              <div class="animate-repeat" ng-repeat="incoming in i_ticket_list">
+                <div class="clearfix"></div>
+                <div class="inner-title">
+                  <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                    <p title="RI-{{incoming.date | date}}">{{incoming.date | date}}</p>
+                  </div>
+                  <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                    <p title="{{incoming.contractNumber}}">{{incoming.contractNumber}}</p>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                    <p title="{{incoming.ticketNumber}}"><a style="cursor: pointer;"
+                        ng-click="viewIncomingTicket(incoming._id)">RI-{{incoming.ticketNumber}}</a></p>
+                  </div>
+
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <p title="{{incoming.netWeight | number:2}}">{{incoming.netWeight | number:2}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12 pad_top">
+            <div class="dash_card" class="example-animate-container">
+              <a class="loader" ng-show="loader.outgoingTicket"><i class="fa fa-spinner fa-spin"></i></a>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <h3 style="font-size:16px !important;">Shipments
+                  <a ng-click="getLatestOutgoingTicket()"><i style="font-size:13px;color: green"
+                      class="fa">&#xf021;</i></a>
+                </h3>
+              </div>
+              <div class="head-title">
+                <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                  <h4 title="Date">Date</h4>
+                </div>
+
+                <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                  <h4 title="Contract No">Contract No</h4>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                  <h4 title="Ticket No">Ticket No</h4>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                  <h4 title="Net Weight">Net Weight</h4>
+                </div>
+              </div>
+
+              <div class="animate-repeat" ng-repeat="outgoing in o_ticket_list">
+                <div class="clearfix"></div>
+                <div class="inner-title">
+                  <div class="col-md-3 col-sm-3 col-xs-3 md-3-custom">
+                    <p title="{{outgoing.date | date}}">{{outgoing.date | date}}</p>
+                  </div>
+
+                  <div class="col-md-4 col-sm-4 col-xs-4 md-4-custom">
+                    <p title="{{outgoing.contractNumber}}">{{outgoing.contractNumber}}</p>
+                  </div>
+                  <div class="col-md-2 col-sm-2 col-xs-2 md-2-custom">
+                    <p title="RO-{{outgoing.ticketNumber}}"><a style="cursor: pointer;"
+                        ng-click="viewOutgoingTicket(outgoing._id)">RO-{{outgoing.ticketNumber}}</a></p>
+                  </div>
+                  <div class="col-md-3 col-sm-3 col-xs-3">
+                    <p title="{{outgoing.unloadWeidht}}">{{outgoing.unloadWeidht}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

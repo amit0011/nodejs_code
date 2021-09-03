@@ -1,0 +1,313 @@
+<div class="dash_bord" ng-controller="commodityCtrl">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="initCommodity()">
+            <div class="panel_body_inner inner_box">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <input type="text" name="search" ng-model="commoditySearch" placeholder="Search">
+                        <a ui-sref="addCommodity">
+                            <button ng-show="loginUserAccess.setting.commodities.add">ADD <i
+                                    class="fas fa-plus-circle"></i></button>
+                        </a>
+                    </div>
+                    <div class="comodity_table">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Commodity Code</th>
+                                    <th>Commodity Name</th>
+                                    <th>Commodity Type</th>
+                                    <th>Organic</th>
+                                    <th>Weight(Lbs/Bushel)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="result in commodity |filter:commoditySearch|itemsPerPage:8"
+                                    pagination-id="commodity">
+                                    <td>{{result.commodityCode}}</td>
+                                    <td>{{result.commodityName}}</td>
+                                    <td>{{result.commodityTypeId.commodityTypeName}}</td>
+                                    <td>{{result.organic ? 'Yes' : 'No'}}</td>
+                                    <td>{{result.commodityWeight}}
+                                        <a ng-show="loginUserAccess.setting.commodities.delete" class="veiw_detail"
+                                            ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.commodities.edit" class="veiw_detail"
+                                            ng-click="openPop('edit',result)"><i class="fas fa-pen-square"></i></a>
+                                        <a ng-show="loginUserAccess.setting.commodities.view"
+                                            ng-click="openPop('view',result)" class="veiw_detail"><i class="fa fa-eye"
+                                                aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls class="cus_pagination" pagination-id="commodity" max-size="8"
+                            direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm new_add">
+        <div class="enter_comm_typ">
+            <div class="head_comm head_2">
+                <h2>{{inputField}} Commodity</h2>
+                <div type="button" class="close" ng-click="closepop()">&times;</div>
+            </div>
+            <div class="panel_body">
+                <div class="panel_body_inner inner_box_List_add pop">
+                    <div class="col-md-12">
+                        <div class="add_commodity">
+                            <form name="addCommdity">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="com_pac">
+                                            <label>Commodity Code</label>
+                                            <input type="text" ng-disabled="inputField=='view'"
+                                                ng-model="updateForm.commodityCode" name="code" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="com_pac">
+                                            <label>Commodity Name</label>
+                                            <input type="text" ng-disabled="inputField=='view'"
+                                                ng-model="updateForm.commodityName" name="name" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="com_pac">
+                                            <label>Commodity Alias</label>
+                                            <input ng-disabled="inputField=='view'" type="text"
+                                                ng-model="updateForm.commodityAlias" name="alias" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="com_pac">
+                                            <label>Commodity Type</label>
+                                            <select style="width: 100%;" ng-disabled="inputField=='view'"
+                                                name="commodityType"
+                                                ng-change="calculateByProduct()"
+                                                ng-options="commodityType._id as commodityType.commodityTypeName for commodityType in commodityList"
+                                                ng-model="updateForm.commodityTypeId" required>
+                                                <option value=" ">Select Commodity Type</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="com_pac">
+                                            <label>Commodity Weight(Lbs/Bushels)</label>
+                                            <input class="hal_ip" ng-model="updateForm.commodityWeight" type="text"
+                                                ng-disabled="inputField=='view'" name="code">
+                                            <span>Lbs</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="com_pac">
+                                            <label>Organic</label>
+                                            <select style="width: 100%;" ng-disabled="inputField=='view'"
+                                                name="organic"
+                                                ng-options="option.value as option.text for option in organicOptions"
+                                                ng-model="updateForm.organic" required>
+                                                <option value="">-- Select --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <div class="com_pac">
+                                          <label>HSN Code</label>
+                                          <input ng-model="updateForm.hsnCode" type="text"
+                                              ng-disabled="inputField=='view'" name="code">
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="grade_box">
+                                    <h2>Sample Specs</h2>
+                                    <h2>Delivery Specs</h2>
+                                    <h2>Shipment Specs</h2>
+                                    <table class="table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Analysis Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="analysis in updateForm.commoditySampleAnalysis">
+                                                <td>
+                                                    <label class="cus_rad_grd">{{analysis.analysisName}}
+                                                        <input type="checkbox"
+                                                            ng-click="sampleCheckBox(analysis._id,selected[analysis._id])"
+                                                            ng-model="analysis.checked">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot ng-hide="sampleArr.length ==0">
+                                            <tr>
+                                                <td style="color: #333;padding: 5px;">
+                                                    <div>
+                                                        <span
+                                                            ng-repeat="sample in sampleArr">{{getSampleAnalysisNameById(sample)}},
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <table class="table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Analysis Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="wt-50"
+                                                ng-repeat="analysis in updateForm.commodityDeliveryAnalysis">
+                                                <td>
+                                                    <label class="cus_rad_grd">{{analysis.analysisName}}
+                                                        <input type="checkbox" ng-click="deliveryCheckBox(analysis._id,
+                                                            analysis)" ng-model="analysis.checked">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                    <label class="cus_rad_grd float-right">
+                                                        <input type="checkbox"
+                                                            ng-click="showDeliveryCheckBox(analysis._id)"
+                                                            ng-model="analysis.selected"
+                                                            ng-disabled="!analysis.checked">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot ng-hide="deliveryArr.length ==0">
+                                            <tr>
+                                                <td style="color: #333;padding: 5px;">
+                                                    <div>
+                                                        <span
+                                                            ng-repeat="delivery in deliveryArr">{{getDeliveryAnalysisNameById(delivery)}},
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <table class="table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Analysis Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="wt-50"
+                                                ng-repeat="analysis in updateForm.commodityShipmentAnalysis">
+                                                <td>
+                                                    <label class="cus_rad_grd">{{analysis.analysisName}}
+                                                        <input type="checkbox"
+                                                            ng-click="shipmentCheckBox(analysis._id,analysis)"
+                                                            ng-model="analysis.checked">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                    <label class="cus_rad_grd float-right">
+                                                        <input type="checkbox"
+                                                            ng-click="showShipmentCheckBox(analysis._id)"
+                                                            ng-model="analysis.selected"
+                                                            ng-disabled="!analysis.checked">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot ng-hide="shipmentArr.length ==0">
+                                            <tr>
+                                                <td style="color: #333;padding: 5px;">
+                                                    <div>
+                                                        <span
+                                                            ng-repeat="shipment in shipmentArr">{{getShipmentAnalysisNameById(shipment)}},
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="grade_box" ng-show="showByProducts()">
+                                    <h2>By Products</h2>
+                                    <br/>
+                                    <table class="table-striped" style="width: 90%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 20%;float:none;"></th>
+                                                <th style="width: unset;float:none;text-align: center;" ng-repeat="delivery in deliveryArr">{{getDeliveryAnalysisNameById(delivery)}}</th>
+                                                <th ng-show="willHaveTotalDamage" style="width: unset;float:none;text-align: center;">Total Damage</th>
+                                            </tr>
+                                            <tr ng-repeat="byProduct in byProducts">
+                                                <th style="width: 20%;float:none;">{{byProduct.commodityName}}</th>
+                                                <td style="width: unset;float:none;text-align: center;" ng-repeat="delivery in byProduct.deliverySpecs">
+                                                    <label class="cus_rad_grd" style="display: inline-block;">
+                                                        <input type="checkbox"
+                                                            ng-change="byProductCheckBox(byProduct, delivery)"
+                                                            ng-model="delivery.checked">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </td>
+                                                <td ng-show="willHaveTotalDamage" style="width: unset;float:none;text-align: center;">
+                                                    <label class="cus_rad_grd" style="display: inline-block;">
+                                                        <input type="checkbox"
+                                                            ng-change="byProductCheckBox(byProduct, null, true)"
+                                                            ng-model="byProduct.willHaveTotalDamage">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="com_pac">
+                                          <label>Sieve Size</label>
+                                          <input ng-disabled="inputField=='view'" type="text" style="margin-bottom: 5px;"
+                                              ng-model="updateForm.sieveSizeNote" name="sieveSizeNote">
+                                      </div>
+                                  </div>
+                                </div>
+                                <button ng-show="inputField=='edit'" ng-click="saveChanges()">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style type="text/css">
+    .grade_box table tbody .wt-50 td label {
+        width: auto;
+        float: left;
+    }
+
+    .grade_box table tbody .wt-50 td label:last-child {
+        width: auto;
+        float: right;
+    }
+
+    .grade_box table tbody {
+        overflow-x: hidden;
+    }
+
+    .cus_rad_grd input {
+        left: 0;
+    }
+</style>

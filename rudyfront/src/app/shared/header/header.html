@@ -1,0 +1,713 @@
+<div class="">
+  <div class="panel_header">
+    <div class="logo">
+      <img class="logo" src="/assets/images/logo.png" />
+    </div>
+    <ul class="top_header_rudy">
+      <li ng-class="active.page=='dashboard'?'active':''">
+        <a ui-sref="dashboard">Dashboard</a>
+      </li>
+      <li class="purchase" ng-if="access.purchase.viewMenu">
+        <a class="active">Purchase<i class="fas fa-angle-down"></i></a>
+        <div class="sub_men purchase_sub">
+          <ul>
+            <li
+              ng-click="clearSearchHistory('growers')"
+              ng-class="active.page=='growers'?'active':''"
+              ng-if="access.purchase.growers.viewMenu"
+            >
+              <a ui-sref="growers">Growers</a>
+            </li>
+
+            <li
+              ng-class="active.page=='sample'?'active':''"
+              ng-if="access.purchase.productionRecords.viewMenu"
+            >
+              <a ui-sref="sample">Production Records</a>
+            </li>
+
+            <li
+              ng-click="clearSearchHistory('productionContracts')"
+              ng-class="active.page=='productionContract'?'active':''"
+              ng-if="access.purchase.productionContracts.viewMenu"
+            >
+              <a ui-sref="productionContract">Production Contracts</a>
+            </li>
+
+            <li
+              ng-click="clearSearchHistory('purchaseConfirmations')"
+              ng-class="active.page=='purchase'?'active':''"
+              ng-if="access.purchase.purchaseConfirmation.viewMenu"
+            >
+              <a ui-sref="purchase">Purchase Confirmation</a>
+            </li>
+
+            <li
+              ng-click="clearSearchHistory('tradePurchases')"
+              ng-class="active.page=='tradePurchaseContract'?'active':''"
+              ng-if="access.sales.tradePurchaseContract.viewMenu"
+            >
+              <a ui-sref="tradePurchase">Trade Purchase Contract</a>
+            </li>
+
+            <li
+              ng-class="active.page=='bidsheet'?'active':''"
+              ng-if="access.purchase.bidSheet.viewMenu"
+            >
+              <a ui-sref="bidsheet">Bid Sheet</a>
+            </li>
+
+            <li
+              ng-class="active.page=='dumpList'?'active':''"
+              ng-if="access.purchase.sampleDumpList.viewMenu"
+            >
+              <a ui-sref="dumpList">Sample Dump List</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="sales" ng-if="access.sales.viewMenu">
+        <a class="active">Sales<i class="fas fa-angle-down"></i></a>
+        <div class="sub_men sale_sub">
+          <ul>
+            <li
+              ng-click="clearSearchHistory('brokers')"
+              ng-class="active.page=='brokers'?'active':''"
+              ng-if="access.sales.brokers.viewMenu"
+            >
+              <a ui-sref="brokers">Brokers</a>
+            </li>
+            <li
+              ng-click="clearSearchHistory('buyers')"
+              ng-class="active.page=='buyers'?'active':''"
+              ng-if="access.sales.buyers.viewMenu"
+            >
+              <a ui-sref="buyers">Buyers</a>
+            </li>
+            <li
+              ng-click="clearSearchHistory('salesContracts')"
+              ng-class="active.page=='salesContract'?'active':''"
+              ng-if="access.sales.salesContract.viewMenu"
+            >
+              <a ui-sref="salesContract">Sales Contract</a>
+            </li>
+
+            <li
+              ng-class="active.page=='commodityPricing'?'active':''"
+              ng-if="access.sales.commodityPricing.viewMenu"
+            >
+              <a ui-sref="commodityPricing">Sales Price List</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="truck" ng-if="access.truckScale.viewMenu">
+        <a class="active">Truck Scale<i class="fas fa-angle-down"></i></a>
+        <div class="sub_men truck_sub">
+          <ul>
+            <li
+              ng-click="clearSearchHistory('incomingScales')"
+              ng-class="active.page=='scaleTicketIncoming'?'active':''"
+              ng-if="access.truckScale.incoming.viewMenu"
+            >
+              <a ng-href="incoming">Incoming</a>
+            </li>
+
+            <li
+              ng-click="clearSearchHistory('outgoingScales')"
+              ng-class="active.page=='scaleTicketOutgoing'?'active':''"
+              ng-if="access.truckScale.outgoing.viewMenu"
+            >
+              <a ng-href="/outgoing">Outgoing</a>
+            </li>
+
+            <li
+              ng-click="clearSearchHistory('tradePurchaseScale')"
+              ng-class="active.page=='tradePurchaseScale'?'active':''"
+              ng-if="access.truckScale.tradePurchase.viewMenu"
+            >
+              <a ng-href="/tradePurchaseScale">Trade Purchase </a>
+            </li>
+
+            <li
+              ng-click="clearSearchHistory('incomingScaleInventories')"
+              ng-class="active.page=='scaleTicketIncomingInventory'?'active':''"
+              ng-if="access.truckScale.incomingInventory.viewMenu"
+            >
+              <a ng-href="/scale/incomingInventory">Incoming Load Analysis</a>
+            </li>
+
+            <li
+              ng-click="clearSearchHistory('outgoingScaleInventories')"
+              ng-class="active.page=='scaleTicketOutgoingInventory'?'active':''"
+              ng-if="access.truckScale.outgoingInventory.viewMenu"
+            >
+              <a ng-href="/scale/outgoingInventory">Outgoing Load Analysis</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="comm" ng-if="access.reports.viewMenu">
+        <a class="active">Reports<i class="fas fa-angle-down"></i></a>
+        <div class="sub_men comm_sub">
+          <ul>
+            <li
+              ng-click="clearSearchHistory('commissionPayable')"
+              ng-class="active.page=='commission'?'active':''"
+              ng-if="access.reports.commission.viewMenu"
+            >
+              <a ui-sref="commissionPayable">Commission Payable</a>
+            </li>
+            <li
+              ng-class="active.page=='failedQuotes'?'active':''"
+              ng-if="access.reports.failedQuotes.viewMenu"
+            >
+              <a ui-sref="failedQuotes">Failed Quotes</a>
+            </li>
+            <li
+              ng-class="active.page=='freightVariance'?'active':''"
+              ng-if="access.reports.freightVariance.viewMenu"
+            >
+              <a ui-sref="freightVariance">Freight Variance</a>
+            </li>
+
+            <li
+              ng-class="active.page=='position'?'active':''"
+              ng-if="access.reports.position.viewMenu"
+            >
+              <a ui-sref="positionReport">Position Report</a>
+            </li>
+            <li
+              ng-class="active.page=='salesSummary'?'active':''"
+              ng-if="access.reports.salesSummary.viewMenu"
+            >
+              <a ui-sref="salesSummary">Sales Summary</a>
+            </li>
+            <li
+              ng-click="clearSearchHistory('shippedWeightAnalysis')"
+              ng-class="active.page=='shippedWeightAnalysis'?'active':''"
+              ng-if="access.reports.shippedWeightAnalysis.viewMenu"
+            >
+              <a ui-sref="shippedWeightAnalysis">Shipped Weight Analysis</a>
+            </li>
+            <li
+              ng-class="active.page=='forex'?'active':''"
+              ng-if="access.reports.forex.viewMenu"
+            >
+              <a ui-sref="forexReport">Forex Report</a>
+            </li>
+            <li
+              ng-class="active.page=='productionContract'?'active':''"
+              ng-if="access.reports.productionContract.viewMenu"
+            >
+              <a ui-sref="productContractReport">Production Contract Summary</a>
+            </li>
+            <li
+              ng-class="active.page=='purchaseConfirmation'?'active':''"
+              ng-if="access.reports.purchaseConfirmation.viewMenu"
+            >
+              <a ui-sref="purchaseConfirmationReport"
+                >Purchase Confirmation Summary</a
+              >
+            </li>
+            <li
+              ng-class="active.page=='area'?'active':''"
+              ng-if="access.reports.area.viewMenu"
+            >
+              <a ui-sref="areaReport">Area Report</a>
+            </li>
+            <li
+              ng-click="clearSearchHistory('openContractReport')"
+              ng-class="active.page=='openContracts'?'active':''"
+              ng-if="access.reports.openContracts.viewMenu"
+            >
+              <a ui-sref="outStandingReport">Open Contracts Report</a>
+            </li>
+            <li
+              ng-click="clearSearchHistory('performanceReport')"
+              ng-class="active.page=='performance'?'active':''"
+              ng-if="access.reports.performance.viewMenu"
+            >
+              <a ui-sref="performanceReport">Performance Report</a>
+            </li>
+            <li
+              ng-class="active.page=='groupEmail'?'active':''"
+              ng-if="access.reports.groupEmail.viewMenu"
+            >
+              <a ui-sref="growerMassReport">Group Emails</a>
+            </li>
+            <li
+              ng-click="clearSearchHistory('targetPriceReport')"
+              ng-class="active.page=='targetPrice'?'active':''"
+              ng-if="access.reports.targetPrice.viewMenu"
+            >
+              <a ui-sref="targetPrice">Target Price Report</a>
+            </li>
+            <li
+              ng-class="active.page=='fxContract'?'active':''"
+              ng-if="access.reports.fxContract.viewMenu"
+            >
+              <a ui-sref="fxContract">FX Contract</a>
+            </li>
+            <li
+              ng-class="active.page=='fxHedge'?'active':''"
+              ng-if="access.reports.fxContract.viewMenu"
+            >
+              <a ui-sref="fxHedgeReport">FX Hedge Report</a>
+            </li>
+            <li ng-class="active.page=='rollover'?'active':''">
+              <a ui-sref="productionRollover">Rollover</a>
+            </li>
+            <li
+              ng-if="access.reports.growerCallBackReport.viewMenu"
+              ng-class="active.page=='growerCallBackReport'?'active':''"
+            >
+              <a ui-sref="growerCallBackReport">Grower Call Back Report</a>
+            </li>
+            <li
+              ng-class="active.page=='bagInventory'?'active':''"
+            >
+              <a ui-sref="bagInventory">Bag Inventory</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="sett" ng-if="access.setting.viewMenu">
+        <a class="active">Setting<i class="fas fa-angle-down"></i></a>
+        <div class="sub_men sett_sub">
+          <ul>
+            <li
+              ng-class="active.page=='subAdmin'?'active':''"
+              ng-if="access.setting.subAdmin.viewMenu"
+            >
+              <a ui-sref="subAdmin">Sub Admin</a>
+            </li>
+
+            <li
+              ng-show="access.setting.commodities.viewMenu || access.setting.commodityType.viewMenu || access.setting.grade.viewMenu || access.setting.analysisList.viewMenu || access.setting.variety.viewMenu"
+            >
+              <a class="show-caret">Commodity</a>
+              <ul class="dropdown-menu">
+                <li
+                  ng-class="active.page=='commodity'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.commodities.viewMenu"
+                >
+                  <a ui-sref="commodity">Commodities</a>
+                </li>
+                <li
+                  ng-class="active.page=='commodityType'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.commodityType.viewMenu"
+                >
+                  <a ui-sref="commodityType">Commodity Type</a>
+                </li>
+                <li
+                  ng-class="active.page=='grade'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.grade.viewMenu"
+                >
+                  <a ui-sref="grade">Grade </a>
+                </li>
+                <li
+                  ng-class="active.page=='analysis'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.analysisList.viewMenu"
+                >
+                  <a ui-sref="analysis">Analysis List </a>
+                </li>
+                <li
+                  ng-class="active.page=='variety'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.variety.viewMenu"
+                >
+                  <a ui-sref="variety">Variety</a>
+                </li>
+              </ul>
+            </li>
+
+            <li
+              ng-show="access.setting.pricingTerms.viewMenu ||access.setting.tags.viewMenu ||access.setting.documents.viewMenu|| access.setting.tradeRules.viewMenu || access.setting.paymentMethod.viewMenu || access.setting.paymentTerms.viewMenu || access.setting.variance.viewMenu || access.setting.certificateCost.viewMenu || access.setting.baggings.viewMenu || access.setting.bagCategory.viewMenu || access.setting.eDC.viewMenu"
+            >
+              <a class="show-caret">Sales Contract Settings</a>
+              <ul class="dropdown-menu">
+                <li
+                  ng-class="active.page=='pricingTerms'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.pricingTerms.viewMenu"
+                >
+                  <a ui-sref="pricingTerms">Pricing Terms</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='tags'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.tags.viewMenu"
+                >
+                  <a ui-sref="tags">Tags</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='documents'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.documents.viewMenu"
+                >
+                  <a ui-sref="documents">Documents</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='tradeRules'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.tradeRules.viewMenu"
+                >
+                  <a ui-sref="tradeRules">Trade Rules</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='paymentMethod'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.paymentMethod.viewMenu"
+                >
+                  <a ui-sref="paymentMethod">Payment Method</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='paymentTerms'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.paymentTerms.viewMenu"
+                >
+                  <a ui-sref="paymentTerms">Payment Terms</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='variance'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.variance.viewMenu"
+                >
+                  <a ui-sref="variance">Variance</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='certificateCost'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.certificateCost.viewMenu"
+                >
+                  <a ui-sref="certificateCost">Certificate Cost</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='bags'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.baggings.viewMenu"
+                >
+                  <a ui-sref="bags">Add Shipping Material</a>
+                </li>
+                <li
+                  ng-class="active.page=='bagCategory'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.bagCategory.viewMenu"
+                >
+                  <a ui-sref="bagCategory">Bag Category</a>
+                </li>
+                <li
+                  ng-class="active.page=='edc'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.eDC.viewMenu"
+                >
+                  <a ui-sref="edc">EDC</a>
+                </li>
+                <li
+                  ng-class="active.page=='maxWeight'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.maxWeight.viewMenu"
+                >
+                  <a ui-sref="maxWeight">Max Weight</a>
+                </li>
+              </ul>
+            </li>
+
+            <li
+              ng-show="access.setting.freight.viewMenu || access.setting.equipment.viewMenu || access.setting.freightCompany.viewMenu || access.setting.shippingLine.viewMenu || access.setting.shippingTerms.viewMenu || access.setting.loadingPort.viewMenu  || access.setting.freightSettings.viewMenu"
+            >
+              <a class="show-caret">Shipment settings</a>
+              <ul class="dropdown-menu">
+                <li
+                  ng-click="clearSearchHistory('freights')"
+                  ng-class="active.page=='freight'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.freight.viewMenu"
+                >
+                  <a ui-sref="freight">Add Freight</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='equipment'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.equipment.viewMenu"
+                >
+                  <a ui-sref="equipment">Add Equipment</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='freightCompany'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.freightCompany.viewMenu"
+                >
+                  <a ui-sref="freightCompany">Add Freight Company</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='shipline'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.shippingLine.viewMenu"
+                >
+                  <a ui-sref="shipline">Add Shipping Line</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='shippingTerms'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.shippingTerms.viewMenu"
+                >
+                  <a ui-sref="shippingTerms">Add Shipping Term</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='loadingPort'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.loadingPort.viewMenu"
+                >
+                  <a ui-sref="loadingPort">Add Loading Port</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='freightSetting'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.freightSettings.viewMenu"
+                >
+                  <a ui-sref="freightSetting">Other Freight Settings</a>
+                </li>
+                <li
+                  ng-class="active.page=='container'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.container.viewMenu"
+                >
+                  <a ui-sref="container">Add Container Inventory</a>
+                </li>
+              </ul>
+            </li>
+
+            <li
+              ng-show="access.setting.weather.viewMenu || access.setting.currency.viewMenu || access.setting.trucker.viewMenu|| access.setting.origin.viewMenu || access.setting.country.viewMenu || access.setting.town.viewMenu ||access.setting.bidPeriod.viewMenu || access.setting.scaleTicketNumber.viewMenu || access.setting.receiver.viewMen"
+            >
+              <a class="show-caret">Other Controls</a>
+              <ul class="dropdown-menu">
+                <li
+                  ng-class="active.page=='weather'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.weather.viewMenu"
+                >
+                  <a ui-sref="weather">Weather Update</a>
+                </li>
+
+                <li
+                  ng-class="active.page=='currency'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.currency.viewMenu"
+                >
+                  <a ui-sref="currency">Currency Update</a>
+                </li>
+                <li
+                  ng-class="active.page=='country'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.country.viewMenu"
+                >
+                  <a ui-sref="country">Country</a>
+                </li>
+
+                <li
+                  ng-if="access.setting.city.viewMenu"
+                  ng-class="active.page=='city'?'active':''"
+                  ng-class="dropdown-item"
+                >
+                  <a ui-sref="city">City</a>
+                </li>
+                <li
+                  ng-class="active.page=='origin'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.origin.viewMenu"
+                >
+                  <a ui-sref="origin">Origin</a>
+                </li>
+                <li
+                  ng-class="active.page=='town'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.town.viewMenu"
+                >
+                  <a ui-sref="town">Town</a>
+                </li>
+                <li
+                  ng-class="active.page=='bidPeriod'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.bidPeriod.viewMenu"
+                >
+                  <a ui-sref="bidPeriod">Bid Period</a>
+                </li>
+                <li
+                  ng-class="active.page=='trucker'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.trucker.viewMenu"
+                >
+                  <a ui-sref="trucker">Trucker</a>
+                </li>
+                <li
+                  ng-class="active.page=='scaleTicketNumber'?'active':''"
+                  ng-if="access.setting.scaleTicketNumber.viewMenu"
+                  ng-class="dropdown-item"
+                >
+                  <a ui-sref="scaleTicketNumber">Scale Ticket Number</a>
+                </li>
+                <li
+                  ng-class="active.page=='receiver'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.receiver.viewMenu"
+                >
+                  <a ui-sref="receiver">Receiver</a>
+                </li>
+              </ul>
+            </li>
+
+            <li ng-show="access.setting.bin.viewMenu">
+              <a class="show-caret">Bin Controls</a>
+              <ul class="dropdown-menu">
+                <li
+                  ng-class="active.page=='bin'?'active':''"
+                  ng-class="dropdown-item"
+                  ng-if="access.setting.bin.viewMenu"
+                >
+                  <a ui-sref="bin">Bin</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a
+                style="cursor: pointer;"
+                ng-click="logout()"
+                class="head_ico_ac"
+                ><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="profile">
+        <a class="active">
+          <img
+            src="/assets/images/default_user.png"
+            class="img-avatar img-circle"
+            alt=""
+            width="35"
+            height="35"
+          />
+          <span style="margin-left: 10px;font-size: 16px;"
+            >Hello, {{loginUser.name}}</span
+          >
+        </a>
+        <div class="sub_men sett_profile">
+          <ul>
+            <li ng-class="active.page=='profile'?'active':''">
+              <a ui-sref="profile">Profile</a>
+            </li>
+            <li
+              class="comm"
+              ng-show="userInfo.type!='SUPERADMIN' || userInfo.type!='ADMIN'"
+            >
+              <a style="cursor: pointer;" ng-click="logout()">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .sub_men ul li .dropdown-menu {
+    display: none;
+    border-radius: 0;
+    box-shadow: none;
+    left: auto;
+    right: 270px;
+    top: -1px;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    padding: 6px 15px;
+    min-width: 300px !important;
+  }
+
+  .sub_men ul li .dropdown-menu .dropdown-item {
+    padding: 0;
+  }
+
+  .sub_men ul li .dropdown-menu .dropdown-item a {
+    padding: 4px 0 0 0%;
+    background: #fff;
+  }
+
+  .sub_men ul li .dropdown-menu .dropdown-item a:hover {
+    padding: 4px 0 0 10%;
+    background: #fff;
+  }
+
+  .dropdown-menu > li > a:hover,
+  .dropdown-menu > li > a:focus {
+    background: #fff;
+  }
+
+  .sub_men ul li:hover .dropdown-menu {
+    display: block !important;
+  }
+
+  .top_header_rudy li .sub_men li > ul .dropdown-menu .dropdown-item a {
+    padding-left: 0% !important;
+    position: relative;
+    color: #517a4e;
+  }
+
+  .dropdown-menu > .active > a,
+  .dropdown-menu > .active > a:hover,
+  .dropdown-menu > .active > a:focus {
+    background: #fff !important;
+    color: #ff8600 !important;
+  }
+
+  .top_header_rudy
+    li
+    .sub_men
+    li
+    > ul
+    .dropdown-menu
+    .dropdown-item
+    > a:before {
+    width: 0% !important;
+  }
+
+  .top_header_rudy
+    li
+    .sub_men
+    li
+    > ul
+    .dropdown-menu
+    .dropdown-item
+    > a:hover:before {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    height: 1px;
+    width: 5% !important;
+    background: #517a4e;
+    content: "";
+  }
+</style>

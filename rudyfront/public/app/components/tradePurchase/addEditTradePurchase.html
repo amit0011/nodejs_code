@@ -1,0 +1,834 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+            <h3 ng-show="!backShow" class="heading_cls">{{type =='edit'?'Edit':'Add'}} Trade Purchase Contract</h3>
+            <h3 ng-show="backShow" class="heading_cls">{{type =='edit'?'Edit':'Add'}} Trade Purchase Contract</h3>
+            <hr class="heading_hr">
+            <div class="panel_body_inner inner_box">
+                <div class="scale_outer">
+                    <div class="scale_inner scale_inner_sg">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel_body_inner inner_box_List_add" style="padding: 0 15px;">
+                                    <div id="printSectionId">
+                                        <div style="background: #fff;float: left;margin: 0;padding: 0;">
+                                            <div style="margin: 0;padding: 0 0 5px 0;float: left;width: 100%;border-bottom: 2px solid #cdcdcd;">
+                                                <div style="margin: 0;padding: 0;float: left;width: 20%;">
+                                                    <img src="{{imagePath}}/images/rudyLogo2.png">
+                                                </div>
+                                                <div style="margin: 0;padding: 0;float: right;width: 30%;">
+                                                    <h2 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 18px;color: #000;">RUDY AGRO LTD.</h2>
+                                                    <h2 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 18px;color: #000;">Box 100, Outlook Sask. S0L 2N0</h2>
+                                                    <h3 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 16px;color: #000;">Tel (306) 867-8667</h3>
+                                                    <h3 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 16px;color: #000;">Fax (306 867-8290</h3>
+                                                </div>
+                                            </div>
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <h1 style="margin: 0 0 10px 0;padding: 0;float: left;width: 100%;text-align: center;font-size: 24px;color: #000;">COMMODITY PURCHASE AGREEMENT <br> Between Rudy Agro Ltd and:</h1>
+
+                                                <div style="margin: 0;padding: 0;float: left;width: 100%;" ng-show="myForm.amended">
+                                                    <p style="margin: 0;padding: 0;text-align: right;width: 90%;font-size: 12px;color: #000;">
+                                                        <span style="{{myForm.amended && myForm.amended == true ?'color:red':''}}">{{myForm.amended && myForm.amended == true && myForm.printAmended ?'(Amended)':''}}</span>
+                                                    </p>
+                                                </div>
+
+                                                <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">SELLER:</b>
+                                                    <p style="margin: 0;padding: 0;float: left;width: 80%;font-size: 12px;color: #000;">{{buyerDetails.businessName}}
+                                                        <br> {{buyerDetails.addresses[0].street}}
+                                                        <br> {{buyerDetails.addresses[0].city}}, {{buyerDetails.addresses[0].postal}}, {{buyerDetails.addresses[0].country}}
+                                                        <br><span ng-show="buyerDetails.cellNumber">Cell- {{buyerDetails.cellNumber}},</span>
+                                                        <br><span ng-show="buyerDetails.phone">PH- {{buyerDetails.phone}}</span></p>
+                                                </div>
+                                                <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                                                    <div style="margin: 0;padding: 0;float: left;width: 100%;">
+                                                        <p style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 12px;color: #000;font-weight: bold;">DATE:</p>
+                                                        <p style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 12px;color: #000;"> {{myForm.date | date}}</p>
+                                                    </div>
+                                                    <div style="margin: 0;padding: 0;float: left;width: 100%;">
+                                                        <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 12px;color: #000;">CONTRACT #:</b>
+                                                        <b style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 12px;color: #000;font-weight: 400;">{{myForm.contractNumber}}</b>
+                                                    </div>
+                                                    <div style="margin: 0;padding: 0;float: left;width: 100%;" ng-show="myForm.buyerReferenceNumber">
+                                                        <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 12px;color: #000;">Buyer Ref #:</b>
+                                                        <b style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 12px;color: #000;font-weight: 400;">{{myForm.buyerReferenceNumber}}</b>
+                                                    </div>
+                                                    <div ng-show="myForm.showBroker" style="margin: 0;padding: 0;float: left;width: 100%;">
+                                                        <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 12px;color: #000;">Broker #:</b>
+                                                        <b style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 12px;color: #000;font-weight: 400;">{{myForm.brokerName}}</b>
+                                                    </div>
+                                                    <div ng-show="myForm.showBroker" style="margin: 0;padding: 0;float: left;width: 100%;">
+                                                        <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 12px;color: #000;">Broker Ref#:</b>
+                                                        <b style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 12px;color: #000;font-weight: 400;">{{myForm.brokerNumber}}</b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">COMMODITY:</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{myForm.commodityId.commodityAlias || myForm.commodityAlias}}</b>
+                                                </div>
+                                                <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">GRADE:</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{myForm.gradeId.gradeName || myForm.gradeName}}</b>
+                                                </div>
+                                            </div>
+                                            <div style="margin: 15px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">ORIGIN:</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{myForm.countryId}}</b>
+                                                </div>
+                                                <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">CROP YEAR:</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{myForm.cropYear}}</b>
+                                                </div>
+                                            </div>
+                                            <div style="margin: 15px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <div style="margin: 0;padding: 0;float: left;width: 100%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;"></b>
+                                                </div>
+                                            </div>
+                                            <div style="margin: 15px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <div style="margin: 0;padding: 0;float: left;width: 50%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">PACKING UNIT:</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{myForm.packingUnit.name || myForm.packingUnitName}}</b>
+                                                </div>
+                                                <div style="margin: 0;padding: 0;float: left;width: 50%;" ng-show="packingUnitBagsType!='Bulk'|| myForm.tag=='Yes'">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">WITH TAGS:</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;">{{myForm.tagType.tags || myForm.tagName}}</b>
+                                                </div>
+                                            </div>
+
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">CONTRACTED QUANTITY:</b>
+                                                <p ng-show="packingUnitBagsType=='Bag'" style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;">{{myForm.contractQuantity}} {{myForm.units}} {{myForm.variance.varianceName || myForm.varianceName}}, packed in {{myForm.packedIn}} x {{myForm.equipmentType.equipmentName || myForm.equipmentTypeName}} of {{myForm.loadingType=='Palletized and Shrink Wrapped'?myForm.noOfPallets+ ' Pallets '+myForm.noOfBags:myForm.noOfBags}} x {{myForm.bagWeight}} {{myForm.packingUnit.bagWeightUnit || myForm.packingUnitBagsUnit}} each. Total of {{myForm.contractQuantity}} {{myForm.units}}</p>
+                                                <p ng-show="packingUnitBagsType=='Bulk'" style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;">{{myForm.contractQuantity}} {{myForm.units}} {{myForm.variance.varianceName || myForm.varianceName}}, packed in {{myForm.packedIn}} x {{myForm.equipmentType.equipmentName || myForm.equipmentTypeName}} Total of {{myForm.contractQuantity}} {{myForm.units}}</p>
+                                            </div>
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <div style="margin: 0;padding: 0;float: left;width: 100%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;"></b>
+                                                </div>
+                                            </div>
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">SHIPPING COMMENT:</b>
+                                                <p style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;">{{myForm.shippingOption}}, {{myForm.shippingComment}}</p>
+                                            </div>
+                                            <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 98%;">
+                                                <div style="margin: 0 0 5px 0;padding: 0px;float: left;width: 100%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 40%;font-size: 12px;color: #000;">SHIPPING SCHEDULE:</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;"> START DATE</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">END DATE</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;text-align: center;">UNITS</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;text-align: center;">QTY</b>
+                                                </div>
+                                                <div style="margin: 0;padding: 10px 0;float: left;width: 100%;border: 2px solid #cdcdcd;border-radius: 5px;">
+                                                    <div style="margin: 0;padding: 0px;float: left;width: 100%;" ng-repeat="shipment in myForm.shipmentScheldule">
+                                                        <p style="margin: 0;padding: 0;float: left;width: 40%;font-size: 12px;color: #000;">{{shipment.shipmentType}}</p>
+                                                        <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">{{shipment.startDate | date}}</p>
+                                                        <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">{{shipment.endDate | date}}</p>
+                                                        <p style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;text-align: center;">{{shipment.units}}</p>
+                                                        <p style="margin: 0;padding: 0;float: left;width: 10%;font-size: 12px;color: #000;text-align: center;">{{shipment.quantity}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <b style="margin: 0;padding: 0;float: left;width: 60%;font-size: 12px;color: #000;">CONTRACT PRICE: {{myForm.contractCurrency}} ${{myForm.amount | number:2}} {{myForm.amountUnit}}  {{myForm.pricingTerms.pricingTerms || myForm.pricingTermsName}}</b>
+                                                <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">TL UNITS: {{myForm.packedIn}}</p>
+                                                <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">TL QTY: {{myForm.contractQuantity}} {{myForm.units}}</p>
+                                            </div>
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <div style="margin: 0;padding: 0;width: 50%;">
+                                                    <b style="margin: 0;padding: 0;float: left;width: 40%;font-size: 12px;color: #000;">DESTINATION:</b>
+                                                    <b style="margin: 0;padding: 0;float: left;width: 60%;font-size: 12px;color: #000;font-weight: 400;">{{myForm.destination}}</b>
+                                                </div>
+                                            </div>
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;font-size: 12px;color: #000;">
+                                                <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">PAYMENT METHOD:</b>
+                                                <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;"> {{myForm.paymentMethod.paymentMethod || myForm.paymentMethodName}}</b>
+                                            </div>
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;font-size: 12px;color: #000;">
+                                                <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">PAYMENT TERM:</b>
+                                                <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;font-weight: 400;"> {{myForm.paymentTerms.paymentTerms || myForm.paymentTermsName}}</b>
+                                            </div>
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;" ng-show="myForm.showDocuments">
+                                                <b style="margin: 0;padding: 0;float: left;width: 15%;font-size: 12px;color: #000;">DOCUMENTS:</b>
+                                                <p style="margin: 0;padding: 0;float: left;width: auto;font-size: 12px;color: #000;" ng-repeat="docs in myForm.documents">Sets of documents must also include: {{docs.documents}} {{$last ? '.' : ($index==docs.length-2) ? ' and ' : ', '}}</p>
+                                            </div>
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 12px;color: #000;">TRADE RULES:</b>
+                                                <p style="margin: 0;padding: 0;float: left;width: 70%;font-size: 12px;color: #000;">When not in conflict with the terms of this contract, {{myForm.tradeRules.tradeRules || myForm.tradeRulesName}} will apply.</p>
+                                            </div>
+                                            <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 12px;color: #000;">OTHER CONDITIONS:</b>
+                                                <p style="margin: 0;padding: 0;float: left;width: 80%;font-size: 12px;color: #000;">{{myForm.otherConditions}} {{myForm.sampleApproval==true ? 'Subject to sample approval.':''}} <b>Thank-you for your business!</b></p>
+                                            </div>
+                                            <div style="margin: 30px 0 0 0;padding: 0;float: left;width: 100%;">
+                                                <p style="margin: 0;padding: 0;float: left;width: 50%;">
+                                                    <img src="{{imagePath}}{{myForm.signature}}" alt="" style="width: 240px;height:80px;margin: 0;float: left;border-bottom: 2px solid #000;padding: 0 50px 0 0;">
+                                                    <i style="margin: 5px 0 0 0;padding: 0;width: 100%;float: left;font-size: 12px;color: #000;">Accepted for Rudy Agro Ltd</i>
+                                                </p>
+                                                <p style="margin: 75px 0 0 0;padding: 0;float: left;width: 50%;">
+                                                    <i style="margin: 5px 0 0 0;padding: 0;width: 65%;float: left;font-size: 12px;color: #000;border-top: 2px solid #000;">Accepted for Seller</i>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                              <form name="saleContract">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 81%;">Date</label>
+                                            <datepicker class="date_pic fuloo_lab" date-format="yyyy-MM-dd" selector="form-control">
+                                                <div class="input-group">
+                                                    <input disabled class="form-control" ng-model="myForm.date" placeholder="Choose a date" autocomplete="off" />
+                                                    <span class="input-group-addon" style="cursor: pointer">
+                                                      <i class="fa fa-lg fa-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </datepicker>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%;">Contract #</label>
+                                            <input type="text" placeholder="Contract Number" ng-model="myForm.contractNumber" ng-disabled="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Broker</label>
+                                            <select ng-disabled="inputField=='view'" name="broker" ng-options="broker._id as broker.businessName for broker in brokerList" ng-model="myForm.brokerId" ng-change="getBrokerName(myForm.brokerId)">
+                                                <option value="">No Broker</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%;">Broker #</label>
+                                            <input type="text" placeholder="Broker Number" ng-model="myForm.brokerNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%;">Commission Type</label>
+                                            <select ng-model="myForm.commissionType">
+                                                <option value="">Select Commission Type</option>
+                                                <option value="%">%</option>
+                                                <option value="$">$</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%;">Broker Commission</label>
+                                            <input numbers-Only type="text" placeholder="Broker Commission" ng-model="myForm.brokerCommision">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%;">Broker Tax #</label>
+                                            <input type="text" placeholder="Broker Number" ng-model="myForm.brokerTaxNumber">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 56%;">Show Broker</label>
+                                            <div class="grop_rad">
+                                                <label class="grop_rad_check">Yes
+                                                    <input type="checkbox" value="Veical Aspect" ng-model="myForm.showBroker">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%;">Buyer Ref #</label>
+                                            <input type="text" placeholder="Buyer ref" ng-model="myForm.buyerReferenceNumber">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Commodity*</label>
+                                            <select ng-disabled="disableField" name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys" ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)" required>
+                                                <option value="">Select Commodity</option>
+                                            </select>
+                                            <span ng-show="saleContract.commodity.$invalid && saleContract.commodity.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Grade*</label>
+                                            <select name="grade" ng-options="grade._id as grade.gradeName for grade in contractGrade" ng-model="myForm.gradeId" ng-change="getGradeName(myForm.gradeId)" required>
+                                                <option value="">Select Grade</option>
+                                            </select>
+                                            <span ng-show="saleContract.grade.$invalid && saleContract.grade.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Crop Year*</label>
+                                            <select name="cropYear" ng-model="myForm.cropYear" ng-change="generateNo()"
+                                              ng-options="cropYear as cropYear for cropYear in cropYears"required ng-disabled="disableField">
+                                                <option value="">Select Year</option>
+                                            </select>
+                                            <span ng-show="saleContract.cropYear.$invalid && saleContract.cropYear.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Tag</label>
+                                            <div class="grop_rad">
+                                                <label class="new_rad">Yes
+                                                    <input type="radio" checked="checked" value="Yes" ng-model="myForm.tag" name="radio1">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="new_rad">No
+                                                    <input type="radio" checked="checked" value="No" ng-model="myForm.tag" name="radio1">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Tag Type</label>
+                                            <select name="euipment" ng-disabled="myForm.tag=='No'" ng-options="tags._id as tags.tags for tags in tagsList" ng-model="myForm.tagType" ng-change="getTagtypeName(myForm.tagType)">
+                                                <option value="">Select Tag Type</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%">Origin*</label>
+                                            <select ng-model="myForm.countryId" name="origin" ng-options="origin.name as origin.name for origin in origins" required>
+                                                <option value="">Select Origin</option>
+                                            </select>
+                                            <span ng-show="saleContract.origin.$invalid && saleContract.origin.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                            <a style="float: left;right: -3px;top: 0!important" class="add_commodityType varietyPlus" ng-click="plusAddNewTerms('origins')">+</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 60%;">Contract Quantity*</label>
+                                            <input type="text" ng-model="myForm.contractQuantity" name="contractQty" numbers-Only required>
+                                            <span ng-show="saleContract.contractQty.$invalid && saleContract.contractQty.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Units*</label>
+                                            <select class="fixprice_cls" ng-model="myForm.units" name="unitts" required>
+                                                <option value="">Select Unit</option>
+                                                <option value="MT">MT</option>
+                                                <option value="Lbs">Lbs</option>
+                                                <option value="CWT">CWT</option>
+                                            </select>
+                                            <span ng-show="saleContract.unitts.$invalid && saleContract.unitts.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Packing Unit*</label>
+                                            <select name="packingU" ng-options="bags._id as bags.name for bags in bagsList" ng-model="myForm.packingUnit" ng-change="getPackingUnitName(myForm.packingUnit)" required>
+                                                <option value="">Select</option>
+                                            </select>
+                                            <span ng-show="saleContract.packingU.$invalid && saleContract.packingU.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                            <a style="float: left;right: -3px;top: 0!important" class="add_commodityType varietyPlus" ng-click="plusAddNewTerms('bags')">+</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%">Packed In*</label>
+                                            <input type="text" ng-model="myForm.packedIn" numbers-Only name="packedI" required>
+                                            <span ng-show="saleContract.packedI.$invalid && saleContract.packedI.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Loading Type*</label>
+                                            <select ng-model="myForm.loadingType" name="loadingT" required>
+                                                <option value="">Select Loading Type</option>
+                                                <option value="Floor Loaded">Floor Loaded</option>
+                                                <option value="Palletized and Shrink Wrapped">Palletized and Shrink Wrapped</option>
+                                            </select>
+                                            <span ng-show="saleContract.loadingT.$invalid && saleContract.loadingT.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Loading Port*</label>
+                                            <select name="loadingPorts" ng-options="loadingPort._id as loadingPort.loadingPortName for loadingPort in loadingPortList" ng-model="myForm.loadingPortId" ng-change="getDestinationPort(myForm.loadingPortId)" required>
+                                                <option value="">Select Loading Port</option>
+                                            </select>
+                                            <span ng-show="saleContract.loadingPorts.$invalid && saleContract.loadingPorts.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <div class="frval">
+                                                <label style="width: 100%;margin: 0;">X</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8 col-xs-12" style="margin: 5px 0 0 0px;">
+                                            <div class="frval">
+                                                <select style="width: 100%;" name="euipmenttts" ng-options="equipment._id as equipment.equipmentName for equipment in equipmentList" ng-model="myForm.equipmentType" ng-change="getEquipmentType(myForm.equipmentType)" required>
+                                                    <option value="">Select Equipment Type</option>
+                                                </select>
+                                                <span ng-show="saleContract.euipmenttts.$invalid && saleContract.euipmenttts.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="row">
+                                      <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 94%;">No Of bags</label>
+                                            <input style="width: 50%" type="text" ng-disabled="packingUnitBagsType=='Bulk'" placeholder="No of Bags" name="noOfbags" ng-model="myForm.noOfBags">
+                                            <input style="width: 50%" type="text" placeholder="bag weight" disabled ng-model="myForm.bagWeight">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Variance*</label>
+                                            <select name="variances" ng-options="variance._id as variance.varianceName || myForm.varianceName for variance in varianceList" ng-model="myForm.variance" ng-change="getVariances(myForm.variance)" required>
+                                                <option value="">Select Variance</option>
+                                            </select>
+                                            <span ng-show="saleContract.variances.$invalid && saleContract.variances.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">COA*</label>
+                                            <select name="coa" ng-options="certificate._id as certificate.certificateName for certificate in certificateCostList" ng-model="myForm.certificateAnalysis" required>
+                                                <option value="">Select Certificate of Analysis</option>
+                                            </select>
+                                            <span ng-show="saleContract.coa.$invalid && saleContract.coa.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Inland Equipment*</label>
+                                            <select name="Inlandeuipment" ng-options="equipment._id as equipment.equipmentName for equipment in inlandEquipmentList" ng-model="myForm.equipmentId" required>
+                                                <option value="">Select Inland Equipment</option>
+                                            </select>
+                                            <span ng-show="saleContract.Inlandeuipment.$invalid && saleContract.Inlandeuipment.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Destination*</label>
+                                            <input type="text" name="destinations" ng-model="myForm.destination" required>
+                                            <span ng-show="saleContract.destinations.$invalid && saleContract.destinations.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Freight*</label>
+                                            <input type="text" name="freightBy" ng-model="myForm.freight" required>
+
+                                            <span ng-show="saleContract.freightBy.$invalid && saleContract.freightBy.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Exchange Rate</label>
+                                            <input type="text" disabled numbers-only ng-model="myForm.exchangeRate">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Net Fob</label>
+                                            <input type="text" name="netFOB" numbers-only ng-model="myForm.netFOBCAD" required>
+                                            <span ng-show="saleContract.netFOB.$invalid && saleContract.netFOB.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <div class="frval">
+                                          <label style="width: 58%;font-size: 12px;font-weight: 600;">Shipping Option*</label>
+                                          <select class="fixprice_cls" ng-model="myForm.shippingOption" name="shippingOptions" required>
+                                              <option value="">Select Shipping Option</option>
+                                              <option value="Shipment at Buyer's Call">Shipment at Buyer's Call</option>
+                                              <option value="Shipment at Sellers option">Shipment at Sellers option</option>
+                                          </select>
+                                          <span ng-show="saleContract.shippingOptions.$invalid && saleContract.shippingOptions.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <div class="frval">
+                                          <label style="width: 56%;">Print Amended</label>
+                                          <div class="grop_rad">
+                                              <label class="grop_rad_check">Yes
+                                                  <input type="checkbox"  ng-model="myForm.printAmended">
+                                                  <span class="checkmark"></span>
+                                              </label>
+                                          </div>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12" ng-show="myForm.loadingType=='Palletized and Shrink Wrapped'">
+                                        <div class="frval">
+                                            <label style="width: 58%;">No of Pallets</label>
+                                            <input type="text" numbers-Only ng-model="myForm.noOfPallets">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Unit FCL</label>
+                                            <input type="text" ng-model="myForm.unitFcl">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="com_pac plus_row">
+                                            <label class="land_loaction ful_lab">Shipment Schedule*</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="com_pac plus_row" ng-repeat="shipment in myForm.shipmentScheldule">
+                                            <div class="data_input full_width">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <select style="border-bottom: 1px solid #000000;" class="fuloo_lab" ng-model="shipment.shipmentType">
+                                                            <option value="">Select Shipment</option>
+                                                            <option value="Shipment {{$index+1}}">Shipment {{$index+1}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <datepicker class="date_pic fuloo_lab" date-format="yyyy-MM-dd" selector="form-control" date-min-limit="{{calculateMinDate($index)}}" date-set="{{calculateMinDate($index)}}">
+                                                            <div class="input-group">
+                                                                <input class="form-control" ng-model="shipment.startDate" placeholder="Start Date" ng-change="getEndDate(shipment,$index)" autocomplete="off" />
+                                                            </div>
+                                                        </datepicker>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <datepicker class="date_pic fuloo_lab" date-min-limit="{{shipment.startDate}}" date-format="yyyy-MM-dd" selector="form-control">
+                                                            <div class="input-group">
+                                                                <input class="form-control" ng-model="shipment.endDate" placeholder="End Date" autocomplete="off" />
+                                                            </div>
+                                                        </datepicker>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input style="border-bottom: 1px solid #000000;" type="text" class="fuloo_lab" ng-model="shipment.units" ng-change="validateUnit(shipment)" placeholder="Units" numbers-Only name="shipUnit" required>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input style="border-bottom: 1px solid #000000;" type="text" class="fuloo_lab" ng-model="shipment.quantity" placeholder="Quantity" numbers-Only name="shipQuantity" ng-change="validateQuantity(shipment)" required>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <div class="add_btn_row add_sclo">
+                                                            <a ng-show="$last && shipment.shipmentType && shipment.startDate && shipment.endDate && shipment.units && shipment.quantity" class="add_land_location wer" ng-click="plusshipmentScheldule(shipment)">+</a>
+                                                            <a ng-show="$last && myForm.shipmentScheldule.length > 1" class="add_land_location wer" ng-click="removeshipmentScheldule($index)">x</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Contract Currency*</label>
+                                            <select ng-model="myForm.contractCurrency" name="contractCurrency" required>
+                                                <option value="">Select Currency</option>
+                                                <option value="USD">USD</option>
+                                                <option value="CAD">CAD</option>
+                                            </select>
+                                            <span ng-show="saleContract.contractCurrency.$invalid && saleContract.contractCurrency.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%">Price*</label>
+                                            <input type="text" n-Only name="prices" ng-model="myForm.amount" placeholder="Enter Price" after="4" before="5" required>
+                                        </div>
+                                        <span ng-show="saleContract.prices.$invalid && saleContract.prices.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%">Units*</label>
+                                            <select class="fixprice_cls" ng-model="myForm.amountUnit" name="priceUnits" required>
+                                                <option value="">Select Unit</option>
+                                                <option value="Lbs">Lbs</option>
+                                                <option value="MT">MT</option>
+                                                <option value="Bu">Bu</option>
+                                                <option value="CWT">CWT</option>
+                                            </select>
+                                            <span ng-show="saleContract.priceUnits.$invalid && saleContract.priceUnits.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Pricing Terms*</label>
+                                            <select name="pricingTerm" ng-options="pricingTerms._id as pricingTerms.pricingTerms for pricingTerms in pricingTermsList" ng-model="myForm.pricingTerms" ng-change="getPricingTerms(myForm.pricingTerms)" required>
+                                                <option value="">Pricing Terms</option>
+                                            </select>
+                                            <span ng-show="saleContract.pricingTerm.$invalid && saleContract.pricingTerm.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                            <a style="float: left;right: -3px;top: 0!important" class="add_commodityType varietyPlus" ng-click="plusAddNewTerms('pricingTerms')">+</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Payment Method*</label>
+                                            <select name="paymentMethods" ng-options="paymentMethod._id as paymentMethod.paymentMethod for paymentMethod in paymentMethodList" ng-model="myForm.paymentMethod" ng-change="getPaymentMethod(myForm.paymentMethod)">
+                                                <option value="">Payment Method</option>
+                                            </select>
+                                            <span ng-show="saleContract.paymentMethods.$invalid && saleContract.paymentMethods.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                            <a style="float: left;right: -3px;top: 0!important" class="add_commodityType varietyPlus" ng-click="plusAddNewTerms('paymentMethod')">+</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Payment Terms*</label>
+                                            <select name="paymentTerm" ng-options="paymentTerms._id as paymentTerms.paymentTerms for paymentTerms in paymentTermsList" ng-model="myForm.paymentTerms" ng-change="getPaymentTerms(myForm.paymentTerms)" required>
+                                                <option value="">Payment Terms</option>
+                                            </select>
+                                            <span ng-show="saleContract.paymentTerm.$invalid && saleContract.paymentTerm.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                            <a style="float: left;right: -3px;top: 0!important" class="add_commodityType varietyPlus" ng-click="plusAddNewTerms('paymentTerms')">+</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 51%;">Documents</label>
+                                            <div class="multi_cls" isteven-multi-select max-labels="1" input-model="documentsList" output-model="myForm.documents" button-label="documents" item-label="documents" tick-property="ticked"></div>
+                                            <a style="float: left;right: -3px;top: 0!important" class="add_commodityType varietyPlus" ng-click="plusAddNewTerms('documents')">+</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 56%;">Show Documents</label>
+                                            <div class="grop_rad">
+                                                <label class="grop_rad_check">Yes
+                                                    <input type="checkbox" ng-model="myForm.showDocuments">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Trade Rules*</label>
+                                            <select name="tradeRule" ng-options="tradeRules._id as tradeRules.tradeRules for tradeRules in tradeRulesList" ng-model="myForm.tradeRules" ng-change="getTradeRules(myForm.tradeRules)" required>
+                                                <option value="">Trade Rules</option>
+                                            </select>
+                                            <span ng-show="saleContract.tradeRule.$invalid && saleContract.tradeRule.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                            <a style="float: left;right: -3px;top: 0!important" class="add_commodityType varietyPlus" ng-click="plusAddNewTerms('tradeRules')">+</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval">
+                                            <label style="width: 58%;">Inventory Grade*</label>
+                                            <select name="inventoryGrades" ng-options="grade._id as grade.gradeName for grade in inventoryGrade" ng-model="myForm.inventoryGrade" required>
+                                                <option value="">Select Inventory Grade</option>
+                                            </select>
+                                            <span ng-show="saleContract.inventoryGrades.$invalid && saleContract.inventoryGrades.$pristine && submitted" class="validationErrorSalesContract"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%">Other Conditions</label>
+                                            <textarea style="width: 482px;height: 35px;margin: 0;padding: 0;float: left;border: none;outline: none;border-bottom: 1px solid #eaeaea;color: #000000;" placeholder="Other Conditions" ng-model="myForm.otherConditions"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <label style="width: 58%;">Shipping Comment</label>
+                                            <textarea style="width: 482px;height: 35px;margin: 0;padding: 0;float: left;border: none;outline: none;border-bottom: 1px solid #eaeaea;color: #000000;" placeholder="Shipping Comment" ng-model="myForm.shippingComment"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="frval frval_two">
+                                            <div class="grop_rad">
+                                                <label class="grop_rad_check"> Subject to sample approval
+                                                    <input type="checkbox" value="Veical Aspect" ng-model="myForm.sampleApproval">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <button class="sboo" ng-click="back()" ng-if="type=='edit'">Cancel</button>
+                                    <button class="sboo" ng-click="submit(saleContract.$valid)">Submit</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- paymentTerms Modal -->
+        <div class="popup_overlay"></div>
+        <div class="add_coomm analysis paymentTerms" style="width: 50%;">
+            <div class="enter_comm_typ">
+                <div class="head_comm" style="margin: 0!important;">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <h3 style="text-align: center;color: #007e4e!important;">Add New Payment Term</h3>
+                <textarea class="paymentTermsPop" type="text" name="commName" ng-model="payment.paymentTerms" placeholder="Enter payment Terms" required></textarea>
+                <p style="color: #000;font-size: 18px;font-weight: 700;">* Only one term at a time.</p>
+                <button ng-click="savePaymentTerms('paymentTerms')" ng-hide="inputField=='view'" ng-disabled="!(payment.paymentTerms)">Submit</button>
+            </div>
+        </div>
+        <!-- paymentMethod Modal -->
+        <div class="add_coomm analysis paymentMethod" style="width: 50%;">
+            <div class="enter_comm_typ">
+                <div class="head_comm" style="margin: 0!important;">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <h3 style="text-align: center;color: #007e4e!important;">Add New Payment Method</h3>
+                <textarea class="paymentTermsPop" type="text" name="commName" ng-model="payment.paymentMethod" placeholder="Enter payment method" required></textarea>
+                <p style="color: #000;font-size: 18px;font-weight: 700;">* Only one term at a time.</p>
+                <button ng-click="savePaymentTerms('paymentMethod')" ng-hide="inputField=='view'" ng-disabled="!(payment.paymentMethod)">Submit</button>
+            </div>
+        </div>
+        <!-- Pricing Terms Modal -->
+        <div class="add_coomm analysis pricingTerms" style="width: 50%;">
+            <div class="enter_comm_typ">
+                <div class="head_comm" style="margin: 0!important;">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <h3 style="text-align: center;color: #007e4e!important;margin: 0 0 27px 0;">Add New Pricing Terms</h3>
+                <input type="text" name="commName" ng-model="payment.pricingTerms" placeholder="Enter pricing term" required>
+                <button ng-click="savePaymentTerms('pricingTerms')" ng-hide="inputField=='view'" ng-disabled="!(payment.pricingTerms)">Submit</button>
+            </div>
+        </div>
+        <!-- Origins Modal -->
+        <div class="add_coomm analysis origins" style="width: 50%;max-width: 400px;">
+            <div class="enter_comm_typ">
+                <div class="head_comm" style="margin: 0!important;">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <h3 style="text-align: center;color: #007e4e!important;margin: 0 0 27px 0;">New Origin</h3>
+                <input type="text" name="originName" ng-model="payment.originName" placeholder="Enter origin name" required>
+                <button ng-click="savePaymentTerms('origins')" ng-hide="inputField=='view'" ng-disabled="!(payment.originName)">Submit</button>
+            </div>
+        </div>
+        <!-- Trade Rules Modal -->
+        <div class="add_coomm analysis tradeRules" style="width: 50%;">
+            <div class="enter_comm_typ">
+                <div class="head_comm" style="margin: 0!important;">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <h3 style="text-align: center;color: #007e4e!important;margin: 0 0 27px 0;">Add New Trade Rules</h3>
+                <input type="text" name="commName" ng-model="payment.tradeRules" placeholder="Enter Trade Rule" required>
+                <button ng-click="savePaymentTerms('tradeRules')" ng-hide="inputField=='view'" ng-disabled="!(payment.tradeRules)">Submit</button>
+            </div>
+        </div>
+        <!-- Documents Modal -->
+        <div class="add_coomm analysis documents" style="width: 50%;">
+            <div class="enter_comm_typ">
+                <div class="head_comm" style="margin: 0!important;">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <h3 style="text-align: center;color: #007e4e!important;margin: 0 0 27px 0;">Add New Documents</h3>
+                <input type="text" name="commName" ng-model="payment.documents" placeholder="Enter documents" required>
+                <button ng-click="savePaymentTerms('documents')" ng-hide="inputField=='view'" ng-disabled="!(payment.documents)">Submit</button>
+            </div>
+        </div>
+        <!---- Bags ----->
+        <div class="add_coomm bags" style="width: 50%;">
+            <form name="country">
+                <div class="enter_comm_typ">
+                    <div class="head_comm" style="margin: 0!important;">
+                        <div type="button" class="close" data-dismiss="modal">&times;</div>
+                    </div>
+                    <h3 style="text-align: center;color: #007e4e!important;margin: 0 0 27px 0;">Add New Pricing Unit</h3>
+                    <div class="com_pac">
+                        <label style="width: 44%;">Name</label>
+                        <input type="text" name="name" ng-model="payment.name" placeholder="Enter Name" required>
+                    </div>
+                    <div class="com_pac">
+                        <label style="width: 44%;">Bag Cost</label>
+                        <input type="text" name="bagCost" numbers-Only ng-model="payment.bagCost" placeholder="Enter Bag Cost" required>
+                    </div>
+                    <div class="com_pac">
+                        <label>Bulk Bag</label>
+
+                        <select ng-model="payment.bulkBag">
+                            <option value="">Bag Type</option>
+                            <option value="Bulk">Bulk</option>
+                            <option value="Bag">Bag</option>
+                        </select>
+                    </div>
+                    <div class="com_pac">
+                        <label style="width: 44%;">Bag Weight</label>
+                        <input type="text" name="bagCount" numbers-Only ng-model="payment.bagWeight" placeholder="Enter Bag Weight">
+                    </div>
+                    <div class="com_pac">
+                        <label>Bag Weight Unit</label>
+                        <select ng-model="payment.bagWeightUnit">
+                            <option value="">Bag Weight Unit</option>
+                            <option value="MT">MT</option>
+                            <option value="KGS">KGS</option>
+                            <option value="LBS">LBS</option>
+                        </select>
+                    </div>
+                    <div class="com_pac">
+                        <label style="width: 44%;">Bag Count</label>
+                        <input type="text" name="bagCount" numbers-Only ng-model="payment.bagCount" placeholder="Enter Bag Count" required>
+                    </div>
+                    <button ng-click="savePaymentTerms('bags')" ng-hide="inputField=='view'" ng-disabled="country.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>

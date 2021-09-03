@@ -1,0 +1,60 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+            <h3 class="heading_cls">Payment Terms Table</h3>
+         <hr class="heading_hr">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <input type="text" name="search" ng-model="paymentTerms" placeholder="Search">
+                        <button ng-click="openPop()" ng-show="loginUserAccess.setting.paymentTerms.add">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                        <th>Payment Terms</th>
+                                        <th>Created At</th>
+                                        <th style="width: 14%;" ng-show="loginUserAccess.setting.paymentTerms.view || loginUserAccess.setting.paymentTerms.edit || loginUserAccess.setting.paymentTerms.delete">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr dir-paginate="result in paymentTermsList |filter:paymentTerms|itemsPerPage:10" pagination-id="paymentTermsList">
+                                        <td>{{result.paymentTerms}}</td>
+                                        <td>{{result.createdAt | date}}</td>
+                                    <td ng-show="loginUserAccess.setting.paymentTerms.view || loginUserAccess.setting.paymentTerms.edit || loginUserAccess.setting.paymentTerms.delete">
+
+                                        <a ng-show="loginUserAccess.setting.paymentTerms.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.paymentTerms.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.paymentTerms.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls class="cus_pagination" pagination-id="paymentTermsList" max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm analysis">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <input type="text" name="commName" ng-model="myForm.paymentTerms" placeholder="Enter paymentTerms" required>
+            <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="!(myForm.paymentTerms)">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="action_btn">
+         <button ng-click="print(printSectionId)">Print</button>
+         <!-- <a ng-href="/growerDetails/{{growerId}}">Save</a> -->
+         <a ng-href="bidsheet">Back</a>
+      </div>
+      <div class="panel_body" ng-init="initBidSheet()">
+         <div class="panel_body_inner inner_box_List_add add_commodity" id="printSectionId" style="padding: 0 15px;">
+            <div class="" style="margin: 0;padding: 0 0px;width: 100%;float: left;">
+               <table class="" style="width: 100%;max-width: 100%;margin-bottom: 0px;margin-top: 0px;border-collapse: collapse;">
+                  <thead>
+                     <tr>
+                        <th style="text-align: left;font-size: 20px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 34.5%;border: 1px solid #000; ">Bid Sheet - REL, {{currentDate | date}}</th>
+                        <th style="text-align: left;font-size: 20px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 21.5%;border: 1px solid #000; ">{{myForm.bidPeriod1}}</th>
+                        <th style="text-align: left;font-size: 20px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 21.5%;border: 1px solid #000; ">{{myForm.bidPeriod2}}</th>
+                        <th style="text-align: left;font-size: 20px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">{{myForm.bidPeriod3}}</th>
+                     </tr>
+                  </thead>
+               </table>
+               <table class="" style="width: 100%;max-width: 100%;margin-bottom: 0px;margin-top: 0px;border-collapse: collapse;">
+                  <thead>
+                     <tr>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 10%;border: 1px solid #000; ">Commodity</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: 10%;border: 1px solid #000; ">Grade</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">Code</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">Max Qty</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">B/Q</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">FOB</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">Higher Bid</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">Del</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">B/Q</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">FOB</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">Higher Bid</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">Del</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">B/Q</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">FOB</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">Higher Bid</th>
+                        <th style="text-align: left;font-size: 10px;color: #000000;padding: 10px;-webkit-print-color-adjust: exact;width: auto;border: 1px solid #000; ">Del</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr style="border-bottom: 1px solid #cdcdcd;" ng-repeat="result in bidsheetList">
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.commodityId.commodityName}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.gradeId.gradeName}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.code}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.maxQuantity}} {{result.unit}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[0].bidType}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[0].bidFob}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[0].bidHb}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[0].bidDel}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[1].bidType}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[1].bidFob}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[1].bidHb}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[1].bidDel}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[2].bidType}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[2].bidFob}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[2].bidHb}}</td>
+                        <td style="color: #000000;background: #ffffff;padding: 10px;font-size: 10px;border: 1px solid #000;">{{result.bidPeriod[2].bidDel}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

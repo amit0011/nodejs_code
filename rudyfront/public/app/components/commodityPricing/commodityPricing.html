@@ -1,0 +1,379 @@
+<style type="text/css">
+  thead tr th,
+  tbody th td {
+    width: 130px;
+  }
+
+  .comodity_table {
+    overflow-x: auto;
+  }
+
+</style>
+
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+      <div class="panel_body_inner inner_box">
+        <div class="col-md-12">
+          <h6 style="text-align: center;font-size: 20px;font-weight: 700;color: #000;">Current
+            Exchange Rate - {{exchangeRate}}</h6>
+        </div>
+        <div class="col-md-12">
+          <div class="">
+            <button class="filter_btn" ng-click="excelReport()"><i class="far fa-file-excel"></i> Export Excel</button>
+            <datepicker style="width: auto;float: right;margin-left: 8px;clear: none;" class="date_pic"
+              date-format="yyyy-MM-dd" selector="form-control">
+              <div class="input-group">
+                <input class="form-control" ng-model="searchForm.date" placeholder="Choose report date"
+                  autocomplete="off" />
+              </div>
+            </datepicker>
+            <button class="filter_btn" ng-show="loginUserAccess.sales.commodityPricing.add" ng-click="openPop()">ADD <i
+                class="fas fa-plus-circle"></i></button>
+          </div>
+          <div class="tbl" style="width: 12%!important;">
+            <label>Commodity</label>
+            <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="commodity"
+              ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+              ng-model="searchModel.commodityId" ng-change="initPricing(1);">
+              <option value="">Select Commodity</option>
+            </select>
+          </div>
+
+          <div class="tbl" style="width: 12%;max-width: 135px;margin-left: 20%;">
+            <label>Shipping Period From</label>
+            <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="shippingPeriodFrom"
+              ng-options="month as month for month in months"
+              ng-model="defaultForm.shippingPeriodFrom">
+              <option value="">-- Select --</option>
+            </select>
+          </div>
+          <div class="tbl" style="width: 12%;max-width: 135px;">
+            <label>Shipping Period To</label>
+            <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="shippingPeriodTo"
+              ng-options="month as month for month in months"
+              ng-model="defaultForm.shippingPeriodTo">
+              <option value="">-- Select --</option>
+            </select>
+          </div>
+          <div class="tbl" style="width: auto;margin-top: 20px;">
+            <button class="filter_btn" ng-show="loginUserAccess.sales.commodityPricing.add" ng-click="applyDefault()">Apply Default</button>
+          </div>
+          <div class="comodity_table">
+            <table class="table table-striped commodity_table table_body_scroll table-responsive">
+              <thead>
+                <tr>
+                  <th>Commodity</th>
+                  <th>Grade</th>
+                  <th>Year</th>
+                  <th>Shipping Period (From)</th>
+                  <th>Shipping Period (To)</th>
+                  <th>Quantity (FCLS)</th>
+                  <th>Currency</th>
+                  <th>Price</th>
+                  <th>Unit</th>
+                  <th>Price Per CWT</th>
+                  <th>Margin</th>
+                  <th>Target FOB</th>
+                  <th>Bagged USD/CWT FOB Plant</th>
+                  <th>Bagged USD/MT FOB Plant</th>
+                  <th>Bulk USD/MT FOB Plant</th>
+                  <th>Bagged USD/MT Montreal</th>
+                  <th>Bagged USD/MT Vancouver</th>
+                  <th>Bulk USD/MT Montreal</th>
+                  <th>Bulk USD/MT Vancouver</th>
+                  <th
+                    ng-if="loginUserAccess.sales.commodityPricing.view || loginUserAccess.sales.commodityPricing.edit || loginUserAccess.sales.commodityPricing.delete">
+                    Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="result in priceList" ng-class="{'selected':$index == selectedRow}">
+                  <td data-ng-hide="editMode">{{result.commodityId.commodityName}}</td>
+                  <td data-ng-show="editMode">
+                    <select name="commodity"
+                      ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                      ng-model="result.commodityId._id" ng-change="getGrade(result.commodityId._id)">
+                    </select>
+                  </td>
+                  <td data-ng-hide="editMode">{{result.gradeId.gradeName}}</td>
+                  <td data-ng-show="editMode">
+                    <select name="grade" ng-options="grade._id as grade.gradeName for grade in grades"
+                      ng-model="result.gradeId._id">
+                    </select>
+                  </td>
+                  <td data-ng-hide="editMode">{{result.cropYear}}</td>
+                  <td data-ng-show="editMode">
+                    <select style="width: 100px;" ng-options="cropYear as cropYear for cropYear in cropYears"
+                      class="form-control" ng-model="result.cropYear">
+                      <option value="">Select Year</option>
+                    </select>
+                  </td>
+                  <td data-ng-hide="editMode">{{result.shippingPeriodFrom}}</td>
+                  <td data-ng-show="editMode">
+                    <select ng-options="month as month for month in months" ng-disabled="result.default"
+                      class="hal_slt lt_slt" ng-model="result.shippingPeriodFrom">
+                    </select>
+                    <div style="margin-top: 10px;">
+                      <label class="grop_rad_check" style="font-size: medium;font-weight: normal;">
+                        <input type="checkbox" ng-model="result.default"
+                          ng-click="result.shippingPeriodEntry = result.default ? 'Default' : 'Mannual'">
+                        <span class="checkmark"></span>
+                        Default
+                      </label>
+                    </div>
+                  </td>
+                  <td data-ng-hide="editMode">{{result.shippingPeriodTo}}</td>
+                  <td data-ng-show="editMode">
+                    <select ng-options="month as month for month in months" ng-disabled="result.default"
+                      class="hal_slt" ng-model="result.shippingPeriodTo">
+                    </select>
+                    <div style="margin-top: 10px;">
+                      <label class="grop_rad_check" style="font-size: medium;font-weight: normal;">
+                        <input type="checkbox" ng-model="result.default"
+                          ng-click="result.shippingPeriodEntry = result.default ? 'Default' : 'Mannual'">
+                        <span class="checkmark"></span>
+                        Default
+                      </label>
+                    </div>
+                  </td>
+                  <td data-ng-hide="editMode">{{result.priceAsPer=='Quantity'?result.quantity:result.priceAsPer}}
+                    {{result.priceAsPer=='Quantity'?result.quantityUnit:''}}</td>
+                  <td data-ng-show="editMode">
+                    <div>
+                      <input style="width: 108px;margin: 0px 0 2px 0px;" class="hal_ip" ng-model="result.quantity"
+                        numbers-only type="text" placeholder="Enter quantity" name="price"
+                        ng-disabled="result.priceAsPer == 'Quote Only'">
+                      <select class="hal_slt" ng-model="result.quantityUnit"
+                        ng-disabled="result.priceAsPer == 'Quote Only'">
+                        <option value="FCLS">FCLS</option>
+                        <option value="CWT">CWT</option>
+                        <option value="MT">MT</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="grop_rad_check">
+                        <input type="checkbox" ng-model="result.checked" ng-checked="result.priceAsPer == 'Quote Only'"
+                          ng-click="updatePricePer(result)">
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </td>
+                  <td data-ng-hide="editMode">{{result.currencyType}}</td>
+                  <td data-ng-show="editMode">
+                    <select class="hal_slt" ng-model="result.currencyType" required>
+                      <option value="CAD">CAD</option>
+                      <option value="USD">USD</option>
+                    </select>
+                  </td>
+
+
+                  <td data-ng-hide="editMode">${{result.price | number:2}}</td>
+                  <td data-ng-show="editMode">
+                    <input style="width: 108px;margin: 0px 0 2px 0px;" class="hal_ip" ng-model="result.price"
+                      numbers-only type="text" placeholder="Enter Price" name="price" ng-change="calCWD(result.price)">
+                    <select class="hal_slt" ng-model="result.unit" ng-change="calCWD(result.unit)">
+
+                      <option value="CWT">CWT</option>
+                      <option value="Bu">Bu</option>
+                    </select>
+                  </td>
+                  <td>{{result.unit}}</td>
+                  <td>${{result.cdnCwt | number:2}}</td>
+                  <td data-ng-hide="editMode">${{result.margin | number:2}}</td>
+                  <td data-ng-show="editMode">
+                    <input style="width: 80px;" type="text" name="margin" numbers-only placeholder="Enter Margin"
+                      ng-model="result.margin">
+                  </td>
+                  <td>${{result.targetFOB | number:2}}</td>
+                  <td>${{result.bagged_USD_CWT_FOBPlant | number:2}}</td>
+                  <td>${{result.bagged_USD_MT_FOBPlant | number:2}}</td>
+                  <td>${{result.bulk_USD_MTFOBPlant | number:2}}</td>
+                  <td>${{result.bagged_USD_MT_Montreal | number:2}}</td>
+                  <td>${{result.bagged_USD_MT_Vancouver | number:2}}</td>
+                  <td>${{result.bulk_USD_MT_Montreal | number:2}}</td>
+                  <td>${{result.bulk_USD_MT_Vancouver | number:2}}</td>
+
+                  <td
+                    ng-show="loginUserAccess.sales.commodityPricing.view ||loginUserAccess.sales.commodityPricing.edit || loginUserAccess.sales.commodityPricing.delete">
+                    <span style="width: 100%;float: left;font-size: 12px;">
+                      <a data-ng-hide="editMode || !loginUserAccess.sales.commodityPricing.view"
+                        ng-click="openPop(result,'view')" class="delete_detail_bidSheet">
+                        <i style="width: 20px;" class="fa fa-eye" aria-hidden="true"></i>
+                      </a>
+
+                      <a class="delete_detail_bidSheet"
+                        data-ng-hide="editMode || !loginUserAccess.sales.commodityPricing.edit"
+                        data-ng-click="editMode = true; editAppKey(result)">
+                        <i style="width: 13px;" class="fas fa-pen-square"></i>
+                      </a>
+
+                      <a class="delete_detail_bidSheet" data-ng-show="editMode" data-ng-click="saveField(result)"
+                        ng-disabled="!result.price || !result.margin || !result.currencyType">
+                        <i style="margin: 4px 0 0 4px;font-size: 25px;" class="fas fa-save"></i>
+                      </a>
+                      <a class="delete_detail_bidSheet" data-ng-show="editMode"
+                        data-ng-click="editMode = false; cancel()">
+                        <i style="margin: 4px 0 0 4px;font-size: 25px;" class="fas fa-window-close"></i>
+                      </a>
+
+                      <a style="font-size: 15px;margin-right: 5px;"
+                        data-ng-hide="editMode || !loginUserAccess.sales.commodityPricing.delete"
+                        class="delete_detail_bidSheet" ng-click="delete(result._id)">
+                        <i style="width: 13px;" class="fa fa-trash" aria-hidden="true"></i>
+                      </a>
+
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup_overlay"></div>
+    <div class="add_coomm">
+      <div class="head_comm head_2">
+        <h2>{{inputField}} Commodity Pricing</h2>
+        <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+      <div class="panel_body">
+        <div class="panel_body_inner inner_box_List_add">
+          <div class="col-md-12">
+            <div class="add_commodity">
+              <form name="commodityPrice" novalidate>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Select Commodity</label>
+                      <select ng-disabled="inputField=='view'" class="form-control" name="commodity"
+                        ng-options="commodity._id as commodity.commodityName for commodity in commoditys" track by
+                        commodityType ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)" required>
+                        <option value="">Select Commodity</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="com_pac">
+                      <label>Select Grade</label>
+                      <select ng-disabled="inputField=='view'" class="form-control" name="grade"
+                        ng-options="grade._id as grade.gradeName for grade in grades" track by gradeName"
+                        ng-model="myForm.gradeId" required>
+                        <option value="">Select Grade</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="com_pac">
+                  <label>Crop Year</label>
+                  <select ng-disabled="inputField=='view'" class="form-control" ng-model="myForm.cropYear"
+                    ng-options="cropYear as cropYear for cropYear in cropYears" required>
+                    <option value="">Select Crop Year</option>
+                  </select>
+                </div>
+                <div class="com_pac">
+                  <label>Shipping Period</label>
+                  <select ng-disabled="inputField=='view'" class="hal_slt lt_slt" ng-model="myForm.shippingPeriodFrom"
+                    required>
+                    <option value="">Select Shipping Period From</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                  </select>
+                  <select ng-disabled="inputField=='view'" class="hal_slt" ng-model="myForm.shippingPeriodTo" required>
+                    <option value="">Select Shipping Period To</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                  </select>
+                </div>
+
+                <div class="com_pac pro_con">
+                  <label class="priceAsPer">Price as Per</label>
+                  <div class="radio_check_cls quantity">
+                    <label class="slt_usrs slt_one">
+                      <input ng-disabled="inputField=='view'" type="radio" name="priceAsPer"
+                        ng-model="myForm.priceAsPer" value="Quantity">
+                      <span class="checkmark"></span> Quantity
+                    </label>
+                    <label class="slt_usrs">
+                      <input ng-disabled="inputField=='view'" type="radio" ng-model="myForm.priceAsPer"
+                        name="priceAsPer" value="Quote Only">
+                      <span class="checkmark"></span> Quote Only
+                    </label>
+                  </div>
+                </div>
+                <div class="com_pac" ng-show="myForm.priceAsPer=='Quantity'">
+                  <label style="width: 33%;">Quantity/Unit</label>
+                  <input ng-disabled="inputField=='view'" class="hal_ip" ng-model="myForm.quantity" numbers-only
+                    type="text" placeholder="Enter Quantity" name="quantity">
+                  <select ng-disabled="inputField=='view'" class="hal_slt" ng-model="myForm.quantityUnit">
+                    <option value="">Select Unit</option>
+                    <option value="FCLS">FCLS</option>
+                    <option value="CWT">CWT</option>
+                    <option value="MT">MT</option>
+                  </select>
+                </div>
+                <div class="com_pac">
+                  <label style="width: 33%;">Price</label>
+                  <input ng-disabled="inputField=='view'" class="hal_ip" ng-model="myForm.price" numbers-only
+                    type="text" placeholder="Enter Price" name="price" ng-change="calCWD()" required>
+                  <select ng-disabled="inputField=='view'" class="hal_slt" ng-model="myForm.unit" ng-change="calCWD()"
+                    required>
+                    <option value="">Select Unit</option>
+                    <option value="CWT">CWT</option>
+                    <option value="Bu">Bu</option>
+                  </select>
+                </div>
+                <div class="com_pac">
+                  <label style="width: 30%;">Currency</label>
+                  <select ng-disabled="inputField=='view'" class="hal_slt" ng-model="myForm.currencyType" required>
+                    <option value="">Select currency</option>
+                    <option value="CAD">CAD</option>
+                    <option value="USD">USD</option>
+                  </select>
+
+                </div>
+                <div class="com_pac">
+                  <label>Price Per CWT</label>
+                  <input ng-disabled="inputField=='view'" type="text" name="cdnCwt" numbers-only
+                    placeholder="Enter price per CWT" ng-model="myForm.cdnCwt" required>
+                </div>
+                <div class="com_pac">
+                  <label>Margin</label>
+                  <input ng-disabled="inputField=='view'" type="text" name="margin" numbers-only
+                    placeholder="Enter Margin" ng-model="myForm.margin" required>
+                </div>
+                <button ng-click="submit()" ng-disabled="commodityPrice.$invaild"
+                  ng-hide="inputField=='view' || inputField=='edit'">Submit</button>
+                <button ng-disabled="commodityPrice.$invaild" ng-show="inputField=='edit'" ng-click="saveChanges()">Save
+                  Changes</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

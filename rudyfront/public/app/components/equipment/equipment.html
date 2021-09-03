@@ -1,0 +1,95 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <a ng-click="delete()" ng-show="arr.length!=0 && loginUserAccess.setting.equipment.delete"><i class="fas fa-trash-alt delete_comm"></i></a>
+                        <input type="text" name="search" ng-model="equipmentName" ng-change="searchEquipment()" placeholder="Search">
+                        <button ng-show="loginUserAccess.setting.equipment.add" ng-click="openPop('add')">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">
+                                        <label class="slt_usrs" style="height: 18px;">
+                                            <input type="checkbox" ng-click="selectAll()">
+                                            <span class="checkmark"></span>
+                                        </label></th>
+                                        <th>Loading Port Name</th>
+                                        <th>Equipment Name</th>
+                                        <th>Equipment Type</th>
+                                        <th>CreatedAt</th>
+                                        <th ng-show="loginUserAccess.setting.equipment.delete||loginUserAccess.setting.equipment.edit||loginUserAccess.setting.equipment.view">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="example-animate-container">
+                                <tr ng-repeat="result in equipmentList" class="animate-repeat">
+                                    <td>
+                                        <label class="slt_usrs">
+                                            <input type="checkbox" ng-model="selected[result._id]" ng-false-value="undefined" ng-click="checkBox(result._id,selected[result._id])">
+                                            <span class="checkmark"></span>
+                                        </label></td>
+                                        <td>{{result.loadingPortId.loadingPortName}}</td>
+                                        <td>{{result.equipmentName}}</td>
+                                        <td>{{result.equipmentType}}</td>
+                                        <td>{{result.createdAt | date}}</td>
+                                        <td ng-show="loginUserAccess.setting.equipment.delete||loginUserAccess.setting.equipment.edit||loginUserAccess.setting.equipment.view">
+                                        <a ng-show="loginUserAccess.setting.equipment.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.equipment.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.equipment.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging
+                            page="page" 
+                            page-size="10" 
+                            total="totalPages"
+                            paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm analysis">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <div class="com_pac">
+                <label>Loading Port</label>
+                <select name="country" ng-options="port._id as port.loadingPortName for port in loadingPortList"  ng-model="myForm.loadingPortId">
+                    <option value="">Select Loading Port</option>
+                </select>
+            </div>
+            <div class="com_pac">
+                <label>Equipment Name</label>
+                <input type="text" name="commName" ng-model="myForm.equipmentName" placeholder="Enter Equipment Name" required>
+            </div>
+            <div class="com_pac">
+                <label>Equipment Type</label>
+                <select ng-model="myForm.equipmentType">
+                    <option value="">Select Equipment Type</option>
+                    <option value="Ocean">Ocean</option>
+                    <option value="Inland">Inland</option>
+                    <option value="Inland Ocean">Inland Ocean</option>
+                </select>
+            </div>
+            <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="!(myForm.equipmentName)">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+        </div>
+    </div>
+</div>

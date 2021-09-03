@@ -1,0 +1,184 @@
+<style type="text/css">
+  .fixed {
+    position: fixed;
+    top: 98px;
+    width: 96%;
+  }
+
+  .panel_body_inner.inner_box {
+    position: relative;
+  }
+
+  .width-2000 {
+    width: 2000px
+  }
+
+  @media (min-width:1500px) {
+    .width-2000 {
+      width: 100%
+    }
+  }
+
+  .width-2000>div:nth-child(2)>b {
+    margin-top: 70px !important;
+  }
+
+  b {
+    color: #000
+  }
+
+</style>
+
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" style="height: 89%;">
+      <div class="panel_body_inner inner_box">
+        <div class="">
+          <ul class="nav nav-pills nav-stacked row"
+            style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;"
+            class="page">
+            <li>
+              <b>Production Contract Summary</b>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="tabla_header">
+                <div class="tbl" style="width: 15%!important;">
+                  <label>Commodity</label>
+                  <select name="commodity"
+                    ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                    ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)" style="width: 100%">
+                    <option value="">Select Commodity</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>Grade</label>
+                  <select ng-disabled="!myForm.commodityId" name="grade"
+                    ng-options="grade._id as grade.gradeName for grade in grades" ng-model="myForm.gradeId"
+                    style="width: 100%" ng-change="gradeFilter(myForm.gradeId)">
+                    <option value="">Select Grade</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 10%!important;">
+                  <label>Crop Year</label>
+                  <select ng-model="myForm.cropYear" ng-change="cropYearFilter(myForm.cropYear)"
+                    ng-options="cropYear as cropYear for cropYear in cropYears" style="width: 100%">
+                    <option value="">Crop Year</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 11%!important;">
+                  <label>Status</label>
+                  <select ng-model="myForm.status" style="width: 100%" ng-change="statusFilter(myForm.status)">
+                    <option value="">Active/Completed</option>
+                    <option value="0">Active</option>
+                    <option value="1">Completed</option>
+                    <option value="2">Void</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 15%!important;">
+                  <label>Price Option</label>
+                  <select ng-model="myForm.priceOption" style="width: 100%"
+                    ng-change="priceOptionFilter(myForm.priceOption)">
+                    <option value="">Select Price Option</option>
+                    <option value="Fixed">Fixed</option>
+                    <option value="Agreed">Agreed</option>
+                    <option value="Pooled">Pooled</option>
+                  </select>
+                </div>
+                <button ng-click="clear()">Clear</button>
+                <button ng-click="exportToXl()">EXPORT to XL</button>
+                <button ng-click="print()">EXPORT to PDF</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:87%; margin: 0 auto;padding: 0;display: block;width:100%;overflow: scroll;margin-top: 10px;"
+          id="printSectionId">
+          <style type="text/css">
+            @media print {
+              @page {
+                size: A4 landscape;
+              }
+
+              img {
+                height: 90%;
+                margin: 0;
+                padding: 0;
+              }
+            }
+
+          </style>
+          <div class="width-2000"
+            style="margin: 0;padding:0 15px 15px 15px;float: left;border: 1px solid #bfbfbf;background: #ffffff;">
+            <div
+              style="background: #fff;position: fixed;margin: 0 0 12px 0;padding: 12px;float: left;width: 96%;border-bottom: 3px solid;margin-left: -15px;">
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Contract Number</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Date</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Seller Name</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Acres</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Fixed Qty</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Total Qty</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Price</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Unit</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Price/CWT</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">CWT Del</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Weighted AVG(CWT)</b>
+              <b style="width: 8.09%;margin: 0;padding: 0;float: left;">Status</b>
+            </div>
+            <div ng-repeat="contract in productReport">
+              <b
+                style="width: 100%;margin: 0;padding: 0;float: left;font-weight: 800;font-size: 18px;">{{contract._id.commodityName}}</b>
+              <div style="margin: 0 0 12px 0;padding: 0 0 12px 0;float: left;width: 100%;"
+                ng-repeat="result in contract.list">
+                <b style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;"><a href="{{result.pdfUrl}}"
+                    target="_blank">{{result.contractNumber}}</a></b>
+                <b
+                  style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;">{{result.createdAt | date}}</b>
+                <b style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;"><a
+                    ng-href="/growerDetails/{{result.growerId._id}}">{{ result.personFarmType=='Farm' ? result.growerId.farmName : result.growerId.firstName + ' ' + result.growerId.lastName}}</a></b>
+                <b
+                  style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;padding-left: 10px">{{result.acres || 0}}</b>
+                <b
+                  style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;">{{result.fixedOnFirst || 0}}</b>
+                <b
+                  style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;">{{result.quantityLbs || 0}}</b>
+                <b
+                  style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;">{{(result.fixedPrice || 0) | number:2}}</b>
+                <b
+                  style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;">{{result.fixedPriceUnit || 'N/A'}}</b>
+                <b style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;">{{getPriceCWT(result)}}</b>
+                <b
+                  style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;">{{(result.CWTDel | number:4) || 0}}</b>
+                <b
+                  style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;text-align: center;">{{getWeightedAVG(contract,result)}}</b>
+                <b
+                  style="width: 8.09%;margin: 0;padding: 0;float: left;font-weight: 400;text-align: center;">{{result.status==0?'Active':result.status==1?'Complete':result.status==2?'Void':''}}</b>
+
+              </div>
+              <div style="margin: 0 0 5px 0;padding: 0;float: left;width: 100%;">
+                <b style="width: 18%;margin: 0 0 0 3%;padding: 0;float: left;font-weight: 700;padding-left: 2%">Total
+                  for {{contract._id.commodityName}}
+                </b>
+                <b style="width: 5%;margin: 0;padding: 0;float: left;font-weight: 700;margin:0 1% 0 2%"><i
+                    style="font-style: normal;border-top: 2px solid #000;width: 100%;float: left;padding-left: 15px">{{contract.totalAcres}}</i>
+                </b>
+                <b style="width: 4%;margin: 0;padding: 0;float: left;font-weight: 700;margin: 0 0 0 160px;"><i
+                    style="padding: 0 20px;font-style: normal;border-top: 2px solid #000;width: 100px;float: left;">{{contract.totalQuantityLbs}}</i>
+                </b>
+                <b style="width: 6%;margin: 0 0 0 39%;padding: 0;float: left;font-weight: 700;text-align: center;"><i
+                    style="font-style: normal;border-top: 2px solid #000;width: 100%;float: left;">{{totalAvgCWT(contract)}}</i>
+                </b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

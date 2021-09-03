@@ -1,0 +1,1606 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body">
+         <h3 class="heading_cls">
+            Buyer Details</h3>
+         <hr class="heading_hr">
+         <div class="panel_body_inner inner_box">
+            <div class="col-md-12">
+               <div class="enter_comm_typ">
+                  <div class="panel_body">
+                     <div class="panel_body_inner inner_box_List_add pop">
+                        <div class="col-md-12">
+                           <div class="add_commodity add_growers_form growers_detail">
+                              <form name="addCommdity">
+                                 <div class="row">
+                                    <div class="col-md-6 px-0" >
+                                      <div style="border: 2px solid rgb(0, 126, 78); background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" class="px-2">
+                                       <div class="row">
+                                          <a style="cursor: pointer;" title="Buyer Address List"
+                                             ng-click="openBuyerPop(buyerDetails,'buyerAddressList')"
+                                             ng-show="loginUserAccess.sales.buyers.edit">
+                                             <i style="float: right;font-size: 20px;margin: 1px 12px 0 0;color: #007e4e;"
+                                                class="fa fa-eye" aria-hidden="true"></i>
+                                          </a>
+                                          <a style="cursor: pointer;" ng-click="openBuyerPop(buyerDetails,'edit')"
+                                             ng-show="loginUserAccess.sales.buyers.edit">
+                                             <i style="float: right;font-size: 20px;margin: 1px 3px 0 0;color: #007e4e;"
+                                                class="fas fa-pen-square" aria-hidden="true"
+                                                ng-click="openBuyerPop(buyerDetails,'edit')"></i>
+                                          </a>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Business Name</div>
+                                          <div class="col-md-3">{{buyerDetails.businessName}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Phone Number</div>
+                                          <div class="col-md-3">{{buyerDetails.phone}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Email</div>
+                                          <div class="col-md-3"><a ng-href="mailto:{{ buyerDetails.email }}"
+                                                target="_blank">{{buyerDetails.email}}</a></div>
+                                          <div class="col-md-3" style="font-weight: 600;">Website</div>
+                                          <div class="col-md-3"><a
+                                                ng-href="{{buyerDetails.email}}">{{buyerDetails.website}}</a> </div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Cell Number</div>
+                                          <div class="col-md-3">{{buyerDetails.cellNumber}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Fax Numer</div>
+                                          <div class="col-md-3">{{buyerDetails.fax}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Street</div>
+                                          <div class="col-md-3">
+                                            {{buyerDetails.addresses[0].street}}<br/>
+                                            {{buyerDetails.addresses[0].line2}}<br/>
+                                            {{buyerDetails.addresses[0].line3}}
+                                          </div>
+                                          <div class="col-md-3" style="font-weight: 600;">City</div>
+                                          <div class="col-md-3">{{buyerDetails.addresses[0].city}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Postal</div>
+                                          <div class="col-md-3">{{buyerDetails.addresses[0].postal}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Province</div>
+                                          <div class="col-md-3">{{buyerDetails.addresses[0].province}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Country</div>
+                                          <div class="col-md-3">{{buyerDetails.addresses[0].country}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Phone2</div>
+                                          <div class="col-md-3">{{buyerDetails.phone2}}</div>
+                                       </div>
+                                       <h4>Other Address</h4>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Street</div>
+                                          <div class="col-md-3">{{buyerDetails.addresses[1].street}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">City</div>
+                                          <div class="col-md-3">{{buyerDetails.addresses[1].city}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Postal</div>
+                                          <div class="col-md-3">{{buyerDetails.addresses[1].postal}}</div>
+                                          <div class="col-md-3" style="font-weight: 600;">Province</div>
+                                          <div class="col-md-3">{{buyerDetails.addresses[1].province}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Country</div>
+                                          <div class="col-md-3">{{buyerDetails.addresses[1].country}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;font-weight: 800;">
+                                          <div class="col-md-3">Assign User</div>
+                                          <div class="col-md-3">{{buyerDetails.assignedUserId.fullName}}</div>
+                                          <div class="col-md-3">EDC</div>
+                                          <div class="col-md-3">{{buyerDetails.edcId.name}}</div>
+                                       </div>
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Tax</div>
+                                          <div class="col-md-3">{{buyerDetails.tax}}</div>
+
+                                       </div>
+
+                                       <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+                                          <div class="col-md-3" style="font-weight: 600;">Documents</div>
+                                          <div class="col-md-9">
+                                             <span
+                                                ng-repeat="docs in buyerDetails.documents">{{docs.documents}}{{$last?'':' , '}}</span>
+                                          </div>
+                                       </div>
+                                      </div>
+
+                                      <div class="alert alert-danger mt-2 p-0">
+                                        <div class="pr-2" style="display:flex;justify-content:space-between;align-items: center;">
+                                          <div class="py-3 px-2 mr-2" style="flex: auto;" contenteditable ng-model="buyerDetails.note"></div>
+                                          <span ng-hide="buyerDetails.note == cachedNote" ng-click="saveNote()">
+                                            <i class="fa fa-save" style="font-size: 16px;cursor: pointer;"></i>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                       <div style="border: 2px solid #007e4e;height: 17.6em;background-color: #ffff;">
+                                          <div style="max-height: 19em;overflow: scroll;">
+                                             <div
+                                                style="width: 100%;border-bottom: 1px solid;padding: 6px;color: black;"
+                                                ng-repeat="note in phoneNoteList">
+                                                <span
+                                                   style="word-break: break-all;font-size: 15px;">{{note.message}}</span><br>
+                                                <span style="margin: 0 0 0 70%;font-size: 10px;">{{note.fullName}}
+                                                   {{note.createdAt | date:'medium'}}</span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div
+                                          style="border: 2px solid #007e4e;height: 4em;background-color: #ffff;float: left;width: 95.5%;position: absolute;left: 2.2%;">
+                                          <div style="width: 100%;">
+                                             <input style="margin: 14px 0 0px 8px;width: 93%;" type="" name=""
+                                                ng-model="myForm.message" placeholder="Enter here"
+                                                ng-enter="phoneNoteSubmit()">
+                                             <a ng-click="phoneNoteSubmit()"
+                                                style="color: #007e4e; margin: 13px 0 0 0;padding: 3px 3px 4px 4px;line-height: 2;font-size: 24px;cursor: pointer;"><i
+                                                   class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="comodity_table" style="margin:40px 0 0 0;">
+                                    <div class="head_of_table">
+                                       <h2>EMPLOYEES</h2>
+                                       <button ng-show="loginUserAccess.sales.buyers.add" class="button_cls"
+                                          ng-click="openPop()">ADD EMPLOYEES</button>
+                                    </div>
+                                    <table class="table table-striped commodity_table">
+                                       <thead>
+                                          <tr>
+                                             <th>First Name</th>
+                                             <th>Last Name</th>
+                                             <th>Title</th>
+                                             <th>Phone</th>
+                                             <th>Cell Number</th>
+                                             <th>Email</th>
+                                             <th
+                                                ng-show="loginUserAccess.sales.buyers.view || loginUserAccess.sales.buyers.edit || loginUserAccess.sales.buyers.delete">
+                                                Action</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr ng-repeat="employes in employeesList">
+                                             <td>{{employes.firstName}}</td>
+                                             <td>{{employes.lastName}}</td>
+                                             <td>{{employes.title}}</td>
+                                             <td>{{employes.phone}}</td>
+                                             <td>{{employes.cellNumber}}</td>
+                                             <td>
+                                                <span ng-if="employes.subscribeEmail == true" title="Subscribed Email">
+                                                   <i class="fas fa-check-square" style="color:green;"></i>
+                                                </span> &nbsp;
+                                                {{employes.email}}</td>
+                                             <td class="action_cls"
+                                                ng-show="loginUserAccess.sales.buyers.view || loginUserAccess.sales.buyers.edit || loginUserAccess.sales.buyers.delete">
+                                                <a ng-show="loginUserAccess.sales.buyers.delete" class="delete_detail"
+                                                   ng-click="delete(employes._id)">
+                                                   <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </a>
+                                                <a ng-show="loginUserAccess.sales.buyers.edit" class="edit_details"
+                                                   ng-click="openPop(employes,'edit')">
+                                                   <i class="fas fa-pen-square"></i>
+                                                </a>
+                                                <a ng-show="loginUserAccess.sales.buyers.view"
+                                                   ng-click="openPop(employes,'view')" class="veiw_detail">
+                                                   <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <div paging page="page" page-size="5" total="totalPages"
+                                       paging-action="DoCtrlPagingAct('bar', page)">
+                                    </div>
+                                 </div>
+                                 <div class="comodity_table">
+                                    <div class="head_of_table">
+                                       <h2>QUOTES</h2>
+                                       <a ng-show="quotes.length!=0" ng-click="sendMailFunction(quotes[0])"
+                                          class="button_cls" style="cursor: pointer;">SEND MAIL</a>
+                                       <a ng-show="loginUserAccess.sales.buyers.add"
+                                          ng-href="/addQuote/buyer/{{buyerId}}" class="button_cls">ADD QUOTES</a>
+
+                                       <div style="float: right;width: 30%;margin: 0 0 0 35px;">
+                                          <label style="float: left;margin: 9px 9px 0 0;">Quote Frequency</label>
+                                          <div style="border: 1px solid black;background-color: #fff;margin: 4px 0 0 0;"
+                                             class="multi_cls" isteven-multi-select input-model="dayList"
+                                             output-model="buyerDetails.days" button-label="dayName"
+                                             item-label="dayName" max-labels="2" tick-property="ticked"
+                                             on-item-click="assignUserFunction(buyerDetails)">
+                                          </div>
+                                       </div>
+                                       <div style="text-align: right;float: right;width: 31%;margin: 8px 0 0 0;">
+                                          <label style="margin-right: 6px;">
+                                             <input type="checkbox" name="" value="" ng-model="buyerDetails.weatherMap"
+                                                style="width: auto;display: inline-block;margin-right: 10px;margin-top: 2px">
+                                             Weather Map
+                                          </label>
+                                          <label>
+                                             <input type="checkbox" name="" value="" ng-model="buyerDetails.plantImage"
+                                                style="width: auto;display: inline-block;margin-right: 10px;margin-top: 2px">
+                                             Plant Image
+                                          </label>
+                                       </div>
+                                    </div>
+                                    <table class="table table-striped commodity_table">
+                                       <thead>
+                                          <tr>
+                                             <th>Quote No.</th>
+                                             <th>Currency</th>
+                                             <th>Created Date</th>
+                                             <th>Send Email Date</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr dir-paginate="quote in quotes |itemsPerPage:5" pagination-id="qutes">
+                                             <td><a ng-href="{{quote.pdfUrl}}" target="{{quote._id}}">{{quote.quoteNumber}}</a></td>
+                                             <td>{{quote.currency}}</td>
+                                             <td>{{quote.createdAt | date :'MMM dd,yyyy'}}</td>
+                                             <td>{{quote.emailDate | date :'MMM dd,yyyy'}}</td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <dir-pagination-controls class="cus_pagination" pagination-id="qutes" max-size="5"
+                                       direction-links="true" boundary-links="true"></dir-pagination-controls>
+                                 </div>
+                                 <div class="comodity_table">
+                                    <div class="head_of_table">
+                                       <h2>SALES CONTRACT</h2>
+                                       <a ng-show="loginUserAccess.sales.salesContract.add" class="button_cls"
+                                          ng-href="/addSalesContract/{{buyerDetails._id}}">ADD SALES CONTRACT</a>
+                                    </div>
+                                    <table class="table table-striped commodity_table">
+                                       <thead>
+                                          <tr>
+                                             <th>Date</th>
+                                             <th>Contract Number</th>
+                                             <th>Documents</th>
+                                             <th>Commodity</th>
+                                             <th>Grade</th>
+                                             <th>Contracted Qty(Lbs)</th>
+                                             <th>Shipped Qty(Lbs)</th>
+                                             <th>Outstanding Qty(Lbs)</th>
+                                             <th>Status</th>
+                                             <th>Get Sales Stamp</th>
+                                             <th>Signed Contract</th>
+                                             <th>Email</th>
+                                             <th>Email Date</th>
+                                             <th
+                                                ng-show="loginUserAccess.sales.salesContract.edit || loginUserAccess.sales.salesContract.view">
+                                                Action</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr dir-paginate="salesContract in salesContractList |filter:commodityType|itemsPerPage:5"
+                                             pagination-id="salesContractList">
+                                             <td ng-class="contractClass(salesContract)">
+                                                {{salesContract.date | date:'dd/MM/yyyy'}}</td>
+
+                                             <td><a href="{{salesContract.pdfUrl}}" target="_blank"
+                                                   ng-class="contractClass(salesContract)">{{salesContract.contractNumber}}</a>
+                                             </td>
+                                             <td>
+                                              <a ng-show="salesContract.signedContractPdf" href="{{salesContract.signedContractPdf}}"
+                                                target="_blank" style="cursor: pointer;">
+                                                SC
+                                              </a>
+                                              <span ng-show="salesContract.signedContractPdf && salesContract.brokerNote"> - </span>
+                                              <a ng-show="salesContract.brokerNote" style="cursor: pointer;" ng-click="showBrokerNote(salesContract.brokerNote)">
+                                                <i class="fa fa-info-circle"></i>
+                                              </a>
+                                             </td>
+                                             <td ng-class="contractClass(salesContract)">
+                                                {{salesContract.commodityId.commodityName}}</td>
+                                             <td ng-class="contractClass(salesContract)">
+                                                {{salesContract.gradeId.gradeName}}</td>
+                                             <td ng-class="contractClass(salesContract)">
+                                                {{salesContract.quantityLbs|number:0}}</td>
+                                             <td ng-class="contractClass(salesContract)"> <a style="cursor: pointer;"
+                                                   ng-click="ticketList(salesContract)">{{salesContract.delQty | number:0}}</a>
+                                             </td>
+                                             <td ng-class="contractClass(salesContract)"
+                                                ng-init="outstandingQty = (salesContract.quantityLbs- salesContract.delQty)">
+                                                {{salesContract.status == 1 ? 0 : outstandingQty|number:0}}</td>
+                                             <td ng-class="contractClass(salesContract)">
+                                                <select ng-model="salesContract.status"
+                                                   ng-change="changeSalesContractStatus(salesContract)"
+                                                   ng-disabled="!loginUserAccess.sales.salesContract.edit || (salesContract.rollover && salesContract.isRollover && salesContract.status == 1) || !canChangeStatus(salesContract)">
+                                                   <option value="0">Active</option>
+                                                   <option value="1">Completed</option>
+                                                   <option value="2">Void</option>
+                                                </select>
+                                             </td>
+                                             <td><a ng-href="salesStamp/{{salesContract.buyerId._id}}/{{salesContract.contractNumber}}"
+                                                   ng-class="contractClass(salesContract)">Get Sales Stamp</a></td>
+                                             <td ng-if="salesContract.contractIsSigned == true">
+                                                <a href="{{salesContract.signedContractPdf}}" class="veiw_detail"
+                                                   style="float:left !important" target="_blank"
+                                                   ng-class="contractClass(salesContract)">View
+                                                </a>
+                                             </td>
+                                             <td style="float:left !important" ng-if="!salesContract.contractIsSigned"
+                                                ng-class="contractClass(salesContract)">Not uploaded</td>
+
+                                             <td>
+                                                <a style="cursor: pointer;"
+                                                   data-ng-style="salesContract.mailSent ? {'color':'#007e4e'} : {'color':'red'}"
+                                                   ng-click="send_mail(salesContract,'sales contract')">{{salesContract.mailSent?'Sent':'Pending'}}</a>
+                                             </td>
+
+                                             <td ng-class="contractClass(salesContract)">
+                                                {{salesContract.mailSentDate | date}}
+                                                {{salesContract.mailSentBy.fullName}}</td>
+
+                                             <td class="action_cls"
+                                                ng-show="loginUserAccess.sales.salesContract.edit || loginUserAccess.sales.salesContract.view">
+
+                                                <a ng-show="loginUserAccess.sales.salesContract.edit && !salesContract.isRollover"
+                                                   class="veiw_detail"
+                                                   ng-href="editSalesContract/{{salesContract.buyerId._id}}/{{salesContract.contractNumber}}/edit">
+                                                   <i class="fas fa-pen-square"></i>
+                                                </a>
+
+                                                <a class="veiw_detail"
+                                                   ng-show="loginUserAccess.sales.salesContract.view && !salesContract.isRollover"
+                                                   ng-href="salesHistory/{{salesContract.contractNumber}}">
+                                                   <i class="fa fa-history"></i>
+                                                </a>
+
+                                                <a ng-show="loginUserAccess.rollover.salesContract.add && salesContract.showBtnRollover && !salesContract.isRollover && outstandingQty > 0"
+                                                   ng-init="salesContract.showBtnRollover = checkIfRolloverHaveToVisible(salesContract)"
+                                                   title="Create Sales Contract Rollover" class="veiw_detail"
+                                                   ng-click="showRolloverPopup(salesContract)">
+                                                   <i class="far fa-arrow-alt-circle-right" aria-hidden="true"></i>
+                                                </a>
+                                                <a ng-click="openPopup('uploadPDF',salesContract)" class="veiw_detail" title="Upload Signed Contract">
+                                                  <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </a>
+                                             </td>
+
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <dir-pagination-controls class="cus_pagination" pagination-id="salesContractList"
+                                       max-size="5" direction-links="true" boundary-links="true">
+                                    </dir-pagination-controls>
+                                 </div>
+                                 <div class="comodity_table">
+                                    <div class="head_of_table">
+                                       <h2>TRADE PURCHASE CONTRACT</h2>
+                                       <a ng-show="loginUserAccess.sales.tradePurchaseContract.add" class="button_cls"
+                                          ng-href="/addTradePurchase/{{buyerDetails._id}}">ADD TRADE PURCHASE
+                                          CONTRACT</a>
+                                    </div>
+                                    <table class="table table-striped commodity_table">
+                                       <thead>
+                                          <tr>
+                                             <th>Date</th>
+                                             <th>Contract Number</th>
+                                             <th>Commodity</th>
+                                             <th>Grade</th>
+                                             <th>Contracted Qty(Lbs)</th>
+                                             <th>Shipped Qty(Lbs)</th>
+                                             <th>Outstanding Qty(Lbs)</th>
+                                             <th>Status</th>
+                                             <th>Sales</th>
+                                             <th>Signed Contract</th>
+                                             <th>Email</th>
+                                             <th>Email Date</th>
+                                             <th ng-show="loginUserAccess.sales.tradePurchaseContract.edit">Action</th>
+                                          </tr>
+                                       </thead>
+                                       <tbody>
+                                          <tr dir-paginate="tradePurchase in tradePurchaseList |filter:commodityType|itemsPerPage:5"
+                                             pagination-id="tradePurchaseList">
+                                             <td
+                                                data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">
+                                                {{tradePurchase.date | date:'dd/MM/yyyy'}}</td>
+
+                                             <td>
+                                                <a href="{{tradePurchase.pdfUrl}}" target="_blank"
+                                                   data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">{{tradePurchase.contractNumber}}</a>
+                                             </td>
+                                             <td
+                                                data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">
+                                                {{tradePurchase.commodityId.commodityName}}</td>
+                                             <td
+                                                data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">
+                                                {{tradePurchase.gradeId.gradeName}}</td>
+                                             <td
+                                                data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">
+                                                {{tradePurchase.quantityLbs|number:0}}</td>
+                                             <td
+                                                data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">
+                                                <a style="cursor: pointer;" ng-click="loadSheetList(tradePurchase)">
+                                                   {{tradePurchase.delQty | number:0}}</a></td>
+                                             <td
+                                                data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">
+                                                {{(tradePurchase.status == 1 ? 0 :tradePurchase.quantityLbs- tradePurchase.delQty)|number:0}}
+                                             </td>
+                                             <td
+                                                data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">
+                                                <select ng-model="tradePurchase.status"
+                                                   ng-change="changeTradePurchaseStatus(tradePurchase)"
+                                                   ng-disabled="!loginUserAccess.sales.tradePurchaseContract.edit  || !canChangeStatus(tradePurchase)">
+                                                   <option value="0">Active</option>
+                                                   <option value="1">Completed</option>
+                                                   <option value="2">Void</option>
+                                                </select>
+                                             </td>
+                                             <td>
+                                                <a ng-href="tradePurchaseStamp/{{tradePurchase._id}}/{{tradePurchase.contractNumber}}"
+                                                   data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">View</a>
+                                             </td>
+                                             <td ng-if="tradePurchase.contractIsSigned == true">
+                                                <a href="{{tradePurchase.signedContractPdf}}" class="veiw_detail"
+                                                   style="float:left !important" target="_blank"
+                                                   data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">View
+                                                </a>
+                                             </td>
+                                             <td style="float:left !important" ng-if="!tradePurchase.contractIsSigned"
+                                                data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">
+                                                Not uploaded</td>
+
+                                             <td>
+                                                <a style="cursor: pointer;"
+                                                   data-ng-style="tradePurchase.mailSent ? {'color':'#007e4e'} : {'color':'red'}"
+                                                   ng-click="send_mail(tradePurchase,'Trade purchase')">{{tradePurchase.mailSent?'Sent':'Pending'}}</a>
+                                             </td>
+
+                                             <td
+                                                data-ng-style="{'color':(tradePurchase.status=='1'?'rgb(197, 120, 17)':tradePurchase.status=='2'?'#FF3333':null)}">
+                                                {{tradePurchase.mailSentDate | date}}
+                                                {{tradePurchase.mailSentBy.fullName}}</td>
+
+                                             <td ng-show="loginUserAccess.sales.tradePurchaseContract.edit">
+                                                <a class="edit_details"
+                                                   ng-href="editTradePurchase/{{tradePurchase._id}}">
+                                                   <i class="fas fa-pen-square"></i>
+                                                </a>
+                                             </td>
+
+
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <dir-pagination-controls class="cus_pagination" pagination-id="tradePurchaseList"
+                                       max-size="5" direction-links="true" boundary-links="true">
+                                    </dir-pagination-controls>
+                                 </div>
+
+                                 <div class="comodity_table">
+                                    <div class="head_of_table">
+                                       <h2>SCALE TICKETS</h2>
+                                    </div>
+                                    <div class="comodity_table comodity_table_list">
+                                       <table class="table table-striped commodity_table" style="font-size: 14px;">
+                                          <thead>
+                                             <tr>
+                                                <th style="width: 10%;">Date</th>
+                                                <th style="width: 8%;">Ticket No.</th>
+                                                <th>Unload Time</th>
+                                                <th>Commodity</th>
+                                                <th>Buyer Name</th>
+                                                <th>Contract #</th>
+                                                <th>Gross</th>
+                                                <th>Tare</th>
+                                                <th>Unload</th>
+                                                <th>Net Weight</th>
+                                                <th style="width: 10%;"
+                                                   ng-show="loginUserAccess.truckScale.outgoing.edit || loginUserAccess.truckScale.outgoing.view || loginUserAccess.truckScale.outgoing.delete">
+                                                   Action</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr ng-repeat="result in scaleTicketList">
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   {{result.date | date}}</td>
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   RO-{{result.ticketNumber}}</td>
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   {{result.unloadTime}}</td>
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   {{result.commodityId.commodityName}}</td>
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   {{result.buyerId.businessName}}</td>
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   {{result.contractNumber}}</td>
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   {{result.grossWeight}}</td>
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   {{result.tareWeight}}</td>
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   {{result.unloadWeidht}}</td>
+                                                <td
+                                                   ng-class="(result.tareWeight==0||result.void)?'clsRed':(result.tareWeight!=0&&result.dockageCompleted==false)?'clsBlue':''">
+                                                   {{result.netWeight | number:2}}</td>
+                                                <td
+                                                   ng-show="loginUserAccess.truckScale.outgoing.edit || loginUserAccess.truckScale.outgoing.view || loginUserAccess.truckScale.outgoing.delete">
+
+                                                   <a ng-href="addscale/{{result._id}}"
+                                                      ng-show="loginUserAccess.truckScale.outgoing.edit && result.ticketType=='Incoming'"
+                                                      class="edit_details">
+                                                      <i class="fas fa-pen-square"></i>
+                                                   </a>
+                                                   <a ng-href="addoutgoingscale/{{result._id}}"
+                                                      ng-show="loginUserAccess.truckScale.outgoing.edit && result.ticketType=='Outgoing'"
+                                                      class="edit_details">
+                                                      <i class="fas fa-pen-square"></i>
+                                                   </a>
+                                                   <a ng-show="loginUserAccess.truckScale.outgoing.view"
+                                                      ng-href="{{result.pdfUrl}}" target="_blank" class="veiw_detail">
+                                                      <i class="fa fa-eye" aria-hidden="true"></i>
+                                                   </a>
+                                                </td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <div paging page-size="5" total="scaleTotalPages"
+                                          paging-action="DoCtrlPagingAct1('Scale', page)" page="scalePage"
+                                          pagination-id="scaleTicketList">
+                                       </div>
+                                    </div>
+                                 </div>
+
+
+                                 <div class="comodity_table">
+                                    <div class="head_of_table">
+                                       <h2>LOAD SHEETS</h2>
+                                       <a ng-show="loginUserAccess.truckScale.tradePurchase.add" class="button_cls"
+                                          ng-href="/addTradePurchaseScale/{{buyerDetails._id}}">ADD LOAD SHEET</a>
+                                    </div>
+                                    <div class="comodity_table comodity_table_list">
+                                       <table class="table table-striped commodity_table" style="font-size: 14px;">
+                                          <thead>
+                                             <tr>
+                                                <th style="width: 10%;">Date</th>
+                                                <th style="width: 8%;">Ticket No.</th>
+                                                <th>Unload Time</th>
+                                                <th>Commodity</th>
+                                                <th>Buyer Name</th>
+                                                <th>Contract #</th>
+                                                <th>Gross</th>
+                                                <th>Tare</th>
+                                                <th>Unload</th>
+                                                <th>Net Weight</th>
+                                                <th style="width: 10%;"
+                                                   ng-show="loginUserAccess.truckScale.tradePurchase.edit || loginUserAccess.truckScale.tradePurchase.view">
+                                                   Action</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr ng-repeat="result in tradePurchaseScaleList">
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   {{result.date | date}}</td>
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   TP-{{result.ticketNumber}}</td>
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   {{result.unloadTime}}</td>
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   {{result.commodityId.commodityName}}</td>
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   {{result.buyerId.businessName}}</td>
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   {{result.contractNumber}}</td>
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   {{result.grossWeight}}</td>
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   {{result.tareWeight}}</td>
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   {{result.unloadWeidht}}</td>
+                                                <td
+                                                   ng-class="getLoadSheetClass(result)">
+                                                   {{result.netWeight | number:2}}</td>
+                                                <td
+                                                   ng-show="loginUserAccess.truckScale.tradePurchase.edit || loginUserAccess.truckScale.tradePurchase.view">
+
+                                                   <a ng-href="editTradePurchaseScale/{{result._id}}"
+                                                      ng-show="loginUserAccess.truckScale.tradePurchase.edit"
+                                                      class="edit_details">
+                                                      <i class="fas fa-pen-square"></i>
+                                                   </a>
+                                                   <a ng-show="loginUserAccess.truckScale.tradePurchase.view"
+                                                      ng-href="tradeScaleTicketPdf/{{result._id}}" class="veiw_detail">
+                                                      <i class="fa fa-eye" aria-hidden="true"></i>
+                                                   </a>
+                                                </td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                       <div paging page="tradeScalePage" page-size="5" total="totalTradeScale"
+                                          paging-action="DoCtrlPagingAct1('Scale', page)">
+                                       </div>
+                                    </div>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Modal -->
+   <div class="popup_overlay"></div>
+   <div class="add_coomm add_pdf_qty upload-form-popup" style="width: 50%; min-width: 400px;">
+    <div class="enter_comm_typ">
+      <div class="head_comm">
+        <h2 class="ng-binding">Edit Signed Contract (SC)</h2>
+        <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+    </div>
+    <div class="panel_body">
+      <div class="panel_body_inner inner_box_List_add">
+        <div class="col-md-12">
+          <div class="add_commodity">
+            <form name="addPdfAndQtyForm_342159" enctype="multipart/form-data" method="post">
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="com_pac">
+                    <label>Upload Signed Contract:</label>
+                    <input type="file" accept="application/pdf" ng-model="uploadForm.signedContractPdf"
+                      name="signedContractPdf"
+                      onchange="angular.element(this).scope().selectFile(this, 'signedContractPdf')" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="com_pac">
+                    <label>Broker Note:</label>
+                    <textarea class="form-control" ng-model="uploadForm.brokerNote" name="brokerNote" id="comment" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="com_pac" style="justify-content:flex-end;">
+                    <button title="Upload Signed Contract" ng-click="uploadPdf('signedContractPdf')">
+                      <i class="fa fa-save"></i> Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" ng-show="errMsg">
+                <div class="col-md-12 text-center">
+                  {{errMsg}}
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="add_coomm add_pdf_qty broker-note" style="width: 50%; min-width: 400px;max-width:500px">
+    <div class="enter_comm_typ">
+      <div class="head_comm">
+        <h2 class="ng-binding">Broker Note</h2>
+        <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+    </div>
+    <div class="panel_body">
+      <div class="panel_body_inner inner_box_List_add">
+        <div class="col-md-12">
+          <div class="add_commodity">
+            <p>{{brokerNote}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="add_coomm employee">
+      <div class="head_comm head_2">
+         <h2>{{inputField}} EMPLOYEES</h2>
+         <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+      <div class="panel_body">
+         <div class="panel_body_inner inner_box_List_add">
+            <div class="col-md-12">
+               <div class="add_commodity">
+                  <form name="addEmployees">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>First Name</label>
+                              <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.firstName"
+                                 placeholder="First Name" name="firstName" ng-disabled="inputField=='view'" required>
+                              <span class="validation_error_employes"
+                                 ng-show="addEmployees.firstName.$dirty && addEmployees.firstName.$invalid">
+                                 <span class="validation_error_employes"
+                                    ng-show="addEmployees.firstName.$error.minlength">First name should be 2 and less
+                                    then 50 Characters.</span>
+                                 <span class="validation_error_employes"
+                                    ng-show="addEmployees.firstName.$error.required">First name is
+                                    required.</span></span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Last Name</label>
+                              <input type="text" maxlength="50" ng-model="myForm.lastName" placeholder="Last Name"
+                                 name="lastName" ng-disabled="inputField=='view'">
+                              <span class="validation_error_employes"
+                                 ng-show="addEmployees.lastName.$dirty && addEmployees.lastName.$invalid">
+                                 <span class="validation_error_employes"
+                                    ng-show="addEmployees.lastName.$error.minlength">Last name should less then 50
+                                    Characters.</span>
+
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Phone Number</label>
+                              <input type="text" ng-model="myForm.phone" placeholder="Phone Number" name="phone"
+                                 ng-disabled="inputField=='view'" pattern="\d{3,4}[\-]?\d{2,5}[\-]?\d{3,6}">
+                              <span class="validation_error_employes"
+                                 ng-show="addEmployees.phone.$dirty && addEmployees.phone.$invalid">
+                                 <span class="validation_error_employes" ng-if="addEmployees.phone.$error.pattern">Only
+                                    numeric value are allowed and does not start with 0.</span>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Cell Number</label>
+                              <input type="text" ng-model="myForm.cellNumber" placeholder="Cell Number"
+                                 name="cellNumber" ng-disabled="inputField=='view'"
+                                 pattern="\d{3,4}[\-]?\d{2,5}[\-]?\d{3,6}">
+                              <span class="validation_error_employes"
+                                 ng-show="addEmployees.cellNumber.$dirty && addEmployees.cellNumber.$invalid">
+                                 <span class="validation_error_employes"
+                                    ng-if="addEmployees.cellNumber.$error.pattern">Please Enter Vaild cell Number. cell
+                                    Number should be 10 digit <br>and does not start with 0.</span>
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Title</label>
+                              <input type="text" maxlength="150" ng-model="myForm.title" placeholder="Title"
+                                 name="title" ng-disabled="inputField=='view'">
+                              <span class="validation_error_employes"
+                                 ng-show="addEmployees.title.$dirty && addEmployees.title.$invalid">
+                                 <span class="validation_error_employes"
+                                    ng-show="addEmployees.title.$error.minlength">Title should be less then 150
+                                    Characters.</span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Email</label>
+                              <input type="text" ng-model="myForm.email" ng-required="myForm.subscribeEmail"
+                                 placeholder="Email" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                                 ng-disabled="inputField=='view'">
+                              <span class="validation_error_employes"
+                                 ng-show="addEmployees.email.$dirty && addEmployees.email.$invalid">
+                                 <span class="validation_error_employes"
+                                    ng-show="addEmployees.email.$error.required">Email is required.</span>
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Subscribe Email</label>
+                              <select name="subscribeEmail" ng-options="op.value as op.text for op in SubscribeEmail"
+                                 ng-model="myForm.subscribeEmail">
+                                 <option value="">Select option</option>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <button ng-disabled="addEmployees.$invalid" ng-hide="inputField=='view' || inputField=='edit'"
+                        ng-click="save()">Save</button>
+                     <button ng-disabled="addEmployees.$invalid" ng-show="inputField=='edit'"
+                        ng-click="updateEmployee()">Save Changes</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="add_coomm buyerEdit">
+      <div class="head_comm head_2">
+         <h2>{{inputField}} Buyer</h2>
+         <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+      <div class="panel_body">
+         <div class="panel_body_inner inner_box_List_add">
+            <div class="col-md-12">
+               <div class="add_commodity">
+                  <form name="addgrower">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>First Name</label>
+                              <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.firstName"
+                                 placeholder="First Name" name="firstName" ng-disabled="inputField=='view'">
+                              <span class="validation_error_broker"
+                                 ng-show="addgrower.firstName.$dirty && addgrower.firstName.$invalid">
+                                 <span class="validation_error_broker"
+                                    ng-show="addgrower.firstName.$error.minlength">First name should be 2 and less then
+                                    50 Characters.</span>
+                                 <span class="validation_error_broker"
+                                    ng-show="addgrower.firstName.$error.required">First name is required.</span></span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Last Name</label>
+                              <input type="text" ng-model="myForm.lastName" placeholder="Last Name" name="lastName"
+                                 ng-minlength="2" maxlength="50" ng-disabled="inputField=='view'">
+                              <span class="validation_error_broker"
+                                 ng-show="addgrower.lastName.$dirty && addgrower.lastName.$invalid">
+                                 <span class="validation_error_broker"
+                                    ng-show="addgrower.lastName.$error.minlength">Last name should be 2 and less then 50
+                                    Characters.</span>
+                                 <span class="validation_error_broker" ng-show="addgrower.lastName.$error.required">Last
+                                    name is required.</span></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Phone Number</label>
+                              <input type="number" ng-model="myForm.phone" placeholder="Phone Number" name="phone"
+                                 ng-disabled="inputField=='view'" ng-change="checkValueLength('phone')">
+                              <span class="validation_error_broker"
+                                 ng-show="addgrower.phone.$dirty && addgrower.phone.$invalid">
+                                 <span class="validation_error_broker" ng-show="addgrower.phone.$error.required">Phone
+                                    Number is required.</span>
+                                 <!-- <span class="validation_error_broker" ng-if="addgrower.phone.$error.pattern">Please Enter Vaild Phone Number. Phone Number should be 10 digit.</span> -->
+                                 <span class="validation_error_broker" ng-if="addgrower.phone.$error.pattern">Only
+                                    numeric value are allowed and does not start with 0.</span>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Cell Number</label>
+                              <input type="number" ng-model="myForm.cellNumber" placeholder="Cell Number"
+                                 name="cellNumber" ng-change="checkValueLength('cellNumber')"
+                                 ng-disabled="inputField=='view'">
+                              <span class="validation_error_broker"
+                                 ng-show="addgrower.cellNumber.$dirty && addgrower.cellNumber.$invalid">
+                                 <span class="validation_error_broker"
+                                    ng-show="addgrower.cellNumber.$error.required">Cell Number is required.</span>
+                                 <span class="validation_error_broker"
+                                    ng-if="addgrower.cellNumber.$error.pattern">Please Enter Vaild cell Number. cell
+                                    Number should be 10 digit <br>and does not start with 0.</span>
+                                 <!-- <span class="validation_error_broker" ng-if="addgrower.cellNumber.$error.pattern">Only numeric value are allowed and does not start with 0.</span> -->
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Company Name</label>
+                              <input type="text" ng-minlength="2" maxlength="150" ng-model="myForm.businessName"
+                                 placeholder="Company Name" name="businessName" ng-disabled="inputField=='view'"
+                                 required>
+                              <span class="validation_error_broker"
+                                 ng-show="addgrower.businessName.$dirty && addgrower.businessName.$invalid">
+                                 <span class="validation_error_broker"
+                                    ng-show="addgrower.businessName.$error.minlength">Company name should be 2 and less
+                                    then 150 Characters.</span>
+                                 <span class="validation_error_broker"
+                                    ng-show="addgrower.businessName.$error.required">Company name is
+                                    required.</span></span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Email</label>
+                              <input type="text" ng-model="myForm.email" placeholder="Email" name="email"
+                                 ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-disabled="inputField=='view'">
+                              <span class="validation_error_broker"
+                                 ng-show="addgrower.email.$dirty && addgrower.email.$invalid">
+                                 <span class="validation_error_broker" ng-show="addgrower.email.$error.required">Email
+                                    is required.</span>
+                                 <span class="validation_error_broker" ng-if="addgrower.email.$error.pattern">Please
+                                    Enter Vaild Email.</span></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Website</label>
+                              <input type="text" ng-model="myForm.website" placeholder="Website" name="alias"
+                                 ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Documents</label>
+                              <div class="multi_cls" isteven-multi-select max-labels="1" input-model="documentsList"
+                                 output-model="newForm.selectedDocuments" button-label="documents"
+                                 item-label="documents" tick-property="ticked"></div>
+
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Address (Street)</label>
+                              <input type="text" ng-model="myForm.street" placeholder="Address" name="alias"
+                                 ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Address Line 2</label>
+                              <input type="text" ng-model="myForm.line2" placeholder="Address line 2" name="line2"
+                                 ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Address Line 3</label>
+                              <input type="text" ng-model="myForm.line3" placeholder="Address line 3" name="line3"
+                                 ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>City</label>
+                              <input type="text" ng-model="myForm.city" placeholder="city" name="city"
+                                 ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Country</label>
+                              <select name="alias" ng-options="country.name as country.name for country in countryList"
+                                 ng-model="myForm.country" ng-disabled="inputField=='view'">
+                                 <option value="">Select Country</option>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Address prov</label>
+                              <input type="text" ng-model="myForm.province" placeholder="Address Prov" name="alias"
+                                 ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Postal Code</label>
+                              <input type="text" ng-model="myForm.postal" placeholder="Postal Code" name="alias"
+                                 ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>EDC</label>
+                              <select ng-model="myForm.edcId" ng-disabled="inputField=='view'">
+                                 <option ng-repeat="edc in edcList track by $index" value={{edc._id}}>{{edc.name}}
+                                 </option>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Fax Number</label>
+                              <input type="text" ng-model="myForm.fax" placeholder="Fax number" name="fax"
+                                 ng-disabled="inputField=='view'" ng-change="checkValueLength('fax')">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Tax</label>
+                              <input type="text" ng-model="myForm.tax" placeholder="Enter tax" name="tax"
+                                 ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <button ng-hide="inputField=='view' || inputField=='edit'" ng-click="save()"
+                        ng-disabled="addgrower.$invalid">Save</button>
+                     <button ng-show="inputField=='edit'" ng-click="saveChanges()" ng-disabled="addgrower.$invalid">Save
+                        Changes</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="add_coomm rollover_popup" style="width: 30% !important;">
+      <div class="enter_comm_typ">
+         <div class="head_comm">
+            <h2>Rollover for <u>{{ rolloverContract.contractNumber }}</u></h2>
+            <div type="button" class="close" ng-click="closepop()">&times;</div>
+         </div>
+      </div>
+      <div class="panel_body">
+         <div class="panel_body_inner inner_box_List_add" style="overflow-y:initial">
+            <div class="col-md-12">
+               <div class="add_commodity">
+                  <form name="rolloverForm">
+
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="com_pac">
+                              <label class="land_date">Quantity (Lbs)</label>
+                              <input type="number" ng-min="0.001" ng-max="{{ rolloverForm.quantityLbs }}" step="0.001"
+                                 name="rolloverQuantity" ng-model="rolloverForm.quantityLbs" required />
+                              <span
+                                 ng-show="rolloverForm.rolloverQuantity.$invalid && rolloverForm.rolloverQuantity.$pristine && submitted"
+                                 class="validationErrorSpecification"></span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="com_pac">
+                              <label class="land_date">Inventory Grade</label>
+                              <select name="inventoryGrades"
+                                 ng-options="grade._id as grade.gradeName for grade in inventoryGrade"
+                                 ng-model="rolloverForm.inventoryGrade" required>
+                                 <option value="">Select Inventory Grade</option>
+                              </select>
+                              <span
+                                 ng-show="rolloverForm.inventoryGrades.$invalid && rolloverForm.inventoryGrades.$pristine && submitted"
+                                 class="validationErrorSpecification"></span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="com_pac">
+                              <label class="land_date">Delivery Date</label>
+                              <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                                 <div class="input-group">
+                                    <input name="dateFrom" class="form-control" ng-model="rolloverForm.deliveryDateFrom"
+                                       placeholder="Choose a date" autocomplete="off" required />
+                                    <span class="input-group-addon" style="cursor: pointer">
+                                       <i class="fa fa-lg fa-calendar"></i>
+                                    </span>
+                                 </div>
+                              </datepicker>
+                              <span
+                                 ng-show="rolloverForm.dateFrom.$invalid && rolloverForm.dateFrom.$pristine && submitted"
+                                 class="validationErrorSpecification"></span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="com_pac">
+                              <label class="land_date">To</label>
+                              <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                                 <div class="input-group">
+                                    <input name="dateTo" class="form-control" ng-model="rolloverForm.deliveryDateTo"
+                                       placeholder="Choose a date" autocomplete="off" required />
+                                    <span class="input-group-addon" style="cursor: pointer">
+                                       <i class="fa fa-lg fa-calendar"></i>
+                                    </span>
+                                 </div>
+                              </datepicker>
+                              <span ng-show="rolloverForm.dateTo.$invalid && rolloverForm.dateTo.$pristine && submitted"
+                                 class="validationErrorSpecification"></span>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="com_pac">
+                              <label>Note:</label>
+                              <input type="text" ng-model="rolloverForm.note" />
+                           </div>
+                        </div>
+                     </div>
+
+                     <br />
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="com_pac">
+                              <div class="enter_comm_typ">
+                                 <button class="button_cls" ng-click="createRollover(rolloverForm.$valid)"
+                                    ng-disabled="rolloverForm.$invalid">Create</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</div>
+
+<div class="add_coomm buyerAddressList">
+   <div class="head_comm head_2">
+      <h2>Buyer Address List</h2>
+      <div type="button" class="close" ng-click="closepop()">&times;</div>
+   </div>
+   <div class="panel_body">
+      <div class="panel_body_inner">
+         <div class="col-md-12">
+            <div class="add_commodity">
+               <button class="btn btn-success" ng-click="openBuyerPop(buyerDetails,'addAddress')"
+                  name="addAddressButton" id="addAddressButton" type="button" style="margin: 0 5px 10px 0px;">Add
+                  Address</button>
+               <form name="addgrower">
+                  <div class="row">
+                     <table class="table table-hover">
+                        <thead>
+                           <tr>
+                              <th>Address Line 1</th>
+                              <th>Address Line 2</th>
+                              <th>Address Line 3</th>
+                              <th>Country</th>
+                              <th>Postal</th>
+                              <th>State</th>
+                              <th>City</th>
+                              <th>Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+
+                           <tr ng-repeat="adddress in getAddresses()">
+                              <td>{{adddress.street}}</td>
+                              <td>{{adddress.line2}}</td>
+                              <td>{{adddress.line3}}</td>
+                              <td>{{adddress.country}}</td>
+                              <td>{{adddress.postal}}</td>
+                              <td>{{adddress.province}}</td>
+                              <td>{{adddress.city}}</td>
+
+                              <td>
+
+                                 <a ng-href="" title="Delete Address"
+                                    ng-show="loginUserAccess.truckScale.tradePurchase.edit" class="delete_detail"
+                                    ng-click="deleteAddress(adddress._id)">
+                                    <i class="fas fa-trash"></i>
+                                 </a>
+
+                                 <a ng-href="" title="Edit Address"
+                                    ng-show="loginUserAccess.truckScale.tradePurchase.edit" class="edit_details"
+                                    ng-click="openBuyerPop(adddress,'editAddress')">
+                                    <i class="fas fa-pen-square"></i>
+                                 </a>
+
+                                 <a ng-href="" title="Default Address" style="margin-right: 10px;"
+                                    ng-show="loginUserAccess.truckScale.tradePurchase.edit" class="edit_details"
+                                    ng-click="setDefaultAddress(adddress._id)">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                 </a>
+
+                              </td>
+                           </tr>
+
+                        </tbody>
+                     </table>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+
+<div class="add_coomm buyerAddressAdd">
+   <div class="head_comm head_2">
+      <h2>Add Address</h2>
+      <div type="button" class="close" ng-click="closepop()">&times;</div>
+   </div>
+   <div class="panel_body">
+      <div class="panel_body_inner inner_box_List_add">
+         <div class="col-md-12">
+            <div class="add_commodity">
+               <form name="addEmployes">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Address Street</label>
+                           <input type="text" ng-model="myForm.street" placeholder="Address Street" name="street"
+                              required>
+
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Address Line 2</label>
+                           <input type="text" ng-model="myForm.line2" placeholder="Address Line 2" name="line2">
+
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Address Line 3</label>
+                           <input type="text" ng-model="myForm.line3" placeholder="Address Line 3" name="line3">
+
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Postal</label>
+                           <input type="text" ng-model="myForm.postal" placeholder="Postal" name="postal">
+
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Country</label>
+                           <select name="country" ng-options="country.name as country.name for country in countryList"
+                              ng-model="myForm.country" ng-disabled="inputField=='view'" required>
+                              <option value="">Select Country</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>State</label>
+                           <input type="text" ng-model="myForm.province" placeholder="State" name="province">
+
+                           </span>
+                        </div>
+                     </div>
+
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>City</label>
+                           <input type="text" ng-model="myForm.city" placeholder="City" name="city"
+                              ng-disabled="inputField=='view'">
+
+                        </div>
+                     </div>
+                  </div>
+                  <button ng-disabled="addEmployes.$invalid" ng-click="addAddresssave()">Save</button>
+
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="add_coomm buyerAddressEdit">
+   <div class="head_comm head_2">
+      <h2>Edit Address</h2>
+      <div type="button" class="close" ng-click="closepopEdit()">&times;</div>
+   </div>
+   <div class="panel_body">
+      <div class="panel_body_inner inner_box_List_add">
+         <div class="col-md-12">
+            <div class="add_commodity">
+               <form name="addEmployes">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Address Street</label>
+                           <input type="text" ng-model="myForm.street" placeholder="Address Street" name="street"
+                              required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Address Line 2</label>
+                           <input type="text" ng-model="myForm.line2" placeholder="Address Line 2" name="line2"
+                              required>
+
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Address Line 3</label>
+                           <input type="text" ng-model="myForm.line3" placeholder="Address Line 3" name="line3"
+                              required>
+
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Postal</label>
+                           <input type="text" ng-model="myForm.postal" placeholder="Postal" name="postal">
+
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>Country</label>
+                           <input type="text" ng-model="myForm.country" placeholder="Country" name="country" required>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>State</label>
+                           <input type="text" ng-model="myForm.province" placeholder="State" name="province">
+
+                           </span>
+                        </div>
+                     </div>
+
+                     <div class="col-md-6">
+                        <div class="com_pac">
+                           <label>City</label>
+                           <input type="text" ng-model="myForm.city" placeholder="City" name="city"
+                              ng-disabled="inputField=='view'">
+
+                        </div>
+                     </div>
+                  </div>
+                  <button ng-disabled="addEmployes.$invalid" ng-click="editAddresssave()">Save</button>
+
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- SEND MAIL HTML -->
+<div ng-show="sendMail" id="quotePdf"
+   style="margin: 0 auto;padding: 0;display: block;width:100%;font-family: 'Open Sans', sans-serif!important;">
+   <div style="margin: 0;padding: 0px;width: 100%;float: left;background: #ffffff;">
+      <div style="margin: 0 0 10px 0;padding: 0 0 10px 0;float: left;width:100%;border-bottom: 2px solid #000;">
+         <div style="margin: 0;padding: 0;float: left;width: 20%;">
+            <img src="{{imagePath}}/images/rudyLogo2.png" style="margin: 0 5% 0 0;padding: 0;float: left;width: 30%;">
+         </div>
+         <div style="margin: 0;padding: 0;float: left;width:25%;">
+            <h1 style="color: #000;margin: 0;padding: 0;float: left;width:100%;font-size: 14px;font-weight: 700;">RUDY
+               AGRO LTD</h1>
+            <h2 style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 700;color: #000;">PO BOX
+               100,OUTLOOK</h2>
+            <h3 style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 700;color: #000;">
+               SASKATCHEWAN, CANADA SOL 2NO</h3>
+         </div>
+         <div style="margin: 17px 0 0  0;padding: 0;float: left;width:35%;">
+            <p style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 400;color: #000;">Ph.
+               306-867-8667 Fax 306-867-8290 Mob 306-873-7733</p>
+            <p style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 400;color: #000;">E-Mail
+               wesw@rudyagro.ca Web www.rudyagro.ca</p>
+         </div>
+         <div style="margin: 17px 0 0 0;padding: 0;float: left;width:20%;">
+            <p style="margin: 0;padding: 0;float: left;width:100%;font-size: 8px;font-weight: 400;color: #000;">Date :
+               {{quote.quote.createdAt | date:'MMMM dd,yyyy'}}</p>
+         </div>
+      </div>
+      <div style="margin: 0;padding: 0;width: 100%;float: left;">
+         <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b
+               style="margin: 0;padding: 0;width: 12%;float: left;">Buyer Name</b> <i
+               style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.quote.buyerId.businessName}}</i>
+         </p>
+         <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b
+               style="margin: 0;padding: 0;width: 12%;float: left;">Current USD/CAD</b> <i
+               style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.currency.currencyCADUSD}}</i>
+         </p>
+         <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b
+               style="margin: 0;padding: 0;width: 12%;float: left;">Currency</b> <i
+               style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.currency.currencyUpdate}}</i>
+         </p>
+         <p style="margin: 0 0 7px 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b
+               style="margin: 0;padding: 0;width: 12%;float: left;">Market Update :</b> <i
+               style="margin: 0;padding: 0;width: 88%;float: left;font-style: normal;">{{quote.weather ? quote.weather.weather :'N/A'}}</i>
+         </p>
+         <p style="margin: 0;padding: 0;width: 100%;float: left;font-size: 9px;color: #000;"><b>We are pleased to
+               provide you with the following price indications updates based on todays date, subject to reconfirmation
+               by Rudy Agro Ltd. Prices in {{quote.quote.currency}}</b></p>
+      </div>
+      <div style="margin: 30px 0 0 0;padding: 0;width: 100%;float: left;color: #000;">
+         <div class="table-responsive">
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;">COMMODITY</th>
+                     <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;width: 100px;">GRADE</th>
+                     <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;">Shipping Period</th>
+                     <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;">Crop Year</th>
+                     <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;">Quantity Available</th>
+                     <th style="color: #000;font-weight: 400;font-size: 7px;text-align: center;"
+                        ng-repeat="col in quote.quote.columnsCol">
+                        <b>{{col.shippingtermsId.term}} {{quote.quote.commission ? quote.quote.commission :'' }}</b><br>
+                        {{col.destinationPort}} <br>
+                        {{col.bagId.name}}
+                     </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr ng-repeat="row in quote.quote.commoditiesRow track by $index">
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">
+                        {{row.commodityId.commodityName}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">
+                        {{row.gradeId.gradeName}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">
+                        {{row.shippingPeriod | trim :3}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">{{row.cropYear}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;">{{row.quantity}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.one">
+                        ${{row.one | roundOff :2}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.two">
+                        ${{row.two | roundOff :2}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.three">
+                        ${{row.three | roundOff :2}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.four">
+                        ${{row.four | roundOff :2}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.five">
+                        ${{row.five | roundOff :2}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.six">
+                        ${{row.six | roundOff :2}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.seven">
+                        ${{row.seven | roundOff :2}}</td>
+                     <td style="color: #000;font-weight: 300;font-size: 7px;text-align: center;" ng-if="row.eight">
+                        ${{row.eight | roundOff :2}}</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div style="margin: 400px 0 0 0;padding: 0;width: 647px;float: left;height: 404px; text-align: center;">
+         <img src="{{imagePath}}{{weather.weatherMap}}" alt="" width="820px" height="500px">
+      </div>
+      <div style="margin: 200px 0 0 0;padding: 0;width: 647px;float: left;height: 404px;text-align: center;">
+         <img src="{{imagePath}}{{weather.plantJpeg}}" alt="" width="820px" height="500px">
+      </div>
+   </div>
+</div>
+</div>
+
+
+<div class="add_coomm compose_mail" style="width: 50% !important;">
+   <div class="enter_comm_typ ">
+      <div class="head_comm">
+         <h2>Email</h2>
+         <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+   </div>
+   <div class="panel_body">
+      <div class="panel_body_inner inner_box" style="height: auto;">
+         <div class="col-md-12">
+            <div class="add_commodity">
+               <form name="emailform">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="mail">
+                           <label>To</label>
+                           <span ng-repeat="to in to_email track by $index">{{to}}</span>
+                        </div>
+                        <div class="mail" ng-if="cc_email.length>0">
+                           <label>CC</label>
+                           <span ng-repeat="cc in cc_email track by $index">{{cc}}</span>
+                        </div>
+                        <div class="mail">
+                           <label>Subject</label>
+                           <input class="form-control" placeholder="Subject" ng-model="emailform.subject" required />
+                        </div>
+                        <textarea name="ckeditor" class="form-control pos_ckeditor"
+                           ng-model="emailform.body"></textarea>
+                        <button ng-click="sendMailToUser(emailform)"
+                           ng-disabled="emailSending || emailform.$invalid">{{emailSending ? 'Email sending...':'Send'}}</button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<style type="text/css">
+   .cke_toolbar_break {
+      clear: none;
+   }
+
+   .cke_inner {
+      position: relative;
+   }
+
+   #cke_1_top {
+      position: absolute;
+      bottom: 27px;
+      width: 98%;
+   }
+
+   .mail {
+      margin-bottom: 20px;
+      position: relative;
+      border-bottom: 2px solid #007e4e !important;
+   }
+
+   .mail input.form-control,
+   .mail textarea.form-control {
+      width: 100%;
+      border: 0 !important;
+      box-shadow: none !important;
+      padding-left: 0px;
+
+   }
+
+   .mail .width-90 {
+      width: 90% !important;
+      display: inline-block;
+   }
+
+   .mail textarea {
+      height: 100px;
+      resize: vertical;
+   }
+
+   .mail span {
+      position: relative;
+      color: #000;
+      border-radius: 30px;
+      padding: 2px 6px;
+      padding-right: 30px;
+      margin: 2px;
+      display: inline-block;
+      font-weight: 600;
+      letter-spacing: 1px;
+
+   }
+
+   .mail span i {
+      position: absolute;
+      right: 8px;
+      top: 0;
+      font-size: 16px;
+      font-style: normal;
+      cursor: pointer;
+   }
+</style>

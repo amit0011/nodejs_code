@@ -1,0 +1,172 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+      <h3 class="heading_cls">Container Inventory</h3>
+      <hr class="heading_hr" />
+      <div class="panel_body_inner inner_box_List">
+        <div class="col-md-12">
+          <div class="add_commodity_bar">
+            <div class="tbl" style="display: inline-block;width: 20px">
+              <div class="grop_rad" style="width: 100%;height: 34px;">
+                <label class="grop_rad_check" style="width: 100%;font-size: 10pt;color: darkgray;">
+                  <input type="checkbox" value="0" ng-change="searchContainer()" ng-model="containerReleased" />
+                  <span class="checkmark" style="top: 8px;"></span>
+                  <span style="top: 10px;position: absolute;left: 27px;color: #3f3f3f">Released</span>
+                </label>
+              </div>
+            </div>
+
+            <input
+              type="text"
+              name="search"
+              ng-model="containerNumber"
+              ng-change="searchContainer()"
+              placeholder="Search"
+            />
+            <button
+              ng-show="loginUserAccess.setting.container.add"
+              ng-click="openPop('add')"
+            >
+              ADD <i class="fas fa-plus-circle"></i>
+            </button>
+          </div>
+          <div class="comodity_table comodity_table_list">
+            <table class="table table-striped commodity_table">
+              <thead>
+                <tr>
+                  <th>Incoming Date</th>
+                  <th>Outgoing Date</th>
+                  <th>Container #</th>
+                  <th>Contract #</th>
+                  <th>Unload Port</th>
+                  <th>No of days in Yard</th>
+                  <th>Released</th>
+                  <th
+                    ng-show="loginUserAccess.setting.container.view || loginUserAccess.setting.container.edit || loginUserAccess.setting.container.delete"
+                  >
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="result in containerList">
+                  <td>{{result.incomingDate | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{result.outgoingDate && (result.outgoingDate | date: 'dd/MM/yyyy')}}</td>
+                  <td>{{result.containerNumber}}</td>
+                  <td>{{result.contractNumber}}</td>
+                  <td>{{result.loadingPortId && result.loadingPortId.loadingPortName}}</td>
+                  <td>{{result.noOfDays || ''}}</td>
+                  <td>{{result.released ? 'Yes' : 'No'}}</td>
+                  <td
+                    ng-show="loginUserAccess.setting.container.view || loginUserAccess.setting.container.edit || loginUserAccess.setting.container.delete"
+                  >
+                    <a
+                      ng-show="loginUserAccess.setting.container.delete"
+                      class="veiw_detail"
+                      ng-click="delete(result._id,result.status)">
+                      <i class="fa fa-trash"
+                        aria-hidden="true"></i>
+                    </a>
+                    <a
+                      ng-show="loginUserAccess.setting.container.edit"
+                      class="veiw_detail"
+                      ng-click="openPop('edit',result)">
+                      <i class="fas fa-pen-square"></i>
+                    </a>
+                    <a
+                      ng-show="result.comment"
+                      class="veiw_detail"
+                      ng-click="openPop('view-comment',result)">
+                      <i class="fas fa-info-circle"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div
+              paging
+              page="page"
+              page-size="10"
+              total="totalPages"
+              paging-action="DoCtrlPagingAct('bar', page)"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="popup_overlay"></div>
+  <div class="add_coomm country">
+    <form name="containerInventoryForm">
+      <div class="enter_comm_typ" ng-hide="selectedContainer">
+        <div class="head_comm">
+          <div type="button" class="close" data-dismiss="modal">&times;</div>
+        </div>
+        <div class="com_pac">
+          <label>Incoming Date</label>
+          <datepicker class="date_pic ml-0" date-format="yyyy-MM-dd" selector="form-control">
+            <div class="input-group">
+              <input name="incomingDate" class="form-control" ng-model="myForm.incomingDate" placeholder="Choose a date" autocomplete="off" required/>
+              <span class="input-group-addon" style="cursor: pointer">
+                <i class="fa fa-lg fa-calendar"></i>
+              </span>
+            </div>
+          </datepicker>
+        </div>
+
+        <div class="com_pac">
+          <label>Container Number</label>
+          <input
+            type="text"
+            name="containerNumber"
+            ng-model="myForm.containerNumber"
+            placeholder="Enter Container Number"
+            style="width: 60%;margin-bottom: 12px;"
+            required
+          />
+        </div>
+
+        <div class="com_pac">
+          <label>Unload Port</label>
+          <select
+            name="loadingPorts"
+            ng-options="loadingPort._id as loadingPort.loadingPortName for loadingPort in loadingPortList"
+            ng-model="myForm.loadingPortId">
+            <option value="">-- Unload Port --</option>
+          </select>
+        </div>
+
+        <div class="com_pac">
+          <label>Release</label>
+          <select
+            name="released"
+            ng-options="option.value as option.text for option in releaseOptions"
+            ng-model="myForm.released">
+          </select>
+        </div>
+
+        <div class="com_pac mb-5">
+          <label>Comment</label>
+          <div class="commtr_box" style="width: 60%;margin: 0;padding: 0 10px;">
+            <textarea ng-model="myForm.comment"></textarea>
+          </div>
+        </div>
+
+        <button
+          ng-click="save(inputField=='edit'?'Save Change':'Submit')"
+          ng-disabled="country.$invalid"
+        >
+          {{inputField=='edit'?'Save Change':'Submit'}}
+        </button>
+      </div>
+      <div class="enter_comm_typ" ng-show="selectedContainer">
+        <div class="com_pac">
+          {{selectedContainer.comment}}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

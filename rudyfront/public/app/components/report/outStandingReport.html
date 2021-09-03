@@ -1,0 +1,315 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="initPosition()">
+      <div class="panel_body_inner inner_box">
+
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="nav nav-pills nav-stacked row" style="margin-bottom: 14px;margin-left: 1px;">
+              <li ng-class="{ active: tab ==1 }" style="float: left;width: 50%;background: white;">
+                <a href ng-click="setTab(1)"><b>Sales</b></a>
+              </li>
+              <li ng-class="{ active: tab ==2 }" style="float: left;width: 50%;background: white;margin: 2px 0px 0 0px">
+                <a href ng-click="setTab(2)"><b>Purchase</b></a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="tabla_header">
+              <div class="tbl" style="width: 15%!important;">
+                <label>Crop Year</label>
+                <select name="commodity" ng-model="myForm.cropYear" ng-change="filter()"
+                  ng-options="cropYear as cropYear for cropYear in cropYears" style="width: 100%;height: 34px;">
+                  <option value="">Select</option>
+                </select>
+              </div>
+              <div class="tbl" style="width: 15%!important;">
+                <label>Commodity</label>
+                <select name="commodity"
+                  ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                  ng-model="myForm.commodityId" ng-change="filter()" style="width: 100%;height: 34px;">
+                  <option value="">Select Commodity</option>
+                </select>
+              </div>
+              <div class="tbl" style="width: 15%!important;">
+                <label>Contract Number</label>
+                <input type="text" ng-model="myForm.contractNumber" name="contractNumber" placeholder="Contract number"
+                  style="height: 34px;" ng-enter="filter()">
+              </div>
+
+              <div class="tbl" style="width: 14%!important;">
+                <label>From Date</label>
+                <datepicker style="width: 100%" class="date_pic fromDateCls" date-format="yyyy-MM-dd"
+                  selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                  button-next="<i class='fa fa-arrow-right'></i>">
+                  <div class="input-group">
+                    <input class="form-control" ng-model="myForm.fromDate" placeholder="Choose a date"
+                      ng-change="filter()" autocomplete="off" />
+                    <span class="input-group-addon" style="cursor: pointer">
+                      <i class="fa fa-lg fa-calendar"></i>
+                    </span>
+                  </div>
+                </datepicker>
+              </div>
+
+              <div class="tbl" style="width: 14%!important;">
+                <label>To Date</label>
+                <datepicker style="width: 100%" class="date_pic toDateCls" date-format="yyyy-MM-dd"
+                  selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>"
+                  button-next="<i class='fa fa-arrow-right'></i>">
+                  <div class="input-group">
+                    <input class="form-control" ng-model="myForm.toDate" placeholder="Choose a date"
+                      ng-change="filter()" autocomplete="off" />
+                    <span class="input-group-addon" style="cursor: pointer">
+                      <i class="fa fa-lg fa-calendar"></i>
+                    </span>
+                  </div>
+                </datepicker>
+              </div>
+
+              <button ng-click="exportData()">EXPORT to XL</button>
+              <datepicker ng-show="tab == 1" style="width: auto;float: right;margin: 15px 1% 0 0;clear: none;"
+                class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                <div class="input-group">
+                  <input class="form-control" ng-model="searchForm.date" placeholder="Choose report date"
+                    autocomplete="off" />
+                </div>
+              </datepicker>
+              <button ng-click="clear()">Clear</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin: 0 auto;padding: 0;display: block;width:100%;overflow-x: auto;" id="printSectionId"
+          ng-show="tab == 2">
+          <style type="text/css">
+            @media print {
+              @page {
+                size: A4 landscape;
+              }
+
+              img {
+                height: 90%;
+                margin: 0;
+                padding: 0;
+              }
+            }
+
+            table tbody tr td {
+              border: 0.50px solid #000;
+            }
+
+          </style>
+          <div class="comodity_table comodity_table_list">
+
+            <table class="table table-striped commodity_table table_body_scroll table-responsive"
+              style="width: 2220px;">
+              <thead>
+                <tr>
+                  <td>Contract</td>
+                  <td>Date</td>
+                  <td>Name On Contract</td>
+                  <td>Commodity</td>
+                  <td>Grade</td>
+                  <td>Shipment</td>
+                  <td>Total Contract Qty(lbs)</td>
+                  <td>Shipped</td>
+                  <td>Balance</td>
+                  <td>Contract Price</td>
+                  <td>Freight</td>
+                  <td>RAL del/cwt</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="report in purchaseList">
+                  <td><a ng-href="{{report.pdfUrl}}" target="_blank">{{report.contractNumber}}</a></td>
+                  <td>{{report.createdAt | date:'dd/MM/yyyy'}}</td>
+                  <td><a
+                      ng-href="growerDetails/{{report.growerId._id}}">{{report.personFarmType == 'Person'? report.growerId.firstName + ' ' + report.growerId.lastName : report.growerId.farmName}}</a>
+                  </td>
+                  <td>{{report.commodityId.commodityName}}</td>
+                  <td>{{report.gradeId.gradeName}}</td>
+                  <td>{{report.shipmentPeriodFrom | date}}/{{report.shipmentPeriodTo | date}}</td>
+                  <td class="text-right">{{getQuantityLbs(report) | number : 0}}</td>
+                  <td class="text-right">{{getShippedQuantityLbs(report.scale) | number:0}}</td>
+                  <td class="text-right">{{(getQuantityLbs(report) - getShippedQuantityLbs(report.scale))|number:0 }}</td>
+                  <td>{{report.price}}/{{report.priceUnit}} {{report.priceCurrency}}</td>
+                  <td class="text-right">{{report.freightRatePerMT | number : 4}}</td>
+                  <td class="text-right">{{report.CWTDel | number : 4}}</td>
+                </tr>
+
+                <tr ng-repeat="report in tradePurchaseList">
+                  <td><a ng-href="{{report.pdfUrl}}" target="_blank">{{report.contractNumber}}</a></td>
+                  <td>{{report.createdAt | date:'dd/MM/yyyy'}}</td>
+                  <td><a
+                      ng-href="buyerDetails/{{report.buyerId._id}}">{{ report.buyerId.firstName + ' ' + report.buyerId.lastName }}</a>
+                  </td>
+                  <td>{{report.commodityId.commodityName}}</td>
+                  <td>{{report.gradeId.gradeName}}</td>
+                  <td>
+                    {{report.shipmentScheldule[0].startDate | date}}/{{report.shipmentScheldule[report.shipmentScheldule.length -1].endDate | date}}
+                  </td>
+                  <td class="text-right">{{getQuantityLbs(report) | number : 0}}</td>
+                  <td class="text-right">{{getShippedQuantityLbs(report.scale) | number:0}}</td>
+                  <td class="text-right">{{(getQuantityLbs(report) - getShippedQuantityLbs(report.scale))|number:0 }}</td>
+                  <td>{{report.amount}}/{{report.amountUnit}} {{report.contractNumber}}</td>
+                  <td class="text-right">{{0 | number:4}}</td>
+                  <td class="text-right">{{report.netFOBCAD | number : 4}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="printSectionId" ng-show="tab == 1">
+
+          <div class="comodity_table comodity_table_list" style="overflow-x: auto;">
+            <div
+              style="margin: 0;padding: 0 0 0 0;width: 100%;float: left;font-weight: 700;color: #000;font-size: 16px;text-align: center;">
+              Sales Report</div>
+
+            <table class="table table-striped commodity_table table_body_scroll table-responsive"
+              style="width: 4000px;">
+              <thead>
+                <tr>
+                  <td></td>
+                  <td>Contract</td>
+                  <td>Date</td>
+                  <td>Customer</td>
+                  <td>Commodity</td>
+                  <td>Remaining USD Amount</td>
+                  <td>Total Contract Qt</td>
+                  <td>Shipped QTY</td>
+                  <td>Balance to ship</td>
+                  <td>Contract Terms</td>
+                  <td>Destination</td>
+                  <td>Contract Sales Price</td>
+                  <td>Price Per</td>
+                  <td>Currency</td>
+                  <td>Contract Sales (CWT)</td>
+                  <td>CAD Contract Sales (CWT)</td>
+                  <td>NetFOB</td>
+                  <td>Broker Comm</td>
+                  <td>Ocean Freight (CWT)</td>
+                  <td>BL Fee (CWT)</td>
+                  <td>Docs Fee (CWT)</td>
+                  <td>LC Costing (CWT)</td>
+                  <td>Insurance Rate (CWT)</td>
+                  <td>ARI/CWT</td>
+                  <td>Exchange Rate</td>
+                  <td>Interest Rate (CWT)</td>
+                  <td>Stuffing</td>
+                  <td>Inland Freight</td>
+                  <td>Bag Cost</td>
+                  <td>COA Cost/CWT</td>
+                  <td>Misc 1</td>
+                  <td>Misc 2</td>
+                  <td>Misc 3</td>
+                  <td>Total Cost</td>
+                  <td>CAD/CWT</td>
+                  <td>CAD NET/CWT</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="report in salesList">
+                  <td>
+                    <a class="delete_detail_bidSheet" ng-hide="report.edit" ng-click="editMode(report)">
+                      <i style="width: 13px;" class="fas fa-pen-square"></i>
+                    </a>
+                    <a class="delete_detail_bidSheet" ng-show="report.edit" ng-click="save(report)">
+                      <i style="margin: 4px 0 0 4px;font-size: 25px;" class="fas fa-save"></i>
+                    </a>
+                    <a class="delete_detail_bidSheet" ng-show="report.edit" ng-click="cancel(report)">
+                      <i style="margin: 4px 0 0 4px;font-size: 25px;" class="fa fa-times"></i>
+                    </a>
+                  </td>
+                  <!--Action-->
+                  <td><a ng-href="{{report.pdfUrl}}" target="_blank">{{report.contractNumber}}</a></td>
+                  <!--Contract-->
+                  <td>{{report.createdAt | date:'dd/MM/yyyy'}}</td>
+                  <!--Date-->
+                  <td><a ng-href="buyerDetails/{{report.buyerId._id}}">{{report.buyerId.businessName}}</a></td>
+                  <!--Customer-->
+                  <td>{{report.commodityId.commodityName}}</td>
+                  <!--Commodity-->
+                  <td class="text-right">
+                    <span ng-hide="report.edit">{{report.remainingUSDAmount|number:2}}</span>
+                    <span ng-show="report.edit">
+                      <input type="text" class="form-control" ng-model="report.remainingUSDAmount"
+                        placeholder="Enter remaining USD amount" ng-change="checkPaymentPrice(report)">
+                    </span>
+                  </td>
+                  <!--Remaining USD Amount-->
+                  <td class="text-right">{{report.quantityLbs | number : 0}}</td>
+                  <!--Total Contract Qt-->
+                  <td class="text-right">{{getShippedQuantityLbs(report.scale) | number:0}}</td>
+                  <!--Shipped QTY-->
+                  <td class="text-right">{{(report.quantityLbs- getShippedQuantityLbs(report.scale))|number:0}}</td>
+                  <!--Balance to ship-->
+                  <td>{{report.pricingTerms && report.pricingTerms.pricingTerms}}</td>
+                  <!--Contract Terms-->
+                  <td>{{report.destination}}</td>
+                  <!--Destination-->
+                  <td class="text-right">{{report.amount | number : 2}}</td>
+                  <!--Contract Sale Price-->
+                  <td>{{report.amountUnit}}</td>
+                  <!--Price Per-->
+                  <td>{{report.contractCurrency}}</td>
+                  <!--Currency-->
+                  <td class="text-right">${{getContractSalesPriceCWT(report) | number : 2}}</td>
+                  <!--Contract Sales (CWT)-->
+                  <td class="text-right">${{getContractSalesPriceCWTCAD(report) | number : 2}}</td>
+                  <!--Contract Sales (CWT)-->
+                  <td class="text-right">{{report.netFOBCAD | number : 4}}</td>
+                  <!--NetFOB-->
+                  <td class="text-right">{{report.brokerCommision | formatCommission : report.commissionType}}</td>
+                  <!--Broker Comm-->
+                  <td class="text-right">{{report.oceanFreightCWT | number : 4}}</td>
+                  <!--Ocean Freight (CWT)-->
+                  <td class="text-right">{{report.blFeeCWT | number : 4}}</td>
+                  <!--BL Fee (CWT)-->
+                  <td class="text-right">{{report.documentCostingCWT | number : 4}}</td>
+                  <!--Docs Fee (CWT)-->
+                  <td class="text-right">{{report.lcCostCWT | number : 4}}</td>
+                  <!--LC Costing (CWT)-->
+                  <td class="text-right">{{report.insuranceRate | number : 4}}</td>
+                  <!--Insurance Rate (CWT)-->
+                  <td class="text-right">{{report.ariPolicyCWT | number : 4}}</td>
+                  <!--AR (CWT)-->
+                  <td class="text-right">{{report.exchangeRate | number : 4}}</td>
+                  <!--Exchange Rate-->
+                  <td class="text-right">{{report.interestRateCWT | number : 4}}</td>
+                  <!--Interest Rate (CWT)-->
+                  <td class="text-right">{{report.stuffingCWT | number : 4}}</td>
+                  <!--Stuffing-->
+                  <td class="text-right">{{report.inlandFrtStuffingBuffer | number : 4}}</td>
+                  <!--Inland Freight-->
+                  <td class="text-right">{{report.bagCostCWT | number : 4}}</td>
+                  <!--Bag Cost-->
+                  <td class="text-right">{{report.coaCost}}</td>
+                  <!--COA Cost/CWT-->
+                  <td class="text-right">{{report.missCostCWT1| number : 4}}</td>
+                  <!--Misc 1-->
+                  <td class="text-right">{{report.missCostCWT2| number : 4}}</td>
+                  <!--Misc 2-->
+                  <td class="text-right">{{report.missCostCWT3 | number : 4}}</td>
+                  <!--Misc 3-->
+                  <td class="text-right">{{getTotalCost(report) | number : 4}}</td>
+                  <!--Total Cost-->
+                  <td class="text-right">{{(report.contractSalesPriceCWTCAD - report.totalCost) | number : 4}}</td>
+                  <!--CAD/CWT-->
+                  <td></td>
+                  <!--CAD NET/CWT-->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

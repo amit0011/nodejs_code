@@ -1,0 +1,217 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="DoCtrlPagingAct('bar')">
+         <h3 class="heading_cls">Brokers
+            <button class="btn_top" ng-show="loginUserAccess.sales.brokers.add" ng-click="openPop()">ADD <i class="fas fa-plus-circle"></i></button>
+         </h3>
+         <hr class="heading_hr">
+         <div class="panel_body_inner inner_box">
+            <div class="col-md-12">
+               <div  class="add_commodity_bar add_commodity_bar_nobg">
+                 
+               </div>
+               <div class="">
+                  <div class="tabla_header tabla_header_buy">
+                     <div class="tbl">
+                        <label>Search by Company Name</label>
+                        <input type="text" name="" ng-enter="search()" ng-model="myForm.comapanyName">
+                     </div>
+                     <div class="tbl">
+                        <label>Search By Name</label>
+                        <input type="text" name="" ng-enter="search()" ng-model="myForm.name">
+                     </div>
+                     <div class="tbl">
+                        <label>Search By Phone Number</label>
+                        <input type="text" name="" ng-enter="search()" ng-model="myForm.phone">
+                     </div>
+                     <div class="tbl">
+                        <label>Search By Postal</label>
+                        <input type="text" name="" ng-enter="search()" ng-model="myForm.postal">
+                     </div>
+                     <button ng-click="clear()">Clear</button>
+                  </div>
+               </div>
+               <div class="comodity_table">
+                  <table class="table table-striped commodity_table table_body_scroll table-responsive">
+                     <thead>
+                        <tr>
+                           
+                           <th>Company</th>
+                           <th>Name</th>
+                           <th>Phone</th>
+                           <th>Fax Number</th>
+
+                           <th>City</th>
+                           <th>Postal</th>
+                           <th>Assigned User</th>
+                           <th style="width: 7%" ng-show="loginUserAccess.sales.brokers.view || loginUserAccess.sales.brokers.edit || loginUserAccess.sales.brokers.delete">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="result in brokerList">
+                           
+                           <td><a ng-style="{'cursor':loginUserAccess.sales.brokers.view == true ? 'pointer' : 'not-allowed'}" ng-click="brokerDetails(result._id)">{{result.businessName}}</a></td>
+                           <td>{{result.firstName}} {{result.lastName}}</td>
+                           <td>{{result.phone2 || result.phone}}</td>
+                           <td>{{result.fax}}</td>
+
+                           <td>{{result.addresses[0].city}}</td>
+                           <td>{{result.addresses[0].postal}}</td>
+                           <td>
+                              <select style="width: 100%;" name="weigher" ng-options="assign._id as assign.fullName for assign in adminsList"  ng-model="result.assignedUserId" ng-change="assignUserFunction(result)" ng-disabled="!loginUserAccess.sales.brokers.edit">
+                                 <option value="">Select User</option>
+                              </select>
+                           </td>
+                           <td style="width: 7%" class="action_cls" ng-show="loginUserAccess.sales.brokers.view || loginUserAccess.sales.brokers.edit || loginUserAccess.sales.brokers.delete">
+                              <a ng-show="loginUserAccess.sales.brokers.delete" class="delete_detail" ng-click="delete(result._id)">
+                                 <i class="fa fa-trash" aria-hidden="true"></i>
+                              </a>
+                              <a ng-show="loginUserAccess.sales.brokers.edit" class="edit_details" ng-click="openPop(result,'edit')">
+                                 <i class="fas fa-pen-square"></i>
+                              </a>
+                              <a ng-show="loginUserAccess.sales.brokers.view" ng-click="openPop(result,'view')" class="veiw_detail"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <div paging
+                     page="page" 
+                     page-size="10" 
+                     total="totalPages"
+                     paging-action="DoCtrlPagingAct('bar', page)">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Modal -->
+   <div class="popup_overlay"></div>
+   <div class="add_coomm broker_edit">
+      <div class="head_comm head_2">
+         <h2>{{inputField}} Broker</h2>
+         <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+      <div class="panel_body">
+         <div class="panel_body_inner inner_box_List_add">
+            <div class="col-md-12">
+               <div class="add_commodity">
+                  <form name="addgrower">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>First Name</label>
+                              <input type="text" ng-minlength="2" maxlength="50" ng-model="myForm.firstName" placeholder="First Name" name="firstName" ng-disabled="inputField=='view'">
+                              <span class="validation_error_broker" ng-show="addgrower.firstName.$dirty && addgrower.firstName.$invalid">
+                              <span class="validation_error_broker" ng-show="addgrower.firstName.$error.minlength">First name should be 2 and less then 50 Characters.</span>
+                              <span class="validation_error_broker" ng-show="addgrower.firstName.$error.required">First name is required.</span></span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Last Name</label>
+                              <input type="text" ng-model="myForm.lastName" placeholder="Last Name" name="lastName" ng-minlength="2" maxlength="50" ng-disabled="inputField=='view'">
+                              <span class="validation_error_broker" ng-show="addgrower.lastName.$dirty && addgrower.lastName.$invalid">
+                              <span class="validation_error_broker" ng-show="addgrower.lastName.$error.minlength">Last name should be 2 and less then 50 Characters.</span>
+                              <span class="validation_error_broker" ng-show="addgrower.lastName.$error.required">Last name is required.</span></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Phone Number</label>
+                              <input type="number" ng-model="myForm.phone" placeholder="Phone Number" name="phone" ng-disabled="inputField=='view'" ng-change="checkValueLength('phone')">
+                              <span class="validation_error_broker" ng-show="addgrower.phone.$dirty && addgrower.phone.$invalid">
+                                 <!-- <span class="validation_error_broker" ng-if="addgrower.phone.$error.pattern">Please Enter Vaild Phone Number. Phone Number should be 10 digit.</span> -->
+                                 <span class="validation_error_broker" ng-if="addgrower.phone.$error.pattern">Only numeric value are allowed and does not start with 0.</span>
+                                 <span class="validation_error_broker" ng-show="addgrower.phone.$error.required">Phone Number is required.</span>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Cell Number</label>
+                              <input type="number" ng-model="myForm.cellNumber" placeholder="Cell Number" name="cellNumber" ng-disabled="inputField=='view'" ng-change="checkValueLength('cellNumber')">
+                              <span class="validation_error_broker" ng-show="addgrower.cellNumber.$dirty && addgrower.cellNumber.$invalid">
+                                 <span class="validation_error_broker" ng-show="addgrower.cellNumber.$error.required">Cell Number is required.</span>
+                                 <span class="validation_error_broker" ng-if="addgrower.cellNumber.$error.pattern">Please Enter Vaild cell Number. cell Number should be 10 digit <br>and does not start with 0.</span>
+                                 
+                              </span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Business Name</label>
+                              <input type="text" ng-minlength="2" maxlength="150" ng-model="myForm.businessName" placeholder="Business Name" name="businessName" ng-disabled="inputField=='view'" required>
+                              <span class="validation_error_broker" ng-show="addgrower.businessName.$dirty && addgrower.businessName.$invalid">
+                              <span class="validation_error_broker" ng-show="addgrower.businessName.$error.minlength">Business name should be 2 and less then 150 Characters.</span>
+                              <span class="validation_error_broker" ng-show="addgrower.businessName.$error.required">Business name is required.</span>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Email</label>
+                              <input type="text" ng-model="myForm.email" placeholder="Email" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-disabled="inputField=='view'">
+                              <span class="validation_error_broker" ng-show="addgrower.email.$dirty && addgrower.email.$invalid">
+                              <!-- <span class="validation_error_broker" ng-show="addgrower.email.$error.required">Email is required.</span> -->
+                              <span class="validation_error_broker" ng-if="addgrower.email.$error.pattern">Please Enter Vaild Email.</span></span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Address (Street)</label>
+                              <input type="text" ng-model="myForm.street" placeholder="Address" name="alias" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>City</label>
+                              <input type="text" ng-model="myForm.city" placeholder="city" name="city" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Country</label>
+                              <input type="text" ng-model="myForm.country" placeholder="Country" name="alias" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Address prov</label>
+                              <input type="text" ng-model="myForm.province" placeholder="Address Prov" name="alias" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Postal Code</label>
+                              <input type="text" ng-model="myForm.postal" placeholder="Postal Code" name="alias" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Tax</label>
+                              <input type="text" ng-model="myForm.tax" placeholder="Enter tax" name="tax" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                     </div>
+                     <button ng-hide="inputField=='view' || inputField=='edit'" ng-disabled="addgrower.$invalid" ng-click="save()">Save</button>
+                     <button ng-show="inputField=='edit'" ng-click="saveChanges()" ng-disabled="addgrower.$invalid">Save Changes</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

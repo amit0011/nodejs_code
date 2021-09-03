@@ -1,0 +1,70 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="initTown(1)">
+            <h3 class="heading_cls">Town List</h3>
+            <hr class="heading_hr">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <input type="text" name="search" ng-model="townName" ng-change="searchTown()"
+                            placeholder="Search">
+                        <button ng-show="loginUserAccess.setting.town.add" ng-click="openPop()">ADD <i
+                                class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th ng-show="loginUserAccess.setting.town.view || loginUserAccess.setting.town.edit || loginUserAccess.setting.town.delete">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in townList">
+                                    <td>{{result.name}}</td>
+                                    <td>
+                                        <span ng-class="result.status==0?'badge badge-success':'badge badge-dark'">{{result.status==0?'ACTIVATED':'DEACTIVATED'}}</span>
+                                    </td>
+                                    <td ng-show="loginUserAccess.setting.town.view || loginUserAccess.setting.town.edit || loginUserAccess.setting.town.delete">
+                                        <a ng-show="loginUserAccess.setting.town.delete" class="delete_detail"
+                                            ng-click="delete(result._id,result.status)">
+                                            <i ng-show="result.status==0" class="fa fa-trash" aria-hidden="true"></i>
+                                            <i ng-show="result.status==1" class="fa fa-undo" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.town.edit" class="edit_details"
+                                            ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging page="page" page-size="10" total="totalPages"
+                            paging-action="initTown(page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm town" style="width: 400px;">
+        <form name="town">
+            <div class="enter_comm_typ">
+                <div class="head_comm">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <div class="com_pac">
+                    <label>Name</label>
+                    <input type="text" name="name" ng-model="myForm.name" placeholder="Enter Name" required>
+                </div>
+                <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'"
+                    ng-disabled="town.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+            </div>
+        </form>
+    </div>
+</div>

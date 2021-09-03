@@ -1,0 +1,31 @@
+<div>
+    <div class="login_header">
+        <div class="login_logo">
+            <img src="/assets/images/logo.png">
+        </div>
+        <div class="login_head">
+            <h1>Rudy Agriculture ERP </h1>
+        </div>
+    </div>
+</div>
+<section>
+    <div class="login_body">
+        <div class="login_outter_form">
+            <div class="login_upper_header">
+                <h2><a ui-sref="login" style="float: left;color: #fff"><i class="fa fa-arrow-left"></i></a> Forgot Password</h2>
+            </div>
+            <div class="login_lower_body">
+                <form name="loginForm">
+                <label><i class="fa fa-envelope" aria-hidden="true"></i>
+                    <input class="emaila" type="text" name="email" ng-model="myForm.email" placeholder="Email Address" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+                    <span class="validation_error" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+                    <span class="validation_error" ng-show="loginForm.email.$error.required">Email  is required.</span>
+                    <span class="validation_error" ng-if="loginForm.email.$error.pattern">Please Enter Vaild Email.</span></span>
+                </label>
+                <span class="validation_error1" ng-show="errormsg">{{errormsg}}</span>
+                <button ng-click="send()" ng-disabled="!(myForm.email)">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

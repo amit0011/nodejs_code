@@ -1,0 +1,643 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="DoCtrlPagingAct()" style="padding: 0;">
+      <h3 class="heading_cls" style="margin-top: 10px;">Sales Contracts</h3>
+      <hr class="heading_hr">
+      <div class="panel_body_inner inner_box" style="padding: 0;">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="tabla_header">
+                <div class="tbl" style="width: 12%!important;">
+                  <label>Buyer Name/Farm</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="searchModel.name">
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>Commodity</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="commodity"
+                    ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                    ng-model="searchModel.commodityId" ng-change="search(); getGrade(searchModel.commodityId)">
+                    <option value="">Select Commodity</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>Grade</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.gradeId"
+                    ng-change="search()">
+                    <option value="">Select Grade</option>
+                    <option ng-repeat="grade in grades" value="{{grade._id}}">{{grade.gradeName}}
+                    </option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>Contract #</label>
+                  <input type="text" name="" ng-enter="search()" ng-model="searchModel.contractNumber">
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>From Date</label>
+                  <datepicker style="width: 100%;height: 34px;" class="date_pic" date-format="yyyy-MM-dd"
+                    selector="form-control">
+                    <div class="input-group">
+                      <input name="dateFrom" class="form-control" ng-model="searchModel.fromDate"
+                        placeholder="Choose a date" ng-change="search()" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>To Date</label>
+                  <datepicker style="width: 100%;height: 34px;" class="date_pic" date-format="yyyy-MM-dd"
+                    selector="form-control">
+                    <div class="input-group">
+                      <input name="dateFrom" class="form-control" ng-model="searchModel.toDate"
+                        placeholder="Choose a date" ng-change="search()" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>Shipping Start Date</label>
+                  <datepicker style="width: 100%;height: 34px;" class="date_pic" date-format="yyyy-MM-dd"
+                    selector="form-control">
+                    <div class="input-group">
+                      <input name="dateFrom" class="form-control" ng-model="searchModel.shippingStartDate"
+                        placeholder="Choose a date" ng-change="search()" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>Shipping End Date</label>
+                  <datepicker style="width: 100%;height: 34px;" class="date_pic" date-format="yyyy-MM-dd"
+                    selector="form-control">
+                    <div class="input-group">
+                      <input name="dateFrom" class="form-control" ng-model="searchModel.shippingEndDate"
+                        placeholder="Choose a date" ng-change="search()" autocomplete="off" />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>See More</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.limit"
+                    ng-change="search()">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>50</option>
+                    <option>120</option>
+                    <option>150</option>
+                    <option>200</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>Select Type</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.type"
+                    ng-change="search()">
+                    <option value="">All</option>
+                    <option>Signed</option>
+                    <option>Unsigned</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 12%!important;">
+                  <label>Status</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.status"
+                    ng-change="search()">
+                    <option value="">All</option>
+                    <option value="0">Active</option>
+                    <option value="1">Completed</option>
+                    <option value="2">Void</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 14%!important;">
+                  <label>Crop Year</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.cropYear"
+                    ng-change="search()" ng-options="cropYear as cropYear for cropYear in cropYears">
+                    <option value="">Select</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 14%;max-width: 80px;">
+                  <label>Signed?</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" ng-model="searchModel.signed"
+                    ng-change="search()">
+                    <option value="">All</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                  </select>
+                </div>
+                <div class="tbl" style="width: 14%!important;">
+                  <label>Broker</label>
+                  <select style="font-size: 14px;height: 34px;color: #000;width: 100%;"
+                    ng-options="broker._id as broker.businessName for broker in brokerList"
+                    ng-model="searchModel.brokerId" ng-change="search()">
+                    <option value="">All Broker</option>
+                  </select>
+                </div>
+
+                <button class="filter_btn" ng-click="exportSheet(salesContractList)">Export/Print</button>
+                <button ng-click="clear()">Clear</button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="comodity_table">
+            <table class="table table-striped commodity_table table_body_scroll table-responsive">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Documents</th>
+                  <th>Contract Number</th>
+                  <th>Buyer Name</th>
+                  <th style="word-break: break-all;">Commodity</th>
+                  <th>Grade</th>
+                  <th>Contracted Qty(Lbs)</th>
+                  <th>Shipped Qty(Lbs)</th>
+                  <th>Outstanding Qty(Lbs)</th>
+                  <th>Net FOB</th>
+                  <th>Shipping Schedule</th>
+                  <th>Sales Stamp</th>
+                  <th>Status</th>
+                  <th style="width: 7%;"
+                    ng-show="loginUserAccess.sales.salesContract.view || loginUserAccess.sales.salesContract.edit || loginUserAccess.sales.salesContract.delete">
+                    Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-ng-style="{'color':(result.status=='1'?'#FFA500':result.status=='2'?'#FF3333':'#000000')}"
+                  ng-repeat="result in salesContractList">
+
+                  <td>{{result.date | date:'dd/MM/yyyy'}}</td>
+                  <td>
+                    <a ng-show="result.signedContractPdf" href="{{result.signedContractPdf}}"
+                      target="_blank" style="cursor: pointer;">
+                      SC
+                    </a>
+                    <span ng-show="salesContract.signedContractPdf && salesContract.brokerNote"> - </span>
+                    <a ng-show="result.brokerNote" style="cursor: pointer;" ng-click="showBrokerNote(result.brokerNote)">
+                      <i class="fa fa-info-circle"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a ng-click="editSalesCont(result.buyerId._id,result.contractNumber)"
+                      style="word-break: break-all;cursor: pointer;">{{result.contractNumber}}
+                    </a>
+                  </td>
+                  <td><a ng-style="{'cursor':loginUserAccess.sales.buyers.view == true ? 'pointer' : 'not-allowed'}"
+                      ng-click="buyerDetails(result.buyerId._id)"
+                      style="word-break: break-all;cursor: pointer;">{{result.buyerId.businessName}}</a>
+                  </td>
+
+                  <td>{{result.commodityId.commodityName}}</td>
+                  <td>{{result.gradeId.gradeName}}</td>
+                  <td>{{result.quantityLbs|number:0}}</td>
+                  <td>
+                    <a style="cursor:pointer;" title="Reload Weight" ng-click="reloadWeight(result.contractNumber)">
+                      <i class="fa fa-registered" aria-hidden="true"></i>
+                    </a>
+                    <a style="cursor: pointer;" ng-click="ticketList(result.contractNumber, result.delQty)">
+                      {{result.delQty | number:0}}
+                    </a>
+                  </td>
+                  <td>{{(result.status == 1 ? 0 : result.quantityLbs - result.delQty)|number:0}}</td>
+                  <td>{{result.netFOBCAD|number:4}}</td>
+                  <td>
+                    {{result.shimStartDate}}{{ (result.shimStartDate && result.shimEndDate) ? '/':''}}{{result.shimEndDate}}
+                  </td>
+                  <td>
+                    <a ng-click="openStampPdf(result.stampPdfUrl)" style="word-break: break-all;cursor: pointer;"
+                      title="{{ result.stampPdfUrl ? 'View sales stamp':'Update sales stamp to get pdf'}}">View</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a ng-href="salesStamp/{{result.buyerId._id}}/{{result.contractNumber}}"
+                      style="word-break: break-all;cursor: pointer;" title="Edit sales stamp">Edit</a>
+                  </td>
+                  <td>
+                    <select ng-model="result.status" ng-init="result.old_status = result.status"
+                      ng-change="changeSalesContractStatus(result)" style="width: 100%;"
+                      ng-disabled="!loginUserAccess.sales.salesContract.edit || !canChangeStatus(result)">
+                      <option value="0">Active</option>
+                      <option value="1">Completed</option>
+                      <option value="2">Void</option>
+                    </select>
+                  </td>
+                  <td style="width: 7%;"
+                    ng-show="loginUserAccess.sales.salesContract.view || loginUserAccess.sales.salesContract.edit || loginUserAccess.sales.salesContract.delete">
+
+                    <a ng-show="loginUserAccess.sales.salesContract.delete" class="veiw_detail"
+                      ng-click="delete(result._id)">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+
+                    <a ng-show="loginUserAccess.sales.salesContract.edit" class="veiw_detail"
+                      ng-href="editSalesContract/{{result.buyerId._id}}/{{result.contractNumber}}/edit">
+                      <i class="fas fa-pen-square"></i>
+                    </a>
+
+                    <a ng-show="loginUserAccess.sales.salesContract.view" href="{{result.pdfUrl}}" class="veiw_detail"
+                      target="_blank">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <a class="veiw_detail" data-ng-style="result.mailSent ? {'color':'#007e4e'} : {'color':'red'}">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </a>
+                    <a ng-click="openPopup('uploadPDF',result)" class="veiw_detail" title="Upload Signed Contract">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                </tr>
+                <tr ng-if="searchModel.commodityId">
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th>Total</th>
+                  <th>{{ qtySum ? (qtySum[0].contractedQty|number:0) : '' }}</th>
+                  <th>{{ qtySum ? (qtySum[0].deliveredQty|number:0) : '' }}</th>
+                  <th>{{ qtySum ? (qtySum[0].outstandingQty|number:0) : '' }}</th>
+                  <th>
+                    <span ng-show="searchModel.commodityId" title="Weighted Average">
+                      {{ qtySum ? (qtySum[0].weightedAvg|number:4) : '' }}
+                    </span>
+                  </th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tbody>
+            </table>
+
+
+            <div paging page="page" page-size="searchModel.limit" total="totalPages"
+              paging-action="active_function == 'search' ? search(page) : DoCtrlPagingAct('', page)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="popup_overlay"></div>
+  <div class="add_coomm add_pdf_qty upload-form-popup" style="width: 50%; min-width: 400px;">
+    <div class="enter_comm_typ">
+      <div class="head_comm">
+        <h2 class="ng-binding">Edit Signed Contract (SC)</h2>
+        <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+    </div>
+    <div class="panel_body">
+      <div class="panel_body_inner inner_box_List_add">
+        <div class="col-md-12">
+          <div class="add_commodity">
+            <form name="addPdfAndQtyForm_342159" enctype="multipart/form-data" method="post">
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="com_pac">
+                    <label>Upload Signed Contract:</label>
+                    <input type="file" accept="application/pdf" ng-model="uploadForm.signedContractPdf"
+                      name="signedContractPdf"
+                      onchange="angular.element(this).scope().selectFile(this, 'signedContractPdf')" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="com_pac">
+                    <label>Broker Note:</label>
+                    <textarea class="form-control" ng-model="uploadForm.brokerNote" name="brokerNote" id="comment" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="com_pac" style="justify-content:flex-end;">
+                    <button title="Upload Signed Contract" ng-click="uploadPdf('signedContractPdf')">
+                      <i class="fa fa-save"></i> Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" ng-show="errMsg">
+                <div class="col-md-12 text-center">
+                  {{errMsg}}
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="add_coomm add_pdf_qty broker-note" style="width: 50%; min-width: 400px;max-width:500px">
+    <div class="enter_comm_typ">
+      <div class="head_comm">
+        <h2 class="ng-binding">Broker Note</h2>
+        <div type="button" class="close" ng-click="closepop()">&times;</div>
+      </div>
+    </div>
+    <div class="panel_body">
+      <div class="panel_body_inner inner_box_List_add">
+        <div class="col-md-12">
+          <div class="add_commodity">
+            <p>{{brokerNote}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div ng-show="printTicket">
+  <div style="padding: 0 15px;">
+    <div id="printSectionId">
+      <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+      <style type="text/css">
+        @media print {
+          .ng-show {
+            /*display: none !important;*/
+            visibility: hidden;
+          }
+
+          .ng-hide {
+            /*display: none !important;*/
+            visibility: hidden;
+          }
+
+          .three {
+            font-family: "Poppins";
+            font-weight: 900 !important;
+          }
+        }
+
+        /*@font-face {
+                    font-family: "Poppins";
+                    font-weight: bold;
+                    font-style: normal;
+                    src: url( "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700") format('truetype');
+                }*/
+
+      </style>
+      <div style="background: #fff;float: left;margin: 0;padding: 0;">
+        <div style="margin: 0;padding: 0 0 5px 0;float: left;width: 100%;border-bottom: 2px solid #cdcdcd;">
+          <div style="margin: 0;padding: 0;float: left;width: 20%;">
+            <img src="{{imagePath}}/images/rudyLogo2.png" style="margin: 0 5% 0 0;padding: 0;float: left;width: 50%;">
+          </div>
+          <div style="margin: 0;padding: 0;float: right;width: 40%;">
+            <h2 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 11px;color: #000;">RUDY AGRO
+              LTD.
+            </h2>
+            <h2 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 11px;color: #000;">Box 100,
+              Outlook Sask. S0L 2N0</h2>
+            <h3 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 9px;color: #000;">Tel (306)
+              867-8667</h3>
+            <h3 style="margin: 0;padding: 0;float: right;width: 100%;font-size: 9px;color: #000;">Fax (306
+              867-8290</h3>
+          </div>
+        </div>
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+          <h1
+            style="margin: 0 0 10px 0;padding: 0;float: left;width: 100%;text-align: center;font-size: 18px;color: #000;font-weight: bold;">
+            COMMODITY SALE AGREEMENT <br> Between Rudy Agro Ltd and:</h1>
+          <div style="margin: 0;padding: 0;float: left;width: 50%;">
+            <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">BUYER:</b>
+            <p style="margin: 0;padding: 0;float: left;width: 80%;font-size: 9px;color: #000;">
+              {{salesContractDetails.buyerId.businessName}} <br>
+              {{salesContractDetails.buyerId.addresses[0].street}} <br>
+              {{salesContractDetails.buyerId.addresses[0].city}},
+              {{salesContractDetails.buyerId.addresses[0].postal}},
+              {{salesContractDetails.buyerId.addresses[0].country}}</p>
+          </div>
+          <div style="margin: 0;padding: 0;float: left;width: 50%;">
+            <div style="margin: 0;padding: 0;float: left;width: 100%;">
+              <p style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 11px;color: #000;font-weight: bold!important;"
+                class="three">DATE:</p>
+              <p style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 9px;color: #000;">
+                {{salesContractDetails.date | date}}</p>
+            </div>
+            <div style="margin: 0;padding: 0;float: left;width: 100%;">
+              <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 11px;color: #000;font-weight: bold!important;"
+                class="three">CONTRACT #:</b>
+              <b
+                style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.contractNumber}}</b>
+            </div>
+            <div ng-show="salesContractDetails.showBroker" style="margin: 0;padding: 0;float: left;width: 100%;">
+              <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 11px;color: #000;font-weight: bold!important;"
+                class="three">Broker:</b>
+              <b
+                style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.brokerId.businessName}}</b>
+            </div>
+            <div ng-show="salesContractDetails.showBroker" style="margin: 0;padding: 0;float: left;width: 100%;">
+              <b style="margin: 0;padding: 0;float: left;width: 50%; text-align: right;font-size: 11px;color: #000;">Broker
+                #:</b>
+              <b
+                style="margin: 0;padding: 0;float: left;width: 30%; text-align: right;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.brokerNumber}}</b>
+            </div>
+          </div>
+        </div>
+        <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 100%;">
+          <div style="margin: 0;padding: 0;float: left;width: 50%;">
+            <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">COMMODITY:</b>
+            <b
+              style="margin: 0;padding: 0;float: left;width: 70%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.commodityId.commodityAlias}}</b>
+          </div>
+          <div style="margin: 0;padding: 0;float: left;width: 50%;">
+            <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">GRADE:</b>
+            <b
+              style="margin: 0;padding: 0;float: left;width: 70%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.gradeId.gradeName}}</b>
+          </div>
+        </div>
+        <div style="margin: 15px 0 0 0;padding: 0;float: left;width: 100%;">
+          <div style="margin: 0;padding: 0;float: left;width: 50%;">
+            <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">ORIGIN:</b>
+            <b
+              style="margin: 0;padding: 0;float: left;width: 70%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.countryId}}</b>
+          </div>
+          <div style="margin: 0;padding: 0;float: left;width: 50%;">
+            <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">CROP YEAR:</b>
+            <b
+              style="margin: 0;padding: 0;float: left;width: 70%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.cropYear}}</b>
+          </div>
+        </div>
+        <div style="margin: 15px 0 0 0;padding: 0;float: left;width: 100%;">
+          <div style="margin: 0;padding: 0;float: left;width: 100%;">
+            <b style="margin: 0;padding: 0;float: left;width: 5%;font-size: 11px;color: #000;"></b>
+            <b style="margin: 0;padding: 0;float: left;width: 95%;font-size: 9px;color: #000;font-weight: 400;">Quality
+              final as per sellers sealed sample at time and place of shipment.</b>
+          </div>
+        </div>
+        <div style="margin: 15px 0 0 0;padding: 0;float: left;width: 100%;">
+          <div style="margin: 0;padding: 0;float: left;width: 50%;">
+            <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">PACKING UNIT:</b>
+            <b
+              style="margin: 0;padding: 0;float: left;width: 70%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.packingUnit.name}}</b>
+          </div>
+          <div style="margin: 0;padding: 0;float: left;width: 50%;">
+            <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">WITH TAGS:</b>
+            <b
+              style="margin: 0;padding: 0;float: left;width: 70%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.tagType.tags}}</b>
+          </div>
+        </div>
+        <!-- <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 100%;">
+                    <div style="margin: 0;padding: 0;float: right;width: 50%;">
+                    <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 10px;color: #000;">PORT:</b>
+                    <b style="margin: 0;padding: 0;float: left;width: 70%;font-size: 10px;color: #000;">{{salesContractDetails.loadingPortId.loadingPortName}}</b>
+                    </div>
+                </div> -->
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+          <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 11px;color: #000;font-weight: bold!important;"
+            class="three">CONTRACTED QUANTITY:</b>
+          <p style="margin: 0;padding: 0;float: left;width: 70%;font-size: 9px;color: #000;">
+            {{salesContractDetails.contractQuantity}} {{salesContractDetails.units}}
+            {{salesContractDetails.variance.varianceName || salesContractDetails.varianceName}}, packed in
+            {{salesContractDetails.packedIn}}
+            {{salesContractDetails.equipmentType.equipmentName || salesContractDetails.equipmentTypeName}}
+            of
+            {{salesContractDetails.loadingType=='Palletized and Shrink Wrapped'?salesContractDetails.noOfPallets+ ' Pallets '+salesContractDetails.noOfBags:salesContractDetails.noOfBags}}
+            x {{salesContractDetails.bagWeight}}
+            {{salesContractDetails.packingUnit.bagWeightUnit || salesContractDetails.packingUnitBagsUnit}}
+            each.
+            Total of {{salesContractDetails.contractQuantity}} {{salesContractDetails.units}}</p>
+        </div>
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+          <div style="margin: 0;padding: 0;float: left;width: 100%;">
+            <b style="margin: 0;padding: 0;float: left;width: 4%;font-size: 11px;color: #000;"></b>
+            <b style="margin: 0;padding: 0;float: left;width: 96%;font-size: 9px;color: #000;font-weight: 400;">Quality
+              and weight final at time of loading {{salesContractDetails.qualityClause}}</b>
+          </div>
+        </div>
+        <!-- <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+                    <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 10px;color: #000;">METHOD OF SHIPMENT:</b>
+                    <p style="margin: 0;padding: 0;float: left;width: 70%;font-size: 10px;color: #000;">{{salesContractDetails.methodOfShipment.equipmentName}}</p>
+                </div> -->
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+          <b style="margin: 0;padding: 0;float: left;width: 30%;font-size: 11px;color: #000;font-weight: bold!important;"
+            class="three">SHIPPING COMMENT:</b>
+          <p style="margin: 0;padding: 0;float: left;width: 70%;font-size: 9px;color: #000;">
+            {{salesContractDetails.shippingComment}}, {{salesContractDetails.shippingOption}}</p>
+        </div>
+        <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 98%;">
+          <div style="margin: 0 0 5px 0;padding: 0px;float: left;width: 100%;">
+            <b style="margin: 0;padding: 0;float: left;width: 40%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">SHIPPING SCHEDULE:</b>
+            <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three"> START DATE</b>
+            <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">END DATE</b>
+            <b style="margin: 0;padding: 0;float: left;width: 10%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">UNITS</b>
+            <b style="margin: 0;padding: 0;float: left;width: 10%;font-size: 10px;color: #000;font-weight: bold!important;"
+              class="three">QTY</b>
+          </div>
+          <div style="margin: 0;padding: 10px;float: left;width: 100%;border: 2px solid #cdcdcd;border-radius: 5px;">
+            <div style="margin: 0;padding: 0px;float: left;width: 100%;"
+              ng-repeat="shipment in salesContractDetails.shipmentScheldule">
+              <p style="margin: 0;padding: 0;float: left;width: 40%;font-size: 9px;color: #000;">
+                {{shipment.shipmentType}}</p>
+              <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 9px;color: #000;">
+                {{shipment.startDate | date}}</p>
+              <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 9px;color: #000;">
+                {{shipment.endDate | date}}</p>
+              <p style="margin: 0;padding: 0;float: left;width: 10%;font-size: 9px;color: #000;">
+                {{shipment.units}}</p>
+              <p style="margin: 0;padding: 0;float: left;width: 10%;font-size: 9px;color: #000;">
+                {{shipment.quantity}}</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin: 20px 0 0 0;padding: 0;float: left;width: 100%;">
+          <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+            class="three">CONTRACT PRICE:</b>
+          <b style="margin: 0;padding: 0;float: left;width: 40%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.contractCurrency}}
+            ${{salesContractDetails.amount | number:2}} {{salesContractDetails.amountUnit}}
+            {{salesContractDetails.pricingTerms.pricingTerms}}</b>
+          <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+            class="three">TL UNITS: {{salesContractDetails.packedIn}}</p>
+          <p style="margin: 0;padding: 0;float: left;width: 20%;font-size: 9px;color: #000;font-weight: bold!important;"
+            class="three">TL QTY: {{salesContractDetails.contractQuantity}} {{salesContractDetails.units}}
+          </p>
+        </div>
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+          <div style="margin: 0;padding: 0;width: 50%;">
+            <b style="margin: 0;padding: 0;float: left;width: 40%;font-size: 11px;color: #000;font-weight: bold!important;"
+              class="three">DESTINATION :</b>
+            <b
+              style="margin: 0;padding: 0;float: left;width: 60%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.destination}}</b>
+          </div>
+        </div>
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;font-size: 10px;color: #000;">
+          <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+            class="three">PAYMENT METHOD:</b>
+          <b
+            style="margin: 0;padding: 0;float: left;width: 80%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.paymentMethod.paymentMethod}}</b>
+        </div>
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;font-size: 10px;color: #000;">
+          <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+            class="three">PAYMENT TERM:</b>
+          <b
+            style="margin: 0;padding: 0;float: left;width: 80%;font-size: 9px;color: #000;font-weight: 400;">{{salesContractDetails.paymentTerms.paymentTerms}}</b>
+        </div>
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;"
+          ng-show="salesContractDetails.showDocuments">
+          <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+            class="three">DOCUMENTS:</b>
+          <p style="margin: 0;padding: 0;font-size: 9px;float: left;width: 80%;color: #000;"><span
+              ng-repeat="docs in salesContractDetails.documents">{{docs.documents}}
+              {{$last ? '.' : ($index==docs.length-2) ? ' and ' : ','}}</span></p>
+        </div>
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+          <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+            class="three">TRADE RULES:</b>
+          <p style="margin: 0;padding: 0;float: left;width: 80%;font-size: 9px;color: #000;">When not in
+            conflict
+            with the terms of this contract, {{salesContractDetails.tradeRules.tradeRules}} will apply.</p>
+        </div>
+        <div style="margin: 10px 0 0 0;padding: 0;float: left;width: 100%;">
+          <b style="margin: 0;padding: 0;float: left;width: 20%;font-size: 11px;color: #000;font-weight: bold!important;"
+            class="three">OTHER CONDITIONS:</b>
+          <p style="margin: 0;padding: 0;float: left;width: 80%;font-size: 9px;color: #000;">Sets of documents
+            must
+            also include: {{salesContractDetails.otherConditions}}. <b><br>Thank-you for your business!</b>
+          </p>
+        </div>
+        <div style="margin: 30px 0 0 0;padding: 0;float: left;width: 100%;">
+          <p style="margin: 0;padding: 0;float: left;width: 60%;">
+            <img src="{{imagePath}}{{salesContractDetails.signee.signature}}" alt=""
+              style="width: 240px;height:80px;margin: 0;float: left;border-bottom: 2px solid #000;padding: 0 50px 0 0;">
+            <!-- <b style="margin: 0;padding: 0;float: left;width: 40%;height: 2px;background: #000;"></b> -->
+            <i style="margin: 5px 0 0 0;padding: 0;width: 100%;float: left;font-size: 10px;color: #000;">Accepted
+              for Rudy Agro Ltd</i>
+          </p>
+          <p style="margin: 75px 0 0 0;padding: 0;float: left;width: 40%;">
+            <!-- <b style="margin: 0;padding: 0;float: left;width: 40%;height: 2px;background: #000;"></b> -->
+            <i
+              style="margin: 5px 0 0 0;padding: 0;width: 65%;float: left;font-size: 10px;color: #000;border-top: 2px solid #000;">Accepted
+              for Buyer</i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,462 @@
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+            <div class="action_btn">
+               <button ng-click="print(printSectionId)">Print</button>
+               
+            </div>
+      <div class="panel_body">
+         <div class="panel_body_inner inner_box_List_add add_commodity" style="padding: 0 15px;">
+            <div id="printSectionId">
+               <style type="text/css">
+                  table {
+                  border-collapse: collapse;
+                  }
+                  table, th, td {
+                  border: 1px solid #dddddd;
+                  }
+                  @page {
+                            size: letter potrait;
+                        }
+                  @page :left {
+                     margin: 2mm;
+                     }
+
+                     @page :right {
+                     margin: 2mm;
+                     }
+                  @media print {
+                    .ng-show {
+                      display: none !important;
+                    }
+                    .ng-hide {
+                      display: none !important;
+                    }
+                  }
+               </style>
+               <div class="" style="width: 100%; float: left;">
+                  <div class="" style="margin: 30px 0 0px 0px;padding: 0px;width: 100%;float: left;background: #fff;">
+                     <div style="margin: 0px;padding: 0;width: 100%;float: left;background: #fff;display: flex;align-items: center;">
+                        <div style="margin: 0;padding: 0px;width: 25%;float: left;background: #fff;display: flex;align-items: center;">
+                           <img src="{{imagePath}}/images/rudyLogo2.png" style="margin: 0 5% 0 0;padding: 0;float: left;width: 30%;">
+                           <div style="margin: 0;padding: 0px;width: 60%;float: left;background: #fff;text-align: left;">
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Rudy Agro Ltd,</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Box 100,</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Outlook SK,S0L 2N0</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Tel : (306) 867-8667</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Fax : (306) 867-8290</div>
+                           </div>
+                        </div>
+                        <div style="margin: 0;padding: 0px;width: 45%;float: left;color: #000000;font-weight:600;font-size: 14px;font-weight: 700;text-align: center;">PRIMARY ELEVATOR RECEIPT</div>
+                        <div style="margin: 0;padding: 0px;width: 25%;float: left;background: #fff;text-align: right;">
+                           <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 600;">Elevator receipt number</div>
+                           <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 600;">TP- {{scaleTicketDetails.ticketNumber}},</div>
+                           <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 600;">{{scaleTicketDetails.date | date}}</div>
+                        </div>
+                     </div>
+                     <div class="" style="margin: 0 0 10px 0;padding: 0;width: 100%;float: left;  border-bottom: 0px solid #039d4a;">                    
+                     </div>
+                     
+                     <div style="margin: 5px 0 0 0;padding: 0;width: 100%;float: left;">
+                        <table class="table table-bordered" style="margin-bottom: 0;width: 100%;">
+                          
+                           <tbody>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">Scale Record in Tons</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;    border-bottom: none;color: #000000;font-weight:600;">{{scaleTicketDetails.buyerId.businessName}}</td>   
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">GROSS WEIGHT</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;">{{scaleTicketDetails.grossWeightMT}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;color: #000000;font-weight:600;    border-top: none;border-bottom:none;"></td>   
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">CONTRACT #</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;color: #000000;font-weight:600;">{{scaleTicketDetails.contractNumber}} - {{scaleTicketDetails.contractExtra}}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">TARE WEIGHT</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;">{{scaleTicketDetails.tareWeightMT}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;color: #000000;font-weight:600;border-top:none;"></td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">TRUCK/UNIT#</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;color: #000000;font-weight:600;">{{scaleTicketDetails.trackUnit}}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">LOAD</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;">{{scaleTicketDetails.unloadWeidhtMT}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 100%;color: #000000;font-weight:600;">{{scaleTicketDetails.buyerId.addresses[0].street}} {{scaleTicketDetails.buyerId.addresses[0].city}} {{scaleTicketDetails.buyerId.addresses[0].postal}} {{scaleTicketDetails.buyerId.addresses[0].country}}</div>
+                                    
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">SEAL#</div>
+                                    <div style="color:#000;font-weight: 600; margin: 0;padding: 0;float: left;width: 40%;text-align: right;">{{scaleTicketDetails.seal}}</div>
+                                 </td>
+                              </tr>
+                              
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: center;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                                    <td style="padding: 0px 8px;font-size: 9px;"></td>
+                                    <td style="padding: 0px 8px;font-size: 9px;">
+                                    
+                                 </td>
+                              </tr>
+
+
+                              
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: center;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">Grain</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;font-weight: 500;color: #000000;font-weight:600;color: #000000;font-weight:600;">{{scaleTicketDetails.commodityId.commodityName}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;"></td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                   
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     
+                     <div style="margin: 0px 0 0 0;padding: 0px 0 0 0;width: 100%;float: left;    text-align: center;">
+                        <div style="margin: 0;padding: 0;width: 100%;float: left;color: #000000;font-weight:600;font-size: 11px;">Grain loaded(In Words): {{unloadWeidhtInWord}}</div>
+                        
+                        <div style="margin: 5px 0 0 0;padding: 0;width: 100%;float: left;color: #000000;font-weight:600;font-size: 11px;" ng-show="scaleTicketDetails.printComment">Comment: {{scaleTicketDetails.comments}}</div>
+                     </div>
+                     <div style="margin: 0px 0 0 0;padding: 0;width: 100%;float: left;">
+                       
+                        <div style="margin: 0;padding: 0;width: 40%;float: right;">
+                           <div style="margin: 0;padding: 0;width: 50%;float: left;color: #000000;font-weight:600;font-size: 9px;;font-weight: 500;">Authorized Signature</div>
+                           <div style="margin: 16px 0 0 0;padding: 0;width: 50%;float: left;background: #000;height: 1px;"></div>
+                        </div>
+                     </div>
+                     <hr style="margin: 3px 0;padding: 0;width: 100%;float: left;background: #000;height: 1px;">
+                     <div style="margin: 0 0 25px 0;padding: 0;width: 100%;float: left;">
+                        <div style="margin: 0;padding: 0;width: 30%;float: left;">
+                           <div style="font-weight: 500;color: #000000;font-weight:600;font-size: 9px;"></div>
+                        </div>
+                        <div style="margin: 0;padding: 0;width: 60%;float: right;">
+                           <div style="    font-weight: 500;color: #000000;font-weight:600;font-size: 9px;">SUBJECT TO WARNING,TERMS AND CONDITIONS ON REVERSE</div>
+                        </div>
+                     </div>
+                     <div class="" style="margin: 0;padding: 55px 0;width: 100%;float: left;">                    
+                     </div>
+
+
+                     <div style="margin: 0px;padding: 0;width: 100%;float: left;background: #fff;display: flex;align-items: center;">
+                        <div style="margin: 0;padding: 0px;width: 25%;float: left;background: #fff;display: flex;align-items: center;">
+                           <img src="{{imagePath}}/images/rudyLogo2.png" style="margin: 0 5% 0 0;padding: 0;float: left;width: 30%;">
+                           <div style="margin: 0;padding: 0px;width: 60%;float: left;background: #fff;text-align: left;">
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Rudy Agro Ltd,</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Box 100,</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Outlook SK,S0L 2N0</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Tel : (306) 867-8667</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Fax : (306) 867-8290</div>
+                           </div>
+                        </div>
+                        <div style="margin: 0;padding: 0px;width: 45%;float: left;color: #000000;font-weight:600;font-size: 14px;font-weight: 700;text-align: center;">PRIMARY ELEVATOR RECEIPT</div>
+                        <div style="margin: 0;padding: 0px;width: 25%;float: left;background: #fff;text-align: right;">
+                           <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 600;">Elevator receipt number</div>
+                           <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 600;">TP- {{scaleTicketDetails.ticketNumber}},</div>
+                           <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 600;">{{scaleTicketDetails.date | date}}</div>
+                        </div>
+                     </div>
+                     <div class="" style="margin: 0 0 10px 0;padding: 0;width: 100%;float: left;  border-bottom: 0px solid #039d4a;">                    
+                     </div>
+
+
+
+                     <div style="margin: 0px 0 0 0;padding: 0;width: 100%;float: left;">
+                        <table class="table table-bordered" style="margin-bottom: 0;width: 100%;">
+                          
+                           <tbody>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">Scale Record in Tons</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;    border-bottom: none;color: #000000;font-weight:600;">{{scaleTicketDetails.buyerId.businessName}}</td>   
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">GROSS WEIGHT</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;">{{scaleTicketDetails.grossWeightMT}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;color: #000000;font-weight:600;    border-top: none;border-bottom:none;"></td>   
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">CONTRACT #</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;color: #000000;font-weight:600;">{{scaleTicketDetails.contractNumber}} - {{scaleTicketDetails.contractExtra}}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">TARE WEIGHT</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;">{{scaleTicketDetails.tareWeightMT}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;color: #000000;font-weight:600;border-top:none;"></td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">TRUCK/UNIT#</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;color: #000000;font-weight:600;">{{scaleTicketDetails.trackUnit}}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">LOAD</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;">{{scaleTicketDetails.unloadWeidhtMT}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 100%;color: #000000;font-weight:600;">{{scaleTicketDetails.buyerId.addresses[0].street}} {{scaleTicketDetails.buyerId.addresses[0].city}} {{scaleTicketDetails.buyerId.addresses[0].postal}} {{scaleTicketDetails.buyerId.addresses[0].country}}</div>
+                                   
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">SEAL#</div>
+                                    <div style="color:#000;font-weight: 600; margin: 0;padding: 0;float: left;width: 40%;text-align: right;">{{scaleTicketDetails.seal}}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: center;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                                    <td style="padding: 0px 8px;font-size: 9px;"></td>
+                                    <td style="padding: 0px 8px;font-size: 9px;">
+                                    
+                                 </td>
+                              </tr>
+
+
+                              
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: center;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">Grain</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;font-weight: 500;color: #000000;font-weight:600;color: #000000;font-weight:600;">{{scaleTicketDetails.commodityId.commodityName}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                 
+                                 </td>
+                              </tr>
+                              <tr>
+                              <td style="padding: 0px 8px;font-size: 9px;"></td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                   
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     
+                     <div style="margin: 0px 0 0 0;padding: 0px 0 0 0;width: 100%;float: left;    text-align: center;">
+                        <div style="margin: 0;padding: 0;width: 100%;float: left;color: #000000;font-weight:600;font-size: 11px;">Grain loaded(In Words): {{unloadWeidhtInWord}}</div>
+                        
+                        <div style="margin: 5px 0 0 0;padding: 0;width: 100%;float: left;color: #000000;font-weight:600;font-size: 11px;" ng-show="scaleTicketDetails.printComment">Comment: {{scaleTicketDetails.comments}}</div>
+                     </div>
+                     <div style="margin: 0px 0 0 0;padding: 0;width: 100%;float: left;">
+                      
+                        <div style="margin: 0;padding: 0;width: 40%;float: right;">
+                           <div style="margin: 0;padding: 0;width: 50%;float: left;color: #000000;font-weight:600;font-size: 1.2em;font-weight: 500;color: #000000;font-weight:600;font-size: 9px;">Authorized Signature</div>
+                           <div style="margin: 16px 0 0 0;padding: 0;width: 50%;float: left;background: #000;height: 1px;"></div>
+                        </div>
+                     </div>
+                     <hr style="margin: 3px 0;padding: 0;width: 100%;float: left;background: #000;height: 1px;">
+                     <div style="margin: 0 0 25px 0;padding: 0;width: 100%;float: left;">
+                        <div style="margin: 0;padding: 0;width: 30%;float: left;">
+                           <div style="font-weight: 500;color: #000000;font-weight:600;color: #000000;font-weight:600;font-size: 9px;"></div>
+                        </div>
+                        <div style="margin: 0;padding: 0;width: 60%;float: right;">
+                           <div style="    font-weight: 500;color: #000000;font-weight:600;color: #000000;font-weight:600;font-size: 9px;">SUBJECT TO WARNING,TERMS AND CONDITIONS ON REVERSE</div>
+                        </div>
+                     </div>
+                     <div class="" style="margin: 0;padding: 60px 0;width: 100%;float: left;">                    
+                     </div>
+
+
+
+
+                     <div style="margin: 0px;padding: 0;width: 100%;float: left;background: #fff;display: flex;align-items: center;">
+                        <div style="margin: 0;padding: 0px;width: 25%;float: left;background: #fff;display: flex;align-items: center;">
+                           <img src="{{imagePath}}/images/rudyLogo2.png" style="margin: 0 5% 0 0;padding: 0;float: left;width: 30%;">
+                           <div style="margin: 0;padding: 0px;width: 60%;float: left;background: #fff;text-align: left;">
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Rudy Agro Ltd,</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Box 100,</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Outlook SK,S0L 2N0</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Tel : (306) 867-8667</div>
+                              <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 700;">Fax : (306) 867-8290</div>
+                           </div>
+                        </div>
+                        <div style="margin: 0;padding: 0px;width: 45%;float: left;color: #000000;font-weight:600;font-size: 14px;font-weight: 700;text-align: center;">PRIMARY ELEVATOR RECEIPT</div>
+                        <div style="margin: 0;padding: 0px;width: 25%;float: left;background: #fff;text-align: right;">
+                           <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 600;">Elevator receipt number</div>
+                           <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 600;">TP- {{scaleTicketDetails.ticketNumber}},</div>
+                           <div style="margin: 0;padding: 0px;width: 100%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 600;">{{scaleTicketDetails.date | date}}</div>
+                        </div>
+                     </div>
+                     <div class="" style="margin: 0 0 10px 0;padding: 0;width: 100%;float: left;  border-bottom: 0px solid #039d4a;">                    
+                     </div>
+
+
+                     <div style="margin: 0px 0 0 0;padding: 0;width: 100%;float: left;">
+                        <table class="table table-bordered" style="margin-bottom: 0;width: 100%;">
+                          
+                           <tbody>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">Scale Record in Tons</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;    border-bottom: none;color: #000000;font-weight:600;">{{scaleTicketDetails.growerFullName}}</td>   
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">GROSS WEIGHT</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;">{{scaleTicketDetails.grossWeightMT}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;color: #000000;font-weight:600;    border-top: none;border-bottom:none;"></td>   
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">CONTRACT #</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;color: #000000;font-weight:600;">{{scaleTicketDetails.contractNumber}} - {{scaleTicketDetails.contractExtra}}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">TARE WEIGHT</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;">{{scaleTicketDetails.tareWeightMT}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;color: #000000;font-weight:600;border-top:none;"></td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">TRUCK/UNIT#</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;color: #000000;font-weight:600;">{{scaleTicketDetails.trackUnit}}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">LOAD</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align:right;color: #000000;font-weight:600;">{{scaleTicketDetails.unloadWeidhtMT}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 100%;color: #000000;font-weight:600;">{{scaleTicketDetails.buyerId.addresses[0].street}} {{scaleTicketDetails.buyerId.addresses[0].city}} {{scaleTicketDetails.buyerId.addresses[0].postal}} {{scaleTicketDetails.buyerId.addresses[0].country}}</div>
+                                    
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">SEAL#</div>
+                                    <div style="color:#000;font-weight: 600; margin: 0;padding: 0;float: left;width: 40%;text-align: right;">{{scaleTicketDetails.seal}}</div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: center;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                                    <td style="padding: 0px 8px;font-size: 9px;"></td>
+                                    <td style="padding: 0px 8px;font-size: 9px;">
+                                    
+                                 </td>
+                              </tr>
+
+
+                             
+                              <tr>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: center;color: #000000;font-weight:600;"></div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 30%;text-align: right;color: #000000;font-weight:600;"></div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    <div style="margin: 0;padding: 0;float: left;width: 60%;color: #000000;font-weight:600;font-size: 8px;">Grain</div>
+                                    <div style="margin: 0;padding: 0;float: left;width: 40%;text-align: right;font-weight: 500;color: #000000;font-weight:600;color: #000000;font-weight:600;">{{scaleTicketDetails.commodityId.commodityName}}</div>
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                    
+                                 </td>
+                              </tr>
+                              <tr>
+                              <td style="padding: 0px 8px;font-size: 9px;"></td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                   
+                                 </td>
+                                 <td style="padding: 0px 8px;font-size: 9px;">
+                                   
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     
+                     <div style="margin: 0px 0 0 0;padding: 0;width: 100%;float: left;    text-align: center;">
+                        <div style="margin: 0;padding: 0;width: 100%;float: left;color: #000000;font-weight:600;font-size: 11px;">Grain loaded(In Words): {{unloadWeidhtInWord}}</div>
+                        
+                        <div style="margin: 5px 0 0 0;padding: 0;width: 100%;float: left;color: #000000;font-weight:600;font-size: 11px;" ng-show="scaleTicketDetails.printComment">Comment: {{scaleTicketDetails.comments}}</div>
+                     </div>
+                     <div style="margin: 0px 0 0 0;padding: 0;width: 100%;float: left;">
+                        
+                        <div style="margin: 0;padding: 0;width: 40%;float: right;">
+                           <div style="margin: 0;padding: 0;width: 50%;float: left;color: #000000;font-weight:600;font-size: 9px;font-weight: 500;color: #000000;font-weight:600;">Authorized Signature</div>
+                           <div style="margin: 16px 0 0 0;padding: 0;width: 50%;float: left;background: #000;height: 1px;"></div>
+                        </div>
+                     </div>
+                     <hr style="margin: 3px 0;padding: 0;width: 100%;float: left;background: #000;height: 1px;">
+                     <div style="margin: 0;padding: 0;width: 100%;float: left;">
+                        <div style="margin: 0;padding: 0;width: 30%;float: left;">
+                           <div style="font-weight: 500;color: #000000;font-weight:600;color: #000000;font-weight:600;font-size: 9px;"></div>
+                        </div>
+                        <div style="margin: 0;padding: 0;width: 60%;float: right;">
+                           <div style="    font-weight: 500;color: #000000;font-weight:600;color: #000000;font-weight:600;font-size: 9px;">SUBJECT TO WARNING,TERMS AND CONDITIONS ON REVERSE</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

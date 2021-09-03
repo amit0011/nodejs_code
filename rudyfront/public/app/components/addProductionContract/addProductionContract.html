@@ -1,0 +1,873 @@
+<div class="dash_bord" ng-controller="addProductionContractCtrl">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="getCommodityType()">
+      <h3 class="heading_cls">{{btnShow=='add'?'Add':btnShow=='edit'?'Edit':''}} Production Contract</h3>
+      <hr class="heading_hr">
+      <h4 class="heading_cls">{{growerDetails.firstName}} {{growerDetails.lastName}} with {{myForm.farmName || growerDetails.farmName}}
+      </h4>
+      <div class="panel_body_inner inner_box_List_add add_commodity">
+        <div class="col-md-6">
+          <div class="" style="margin: 0;padding: 0px;width: 100%;float: left;background: #fff;">
+            <div class=""
+              style="margin: 0 0 4px 0;padding: 0 0 4px 0;width: 100%;float: left;  border-bottom: 5px solid #007e4e;">
+              <div class="" style="width: 27.33%; float: left;padding: 0 0px;">
+                <div class="" style="margin: 0;padding: 0;width: 100%;float: left">
+                  <img src="{{imagePath}}/images/rudyLogo2.png" style="margin: 0;padding: 0;float: left;">
+                </div>
+              </div>
+              <div class="" style="width: 38.33%; float: left;padding: 0 0px;">
+                <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                  <h3 style="margin: 0;padding: 0;width: 100%;float: left;color: #000;font-size: 14px;">Production
+                    Contract</h3>
+                  <h4 style="margin: 3px 0;padding: 0;width: 100%;float: left;color: #000;font-size: 14px">Commodity:
+                    {{myForm.commodityName}}</h4>
+                  <h5 style="margin: 0;padding: 0 0px;width: 100%;float: left;color: #000;   font-size: 14px;">Grade:
+                    {{myForm.gradeName}}</h5>
+                  <h2 style="margin: 0;padding: 0;width: 100%;float: left;color: #000;font-size: 14px;">Contract #:
+                    {{myForm.contractNumber}}</h2>
+                </div>
+              </div>
+              <div class="" style="width: 29.33%; float: left;padding: 0 15px;">
+                <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+                  <h2 style="margin: 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 22px;">RUDY AGRO LTD.</h2>
+                  <h3 style="margin: 3px 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 11px;">Box 100, Outlook Sask.S0L 2N0</h3>
+                  <a href="#" style="margin: 2px 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 11px;">Tel (306) 867-8667</a>
+                  <a href="#" style="margin: 2px 0;padding: 0;width: 100%;float: left;color: #007e4e;
+                              font-size: 11px;">Fax (306 867-8290</a>
+                </div>
+              </div>
+            </div>
+            <div class="" style="margin: 0;padding: 0;width: 100%;float: left;">
+
+              <h3
+                style="color: #000;margin: 0;padding: 0;float: left;width: 100%;font-size: 16px;font-weight: 700;text-align: center;">
+                <span
+                  style="float: right;margin: 0 16px 0 0;font-size: 11px;font-weight: 400;">{{myForm.CWTDel | number:2}}</span>
+              </h3>
+
+              <p style="color: #000;padding: 0;float: left;width: 100%;font-size: 12px;margin-bottom: -3px;">Made in
+                duplicate, {{myForm.createdAt | date}}, between <b>Rudy Agro Ltd</b>, P.O. Box 100, Outlook,
+                Saskatchewan (”the Buyer”) and
+                <b>{{myForm.personFarmType=='Farm' ? myForm.farmName : growerDetails.firstName}}
+                  {{myForm.personFarmType=='Farm' ? '': growerDetails.lastName}}</b>. of
+                <b>{{myForm.growerId.addresses[0].street}} {{myForm.growerId.addresses[0].town}}
+                  {{myForm.growerId.addresses[0].postal}} {{myForm.growerId.addresses[0].province}}</b> “the Grower”,
+                who agree as follows:</p>
+
+              <ol style="padding: 0 0 0 15px;width: 100%;float: left;max-width: 98%">
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The Grower will plant, tend and harvest <b>{{myForm.acres}}</b> acres (“the Acres”) of the Commodity
+                  in the <b>{{myForm.cropYear}}</b> growing season (“the Growing Season”), on the following land:
+                  <div class="" style="margin: 0px;padding: 0 0px;width: 100%;float: left;">
+                    <div style="margin: 0;padding: 0 0px;width: 100%;float: left;">
+
+                      <div
+                        style="margin: 0;padding: 0 0px;width: 11.50%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 20%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[0].numberOfAcres}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 80%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          Acres on</p>
+                      </div>
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[0].direction}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          1/4 Sec</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[0].section}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          TWP</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[0].townShip}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          Range</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[0].range}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          W</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 4%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 70%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[0].meridien}}</span>
+
+                      </div>
+
+                      <div
+                        style="margin: 0 0 0 1%;padding: 0 0px;width: 11.50%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 20%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[1].numberOfAcres}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 80%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          Acres on</p>
+                      </div>
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[1].direction}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          1/4 Sec</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[1].section}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          TWP</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[1].townShip}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          Range</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[1].range}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          W</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 4%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 70%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[1].meridien}}</span>
+                      </div>
+                    </div>
+
+                    <div style="margin: -3px 0 0 0;padding: 0 0px;width: 100%;float: left;">
+
+                      <div
+                        style="margin: 0;padding: 0 0px;width: 11.50%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 20%;float: left;height: 20px;border: 2px solid #000;">{{land[2].numberOfAcres}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 80%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          Acres on</p>
+                      </div>
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{land[2].direction}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          1/4 Sec</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{land[2].section}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          TWP</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{land[2].townShip}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          Range</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{land[2].range}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          W</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 4%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 70%;float: left;height: 20px;border: 2px solid #000;">{{land[2].meridien}}</span>
+                      </div>
+
+                      <div
+                        style="margin: 0 0 0 1%;padding: 0 0px;width: 11.50%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 20%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[3].numberOfAcres}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 80%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          Acres on</p>
+                      </div>
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[3].direction}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          1/4 Sec</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[3].section}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          TWP</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[3].townShip}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          Range</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 8.25%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 32%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[3].range}}</span>
+                        <p
+                          style="margin: 0;padding:  0px;width: 68%;float: left;text-align: center;font-weight: 400;line-height: 11px;">
+                          W</p>
+                      </div>
+
+                      <div style="margin: 0;padding: 0 0px;width: 4%;float: left;display: flex;align-items: center;">
+                        <span
+                          style="margin: 0;padding:  2px;width: 70%;float: left;height: 20px;border: 2px solid #000;">{{myForm.landLocation[3].meridien}}</span>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                </li>
+                <div style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  (provided that if the Grower decides to grow the Commodity on any other land, it shall immediately
+                  notify the Buyer in writing), and the Grower agrees to sell to the Buyer on the termsset forth herein
+                  and the Buyer agrees to purchase all of the crop produced from the Acres in the Growing Season (“the
+                  Production”).
+                </div>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The Grower has selected the following pricing option for the sale of its Production to the Buyer:<br>
+                  (a) The <b><input disabled type="checkbox" ng-model="myForm.fixedAdditionalProduction"
+                      ng-checked="myForm.priceOption=='Fixed'"></b> fixed price option described in paragraph 3, on the
+                  first <b>{{myForm.fixedOnFirst}} {{myForm.fixedPriceUnit}}</b> of the Production (“the Fixed
+                  Production”) with the price for any additional production to be either the
+                  <input disabled type="radio" ng-model="myForm.fixedAdditionalProduction"
+                    ng-checked="myForm.fixedAdditionalProduction=='Agreed'">
+                  <b>Agreed</b>
+                  Price or the
+                  <input disabled type="radio" ng-model="myForm.fixedAdditionalProduction"
+                    ng-checked="myForm.fixedAdditionalProduction=='Pooled'">
+                  <b>Pooled</b>
+                  Price as described below. Buyer agrees to take delivery of the fixed production from
+                  <b>{{myForm.deliveryDateFrom | date}}</b>
+                  to <b>{{myForm.deliveryDateTo | date}}</b>.<br>
+                  (b) The <b><input disabled type="checkbox" ng-model="myForm.fixedAdditionalProduction"
+                      ng-checked="myForm.priceOption=='Agreed'"></b> agreed price option, described in paragraph 4,
+                  or;<br>
+                  (c) The <b><input disabled type="checkbox" ng-model="myForm.fixedAdditionalProduction"
+                      ng-checked="myForm.priceOption=='Pooled'"></b>
+                  pooled price option described in paragraph 5
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The fixed price will be <b>${{myForm.fixedPrice | number:4}}</b> per <b>{{myForm.fixedPriceUnit}}</b>
+                  (“the Fixed Price”) <b>{{myForm.deliveryOption}}</b> for all of the Production which is graded
+                  {{myForm.gradeName}} by the Buyer (and which, in the case of Kabuli Chickpeas sized 8,9,10mm or
+                  larger. If the Production is graded by the Buyer as lower than {{myForm.gradeName}} (or is, in the
+                  case of Green Peas, bleached or, forKabuli Chickpeas, undersized), then the Grower shall receive the
+                  lower of the following prices instead of the Fixed Price:<br>
+                  (a) The applicable price as shown in the following table (and in the event the table does not show the
+                  particular grade of Commodity delivered by the Grower, the Buyer mayelect to apply the price shown for
+                  the next highest grade):
+                  <div class="" style="margin: 0;padding: 0 0px;width: 100%;float: left;">
+                    <b>Other Grades Price</b>
+                    <div ng-repeat="otherGrade in myForm.otherGradePrices">
+                      <div style="margin: 0;padding: 0 0px;width: 15%;float: left;">
+                        {{otherGrade.gradeName}} :
+                      </div>
+                      <div style="margin: 0;padding: 0 0px;width: 15%;float: left;">
+                        {{otherGrade.gradePrice}}
+                      </div>
+                    </div>
+                  </div>
+
+                </li>
+                <p style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">or (b) The
+                  Buyer’s daily bid price for that grade of the Commodity as of the date of delivery.
+                  The Grower shall be excused from delivering the Fixed Production to the Buyer only if, and insofar as,
+                  the total amount of the Production is less than the Fixed Production as a
+                  direct result of an act of God occurring prior to the harvesting of the Production.</p>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The agreed price (“the Agreed Price ”) will be determined by agreement of the parties not later than
+                  June 1st of the year following the Growing Season, or such later dates as the parties may agree upon,
+                  failing which the Grower shall then be entitled to sell the portion of the Production to which the
+                  agreed price option applies or any of it to a buyer other than the Buyer only after the Buyer is
+                  provided with the full opportunity to purchase the same on a right of first refusal basis, which right
+                  of first refusal is here by granted by the Grower to the Buyer on the following terms:<br>
+                  (a)Upon receiving terms from a third party buyer that the Grower is prepared to accept, the Grower
+                  shall have the third party buyer forthwith provide the Buyer with full particulars of the terms of the
+                  proposed sale, including the quantity, grade and price, in the form of a “Production Transfer Request”
+                  which the Buyer will provide to the third party on request.<br>
+                  (b)Upon receipt of all of the said particulars, the Buyer shall have a period of 48 hours to notify
+                  the third party buyer that the Buyer is either exercising the Buyer’s right of first refusal to
+                  purchase the Production in question or that it consents to the Production Transfer Request (which
+                  consent the Grower acknowledges and agrees is acondition precedent to the sale of any of the
+                  Production to any party other than the Buyer).<br>
+                  (c)Should the Buyer consent to the Production Transfer Request as aforesaid, the Grower may proceed to
+                  sell to the third party buyer the Production as described in the Request provided that:(i) Such sale
+                  proceeds on the terms, including the timing of delivery and payment, set forth in the Request, failing
+                  which the Buyer’s consent shall be null and void, and its right of first refusal shall be
+                  reinstated.(ii)Any outstanding balance payable by the Grower to the Buyer for the Seed is first paid
+                  in full.<br>
+                  (d)The Grower acknowledges that every sale of any portion of the Production is subject to the Buyer’s
+                  first right of refusal even if a sale or sales of another portion there of to a third party have been
+                  consented to by the Buyer under the provisions above.In the event that the Agreed Price has not been
+                  determined in the manner set forth above for any portion of the Production by the end of the crop year
+                  for the GrowingSeason (“the Crop Year”), such remaining Production shall be purchased by the Buyer at
+                  the Buyer’s daily bid price for the Commodity as of the last day of the Crop Year.
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  (a) If the Grower has selected the pooled price option, the Production will be included in the pool
+                  which the Buyer has established for the Crop Year for the Commodity and Variety of the same grade (as
+                  determined pursuant to the provisions of this agreement) as the Production (“the Pooled Commodity”),
+                  and the Grower shall receive a price equal to the average (as calculated by the Buyer) of the prices
+                  paid by the Buyer for the Pooled Commodity throughout the Crop Year (“the Pooled Price”) (provided
+                  however that Commodities purchased by the Buyer at a Fixed Price or an Agreed Price will not be
+                  included in the calculation of the price paid to pools).<br>
+                  (b)All costs associated with marketing of the commodity contained within a pool, including but not
+                  limited to cleaning, bagging, handling, freight, storage, the Buyer’s carrying costs in relation to
+                  the Pooled Commodity, and the Buyer’s marketing commission as determined at its sole discretion will
+                  be for the account of the pool.<br>
+                  (c)The Buyer agrees to charge (or, where applicable, use all reasonable efforts to obtain) competitive
+                  cleaning, bagging, handling, freight and storage costs and to obtain the best prices available at the
+                  time of sale for the pool’s commodities, having regard to market fluctuations and delivery schedules,
+                  with a view to maximizing the return to the pool.<br>
+                  (d)In the event the Production contains in excess of 24% dockage or other foreign matter requiring
+                  special cleaning in addition to that required for the typical other commodities contained in the pool,
+                  the Buyer may charge the excess cleaning costs resulting there from directly to the Grower.<br>
+                  (e)Upon completion of delivery and determination of grade and dockage, the Buyer will make payment to
+                  the Grower of an amount equal to 85% of the price that theBuyer then estimates will eventually be paid
+                  as the Pooled Price. Final payment to the Grower will be made not later than 60 days after closing of
+                  the pool(s).<br>
+                  (f) The Buyer will have option of purchasing commodities from any pool for seed purposes at a price
+                  equivalent to the Pooled Price.
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  In the event that the Grower has purchased seed from the Buyer for the purpose of growing the
+                  Production, The Grower shall take possession of the Seed at its own expense, and the Buyer may deduct
+                  any balance owing for such seed from the purchase price of the Production. The Grower acknowledges
+                  that there are no agreements,warranties, conditions, terms, representations or inducements, oral or
+                  written, express or implied, legal, statutory, customary, collateral or otherwise, given or made by
+                  theBuyer with respect to, or connection with, the Seed or this agreement. The grower acknowledges that
+                  all production from seed provided by the buyer must be returned tothe buyer other than the quantities
+                  identified in 8B below. All production from that retained seed is automatically under a production
+                  agreement and 100% of the production must be returned to the buyer.
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The Buyer shall have the right to enter and inspect the fields planted to the Production, the
+                  Production and all buildings and places where the same is or may be locatedand the Grower’s records
+                  regarding the Production at any time or times deemed advisable by The Buyer. In the event of a crop
+                  failure for any reason, the Grower shallnotify The Buyer within 5 days of the same. Within 7 days of
+                  harvesting the Production, the Grower shall submit to the Buyer a 2lb. representative sample and
+                  acompleted harvest summary in the Document #F-20 form required by the Buyer (“the Harvest Summary”).
+                  The Grower acknowledges that the delivery to the Buyer of acomplete and accurate Harvest Summary is a
+                  condition precedent to the Buyer’s obligation to make any payment to the Grower for the Production.
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  (a) The Grower will deliver, at its own expense and in good and dry condition, all of the Production,
+                  wherever grown, including any volunteer Production, and regardless of quality to the Buyer’s facility
+                  at Outlook, Saskatchewan, unless otherwise designated by the Buyer, on 24 hour notice from the Buyer
+                  (which notice will be provided for any Production subject to an Agreed Price only after the price has
+                  been determined in accordance with Clause 4). The Buyer agrees that it shall call for delivery of any
+                  Production to which a Fixed Price applies on or before December 31, and Production to which a Pooled
+                  Price applies on or before July 31st of the Crop Year. Unless otherwise specified herein, the Grower
+                  shall bear all costs of delivery, and all risk in relation to the Production until it is delivered,
+                  and a grain receipt is issued by the Buyer as set forth below. The Grower warrants free and clear
+                  title to the Production and that the Production is not, and will not be, encumbered by contract or
+                  otherwise.
+                  <br>(b) Provided that the Grower delivers to the Buyer the Fixed Production (if applicable), the
+                  Grower may retain from the remaining Production up to 0 Lbs of theCommodity for the purposes of the
+                  Grower’s seeding in the next ensuing growing season, and the Grower shall describe in the Harvest
+                  Summary the quantity he wishes toretain. It is understood that the production from future growing
+                  seasons shall remain under contract of RAL, and that all production must be delivered to the
+                  buyer’sfacility
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  (a) The Buyer, upon delivery of the Commodity, shall determine grade, dockage, amount of split product
+                  (inclusive of small whole product removed through the normal cleaning process), and moisture content
+                  and, if applicable, size and bleaching, in accordance with, where applicable, the procedures and
+                  official standards of the Canadian Grain Commission, and thereafter provide the Grower with a grain
+                  receipt. The Buyer shall be entitled to refuse to accept delivery of Production containing moisture in
+                  excess of the maximum percentage being accepted by the Buyer for the Commodity and Variety of the
+                  Production at the time of delivery; if the Buyer decides to accept delivery of such Production, it
+                  shall be entitled to apply a deduction to the price to be paid for the Production at a rate determined
+                  in its sole discretion. At the option of the Buyer a handling tariff on non-pea items including
+                  Chickpeas and Marrowfat peas of $8.00 per MT and on all other pea items $3.50 per MT will be deducted.
+                  Screenings on all of the Production shall be the property of the Buyer.<br>
+                  (b) All determinations by the Buyer as set forth in paragraph (a) above shall be final and conclusive,
+                  except that in the event of a disagreement as to grade or dockage, the parties shall forward a
+                  suitable representative sample to the Canadian Grain Commission (or, at the option of the Buyer, SGS
+                  Canada Inc.) for a final determination, which shall not be subject to appeal.<br>
+                  (c) Except as otherwise contemplated in this agreement, and provided the Grower is not in default of
+                  any provision of this Agreement, the Buyer shall make payment for the Production within 10days of
+                  delivery, except that the Buyer may elect to withhold payment until the Grower has delivered the Fixed
+                  Production (if applicable). All prices shall be paid on the basis of net, cleaned weight as determined
+                  under the provisions this agreement. The Buyer may set off against, and deduct from, any payment to
+                  the Grower for the Production, any indebtedness of the Grower to the Buyer.
+
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  (a) The Grower shall be responsible for all loss, damage and expense incurred by the Buyer arising
+                  directly or indirectly from the failure or neglect of the Grower to sell and deliver to the Buyer all
+                  of the Production or to perform this agreement or any provision of it, whether such failure is within
+                  or beyond its control (including as a result of any acts of God occurring after the harvesting of the
+                  Production). As well, the Grower agrees that the Production does not constitute “specific goods” as
+                  defined in The Sale of Goods Act.<br>
+                  (b) In the event of any such failure or neglect, the Buyer shall be entitled to pursue all remedies
+                  available under law against the Grower, including the recovery of all losses and expenses incurred by
+                  the Buyer in any default or breach by it of any contractual arrangements between it and a 3rd party or
+                  parties in relation to the Production, in replacing or attempting to replace the Production from other
+                  sources and/or from accepting late and/or partial delivery from the Grower, as the Buyer may in its
+                  sole discretion elect.
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The Grower hereby grants the Buyer a security interest in the Production and all proceeds of any kind
+                  derived directly or indirectly from the Production, which security interest ma y be enforced by any
+                  method permitted by law, including, without limitation, under the provisions of applicable personal
+                  property security legislation. The Grower acknowledges receipt of a copy of this contract and waives
+                  any right to receive a financing statement or financing change statement relating to it. The
+                  Limitation of Civil Rights Act and the Lands Contracts (Actions) Act, both of Saskatchewan, shall have
+                  no application to this contract or such security where the Grower is a corporate body.
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  It is mutually agreed that time is of the essence of the Agreement and that this Agreement shall be
+                  binding upon and ensure to the benefit of the parties hereto, their heirs, executors, personal
+                  representative, successors and permitted assigns. It is further agreed that this Contract cannot be
+                  assigned by the Grower, but that it may be assigned by the Buyer at any time without notice to the
+                  Grower.
+
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The parties hereto agree that this Contract shall be governed by and construed in accordance with the
+                  laws of the Province of Saskatchewan and the parties agree to attorn to and be bound by the
+                  jurisdiction of the Courts of Saskatchewan. The failure of the Buyer to enforce at any time any term,
+                  warranty or condition of the agreement shall not be considered a waiver of the Buyer’s right to
+                  thereafter enforce each and every term, warranty and condition of the Agreement. Any notice to be
+                  provided by the Buyer to the Grower hereunder may be provided by use of any one of the telephone or
+                  facsimile numbers or post office addresses provided below.
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  The return envelope for this contract must be postmarked on or before
+                  <b>{{myForm.contractReturnDate | date}}</b> failing which this contract will be null and void at the
+                  option of the Buyer
+                </li>
+                <li style="margin-bottom: 2px;padding: 0;width: 100%;float: left;color: #000;font-size: 10px;">
+                  {{myForm.otherComments}}
+                </li>
+              </ol>
+              <div class="" style="margin:130px 0 0 0;padding: 0;width: 100%;float: left;">
+                <div class="row" style="width: 100%;float: left;">
+                  <div class="col-md-6" style="width: 50%;float: left;">
+                    <h6 style="margin: 0;padding: 0;width: 100%;float: left;color: #000;font-size: 15px;">Per: Admin
+                    </h6>
+                    <h2 class="ext"
+                      style="color: #000;font-size: 18px;margin: 50px 0 0 0;border-top: 2px solid #000;padding: 10px 0 0 0;">
+                      Rudy Agro Ltd - Buyer</h2>
+                  </div>
+                  <div class="col-md-6" style="width: 50%;float: left;">
+                    <h3 style="margin: 0;padding: 0;  width: 100%;float: left;color: #000;font-size: 15px;">Per:
+                      {{myForm.growerId.firstName}} {{myForm.growerId.firstName}}
+                      <h3 style="margin: 0;padding: 0;  width: 100%;float: left;color: #000;font-size: 15px;">
+                        {{myForm.growerId.farmName}}</h3>
+                    </h3>
+                    <h2
+                      style="color: #000;font-size: 18px;margin: 50px 0 0 0;border-top: 2px solid #000;padding: 10px 0 0 0;">
+                      Grower or Authorized Signing Office</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="add_commodity pro_con">
+            <form name="addProductionContract" novalidate>
+              <div class="com_pac">
+                <label>Contract Number</label>
+                <input type="text" ng-model="myForm.contractNumber" name="code" ng-disabled="true"
+                  placeholder="Contract number" style="background: transparent">
+              </div>
+              <div class="com_pac">
+                <label>Show Person or Farm</label>
+                <div class="radio_check_cls" style="width: 100%;">
+                  <label class="slt_usrs slt_one">
+                    <input type="radio" name="personType" ng-model="myForm.personFarmType" value="Person" required>
+                    <span class="checkmark"></span> Person
+                  </label>
+                  <label class="slt_usrs">
+                    <input type="radio" ng-model="myForm.personFarmType" name="personType" value="Farm" required>
+                    <span class="checkmark"></span> Farm
+                  </label>
+
+                  <div ng-show="myForm.personFarmType=='Farm'">
+                    <select name="farmName" style="width:auto;"
+                      ng-options="name as name for name in growerDetails.farmNames"
+                      ng-model="myForm.farmName" ng-required="myForm.personFarmType === 'Farm'">
+                      <option value="">-- Select Farm --</option>
+                    </select>
+                  </div>
+                  <span ng-show="myForm.personFarmType=='Person'">{{growerDetails.firstName}}
+                    {{growerDetails.lastName}}</span>
+                  <span
+                    ng-show="addProductionContract.personType.$invalid && addProductionContract.personType.$pristine && submitted"
+                    style="color: #b94a48;font-weight: 700;">Please select any one.</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label style="width: 38%;">Commodity</label>
+                    <select ng-disabled="btnShow=='edit'" name="commodityName"
+                      ng-options="commodity._id as commodity.commodityName for commodity in commoditys"
+                      ng-model="myForm.commodityId" ng-change="getGrade(myForm.commodityId)" required>
+                      <option value="">Select Commodity</option>
+                    </select>
+                    <span
+                      ng-show="addProductionContract.commodityName.$invalid && addProductionContract.commodityName.$pristine && submitted"
+                      class="validationErrorCropYear"></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>Grade</label>
+                    <select name="gradeName" ng-options="grade._id as grade.gradeName for grade in contractGrade"
+                      ng-model="myForm.gradeId" required ng-change="getGradeName(myForm.gradeId)">
+                      <option value="">Select Grade</option>
+                    </select>
+                    <span
+                      ng-show="addProductionContract.gradeName.$invalid && addProductionContract.gradeName.$pristine && submitted"
+                      class="validationError"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label style="width: 38%;">Crop Year</label>
+                    <select name="cropYear" ng-model="myForm.cropYear" ng-change="generateContractNo()" required
+                      ng-disabled="btnShow=='edit'" ng-options="cropYear as cropYear for cropYear in cropYears">
+                      <option value="">Select Year</option>
+                    </select>
+                    <span
+                      ng-show="addProductionContract.cropYear.$invalid && addProductionContract.cropYear.$pristine && submitted"
+                      class="validationErrorCropYear"></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label>Acres</label>
+                    <input type="text" numbers-Only ng-model="myForm.acres" name="acres" required position="4">
+                    <span ng-show="addProductionContract.acres.$invalid && submitted" class="validationError"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="com_pac">
+                <label class="land_date">Delivery Date</label>
+                <!-- <input class="hal_ip" ng-model="myForm.commodityWeight" type="text" name="code"> -->
+                <!-- <input class="hal_slt" ng-model="myForm.commodityWeight" type="text" name="code"> -->
+                <div class="com_with_rt">
+                  <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                    <div class="input-group">
+                      <input name="dateFrom" class="form-control" ng-model="myForm.deliveryDateFrom"
+                        placeholder="Choose a date" autocomplete="off" required />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                  <span
+                    ng-show="addProductionContract.dateFrom.$invalid && addProductionContract.dateFrom.$pristine && submitted"
+                    ng-class="myForm.priceOption=='Fixed'?'validationErrorDateFromAfter':'validationErrorDateFrom'"
+                    class="validationErrorDateFrom"></span>
+                  <b class="to_cls">TO</b>
+                  <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                    <div class="input-group">
+                      <input name="dateTo" class="form-control" ng-model="myForm.deliveryDateTo"
+                        placeholder="Choose a date" autocomplete="off" required />
+                      <span class="input-group-addon" style="cursor: pointer">
+                        <i class="fa fa-lg fa-calendar"></i>
+                      </span>
+                    </div>
+                  </datepicker>
+                  <span
+                    ng-show="addProductionContract.dateTo.$invalid && addProductionContract.dateTo.$pristine && submitted"
+                    ng-class="myForm.priceOption=='Fixed'?'validationErrorDateToAfter':'validationErrorDateTo'"
+                    class="validationErrorDateTo"></span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="com_pac">
+                    <label class="land_loaction" style="width: 34%;">Delivery Option</label>
+                    <div class="radio_check_cls" style="width:100%;">
+                      <label class="slt_usrs slt_one">
+                        <input type="radio" name="deliveryOptionSelect" ng-model="myForm.deliveryOption"
+                          value="FOB Farm">
+                        <span class="checkmark"></span> FOB Farm
+                      </label>
+                      <label class="slt_usrs" style="width: 43%;">
+                        <input type="radio" ng-model="myForm.deliveryOption" name="deliveryOptionSelect"
+                          value="DEL Rudy Agro Ltd">
+                        <span class="checkmark"></span> DEL Rudy Agro Ltd
+                      </label>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4" ng-show="myForm.deliveryOption=='FOB Farm'">
+                  <div class="com_pac">
+                    <label style="width: 50%;">Freight Rate</label>
+                    <input class="frt_rtae" type="text" ng-model="myForm.freightRate" placeholder="Freight Rate"
+                      name="freightRateNO" ng-required="myForm.deliveryOption=='FOB Farm'" ng-change="getCwtDelPrice()"
+                      position="4" style="width: 58%;" numbers-Only>
+                    <span
+                      ng-show="addProductionContract.freightRateNO.$invalid && addProductionContract.freightRateNO.$pristine && submitted && myForm.deliveryOption=='FOB Farm'"
+                      class="validationError"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="com_pac">
+                <label class="land_loaction">Price Option</label>
+                <div class="radio_check_cls">
+                  <label class="slt_usrs slt_one">
+                    <input ng-change="priceOptionChanged()" type="radio" name="priceOptionName" ng-model="myForm.priceOption" value="Fixed" required>
+                    <span class="checkmark"></span> Fixed
+                  </label>
+                  <label class="slt_usrs">
+                    <input ng-change="priceOptionChanged()" type="radio" ng-model="myForm.priceOption" name="priceOptionName" value="Agreed" required>
+                    <span class="checkmark"></span> Agreed
+                  </label>
+                  <label class="slt_usrs">
+                    <input ng-change="priceOptionChanged()" type="radio" ng-model="myForm.priceOption" name="priceOptionName" value="Pooled" required>
+                    <span class="checkmark"></span> Pooled
+                  </label>
+                </div>
+                <span
+                  ng-show="addProductionContract.priceOptionName.$invalid && addProductionContract.priceOptionName.$pristine && submitted"
+                  style="color: #b94a48;font-weight: 700;">Please select any one.</span>
+                <!-- <input type="text" ng-show="myForm.farmType=='FOB Farm'" ng-model="myForm.freightRate" placeholder="Freight Rate" name=""> -->
+              </div>
+              <div class="row on_add" ng-show="myForm.priceOption=='Fixed'">
+                <div class="col-md-4">
+                  <div class="com_pac">
+                    <label class="land_price">Fixed Price</label>
+                    <input class="fixprice_cls" racurrency type="text" ng-model="myForm.fixedPrice" numbers-Only name="priceName"
+                      ng-required="myForm.priceOption === 'Fixed'" ng-change="getCwtDelPrice()" position="4">
+                    <span
+                      ng-show="addProductionContract.priceName.$invalid && addProductionContract.priceName.$pristine && submitted && myForm.priceOption=='Fixed'"
+                      class="validationErrorFixedPrice"></span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="com_pac">
+                    <label class="land_price">Per</label>
+                    <!-- <input type="number" ng-model="myForm.fixedPriceUnit" name="priceOption"> -->
+                    <select class="fixprice_cls" name="pricePer" ng-model="myForm.fixedPriceUnit"
+                      ng-change="getCwtDelPrice()" ng-required="myForm.priceOption === 'Fixed'">
+                      <option value="">Select Unit</option>
+                      <option value="Lbs">Lbs</option>
+                      <option value="Bu">Bu</option>
+                      <option value="CWT">CWT</option>
+                    </select>
+                    <span
+                      ng-show="addProductionContract.pricePer.$invalid && addProductionContract.pricePer.$pristine && submitted && myForm.priceOption=='Fixed'"
+                      class="validationErrorFixedPrice"></span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="com_pac">
+                    <label class="land_price">On First</label>
+                    <input type="text" ng-model="myForm.fixedOnFirst" numbers-Only name="firstPrice" ng-required="myForm.priceOption === 'Fixed'"
+                      ng-change="getCwtDelPrice()" position="4">
+                    <span
+                      ng-show="addProductionContract.firstPrice.$invalid && addProductionContract.firstPrice.$pristine && submitted && myForm.priceOption=='Fixed'"
+                      class="validationErrorOnFixedPrice"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="com_pac" ng-show="myForm.priceOption=='Fixed'">
+                <label class="land_date">Additional Delivery</label>
+                <div class="radio_check_cls">
+                  <label class="slt_usrs slt_one">
+                    <input type="radio" name="additionalDeliverySelect" ng-model="myForm.fixedAdditionalProduction"
+                      value="Agreed" ng-required="myForm.priceOption === 'Fixed'">
+                    <span class="checkmark"></span> Agreed
+                  </label>
+                  <label class="slt_usrs">
+                    <input type="radio" ng-model="myForm.fixedAdditionalProduction" name="additionalDeliverySelect"
+                      value="Pooled" ng-required="myForm.priceOption === 'Fixed'">
+                    <span class="checkmark"></span> Pooled
+                  </label>
+                </div>
+                <span
+                  ng-show="addProductionContract.additionalDeliverySelect.$invalid && addProductionContract.additionalDeliverySelect.$pristine && submitted"
+                  style="color: #b94a48;font-weight: 700;">Please select any one.</span>
+              </div>
+              <div class="com_pac">
+                <label class="land_date">Contract Return Date</label>
+                <datepicker style="width: 40%" class="sin_date" date-format="yyyy-MM-dd" selector="form-control">
+                  <div class="input-group">
+                    <input class="form-control" name="contractDateSelect" ng-model="myForm.contractReturnDate"
+                      placeholder="Choose a date" autocomplete="off" required />
+                    <span class="input-group-addon" style="cursor: pointer">
+                      <i class="fa fa-lg fa-calendar"></i>
+                    </span>
+                  </div>
+                </datepicker>
+                <span
+                  ng-show="addProductionContract.contractDateSelect.$invalid && addProductionContract.contractDateSelect.$pristine && submitted"
+                  ng-class="myForm.priceOption=='Fixed'?'validationErrorRetrunDateAfter':'validationErrorRetrunDate'"
+                  class="validationErrorRetrunDate"></span>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label class="grower_retain">Grower Retain</label>
+                    <input type="text" ng-model="myForm.growerRetain" placeholder="Grower Retain" numbers-Only
+                      name="growerRetainRequired" required position="4">
+                    <span
+                      ng-show="addProductionContract.growerRetainRequired.$invalid && addProductionContract.growerRetainRequired.$pristine && submitted"
+                      class="validationErrorCropYear"></span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label class="grower_retain_unit">Grower Retain Unit</label>
+                    <select ng-model="myForm.growerRetainUnits" name="growerRetainUnit" required>
+                      <option value="">Grower Retain Unit</option>
+                      <option value="Lbs">Lbs</option>
+                      <option value="Bushels">Bushels</option>
+                    </select>
+                    <span
+                      ng-show="addProductionContract.growerRetainUnit.$invalid && addProductionContract.growerRetainUnit.$pristine && submitted"
+                      class="validationErrorRetainUnits"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label class="land_date lable_cls_width">CWT Del</label>
+                    <input type="text" ng-model="myForm.CWTDel" numbers-Only name="CWTDel" disabled ng-required="myForm.priceOption === 'Fixed'"
+                      position="4">
+                    <span
+                      ng-show="addProductionContract.CWTDel.$invalid && addProductionContract.CWTDel.$pristine && submitted"
+                      class="validationErrorCropYear"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="com_pac">
+                    <label class="land_date lable_cls_width" style="width: 18%">Other Comments</label>
+                    <!-- <input style="width: 74%" type="text" ng-model="myForm.otherComments" placeholder="Other Comments" name="otherComments"> -->
+                    <textarea style="width: 827px;height: 25px" ng-model="myForm.otherComments"
+                      placeholder="Other Comments" name="otherComments"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="com_pac">
+                    <label style="width: 20%;">Inventory Grade</label>
+                    <select name="inventoryGrade" ng-options="grade._id as grade.gradeName for grade in inventoryGrade"
+                      ng-model="myForm.inventoryGrade" required>
+                      <option value="">Select Inventory Grade</option>
+                    </select>
+                    <span
+                      ng-show="addProductionContract.inventoryGrade.$invalid && addProductionContract.inventoryGrade.$pristine && submitted"
+                      class="validationErrorSpecification"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="row" ng-repeat="otherGrade in myForm.otherGradePrices">
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label class="land_date lable_cls_grain" style="width: 46%;">Other Grades</label>
+                    <select name="grade" ng-options="grade.gradeName as grade.gradeName for grade in grades"
+                      ng-model="otherGrade.gradeName">
+                      <option value="">Select Grade</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="com_pac">
+                    <label class="land_date lable_cls_grain" style="width: 54%;">Other Grade Price</label>
+                    <input type="text" racurrency ng-model="otherGrade.gradePrice" name="additionalDelivery">
+                  </div>
+                  <div class="add_btn_row" ng-show="otherGrade.gradePrice">
+                    <a ng-show="$last" class="add_land_location" ng-click="plusotherGradePrices()">+</a>
+                    <a ng-hide="$last" class="add_land_location" ng-click="removeotherGradePrices($index)">x</a>
+                  </div>
+                </div>
+              </div>
+              <div class="com_pac plus_row">
+                <label class="land_loaction">Land Location</label>
+              </div>
+              <div class="com_pac plus_row" ng-repeat="location in myForm.landLocation">
+                <!-- <label class="land_loaction">Land Location</label> -->
+                <div class="data_input">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <input type="text" ng-model="location.numberOfAcres" placeholder="Number Of Acres" name="">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="text" ng-model="location.direction" placeholder="Direction" name="">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="text" ng-model="location.section" placeholder="Section" name="">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="text" ng-model="location.townShip" placeholder="Township" name="">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="text" ng-model="location.range" placeholder="Range" name="">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="text" ng-model="location.meridien" placeholder="Meridien" name="">
+                    </div>
+                    <div class="add_btn_row" ng-show="location.meridien">
+                      <a ng-show="$last" class="add_land_location" ng-click="plusLandLocation()">+</a>
+                      <a ng-hide="$last" class="add_land_location" ng-click="removeLandLocation($index)">x</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button ng-show="btnShow!='view'" ng-click="submit(addProductionContract.$valid, addProductionContract.$error)">{{btnType}}</button>
+              <button ng-show="btnShow=='view'" ng-click="viewPdf()">Print</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

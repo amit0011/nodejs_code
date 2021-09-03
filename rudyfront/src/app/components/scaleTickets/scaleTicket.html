@@ -1,0 +1,135 @@
+<style>
+.edit_details, .veiw_details, .veiw_detail{
+   float: none !important;
+   margin:0;
+   padding: 2px 5px;
+}
+</style>
+<div class="dash_bord">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="DoCtrlPagingAct('bar')">
+         <h3 class="heading_cls" style="padding: 0 0 0 170px;">{{title}}
+            <button class="btn_top" ng-click="exportSheet(scaleTicketList)">Export/Print</button>
+         </h3>
+         <hr class="heading_hr">
+         <div class="panel_body_inner inner_box" style="padding: 0;">
+            <div class="col-md-12">
+
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="tabla_header">
+                        <div class="tbl" style="width: 15%!important;">
+                           <label>Name/Farm</label>
+                           <input type="text" name="" ng-enter="search()" ng-model="myForm.name">
+                        </div>
+                        <div class="tbl" style="width: 15%!important;">
+                           <label>Commodity</label>
+                           <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys" ng-model="myForm.commodity" ng-change="search()">
+                              <option value="">Select Commodity</option>
+                           </select>
+                        </div>
+                        <div class="tbl" style="width: 15%!important;">
+                           <label>Contract #</label>
+                           <input type="text" name="" ng-enter="search()" ng-model="myForm.contractNumber">
+                        </div>
+                        <div class="tbl" style="width: 15%!important;">
+                           <label>Ticket #</label>
+                           <input type="text" name="" ng-enter="search()" ng-model="myForm.ticketNumber">
+                        </div>
+                        <div class="tbl" style="width: 10%!important;">
+                              <label>From Date</label>
+                                    <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                                       <div class="input-group">
+                                          <input name="dateFrom" class="form-control" ng-model="myForm.fromDate" placeholder="Choose a date" autocomplete="off" ng-change="search()" />
+                                          <span class="input-group-addon" style="cursor: pointer">
+                                             <i class="fa fa-lg fa-calendar"></i>
+                                          </span>
+                                       </div>
+                                    </datepicker>
+                              </div>
+                        <div class="tbl" style="width: 10%!important;">
+                           <label>To Date</label>
+                           <datepicker style="width: 100%" class="date_pic" date-format="yyyy-MM-dd" selector="form-control">
+                              <div class="input-group">
+                                 <input name="dateFrom" class="form-control" ng-model="myForm.toDate" placeholder="Choose a date" autocomplete="off" ng-change="search()" />
+                                 <span class="input-group-addon" style="cursor: pointer">
+                                    <i class="fa fa-lg fa-calendar"></i>
+                                 </span>
+                              </div>
+                           </datepicker>
+                        </div>
+                        <div class="tbl" style="width: 10%!important;">
+                           <label>See More</label>
+                           <select style="font-size: 14px;height: 34px;color: #000;width: 100%;" name="seeMore" ng-model="myForm.limit" ng-change="search()">
+                              <option value="10">Select</option>
+                              <option>10</option>
+                              <option>20</option>
+                              <option>30</option>
+                              <option>50</option>
+                              <option>120</option>
+                              <option>150</option>
+                              <option>200</option>
+                           </select>
+                        </div>
+                        <button ng-click="DoCtrlPagingAct('clear', 1)">Clear</button>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="comodity_table comodity_table_list"  ng-show="showType=='incomingInventory' || showType=='outgoingInventory'" style="overflow-x: auto;">
+                  <table class="table table-striped commodity_table" style="min-width: 2300px;">
+                     <thead>
+                        <tr>
+                           <th>Date</th>
+                           <th>Name</th>
+                           <th>Ticket #</th>
+                           <th>Bin #</th>
+                           <th>Trucking Company</th>
+                           <th>Gross</th>
+                           <th>Tare</th>
+                           <th>Net</th>
+                           <th>Code</th>
+                           <th ng-repeat="key in extraKeys" ng-bind="getLabel(key)"></th>
+                           <th ng-repeat="ana in analysis" ng-bind="ana.analysisName"></th>
+                           <th ng-repeat="sk in sizeKabuli" ng-bind="sk"></th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="result in scaleTicketList">
+                           <td>{{result.date | date}}</td>
+                           <td>{{result.name}}</td>
+                           <td>
+                              <a href="{{ result.pdfUrl }}" target="{{ result.ticketNumber }}">
+                                 {{result.ticketNumber}}
+                              </a>
+                           </td>
+                           <td>{{result.binNumber.binName}}</td>
+                           <td>{{result.truckingCompany.truckerName}}</td>
+                           <td>{{result.grossWeightMT | number:3}}</td>
+                           <td>{{result.tareWeightMT | number:3}}</td>
+                           <td>{{getNetWeight(result) | number:3}}</td>
+                           <td>{{result.commodityId.commodityCode}}</td>
+                           <td ng-repeat="key in extraKeys" ng-bind="getValue(result, key)"></td>
+                           <td ng-repeat="ana in analysis">{{result.analysis | customFilter:ana._id | number:3}}</td>
+                           <td ng-repeat="kf in kabuliFields" ng-bind="result.sizeKabuli[0][kf]"></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+
+               <div ng-show="showType=='incomingInventory' || showType=='outgoingInventory'" paging
+                  page="page"
+                  page-size="myForm.limit"
+                  total="totalPages"
+                  paging-action="DoCtrlPagingAct('bar', page)">
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</div>
+</div>
+</div>

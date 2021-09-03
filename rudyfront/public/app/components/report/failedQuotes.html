@@ -1,0 +1,92 @@
+<style type="text/css">
+    .fixed{
+        position: fixed;
+        top: 98px;
+        width:  96%;
+    }
+    .panel_body_inner.inner_box{
+        position: relative;
+    }
+    .width-2000{
+        width: 2000px
+    }
+    @media (min-width:1500px){
+        .width-2000{
+            width:100%
+        }
+    }
+    .width-2000 > div:nth-child(2) > b {
+        margin-top: 70px !important;
+    }
+    b {
+        color: #000
+    }
+</style>
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body">
+            <div class="">
+                    <ul class="nav nav-pills nav-stacked row" style="float: left;width: 94%;background: white !important;margin: 0 47px 15px;font-size: 20px;padding: 15px;text-align: center;" class="page">
+                    <li>
+                        <b>Failed Quotes</b>
+                    </li>               
+                </ul>
+            </div>
+            <div class="panel_body_inner inner_box_List" style="padding: 0 2% !important">
+                <div class="col-md-12">
+                    <div class="">
+                        <div class="row">
+                        <div class="col-md-12">
+                            <form name="searchForm">
+                            <div class="tabla_header">
+                                <div class="tbl" style="width: 14%!important;">
+                                    <label>Date</label>
+                                    <datepicker style="width: 100%" class="date_pic toDateCls" date-format="yyyy-MM-dd" selector="form-control" button-prev="<i class='fa fa-arrow-left'></i>" button-next="<i class='fa fa-arrow-right'></i>">
+                                        <div class="input-group">
+                                            <input class="form-control" ng-model="myForm.date" placeholder="Choose a date" ng-change="initList(1)" autocomplete="off"  />
+                                            <span class="input-group-addon" style="cursor: pointer">
+                                            <i class="fa fa-lg fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </datepicker>
+                                </div>
+                                
+                                <button ng-click="clear()">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Business Name</th>
+                                    <th>Buyer Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="l in list">
+                                    <td>
+                                        <a ng-style="{'cursor':loginUserAccess.sales.buyers.view == true ? 'pointer' : 'not-allowed'}"
+                                            ng-click="buyerDetails(l._id)"
+                                            style="word-break: break-all;cursor: pointer;">
+                                                {{l.businessName}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{l.lastName + ', ' + l.firstName}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging page="page" page-size="10" total="totalPages" paging-action="initList(page)">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+

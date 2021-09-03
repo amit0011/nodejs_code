@@ -1,0 +1,85 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+              <h3 class="heading_cls">Max Weight</h3><hr class="heading_hr">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <input type="text" name="search" ng-model="search.name" ng-change="initMaxWeight(1,search.name)" placeholder="Search">
+                        <button ng-click="openPop()" ng-show="loginUserAccess.setting.maxWeight.add">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>25KG</th>
+                                    <th>50KG</th>
+                                    <th>100LBS</th>
+                                    <th>BULK</th>
+                                    <th ng-show="loginUserAccess.setting.maxWeight.delete || loginUserAccess.setting.maxWeight.edit">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in maxWeightList">
+                                    <td>{{result.name}}</td>
+                                    <td>{{result.weights[0]}}</td>
+                                    <td>{{result.weights[1]}}</td>
+                                    <td>{{result.weights[2]}}</td>
+                                    <td>{{result.weights[3]}}</td>
+                                    <td  ng-show="loginUserAccess.setting.maxWeight.delete || loginUserAccess.setting.maxWeight.edit">
+                                        <a ng-show="loginUserAccess.setting.maxWeight.delete" class="delete_detail" ng-click="delete(result._id)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.maxWeight.edit" class="edit_details" ng-click="openPop('edit',result)"><i class="fas fa-pen-square"></i></a>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging
+                          page="page"
+                          page-size="10"
+                          total="totalPages"
+                          paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm country">
+      <form name="maxWeight">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <div class="com_pac">
+                <label style="width: 44%;">Name</label>
+                <input type="text" name="name" ng-model="myForm.name" placeholder="Enter Name" required>
+            </div>
+            <div class="com_pac">
+                <label style="width: 44%;">25KG</label>
+                <input type="text" name="_25kg" ng-model="myForm.weights[0]" placeholder="Enter 25KG Weight" required>
+            </div>
+            <div class="com_pac">
+                <label style="width: 44%;">50KG</label>
+                <input type="text" name="_50kg" ng-model="myForm.weights[1]" placeholder="Enter 50KG Weight" required>
+            </div>
+            <div class="com_pac">
+                <label style="width: 44%;">100LBS</label>
+                <input type="text" name="_100lbs" ng-model="myForm.weights[2]" placeholder="Enter 100LBS Weight" required>
+            </div>
+            <div class="com_pac">
+                <label style="width: 44%;">BULK</label>
+                <input type="text" name="bulk" ng-model="myForm.weights[3]" placeholder="Enter Bulk Weight" required>
+            </div>
+            <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="maxWeight.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+        </div>
+      </form>
+    </div>
+</div>

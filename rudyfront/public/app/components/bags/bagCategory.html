@@ -1,0 +1,138 @@
+<div class="dash_bord">
+  <sidebar></sidebar>
+  <div class="right_panel">
+    <header></header>
+    <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+      <h3 class="heading_cls">Bag Category</h3>
+      <hr class="heading_hr">
+      <div class="panel_body_inner inner_box_List">
+        <div class="col-md-12">
+          <div class="add_commodity_bar">
+            <button ng-click="gotoInventoryCategorized()" style="float: left;">Bag Inventory <i
+                class="fa fa-info-circle"></i></button>
+            <input type="text" name="search" ng-enter="initBagCategory(1)" ng-model="term" placeholder="Search">
+            <button ng-click="openPop()" ng-show="loginUserAccess.setting.bagCategory.add">ADD <i
+                class="fas fa-plus-circle"></i></button>
+          </div>
+          <div class="comodity_table comodity_table_list">
+            <table class="table table-striped commodity_table">
+              <thead>
+                <tr>
+                  <th style="width: 35px;"></th>
+                  <th>Bag Category</th>
+                  <th>Count</th>
+                  <th>Alert Count</th>
+                  <th>Created At</th>
+                  <th
+                    ng-show="loginUserAccess.setting.bagCategory.view || loginUserAccess.setting.bagCategory.edit || loginUserAccess.setting.bagCategory.delete">
+                    Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="category in bagCategories">
+                  <td>
+                    <a class="edit_details" ng-click="openBagCountPopup(category)" title="Bag Inventory">
+                      <i class="fas fa-plus-circle"></i>
+                    </a>
+                  </td>
+                  <td>{{category.name}}</td>
+                  <td>{{category.bagCount}}</td>
+                  <td>{{category.alertCount}}</td>
+                  <td>{{category.createdAt | date}}</td>
+                  <td
+                    ng-show="loginUserAccess.setting.bagCategory.view || loginUserAccess.setting.bagCategory.edit || loginUserAccess.setting.bagCategory.delete">
+                    <a ng-show="loginUserAccess.setting.bagCategory.delete" class="veiw_detail"
+                      ng-click="delete(category._id)">
+                      <i class="fa fa-trash" aria-hidden="true"></i> 
+                    </a>
+                    <a ng-show="loginUserAccess.setting.bagCategory.edit" class="veiw_detail"
+                      ng-click="openPop('edit',category)">
+                      <i class="fas fa-pen-square"></i>
+                    </a>
+                    <a ng-show="loginUserAccess.setting.bagCategory.view" ng-click="openPop('view',category)"
+                      class="veiw_detail">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <a title="Bag balance" ng-href="/bagCategoryBalance/{{category._id}}" class="veiw_detail"><i class="fa fa-info-circle"></i></a>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+            <div paging page="page" page-size="10" total="totalPages" paging-action="DoCtrlPagingAct('bar', page)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="popup_overlay"></div>
+  <div class="add_coomm analysis" style="width: 42%;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+    <div class="enter_comm_typ">
+      <div class="head_comm">
+        <div type="button" class="close" data-dismiss="modal">&times;</div>
+      </div>
+
+      <div class="com_pac">
+        <label style="width: 44%;">Bag Category</label>
+        <input type="text" name="commName" style="margin:0;" ng-model="myForm.name" placeholder="Enter Bag Category Name" required>
+      </div>
+
+      <div class="com_pac" ng-hide="hideBagCount">
+        <label style="width: 44%;">Bag Count</label>
+        <input type="text" name="bagCount" style="margin:0;" numbers-Only ng-model="myForm.bagCount" placeholder="Enter Bag Count" required>
+      </div>
+      <div class="com_pac mb-3">
+        <label style="width: 44%;">Bag Count Alert</label>
+        <input type="text" number-only style="margin:0;" name="alertCount" ng-model="myForm.alertCount" placeholder="Alert Count" required>
+      </div>
+
+      <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'"
+        ng-disabled="!(myForm.name)">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+    </div>
+  </div>
+
+  <div class="add_coomm bag-count" style="width: 42%;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+    <form name="bagCount">
+      <div class="">
+        <div class="head_comm">
+          <div type="button" class="close" data-dismiss="modal">&times;</div>
+        </div>
+        <div class="com_pac mb-3">
+          <label style="width: 44%;">Date</label>
+          <datepicker class="date_pic" date-format="yyyy-MM-dd" selector="form-control" required>
+            <div class="input-group">
+              <input name="date" class="form-control" ng-model="addBagCount.date" required
+                placeholder="Only back dates upto 7 days" autocomplete="off" ng-change="validateDate()" />
+              <span class="input-group-addon" style="cursor: pointer">
+                <i class="fa fa-lg fa-calendar"></i>
+              </span>
+            </div>
+          </datepicker>
+        </div>
+        <div class="com_pac mb-3">
+          <label style="width: 44%;">Add/Remove bags</label>
+          <input type="text" numbers-only sign="*" ng-change="updateBagCount()" name="noOfBags"
+            ng-model="addBagCount.noOfBags" placeholder="No. of bags" required>
+        </div>
+        <div class="com_pac mb-3">
+          <label style="width: 44%;">Reason</label>
+          <input type="text" name="reason" ng-model="addBagCount.reason" placeholder="Reason">
+        </div>
+        <div class="com_pac mb-3">
+          <label style="width: 44%;">Invoice/BL Number</label>
+          <input type="text" name="invoiceBLNumber" ng-model="addBagCount.invoiceBLNumber"
+            placeholder="Invoice/BL Number">
+        </div>
+        <div class="com_pac mb-3">
+          <label style="width: 44%;">Bag Count</label>
+          <input type="text" name="bagCount" ng-model="addBagCount.bagCount" placeholder="Bag Count" ng-readonly="true">
+        </div>
+        <div class="enter_comm_typ mt-4">
+          <button ng-click="saveBagCount()" ng-disabled="bagCount.$invalid">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

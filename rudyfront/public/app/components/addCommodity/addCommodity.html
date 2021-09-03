@@ -1,0 +1,161 @@
+<div class="dash_bord" ng-controller="addCommodityCtrl">
+   <sidebar></sidebar>
+   <div class="right_panel">
+      <header></header>
+      <div class="panel_body" ng-init="getCommodityType()">
+         <div class="panel_body_inner inner_box_List_add add_commodity">
+            <div class="col-md-12">
+               <div class="add_commodity">
+                  <form name="addCommdity">
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Commodity Code</label>
+                              <input type="text" ng-model="myForm.commodityCode" name="code">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Commodity Name</label>
+                              <input type="text" ng-model="myForm.commodityName" name="name">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Commodity Alias</label>
+                              <input type="text" ng-model="myForm.commodityAlias" name="alias">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Commodity Type</label>
+                              <select ng-show="!commodityTypeInput" name="commodityType" ng-options="commodityType._id as commodityType.commodityTypeName for commodityType in commodityList" track by commodityType" ng-model="myForm.commodityTypeId">
+                                 <option value="">Select Commodity Type</option>
+                              </select>
+                              <input type="text" class="input_commodityType" ng-model="myForm.commodityTypeName" name="name" ng-show="commodityTypeInput">
+                              <button class="btn_commodityType" ng-show="commodityTypeInput" ng-click="saveCommodityType()">Save</button>
+                              <a ng-show="commodityTypePlus" class="add_commodityType" ng-click="plusCommodityType()">+</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Commodity Grade</label>
+                              <a class="add_commodityType" ng-click="plusGrade()">+ADD GRADE</a>
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                           <div class="com_pac">
+                              <label>Commodity Weight(Lbs/Bushels)</label>
+                              <input class="hal_ip" ng-model="myForm.commodityWeight" type="text" name="code">
+                              <span class="hal_slt">Lbs</span>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="grade_box">
+                        <h2>Sample Specs</h2>
+                        <h2>Delivery Specs</h2>
+                        <h2>Shipment Specs</h2>
+                        <table class="table-striped">
+                           <thead>
+                              <tr>
+                                 <th>Analysis Name</th>
+                              </tr>
+                           </thead>
+                           <tbody class="example-animate-container">
+                              <tr class="animate-repeat" ng-repeat="analysis in analysisList">
+                                 <td>
+                                    <label class="cus_rad_grd">{{analysis.analysisName}}
+                                    <input type="checkbox" ng-click="sampleCheckBox(analysis._id,selected[analysis._id])">
+                                    <span class="checkmark"></span>
+                                    </label>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <table class="table-striped">
+                           <thead>
+                              <tr>
+                                 <th>Analysis Name</th>
+                              </tr>
+                           </thead>
+                           <tbody class="example-animate-container">
+                              <tr class="animate-repeat" ng-repeat="analysis in analysisList">
+                                 <td>
+                                    <label class="cus_rad_grd">{{analysis.analysisName}}
+                                    <input type="checkbox" ng-click="deliveryCheckBox(analysis._id,selected[analysis._id])">
+                                    <span class="checkmark"></span>
+                                    </label>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <table class="table-striped">
+                           <thead>
+                              <tr>
+                                 <th>Analysis Name</th>
+                              </tr>
+                           </thead>
+                           <tbody class="example-animate-container">
+                              <tr class="animate-repeat" ng-repeat="analysis in analysisList">
+                                 <td>
+                                    <label class="cus_rad_grd">{{analysis.analysisName}}
+                                    <input type="checkbox" ng-click="shipmentCheckBox(analysis._id,selected[analysis._id])">
+                                    <span class="checkmark"></span>
+                                    </label>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <button ng-disabled="!(myForm.commodityCode && myForm.commodityName && myForm.commodityAlias && myForm.commodityTypeId  && myForm.commodityWeight)" ng-click="save()">Submit</button>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- Modal -->
+   <div class="popup_overlay"></div>
+   <div class="add_coomm grade">
+      <div class="enter_comm_typ">
+         <div class="head_comm head_2">
+            <h2>Add Grade</h2>
+            <div type="button" class="close" ng-click="closepop()">&times;</div>
+         </div>
+         <div class="panel_body">
+            <div class="panel_body_inner inner_box_List_add">
+               <div class="col-md-12">
+                  <div class="add_commodity">
+                     <form id="gradeFrom">
+                        <div class="com_pac">
+                           <label>Grade Name</label>
+                           <input type="text" name="code" ng-disabled="inputField=='view'" ng-model="myForm.gradeName">
+                        </div>
+                        <div class="com_pac cus_inpNum">
+                           <label>Add Allowance %</label>
+                           <div class="quantity">
+                              <input type="text" numbers-Only ng-model="myForm.gradeAllowance" ng-disabled="inputField=='view'">
+                           </div>
+                        </div>
+                        <div class="com_pac">
+                           <label>Grade Display</label>
+                           <select ng-model="myForm.gradeDisplay" ng-disabled="inputField=='view'">
+                              <option value="">Select Grade Display</option>
+                              <option value="Inventory Grade">Inventory Grade</option>
+                              <option value="Contract Grade">Contract Grade</option>
+                              <option value="Both">Both</option>
+                           </select>
+                        </div>
+                        <button ng-click="saveGrade()" ng-hide="inputField=='view'" ng-disabled="!(myForm.gradeName && myForm.gradeAllowance)">Submit</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="init()">
+            <div class="panel_body_inner inner_box_List">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <a ng-click="delete()"><i class="fas fa-trash-alt delete_comm"></i></a>
+                        <input type="text" name="search" ng-model="commodityType" placeholder="Search">
+                        <button ng-click="openPop()" ng-show="loginUserAccess.setting.bidPeriod.add">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">
+                                         <label class="slt_usrs" style="height: 18px;">
+                                            <input type="checkbox" ng-click="selectAll()">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        Bid Period Name</th>
+                                        <th>Created At</th>
+                                        <th ng-show="loginUserAccess.setting.bidPeriod.edit || loginUserAccess.setting.bidPeriod.delete">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="result in bidPeriodList |filter:commodityType|itemsPerPage:10" pagination-id="bidPeriodList">
+                                   <td>
+                                        <label class="slt_usrs">
+                                            <input type="checkbox" ng-model="selected[result._id]" ng-false-value="undefined" ng-click="checkBox(result._id,selected[result._id])">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        {{result.bidPeriodName}}</td>
+                                        <td>{{result.createdAt | date}}</td>
+                                        <td ng-show="loginUserAccess.setting.bidPeriod.edit || loginUserAccess.setting.bidPeriod.delete">
+                                        <a ng-show="loginUserAccess.setting.bidPeriod.delete" class="delete_detail" ng-click="delete(result._id)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.bidPeriod.edit" class="edit_details" ng-click="openPop(result)"><i class="fas fa-pen-square"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls class="cus_pagination" pagination-id="bidPeriodList" max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm" style="width: 26% !important;top: 50% ! important;">
+        <div class="enter_comm_typ">
+            <div class="head_comm">
+                <div type="button" class="close" data-dismiss="modal">&times;</div>
+            </div>
+            <input type="text" name="commName" ng-model="myForm.bidPeriodName" placeholder="Enter bidPeriod Name" required>
+            <button ng-show="!btn" ng-click="save()">SUBMIT</button>
+            <button ng-click="saveChanges()" ng-show="btn" ng-disabled="!(myForm.bidPeriodName)">SAVE CHANGES</button>
+        </div>
+    </div>
+</div>

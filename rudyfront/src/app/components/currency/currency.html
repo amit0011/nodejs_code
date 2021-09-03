@@ -1,0 +1,106 @@
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" ng-init="DoCtrlPagingAct('bar', 1)">
+            <h3 class="heading_cls">Currency</h3>
+            <hr class="heading_hr">
+            <div class="panel_body_inner inner_box_List">
+                <div class="row">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar" ng-show="currencyList.length==0">
+                        <button ng-show="loginUserAccess.setting.currency.add" ng-click="openPop()">ADD <i class="fas fa-plus-circle"></i></button>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Currency CAD USD</th>
+                                    <th>Currency Update</th>
+                                    <th>Exchange Deduction</th>exchangeDeduction
+                                    <th>Changed On</th>
+                                    <th>Status</th>
+                                    <th ng-show="loginUserAccess.setting.currency.view || loginUserAccess.setting.currency.edit">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in currencyList">
+                                    <td>{{result.currencyCADUSD}}</td>
+                                    <td>{{result.currencyUpdate}}</td>
+                                    <td>{{result.exchangeDeduction}}</td>
+
+                                    <td>{{result.updatedOn | date}}</td>
+                                    <td><span  ng-class="result.status==0?'badge badge-success':'badge badge-dark'">{{result.status==0?'ACTIVATED':'DEACTIVATED'}}</span></td>
+                                    <td ng-show="loginUserAccess.setting.currency.view || loginUserAccess.setting.currency.edit">
+                                       
+                                        <a ng-show="loginUserAccess.setting.currency.edit" class="edit_details" ng-click="openPop('edit',result)">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <a ng-show="loginUserAccess.setting.currency.view" ng-click="openPop('view',result)" class="veiw_detail">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="add_commodity_bar">
+                        <h5 style="font-weight: bold;font-size: 19px;">Currency History</h5>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Currency CAD USD</th>
+                                    <th>Exchange Deduction</th>
+                                    <th>Currency Update</th>
+                                    <th>Changed On</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="result in currencyHistoryList">
+                                    <td>{{result.currencyCADUSD}}</td>
+                                    <td>{{result.exchangeDeduction||'--'}}</td>
+                                    <td>{{result.currencyUpdate}}</td>
+                                    <td>{{result.updatedOn | date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div paging page="page" page-size="10" total="totalPages" paging-action="DoCtrlPagingAct('bar', page)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="popup_overlay"></div>
+    <div class="add_coomm country">
+        <form name="country">
+            <div class="enter_comm_typ">
+                <div class="head_comm">
+                    <div type="button" class="close" data-dismiss="modal">&times;</div>
+                </div>
+                <div class="com_pac">
+                    <label>Currency CAD/USD</label>
+                    <input type="text" name="currencyCADUSD" ng-model="myForm.currencyCADUSD" placeholder="Enter Currency CAD/USD" required>
+                </div>
+                <div class="com_pac">
+                    <label>Exchange Deduction</label>
+                    <input type="text" name="exchangeDeduction" ng-model="myForm.exchangeDeduction" placeholder="Enter Currency exchange deduction" required>
+                </div>
+                <div class="com_pac">
+                    <label>Currency Update</label>
+                    <textarea name="currencyUpdate" ng-model="myForm.currencyUpdate" placeholder="Enter Currency Update" required></textarea>
+                </div>
+                <button ng-click="save(inputField=='edit'?'Save Change':'Submit')" ng-hide="inputField=='view'" ng-disabled="country.$invalid">{{inputField=='edit'?'Save Change':'Submit'}}</button>
+            </div>
+        </form>
+    </div>
+</div>

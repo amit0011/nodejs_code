@@ -1,0 +1,117 @@
+<style type="text/css">
+    .fixed{
+        position: fixed;
+        top: 98px;
+        width:  96%;
+    }
+    .panel_body_inner.inner_box{
+        position: relative;
+    }
+    .width-2000{
+        width: 2000px
+    }
+    @media (min-width:1500px){
+        .width-2000{
+            width:100%
+        }
+    }
+    .width-2000 > div:nth-child(2) > b{
+        margin-top: 70px !important;
+    }
+    b{
+        color: #000
+    }
+</style>
+
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body" style="height: 89%;"> 
+            <div class="panel_body_inner inner_box">
+               <div class="">
+                    <ul class="nav nav-pills nav-stacked row" style="float: left;width: 100%;background: white !important;margin: 0 0 15px;font-size: 20px;padding: 15px;text-align: center;" class="page">
+                      <li>
+                          <b>Area Report</b>
+                     </li>               
+                  </ul>
+               </div>
+                    <div class="">
+                        <div class="row">
+                        <div class="col-md-12">
+                            <form name="searchForm">
+                            <div class="tabla_header">
+                                <div class="tbl" style="width: 20%!important;">
+                                    <label>Postal Code From</label>
+                                    <input type="text" name="start" ng-model="myForm.start" placeholder="Postal Start" required>
+                                   <!--  <span ng-show="searchForm.start.$invalid && searchForm.start.$pristine && submitted" class="validationErrorCropYear"></span> -->
+                                </div>
+
+                                <div class="tbl" style="width: 20%!important;">
+                                    <label>Postal Code From</label>
+                                    <input type="text" name="end" ng-model="myForm.end" placeholder="Postal End" required>
+                                </div>
+
+                                <div class="tbl" style="width: 10%!important">
+                                    <button ng-click="search(searchForm.$valid)">Search</button>
+                                </div>
+                                
+                                <button ng-click="clear()">Clear</button>
+                                <button ng-click="exportToXl(searchForm.$valid)">{{exporting ? 'Exporting..':'Export XL'}}</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                   
+                    <div style="height:87%; margin: 0 auto;padding: 0;display: block;width:100%;overflow: scroll;" id="printSectionId">
+                    <style type="text/css">
+                    @media print {
+                        @page {
+                            size: A4 landscape;
+                        }
+                        img {
+                            height: 90%;
+                            margin: 0;
+                            padding: 0;
+                        }
+                    }
+                    }
+                    </style>
+                    <div class="comodity_table">
+                  <table class="table table-striped commodity_table table_body_scroll table-responsive" style="width: 2220px;">
+                        <thead>
+                           <tr>
+                            <td>Grower Name</td>
+                            <td>Farm Name</td>
+                            <td>Town</td>
+                            <td>Postal Code</td>
+                            <td>Email</td>
+                            <td>Cellphone</td>
+                            <td>Phone 1</td>
+                            <td>Phone 2</td>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr ng-repeat="g in growerList track by $index">                                                      
+                            <td><a ng-href="/growerDetails/{{g._id}}">{{g.firstName}} {{g.lastName}}</a></td> 
+                            <td>{{g.farmName}}</td> 
+                            <td>{{g.addresses[0].town || g.addresses.town}}</td> 
+                            <td>{{g.addresses[0].postal || g.addresses.postal}}</td> 
+                            <td>{{g.email}}</td> 
+                            <td>{{g.cellNumber}}</td>
+                            <td>{{g.phone}}</td> 
+                            <td>{{g.phone2}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <div paging page="page" page-size="myForm.limit" total="totalPages" paging-action="inItList(page)">
+
+                  </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

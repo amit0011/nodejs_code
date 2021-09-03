@@ -1,0 +1,6 @@
+.env
+media
+node_modules
+npm-debug.log
+files/*
+*.test.js

@@ -1,0 +1,99 @@
+<style type="text/css">
+    .fixed{
+        position: fixed;
+        top: 98px;
+        width:  96%;
+    }
+    .panel_body_inner.inner_box{
+        position: relative;
+    }
+    .width-2000{
+        width: 2000px
+    }
+    @media (min-width:1500px){
+        .width-2000{
+            width:100%
+        }
+    }
+    .width-2000 > div:nth-child(2) > b{
+        margin-top: 70px !important;
+    }
+    b{
+        color: #000
+    }
+</style>
+<div class="dash_bord">
+    <sidebar></sidebar>
+    <div class="right_panel">
+        <header></header>
+        <div class="panel_body">
+            <div class="">
+                <ul class="nav nav-pills nav-stacked row" style="float: left;width: 94%;background: white !important;margin: 0 47px 15px;font-size: 20px;padding: 15px;text-align: center;" class="page">
+                  <li>
+                      <b>Packaging Report</b>
+                 </li>               
+              </ul>
+           </div>
+            <div class="panel_body_inner inner_box_List" style="padding: 0 2% !important">
+                <div class="col-md-12">
+                    <div class="">
+                        <div class="row">
+                        <div class="col-md-12">
+                            <form name="searchForm">
+                            <div class="tabla_header">
+                                <div class="tbl" style="width: 20%!important;">
+                                    <label>Ticket</label>
+                                    <input type="text" name="ticketNumber" ng-model="myForm.ticketNumber" placeholder="Ticket number">
+                                </div>
+
+                                <div class="tbl" style="width: 20%!important;">
+                                    <label>Commodity</label>
+                                    <select style="font-size: 14px;height: 34px;color: #000;" name="commodity" ng-options="commodity._id as commodity.commodityName for commodity in commoditys"  ng-model="myForm.commodityId" ng-change="initList(1)">
+                                        <option value="">Select Commodity</option>
+                                    </select>
+                                </div>
+
+                                <div class="tbl" style="width: 10%!important">
+                                    <button ng-click="initList(1)">Search</button>
+                                </div>
+                                
+                                <button ng-click="clear()">Clear</button>
+                                <button ng-click="exportData()">{{ exporting ? 'Exporting..':'Export XL'}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="comodity_table comodity_table_list">
+                        <table class="table table-striped commodity_table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Ticket Number </th>
+                                    <th>Commodity</th>
+                                    <th>Target Weight</th>
+                                    <th>Net Weight</th>
+                                    <th>Over/Under</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="l in list track by $index">
+
+                                    <td>{{l.date | date }}</td>
+                                    <td> RO-{{l.ticketNumber}} </td>
+                                    <td>{{l.commodityId.commodityName }}</td>
+                                    <td>{{l.targetWeight}}</td>
+                                    <td>{{l.netWeightPerBag}}</td>
+                                    <td>{{l.overUnderTarget}}</td>                                                  
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                        <div paging page="page" page-size="10" total="totalPages" paging-action="initList(page)">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
